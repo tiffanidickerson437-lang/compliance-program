@@ -1,12 +1,23 @@
-# Compliance Program (framework-agnostic, controls-as-code GRC engine)
+# Compliance Program — an agentic, controls-as-code GRC engine
 
-A mature compliance program that lives in Git. Controls are defined once, evidenced from
-systems of record, and rendered into every framework a program needs from a single source of
-truth. This is not a GRC tool. It is the operational backbone that feeds whatever GRC tool a
-program chooses. The repository owns the evidence; the tool is the audit-facing interface.
+An **agentic** compliance program that lives in Git. AI agents do the work — they draft control
+narratives, triage drift, and assemble the gap analysis — and a human holds the veto on
+everything that becomes record. Controls are defined once, evidenced from systems of record, and
+rendered into every framework *and every audience* from a single source of truth.
+
+This is **not a GRC tool to babysit.** It is the governed, AI-operated backbone that feeds
+whatever GRC tool a program already runs. The repository owns the evidence; the tool is the
+audit-facing interface; the agents draft; the human decides.
 
 Compliance built for the audit is a tax. Built for the business, it is infrastructure. This is
 the second kind.
+
+**The agentic spine — and its one hard rule.** Every narrative, every drift triage, every
+stakeholder rendering is AI-drafted and human-approved. Evidence is the deliberate exception: it
+is computed deterministically from systems of record and is **never** AI-generated — the schema
+rejects `ai_generated: true`. Agents draft; agents never author evidence. That boundary is the
+difference between leverage and an audit finding, and holding it is the judgment this program is
+built to demonstrate.
 
 **What this is:** a real, framework-agnostic GRC program authored as controls-as-code. The
 framework-agnostic property is engineering substance, not a slogan: a control is defined once
@@ -293,5 +304,8 @@ If PyYAML is not installed, the YAML check runs under Node with `js-yaml`.
 
 ## License and use
 
-A program for demonstration and for configuring against a real environment. Replace the example
-evidence with computed exports from your systems of record before relying on it for an audit.
+Licensed under the **[PolyForm Noncommercial License 1.0.0](LICENSE)** — you may read, run, and
+evaluate this program, but commercial use requires permission. Copyright © 2026 Tiffani
+Dickerson. A program for demonstration and for configuring against a real environment; replace
+the example evidence with computed exports from your systems of record before relying on it for
+an audit.
