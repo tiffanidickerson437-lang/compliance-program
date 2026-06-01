@@ -9,4 +9,4 @@
 # A live AI draft uses the OpenAI HTTP API over the standard library, so no
 # additional package is required; set OPENAI_API_KEY for the live path.
 
-PyYAML>=6.0
+PyYAML>=6.0.3
