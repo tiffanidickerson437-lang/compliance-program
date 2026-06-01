@@ -1,0 +1,26 @@
+# Sample drift signals for the control health check.
+#
+# The control drift monitor (.github/workflows/control-drift-monitor.yml) reads
+# 06-evidence-and-audit/drift-signals.yaml when it is present, so the real
+# (absent) file keeps the daily Action green until systems of record are wired.
+# This .example file lets the health check run end to end now:
+#
+#     python3 tools/check_control_health.py --signals 06-evidence-and-audit/drift-signals.example.yaml
+#
+# Each entry is the output a real check would compute from the control's named
+# system of record (see ci_mapping in 02-controls/control-library.yaml). The
+# health check enriches each entry with the owning function and framework impact
+# from the control library, then renders the GitHub Issue that the Action opens.
+
+drifting:
+  - control: IAC-17
+    drift_type: access review overdue
+    framework_impact: SOC 2 CC6.2/CC6.3; SOX ITGC access (framework-mapped, home lab)
+    evidence_needed: recertification attestation joined to the identity-provider and HRIS snapshot
+    detail: 7 accounts past the monthly cadence for production and sensitive-data systems
+
+  - control: CHG-02
+    drift_type: production merge without independent review
+    framework_impact: SOC 2 CC8.1; SOX ITGC change (framework-mapped, home lab)
+    evidence_needed: merge record from the source-control API with reviewer identity distinct from author
+    detail: 1 emergency change merged outside the reviewed path, after-the-fact review not yet recorded

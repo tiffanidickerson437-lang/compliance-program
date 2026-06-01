@@ -1,0 +1,74 @@
+metadata:
+  generated_by: tools/scaffold.py
+  source_crosswalk: 02-controls/framework-crosswalk.yaml
+  note: Per-framework OSCAL profile selection. Each framework view is a profile resolution
+    over the one control library, not a copy.
+frameworks:
+- slug: soc2
+  name: SOC 2 (TSC 2017)
+  profile: profiles/soc2.profile.oscal.json
+  controls:
+  - AAT-01
+  - IAC-17
+  - CHG-02
+  - MON-01
+  - TPM-01
+  - IRO-01
+  note: null
+- slug: iso27001
+  name: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)
+  profile: profiles/iso27001.profile.oscal.json
+  controls:
+  - IAC-17
+  - CHG-02
+  - MON-01
+  - TPM-01
+  - IRO-01
+  note: null
+- slug: gdpr
+  name: gdpr
+  profile: null
+  controls: []
+  note: no owned control mapped yet; tracked as a forward target
+- slug: ccpa
+  name: CCPA / CPRA (2026)
+  profile: profiles/ccpa-cpra.profile.oscal.json
+  controls:
+  - PRI-03.13
+  - TPM-01
+  - IRO-01
+  note: null
+- slug: coppa
+  name: COPPA (amended 2024)
+  profile: profiles/coppa.profile.oscal.json
+  controls:
+  - PRI-03.13
+  note: null
+- slug: nist-ai-rmf
+  name: NIST AI RMF 1.0
+  profile: profiles/nist-ai-rmf.profile.oscal.json
+  controls:
+  - AAT-01
+  - TPM-01
+  - IRO-01
+  note: null
+- slug: iso42001
+  name: ISO/IEC 42001:2023
+  profile: profiles/iso42001.profile.oscal.json
+  controls:
+  - AAT-01
+  note: null
+- slug: eu-ai-act
+  name: EU AI Act (2024)
+  profile: profiles/eu-ai-act.profile.oscal.json
+  controls:
+  - AAT-01
+  note: null
+- slug: sox-itgc
+  name: SOX ITGC
+  profile: profiles/sox-itgc.profile.oscal.json
+  controls:
+  - IAC-17
+  - CHG-02
+  - MON-01
+  note: null

@@ -2,7 +2,7 @@
 
 **Pillar:** 30-60-90
 **Configuration:** illustrative example in `config.example.yaml` (neutral; not a real organization)
-**Status:** Scaffold. Month zero is the program start date; every month is relative to it.
+**Status:** Scaffold. Month zero is the program start date; every milestone is relative to it.
 
 ---
 
@@ -10,10 +10,33 @@
 
 The program matures along a dependency chain: discover the ground truth, define a common-control
 spine, compute continuous evidence from that spine, govern the agentic AI layer on top of that
-evidence, then let measured risk drive what gets hardened next. Each stage exists because the
-next one cannot start without it. The dates are an instance; the precedence is the program.
+evidence, then let measured risk drive what gets hardened next. The chain is unchanged from a
+traditional program. What changes is the pace: AI collapses the drafting, mapping, and narrative
+authoring that stretch a conventional build to twelve or eighteen months, so the arc reaches an
+operating program in about ninety days and an optimizing one at about six months.
 
-## 2. Maturity model
+## 2. Why AI compresses the curve
+
+A traditional program spends most of its calendar on documentation: authoring an obligation
+register, mapping controls to frameworks one clause at a time, writing control descriptions, and
+drafting auditor narratives. That authoring is exactly what a model does in minutes instead of
+weeks. Removing it does not remove the program; it removes the typing.
+
+What remains sets the pace, and it is not text:
+
+- **Human decisions.** A drafted obligation register, crosswalk, or control is a proposal. A named
+  function still validates it, decides what is in scope, and approves it by merge. AI does not
+  shorten the decision; it shortens the wait for something to decide on.
+- **Wiring systems of record.** Computed continuous evidence depends on instrumenting the source
+  systems that produce it. That is integration work across teams, paced by how fast a source can
+  be connected, and a model does not accelerate it.
+- **Fixed external dates.** A statutory compliance date does not move because drafting is faster.
+  It is a hard milestone the program plans toward regardless of pace.
+
+So the compression is real but bounded. The pace-setter shifts from how fast prose can be written
+to how fast humans can decide and how fast systems of record can be wired.
+
+## 3. Maturity model
 
 | Level | Meaning |
 |-------|---------|
@@ -23,109 +46,110 @@ next one cannot start without it. The dates are an instance; the precedence is t
 | Quantitatively managed | Risk and AI behavior are measured; agents run inside live, logged guardrails. |
 | Optimizing | Risk decides what gets hardened next; trust shortens enterprise reviews. |
 
-## 3. Stages and the boundary that ends each one
+## 4. Stages and the boundary that ends each one
 
-| Months | Level | Stage | What ships | The boundary that ends the stage |
-|--------|-------|-------|------------|----------------------------------|
-| 1 to 2 | Baseline | Discover | Control inventory, regulatory obligation register, real-time location-graph data-flow map for location and minors' data, and a map of where compliance slows engineering. | One validated baseline exists: the control universe, the obligation set, the data flows, and the friction points are known and agreed. |
-| 2 to 5 | Defined | Common-control spine | One owned control library crosswalked to the in-scope frameworks, the OSCAL profiles that resolve each framework view, and the first collect-once evidence pipelines wired into the developer workflow. | Every in-scope control is defined once, crosswalked, owned by a named function, and assigned an evidence source. |
-| 5 to 9 | Managed | Computed continuous evidence | Continuous control monitoring with exception aging, the drift-opens-an-Issue loop, and a fully evidenced children's-privacy pack. | Control health is computed continuously from systems of record rather than reconstructed at audit, and the highest-obligation pack sits at zero open items. |
-| 9 to 15 | Quantitatively managed | Agentic AI governance | An AI control set grounded in ISO 42001 and NIST AI RMF: model inventory, data-use boundaries, agent-action logging, human gates, a kill-switch path, and a customer-facing AI trust statement. | The agentic layer operates inside live, measured guardrails, and every agent decision is logged and reviewable against the monitoring substrate built in the prior stage. |
-| 15 onward | Optimizing | Risk-driven, revenue-enabling | A live risk register that prioritizes hardening by leverage, metrics that feed back into control design, and trust artifacts that shorten enterprise security reviews. | Ongoing. Risk leverage, not the audit calendar, sets the backlog. |
+| Timing | Level | Stage | What AI drafts, what a human owns | The boundary that ends the stage |
+|--------|-------|-------|-----------------------------------|----------------------------------|
+| Weeks 1 to 3 | Baseline | Discover | AI drafts the regulatory obligation register and the data-flow map for precise location and minors' data. A human validates each against reality. | One validated baseline exists: the obligation set and the data flows are confirmed, not assumed. |
+| Weeks 4 to 8 | Defined | Common-control spine | AI generates the SCF crosswalks and the first control drafts. A named function decides scope, owner, and evidence source, and approves by merge. | Every in-scope control is defined once, crosswalked, owned by a function, and assigned an evidence source. |
+| Months 2 to 4 | Managed | Computed continuous evidence | AI drafts the narratives; the evidence itself is computed, never AI-authored. Wiring the systems of record is the real pace-setter. | Control health is computed continuously from systems of record rather than reconstructed at audit. This is the operating milestone, reached at about ninety days. |
+| Months 3 to 5 (overlapping) | Quantitatively managed | Agentic AI governance | AI drafts the AI management-system documents and the gap log; engineering wires the broker, the kill-switch, and agent logging. | The agentic layer operates inside live, measured guardrails. The boundary is a fixed external regulatory date, not a drafting speed. |
+| Month 6 onward | Optimizing | Risk-driven, revenue-enabling | AI drafts the risk and trust narratives; the risk signal is computed from the evidence and the agent logs. | The program emits a measured risk signal that sets the hardening backlog. Ongoing. |
 
-## 4. Why each boundary sits where it does
+The agentic stage overlaps the computed-evidence stage on purpose: it consumes the monitoring
+substrate the Managed stage builds, so its engineering can begin as soon as the substrate exists
+rather than waiting for the stage to close.
 
-The phase boundaries are not a calendar drawn first and filled in afterward. Each one is a
-precedence constraint: the later stage is impossible, or produces rework, without the earlier
-one.
+## 5. Why each boundary sits where it does
+
+The boundaries are precedence constraints, not a calendar drawn first and filled in afterward.
+Each later stage is impossible, or produces rework, without the earlier one.
 
 - **Discover before Define.** A common control cannot be defined without first knowing the
-  control universe, the regulatory obligation set, the data flows for location and minors' data,
-  and where compliance currently slows engineering. Designing a control library on an
-  unvalidated picture guarantees a second pass once reality is confirmed, so the Baseline stage
-  ends only when one validated baseline exists.
+  obligation set and the data flows for precise location and minors' data. AI drafts that baseline
+  in days, but designing a control library on an unvalidated picture still guarantees a second
+  pass, so the Baseline stage ends only when a human has validated the drafted baseline.
 
 - **Define before Manage.** A control cannot be monitored continuously until it has been defined
-  once, assigned an owning function, and pointed at an evidence source. Continuous evidence is
-  computed against a control's required state; with no single definition and no named source
-  system, there is nothing to compute against. The Defined stage therefore ends when every
-  in-scope control is defined, crosswalked, owned, and sourced, and not before.
+  once, owned by a function, and pointed at an evidence source. AI generates the crosswalks and the
+  control drafts quickly, but continuous evidence computes against a control's required state, so
+  there is nothing to compute against until the definition and the source are settled and approved.
 
-- **Manage before AI governance.** Governing an autonomous agent means proving it stayed in
-  scope, and that proof is the continuous logging, drift detection, and computed evidence built
-  in the Managed stage. Standing up agent governance first would mean governing on assertions
-  rather than on evidence. The agentic stage consumes the monitoring substrate, so it follows
-  the stage that creates it.
+- **Manage before AI governance.** Governing an autonomous agent means proving it stayed in scope,
+  and that proof is the continuous logging and computed evidence built in the Managed stage.
+  Standing up agent governance first would mean governing on assertions rather than on evidence.
 
 - **AI governance before Optimize.** Letting the risk register, rather than the audit calendar,
-  decide what gets hardened next requires a measured risk signal across both the controls and
-  the agentic layer. That signal does not exist until the prior stages produce it. Optimization
-  is the inflection where quantitative inputs are finally rich enough to set the backlog, which
-  is why it comes last and then continues indefinitely.
+  set the backlog requires a measured risk signal across the controls and the agentic layer. That
+  signal does not exist until the prior stages produce it.
 
-The strongest of these is Define before Manage. It is the boundary auditors and engineers both
-feel, because it is the point where evidence stops being assembled by hand for an audit and
-starts being computed continuously from systems of record.
+The strongest boundary is Define before Manage. It is the point where evidence stops being
+assembled by hand for an audit and starts being computed continuously from systems of record. AI
+moves the program to that point faster; it does not let the program skip it.
 
-## 5. Total duration, and why it is about fifteen months
+## 6. Total duration, and why it is about six months
 
-The arc reaches the Optimizing inflection at roughly month 15, and Optimizing is then
-continuous. The total is set by the dependency chain, not by preference:
+The arc reaches the operating milestone at about ninety days and the Optimizing inflection at
+about month six, after which Optimizing is continuous. The figure is set by what AI cannot
+compress:
 
-- The Discover, Define, and Manage boundaries cannot be parallelized away, because each strictly
-  depends on the one before it. The floor on calendar time is the slowest dependency to satisfy,
-  which is wiring systems of record for continuous evidence in the Managed stage. That is
-  integration work across teams, paced by how fast source systems can be instrumented, not by
-  how fast a policy can be written.
-- The AI governance stage is given a six-month window because it spans policy (an AI management
-  system), engineering (the authorization broker, the kill-switch, agent logging), and legal
-  (the data protection impact assessment, lawful basis, and high-risk AI readiness), and it must
-  absorb at least one external regulatory milestone that has a fixed start date rather than a
-  flexible one.
+- The drafting inside Discover and Define collapses from weeks to days, which is why the first two
+  stages fit inside the first two months rather than the first two quarters.
+- The floor on the operating milestone is wiring systems of record for continuous evidence in the
+  Managed stage. That is integration work, paced by how fast source systems can be instrumented,
+  not by how fast a control can be drafted, so it holds the operating milestone near ninety days
+  regardless of drafting speed.
+- The agentic AI governance stage is paced by a fixed external regulatory date and by the
+  engineering of the broker, the kill-switch, and agent logging, so it runs into months three to
+  five even though its documents draft quickly.
 
-A shorter headline number would require either compressing a dependency that cannot be
-compressed or declaring a stage complete before its boundary condition is met. Fifteen months is
-the honest figure for reaching the point where the program optimizes itself.
+A shorter headline would require compressing the integration work or the fixed external date,
+neither of which moves because prose is faster to produce. Six months is the honest figure for an
+AI-accelerated program reaching the point where it optimizes itself, against twelve to eighteen
+months when the drafting is done by hand.
 
-## 6. Regulatory and business drivers that pace the curve (generic)
+## 7. Regulatory and business drivers that pace the curve (generic)
 
 The shape of the curve is universal; specific drivers move the milestones earlier or later for a
 given configuration:
 
 - A children's-privacy rule with a fixed compliance date pulls the evidenced privacy pack to the
   front of the Managed stage.
-- An annual certification cycle for the primary frameworks (for example SOC 2 and ISO 27001)
-  sets the audit-readiness milestone inside the Managed stage.
+- An annual certification cycle for the primary frameworks (for example SOC 2 and ISO 27001) sets
+  the audit-readiness milestone inside the Managed stage.
 - A publicly listed company's IT general controls and Audit and Risk Committee cadence place the
-  SOX ITGC readiness milestone alongside the certification cycle.
-- High-risk AI obligations with a statutory start date set the deadline the AI governance stage
-  must meet, not merely plan toward.
+  SOX ITGC readiness milestone alongside the certification cycle. SOX ITGC here is framework-mapped
+  from home-lab work and is never represented as an audited opinion.
+- High-risk AI obligations with a statutory start date set the deadline the agentic AI governance
+  stage must meet, not merely plan toward. This is the fixed date that paces months three to five.
 
-## 7. How the 30-60-90 connects
+## 8. How the 30-60-90 connects
 
-- Phase 1 (Discover) is months 1 to 2 of the Baseline stage.
-- Phase 2 (Design) builds the Defined stage's common-control spine, beginning at month 2.
-- Phase 3 (Operate) opens the Managed stage, where computed evidence begins.
+- Phase 1 (Discover) is weeks 1 to 3 of the Baseline stage.
+- Phase 2 (Design) builds the Defined stage's common-control spine across weeks 4 to 8.
+- Phase 3 (Operate) opens the Managed stage, where computed evidence begins and the operating
+  milestone is reached at about ninety days.
 
-The first quarter does not finish the journey; it reaches the operational baseline from which
-the program starts compounding.
+The first quarter does not finish the journey, but with AI compressing the drafting it now reaches
+the operating milestone rather than only an operational baseline.
 
-## 8. How the configuration drives the roadmap
+## 9. How the configuration drives the roadmap
 
 - `frameworks` sets which obligations and audit milestones appear on the curve.
 - `ai-products: true` puts the agentic-AI-governance stage on the curve at all; a non-AI program
-  would not carry the months 9 to 15 stage as written.
+  would not carry the months 3 to 5 stage as written.
 - `listings` places the SOX ITGC readiness milestone on the curve; a private program would not
   carry it.
 - `regulated-jurisdictions` sets which privacy regimes pace the early stages.
 
 Change the configuration and the milestones re-render. The shape of the curve, set by the
-dependency chain, is the program; the dates and the drivers are the instance.
+dependency chain, is the program; the pace and the drivers are the instance.
 
-## 9. The throughline
+## 10. The throughline
 
-The program matures from standing itself up to carrying the business's goals. By the Optimizing
-inflection the risk register, not the audit calendar, decides what gets hardened next, and the
-trust the program computes is cited in closing enterprise deals. Compliance built for the audit
-is a tax. Built for the business, it is infrastructure, and this roadmap is the dependency-
-ordered path that gets there.
+The program matures from standing itself up to carrying the business's goals, and it does so in
+about six months because AI removes the documentation tax while the human decisions and the
+systems-of-record wiring set the floor. By the Optimizing inflection the risk register, not the
+audit calendar, decides what gets hardened next, and the trust the program computes is cited in
+closing enterprise deals. Compliance built for the audit is a tax. Built for the business, it is
+infrastructure, and this roadmap is the dependency-ordered, AI-accelerated path that gets there.

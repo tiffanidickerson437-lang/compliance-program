@@ -1,0 +1,13 @@
+{
+  "description": "Standing entitlement to precise location is never permitted; access must be brokered per request.",
+  "expect": { "allow": false, "deny_contains": ["standing entitlement"] },
+  "input": {
+    "agent_id": "analytics-agent",
+    "data_class": "precise-location",
+    "subject_is_minor": false,
+    "purpose": "analytics",
+    "standing_access": true,
+    "token_ttl_seconds": 120,
+    "consent_state": "active"
+  }
+}

@@ -1,0 +1,12 @@
+# Python dependencies for the runnable tools in this program.
+#
+# The scaffold engine, the policy evaluator, the AI narrative drafter, and the
+# control health check read and write YAML, so PyYAML is the one hard dependency.
+#
+# OPA is optional and is not a Python package: the policy evaluator shells out to
+# `opa` when it is on PATH and otherwise runs a Python port of the same rules. To
+# run the native Rego tests, install OPA from https://www.openpolicyagent.org.
+# A live AI draft uses the OpenAI HTTP API over the standard library, so no
+# additional package is required; set OPENAI_API_KEY for the live path.
+
+PyYAML>=6.0

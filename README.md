@@ -107,17 +107,88 @@ To run the program for a real environment, supply a file of the same shape with 
 
 ## How to configure and run
 
+Every step below is a real command that runs against what is in this repository.
+The demonstration path needs Python 3 and PyYAML (`pip install -r requirements.txt`); OPA is
+optional, because the policy evaluator falls back to a Python port of the same rules when OPA is
+not installed. None of these steps depend on an external service to be demonstrable.
+
 1. **Provide configuration.** Copy the example and set values:
-   `cp config.example.yaml config.yaml`, then replace each illustrative value with a real one
-   from the allowed set documented inline.
-2. **Re-render the scaffold.** Run the scaffold Action so the control library and pillars
-   filter to the frameworks, data types, AI posture, and listings declared in the config.
-3. **Run Phase 1 discovery.** Work through [`30-60-90/phase-1-discover.md`](30-60-90/phase-1-discover.md)
-   before marking any control operating. Validate the config against reality first.
-4. **Wire the systems of record.** Point the checks at the systems named in `stack`. Until then
-   the program runs manually; the model does not depend on any one integration.
-5. **Operate the loop.** Let drift open Issues, approve remediation by Pull Request, and let Git
-   history accumulate as the audit trail.
+
+   ```bash
+   cp config.example.yaml config.yaml
+   ```
+
+   Edit `config.yaml` and replace each illustrative value with a real one from the allowed set
+   documented inline.
+
+2. **Re-render the scaffold.** Filters the control library to the configured frameworks, data
+   types, AI posture, and listings, and writes the tailored selection under
+   [`generated/`](generated/):
+
+   ```bash
+   python3 tools/scaffold.py config.example.yaml
+   ```
+
+   Use `config.yaml` once it holds real values. The Scaffold Action
+   ([`scaffold.yml`](.github/workflows/scaffold.yml)) re-runs this on any change to the config or
+   the control library and fails if the committed output under `generated/` is stale.
+
+3. **Run the policy tests.** Executes the policy-as-code in [`policy/`](policy/) against the
+   allow and deny fixtures and fails on any violation. Runs with or without OPA installed:
+
+   ```bash
+   python3 policy/policy_test.py
+   # or, with OPA installed, the native Rego tests:
+   opa test policy/ --ignore '*.json' -v
+   ```
+
+4. **Evaluate a single policy input.** The exit code is 0 for an allow and 1 for a deny, so the
+   evaluator is usable directly as a gate:
+
+   ```bash
+   python3 tools/policy_eval.py --policy agent_access \
+       --input policy/fixtures/agent_access/deny_standing_entitlement.json
+   ```
+
+5. **Draft an auditor narrative with AI**, with no key and no network:
+
+   ```bash
+   python3 tools/draft_narrative.py --control CHG-02 --dry-run
+   ```
+
+   The dry run renders the filled prompt and a stub draft. For a live draft, set `OPENAI_API_KEY`
+   and drop `--dry-run`. AI drafts; the draft opens a pull request; a human approves; the merge is
+   the authorization. The evidence stays computed and `ai_generated: false`. See
+   [`ai/AI-USAGE.md`](ai/AI-USAGE.md).
+
+6. **Run a control health check.** Renders the GitHub Issue the daily drift monitor opens when a
+   control drifts:
+
+   ```bash
+   python3 tools/check_control_health.py
+   ```
+
+7. **Run Phase 1 discovery and wire the systems of record.** Work through
+   [`30-60-90/phase-1-discover.md`](30-60-90/phase-1-discover.md) before marking any control
+   operating, then point the checks at the systems named in `stack`. Until then the checks run
+   against committed fixtures; the model does not depend on any one integration.
+
+8. **Operate the loop.** Drift opens an Issue, remediation is approved by pull request, and Git
+   history accumulates as the audit trail.
+
+---
+
+## What runs here
+
+The program is executable, not a binder. Each area has a real entry point and a CI workflow.
+
+| Area | Run it | What it does | CI workflow |
+|------|--------|--------------|-------------|
+| Scaffold | `python3 tools/scaffold.py config.example.yaml` | Filters the control library to the config; writes `generated/` | [`scaffold.yml`](.github/workflows/scaffold.yml) |
+| Policy-as-code | `python3 policy/policy_test.py` | Machine-enforceable control rules in Rego, with a Python fallback evaluator | [`policy-tests.yml`](.github/workflows/policy-tests.yml) |
+| AI drafting | `python3 tools/draft_narrative.py --control CHG-02 --dry-run` | Drafts auditor narratives from computed evidence; the pull request is the gate | [`stakeholder-report-generator.yml`](.github/workflows/stakeholder-report-generator.yml) |
+| Evidence checks | validated on pull request | Validates records against the evidence schemas; rejects `ai_generated: true` | [`evidence-validator.yml`](.github/workflows/evidence-validator.yml) |
+| Control health | `python3 tools/check_control_health.py` | Computes drift; opens a GitHub Issue that starts the fix loop | [`control-drift-monitor.yml`](.github/workflows/control-drift-monitor.yml) |
 
 ---
 
@@ -136,10 +207,18 @@ To run the program for a real environment, supply a file of the same shape with 
 
 Cross-cutting directories:
 
+- [`tools/`](tools/) the executables: the scaffold engine, the policy evaluator, the AI
+  narrative drafter, and the control health check. Each runs today against committed fixtures.
+- [`policy/`](policy/) policy-as-code: machine-enforceable control rules in Rego, with a Python
+  fallback evaluator so the policy runs with or without OPA installed.
+- [`ai/`](ai/) the visible AI usage: the committed prompt templates and
+  [`AI-USAGE.md`](ai/AI-USAGE.md), which states where AI drafts and where it is forbidden.
+- [`generated/`](generated/) the committed sample scaffold output, re-rendered from the config.
 - [`30-60-90/`](30-60-90/) the discover, design, operate plan and the
   [maturity roadmap](30-60-90/maturity-roadmap.md) from day one to a mature program.
-- `.github/workflows/` the automations: drift monitor, evidence validator, and report
-  generator. Stubs until endpoints and schemas are configured.
+- `.github/workflows/` the automations: scaffold, policy tests, drift monitor, evidence
+  validator, and report generator. The check logic is real and runs against committed fixtures;
+  the system-of-record API calls are the one part wired during Phase 1.
 
 ### Governance pillar (00) at a glance
 

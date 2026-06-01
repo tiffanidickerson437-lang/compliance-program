@@ -1,0 +1,14 @@
+{
+  "description": "A production merge with no linked work item is denied.",
+  "expect": { "allow": false, "deny_contains": ["no linked work item"] },
+  "input": {
+    "target_branch": "main",
+    "protected": true,
+    "direct_push": false,
+    "linked_ticket": "",
+    "author": "engineer-a",
+    "reviewers": ["engineer-b"],
+    "checks_passed": true,
+    "emergency": false
+  }
+}

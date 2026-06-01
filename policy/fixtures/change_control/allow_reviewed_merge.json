@@ -1,0 +1,14 @@
+{
+  "description": "Reviewed, ticket-linked merge to a protected branch with passing checks and an independent approver.",
+  "expect": { "allow": true, "deny_contains": [] },
+  "input": {
+    "target_branch": "main",
+    "protected": true,
+    "direct_push": false,
+    "linked_ticket": "TCK-1421",
+    "author": "engineer-a",
+    "reviewers": ["engineer-b"],
+    "checks_passed": true,
+    "emergency": false
+  }
+}

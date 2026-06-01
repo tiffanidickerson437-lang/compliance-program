@@ -1,0 +1,58 @@
+# Policy Tests
+#
+# Runs the policy-as-code in policy/ and fails the build on any violation or any
+# regression. Rego is the canonical form, so the job runs the native OPA tests.
+# It also runs the fixture-driven harness, which exercises every allow and deny
+# fixture through the evaluator, and it runs the Python fallback engine directly
+# so the policy is proven to execute even on a host without OPA.
+
+name: Policy Tests
+
+on:
+  push:
+    paths:
+      - "policy/**"
+      - "tools/policy_eval.py"
+  pull_request:
+    paths:
+      - "policy/**"
+      - "tools/policy_eval.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  policy-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout program repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install OPA
+        uses: open-policy-agent/setup-opa@v2
+        with:
+          version: latest
+
+      - name: Rego policies are valid
+        run: opa check policy/
+
+      - name: Native Rego unit tests (fixtures are harness inputs, not Rego data)
+        run: opa test policy/ --ignore '*.json' -v
+
+      - name: Fixture-driven gate (evaluator uses OPA when present)
+        run: python3 policy/policy_test.py
+
+      - name: Prove the Python fallback engine executes the policy
+        run: |
+          python3 tools/policy_eval.py --policy agent_access \
+            --input policy/fixtures/agent_access/deny_standing_entitlement.json \
+            --engine python --explain || true
+          python3 tools/policy_eval.py --policy change_control \
+            --input policy/fixtures/change_control/allow_reviewed_merge.json \
+            --engine python

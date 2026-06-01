@@ -1,0 +1,13 @@
+{
+  "description": "A purpose-token TTL above the 300s ceiling is denied.",
+  "expect": { "allow": false, "deny_contains": ["exceeds the 300s ceiling"] },
+  "input": {
+    "agent_id": "safety-alert-agent",
+    "data_class": "precise-location",
+    "subject_is_minor": false,
+    "purpose": "crash_detection_high_confidence",
+    "standing_access": false,
+    "token_ttl_seconds": 3600,
+    "consent_state": "active"
+  }
+}

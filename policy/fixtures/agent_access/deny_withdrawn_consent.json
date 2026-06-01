@@ -1,0 +1,13 @@
+{
+  "description": "A read of a minor's data with withdrawn consent is denied.",
+  "expect": { "allow": false, "deny_contains": ["verifiable parental consent"] },
+  "input": {
+    "agent_id": "safety-alert-agent",
+    "data_class": "minor-data",
+    "subject_is_minor": true,
+    "purpose": "crash_detection_high_confidence",
+    "standing_access": false,
+    "token_ttl_seconds": 120,
+    "consent_state": "withdrawn"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "description": "Brokered safety-event read: active consent, finite TTL within ceiling, declared purpose, satisfied human gate.",
+  "expect": { "allow": true, "deny_contains": [] },
+  "input": {
+    "agent_id": "safety-alert-agent",
+    "data_class": "precise-location",
+    "subject_is_minor": true,
+    "purpose": "crash_detection_high_confidence",
+    "standing_access": false,
+    "token_ttl_seconds": 120,
+    "consent_state": "active",
+    "action": "location_disclosure",
+    "human_gate": "satisfied"
+  }
+}

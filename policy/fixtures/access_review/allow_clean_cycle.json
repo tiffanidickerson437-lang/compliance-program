@@ -1,0 +1,16 @@
+{
+  "description": "Full coverage, no overdue accounts, no orphans, no SoD conflicts; the cycle may sign off.",
+  "expect": { "allow": true, "deny_contains": [] },
+  "input": {
+    "campaign": "2026-Q2",
+    "accounts_in_scope": 412,
+    "accounts_reviewed": 412,
+    "accounts_overdue": 0,
+    "orphaned_accounts": 0,
+    "orphaned_with_exception": 0,
+    "service_accounts_in_scope": 38,
+    "service_accounts_reviewed": 38,
+    "leaver_deprovision_breaches": 0,
+    "sod_conflicts_open": 0
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "description": "A self-approved merge (reviewer equals author) fails segregation of duties and is denied.",
+  "expect": { "allow": false, "deny_contains": ["independent approving review"] },
+  "input": {
+    "target_branch": "main",
+    "protected": true,
+    "direct_push": false,
+    "linked_ticket": "TCK-1422",
+    "author": "engineer-a",
+    "reviewers": ["engineer-a"],
+    "checks_passed": true,
+    "emergency": false
+  }
+}

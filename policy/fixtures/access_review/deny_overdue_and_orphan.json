@@ -1,0 +1,24 @@
+{
+  "description": "Overdue accounts, an uncovered orphan, a leaver SLA breach, and an open SoD conflict block sign-off.",
+  "expect": {
+    "allow": false,
+    "deny_contains": [
+      "past the recertification cadence",
+      "orphaned accounts without a documented exception",
+      "leaver deprovisioning SLA breaches",
+      "segregation-of-duties conflicts"
+    ]
+  },
+  "input": {
+    "campaign": "2026-Q3",
+    "accounts_in_scope": 412,
+    "accounts_reviewed": 405,
+    "accounts_overdue": 7,
+    "orphaned_accounts": 3,
+    "orphaned_with_exception": 1,
+    "service_accounts_in_scope": 38,
+    "service_accounts_reviewed": 36,
+    "leaver_deprovision_breaches": 2,
+    "sod_conflicts_open": 1
+  }
+}

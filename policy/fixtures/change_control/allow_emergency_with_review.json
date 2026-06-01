@@ -1,0 +1,15 @@
+{
+  "description": "An emergency change may bypass review at merge time only with a documented after-the-fact review.",
+  "expect": { "allow": true, "deny_contains": [] },
+  "input": {
+    "target_branch": "main",
+    "protected": true,
+    "direct_push": false,
+    "linked_ticket": "TCK-1424",
+    "author": "engineer-a",
+    "reviewers": [],
+    "checks_passed": false,
+    "emergency": true,
+    "after_the_fact_review": "PIR-2026-05-14"
+  }
+}

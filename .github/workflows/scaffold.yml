@@ -1,0 +1,63 @@
+# Scaffold
+#
+# Re-renders the program from the configuration whenever the configuration, the
+# control library, the crosswalk, or the scaffold engine changes. The engine
+# (tools/scaffold.py) filters the control library to the declared frameworks,
+# data types, AI posture, and listings, and writes the tailored selection under
+# generated/.
+#
+# This workflow also guards that the committed sample output under generated/ is
+# current. If a configuration or library change would change the rendered output
+# but the committed output was not regenerated, the job fails and asks for a
+# re-run, so the generated artifacts never drift from their inputs.
+
+name: Scaffold
+
+on:
+  push:
+    paths:
+      - "config.example.yaml"
+      - "config.yaml"
+      - "02-controls/control-library.yaml"
+      - "02-controls/framework-crosswalk.yaml"
+      - "tools/scaffold.py"
+  pull_request:
+    paths:
+      - "config.example.yaml"
+      - "config.yaml"
+      - "02-controls/control-library.yaml"
+      - "02-controls/framework-crosswalk.yaml"
+      - "tools/scaffold.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  scaffold:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout program repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install parser
+        run: pip install --quiet pyyaml
+
+      - name: Re-render the scaffold from the configuration
+        run: python3 tools/scaffold.py config.example.yaml
+
+      - name: Verify the committed generated output is current
+        run: |
+          if ! git diff --exit-code -- generated/; then
+            echo ""
+            echo "generated/ is out of date with the configuration and control library."
+            echo "Run: python3 tools/scaffold.py config.example.yaml"
+            echo "Then commit the updated files under generated/."
+            exit 1
+          fi
+          echo "generated/ is current with the configuration."

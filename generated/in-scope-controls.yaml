@@ -1,0 +1,155 @@
+metadata:
+  generated_by: tools/scaffold.py
+  source_control_library: 02-controls/control-library.yaml
+  note: Tailored view resolved from the configuration. The control library is the single source
+    of truth; this file selects a view and redefines nothing. Regenerate with python3 tools/scaffold.py
+    <config>.
+  provenance:
+    basis: illustrative-example
+    sox_itgc_basis: home-lab-framework-mapping
+    evidence_in_repo: illustrative
+summary:
+  frameworks_in_scope:
+  - SOC 2 (TSC 2017)
+  - ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)
+  - gdpr
+  - CCPA / CPRA (2026)
+  - COPPA (amended 2024)
+  - NIST AI RMF 1.0
+  - ISO/IEC 42001:2023
+  - EU AI Act (2024)
+  - SOX ITGC
+  controls_in_scope_count: 7
+  controls_in_scope:
+  - AAT-01
+  - PRI-03.13
+  - IAC-17
+  - CHG-02
+  - MON-01
+  - TPM-01
+  - IRO-01
+  pillars_enabled:
+  - 00-governance
+  - 01-risk-management
+  - 02-controls
+  - 03-tprm
+  - 04-ai-governance
+  - 05-secure-development
+  - 06-evidence-and-audit
+  - 07-stakeholder-management
+  sox_itgc_scope: true
+  sox_itgc_basis: home-lab-framework-mapping
+  ai_governance_enabled: true
+  triggers_fired:
+  - data-type precise-location -> AAT-01
+  - data-type minors -> PRI-03.13
+  - ai-products -> AAT-01
+  - listings -> IAC-17 (SOX ITGC)
+  - listings -> CHG-02 (SOX ITGC)
+  - listings -> MON-01 (SOX ITGC)
+in_scope_controls:
+- id: AAT-01
+  title: AI and autonomous technologies governance
+  family: AI governance
+  owner: GRC + Security (Legal/Privacy joint on lawful basis)
+  automation: partial
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: NIST AI RMF 1.0'
+  - 'framework: ISO/IEC 42001:2023'
+  - 'framework: EU AI Act (2024)'
+  - 'data-type: precise-location'
+  - 'ai-products: true'
+  frameworks_satisfied:
+  - NIST AI RMF 1.0
+  - ISO/IEC 42001:2023
+  - SOC 2 (TSC 2017)
+  - EU AI Act (2024)
+- id: PRI-03.13
+  title: Parent or guardian opt-in consent for minors
+  family: privacy
+  owner: Legal/Privacy (Security enforces)
+  automation: partial
+  selected_because:
+  - 'framework: CCPA / CPRA (2026)'
+  - 'framework: COPPA (amended 2024)'
+  - 'data-type: minors'
+  frameworks_satisfied:
+  - COPPA (amended 2024)
+  - CCPA / CPRA (2026)
+- id: IAC-17
+  title: Periodic review of account privileges
+  family: access management
+  owner: Security (IAM)
+  automation: partial
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: SOX ITGC'
+  - 'listings: SOX ITGC scope'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO/IEC 27002:2022
+  - SOX ITGC
+- id: CHG-02
+  title: Configuration change control
+  family: change management
+  owner: Engineering (Security owns the policy)
+  automation: automated
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: SOX ITGC'
+  - 'listings: SOX ITGC scope'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO/IEC 27002:2022
+  - NIST CSF 2.0
+  - SOX ITGC
+- id: MON-01
+  title: Continuous monitoring and event logging
+  family: monitoring
+  owner: Security (SOC)
+  automation: automated
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: SOX ITGC'
+  - 'listings: SOX ITGC scope'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO/IEC 27002:2022
+  - NIST CSF 2.0
+  - SOX ITGC
+- id: TPM-01
+  title: Third-party management
+  family: third-party risk
+  owner: GRC (Legal/Privacy on terms)
+  automation: partial, workflow-tracked
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: CCPA / CPRA (2026)'
+  - 'framework: NIST AI RMF 1.0'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO/IEC 27002:2022
+  - NIST CSF 2.0
+  - NIST AI RMF 1.0
+  - CCPA / CPRA (2026)
+- id: IRO-01
+  title: Incident response operations
+  family: incident response
+  owner: Security (Legal/Privacy on notification)
+  automation: partial
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: CCPA / CPRA (2026)'
+  - 'framework: NIST AI RMF 1.0'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO/IEC 27002:2022
+  - NIST CSF 2.0
+  - NIST AI RMF 1.0
+  - CCPA / CPRA (2026)

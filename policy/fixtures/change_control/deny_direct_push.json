@@ -1,0 +1,14 @@
+{
+  "description": "A direct push to a protected branch is blocked.",
+  "expect": { "allow": false, "deny_contains": ["direct push to a protected branch is blocked"] },
+  "input": {
+    "target_branch": "main",
+    "protected": true,
+    "direct_push": true,
+    "linked_ticket": "TCK-1423",
+    "author": "engineer-a",
+    "reviewers": ["engineer-b"],
+    "checks_passed": true,
+    "emergency": false
+  }
+}

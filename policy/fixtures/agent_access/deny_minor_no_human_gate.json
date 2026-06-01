@@ -1,0 +1,15 @@
+{
+  "description": "An irreversible action on a minor account without a satisfied human gate is denied.",
+  "expect": { "allow": false, "deny_contains": ["requires a recorded human gate"] },
+  "input": {
+    "agent_id": "safety-alert-agent",
+    "data_class": "minor-data",
+    "subject_is_minor": true,
+    "purpose": "account_action",
+    "standing_access": false,
+    "token_ttl_seconds": 120,
+    "consent_state": "active",
+    "action": "action_on_minor_account",
+    "human_gate": "pending"
+  }
+}

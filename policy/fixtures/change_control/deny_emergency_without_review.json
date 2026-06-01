@@ -1,0 +1,14 @@
+{
+  "description": "An emergency change with no documented after-the-fact review is denied.",
+  "expect": { "allow": false, "deny_contains": ["emergency change without a documented after-the-fact review"] },
+  "input": {
+    "target_branch": "main",
+    "protected": true,
+    "direct_push": false,
+    "linked_ticket": "TCK-1425",
+    "author": "engineer-a",
+    "reviewers": [],
+    "checks_passed": false,
+    "emergency": true
+  }
+}
