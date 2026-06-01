@@ -1,0 +1,289 @@
+# =============================================================================
+# policy-hierarchy.yaml  -  the document control register for the program.
+#
+# Every policy, standard, and procedure has one owning function, one approver,
+# a review cadence, a version, and a status. The frameworks list shows which
+# regimes each document supports. `linked_controls` ties a document to the
+# controls it governs in 02-controls/control-library.yaml.
+#
+# Tiers move from intent to execution:
+#   tier-0  governance documents ratified by the governing body
+#   tier-1  policies (what must be true), approved by an executive function
+#   tier-2  standards (the measurable bar), owned by the function that enforces it
+#   tier-3  procedures and runbooks (how it is done day to day)
+#
+# Cadence and ownership are seeded by `config.example.yaml`: a non-empty `listings`
+# block makes the SOX ITGC standard mandatory; `ai-products: true` makes the
+# AI policy set mandatory; `data-types` decides which privacy policies apply.
+# Status is `scaffold` until Phase 1 validates owners and approvers.
+# =============================================================================
+
+metadata:
+  pillar: 00-governance
+  owner_function: governance
+  review_cadence: annual
+  status: scaffold
+
+tiers:
+  - id: tier-0
+    name: Governance documents
+    description: Charter and statements that set authority and appetite. Ratified by the governing body.
+    default_review: annual
+  - id: tier-1
+    name: Policies
+    description: Statements of what must be true. Approved by an executive function.
+    default_review: annual
+  - id: tier-2
+    name: Standards
+    description: The measurable bar that makes a policy testable. Owned by the enforcing function.
+    default_review: annual
+  - id: tier-3
+    name: Procedures and runbooks
+    description: How the standard is met day to day. Owned by the operating function.
+    default_review: semiannual
+
+status_legend:
+  scaffold: Placeholder shipped with the program; not yet ratified.
+  draft: Under authoring or review.
+  active: Approved and in force.
+  retired: Superseded; retained for history.
+
+policies:
+  # ---- Tier 0: governance documents ----
+  - id: POL-GOV-001
+    title: Program Charter
+    tier: tier-0
+    file: 00-governance/program-charter.md
+    owner: governance
+    approver: board
+    review_cadence: annual
+    version: 0.1.0
+    status: scaffold
+    frameworks: [soc2, iso27001]
+    linked_controls: []
+  - id: POL-GOV-002
+    title: Risk Appetite Statement
+    tier: tier-0
+    file: 00-governance/risk-appetite-statement.md
+    owner: board
+    approver: board
+    review_cadence: annual
+    version: 0.1.0
+    status: scaffold
+    frameworks: [soc2, iso27001]
+    linked_controls: []
+  - id: POL-GOV-003
+    title: Committee Charter (Security Steering and Audit and Risk)
+    tier: tier-0
+    file: 00-governance/committee-charter.md
+    owner: governance
+    approver: board
+    review_cadence: annual
+    version: 0.1.0
+    status: scaffold
+    frameworks: [soc2, iso27001, sox-itgc]
+    linked_controls: []
+  - id: POL-GOV-004
+    title: Roles and Responsibilities (RACI)
+    tier: tier-0
+    file: 00-governance/roles-and-responsibilities.md
+    owner: governance
+    approver: board
+    review_cadence: annual
+    version: 0.1.0
+    status: scaffold
+    frameworks: [soc2, iso27001]
+    linked_controls: []
+
+  # ---- Tier 1: policies ----
+  - id: POL-SEC-101
+    title: Information Security Policy
+    tier: tier-1
+    file: 00-governance/policies/information-security-policy.md
+    owner: security
+    approver: security
+    review_cadence: annual
+    version: 0.0.0
+    status: scaffold
+    frameworks: [soc2, iso27001]
+    linked_controls: [IAC-17, MON-01]
+  - id: POL-SEC-102
+    title: Access Control Policy
+    tier: tier-1
+    file: 00-governance/policies/access-control-policy.md
+    owner: security
+    approver: security
+    review_cadence: annual
+    version: 0.0.0
+    status: scaffold
+    frameworks: [soc2, iso27001, sox-itgc]
+    linked_controls: [IAC-17]
+  - id: POL-ENG-103
+    title: Change Management Policy
+    tier: tier-1
+    file: 00-governance/policies/change-management-policy.md
+    owner: engineering
+    approver: security
+    review_cadence: annual
+    version: 0.0.0
+    status: scaffold
+    frameworks: [soc2, iso27001, sox-itgc]
+    linked_controls: [CHG-02]
+  - id: POL-SEC-104
+    title: Logging and Monitoring Policy
+    tier: tier-1
+    file: 00-governance/policies/logging-and-monitoring-policy.md
+    owner: security
+    approver: security
+    review_cadence: annual
+    version: 0.0.0
+    status: scaffold
+    frameworks: [soc2, iso27001, sox-itgc]
+    linked_controls: [MON-01]
+  - id: POL-SEC-105
+    title: Incident Response Policy
+    tier: tier-1
+    file: 00-governance/policies/incident-response-policy.md
+    owner: security
+    approver: security
+    review_cadence: annual
+    version: 0.0.0
+    status: scaffold
+    frameworks: [soc2, iso27001, gdpr, ccpa]
+    linked_controls: [IRO-01]
+  - id: POL-PRI-106
+    title: Privacy Policy (internal governance)
+    tier: tier-1
+    file: 00-governance/policies/privacy-policy.md
+    owner: privacy
+    approver: legal
+    review_cadence: annual
+    version: 0.0.0
+    status: scaffold
+    frameworks: [gdpr, ccpa, coppa]
+    linked_controls: [PRI-03.13]
+  - id: POL-PRI-107
+    title: Children's Data and Verifiable Parental Consent Policy
+    tier: tier-1
+    file: 00-governance/policies/childrens-data-policy.md
+    owner: privacy
+    approver: legal
+    review_cadence: annual
+    version: 0.0.0
+    status: scaffold
+    frameworks: [coppa, gdpr, ccpa]
+    linked_controls: [PRI-03.13, AAT-01]
+  - id: POL-AI-108
+    title: AI Acceptable Use Policy
+    tier: tier-1
+    file: 04-ai-governance/ai-acceptable-use-policy.md
+    owner: grc
+    approver: security
+    review_cadence: annual
+    version: 0.0.0
+    status: scaffold
+    frameworks: [nist-ai-rmf, iso42001, eu-ai-act]
+    linked_controls: [AAT-01]
+  - id: POL-TPM-109
+    title: Third-Party Risk Management Policy
+    tier: tier-1
+    file: 03-tprm/tprm-policy.md
+    owner: grc
+    approver: legal
+    review_cadence: annual
+    version: 0.0.0
+    status: scaffold
+    frameworks: [soc2, iso27001, gdpr, ccpa]
+    linked_controls: [TPM-01]
+  - id: POL-GOV-110
+    title: Exceptions and Risk Acceptance Policy
+    tier: tier-1
+    file: 00-governance/exceptions-process.md
+    owner: grc
+    approver: security
+    review_cadence: annual
+    version: 0.1.0
+    status: scaffold
+    frameworks: [soc2, iso27001]
+    linked_controls: []
+
+  # ---- Tier 2: standards ----
+  - id: STD-SEC-201
+    title: Access Recertification Standard
+    tier: tier-2
+    file: 00-governance/standards/access-recertification-standard.md
+    owner: security
+    approver: security
+    review_cadence: annual
+    version: 0.0.0
+    status: scaffold
+    frameworks: [soc2, iso27001, sox-itgc]
+    linked_controls: [IAC-17]
+  - id: STD-ENG-202
+    title: Branch Protection and Change Standard
+    tier: tier-2
+    file: 00-governance/standards/branch-protection-standard.md
+    owner: engineering
+    approver: security
+    review_cadence: annual
+    version: 0.0.0
+    status: scaffold
+    frameworks: [soc2, sox-itgc]
+    linked_controls: [CHG-02]
+  - id: STD-SEC-203
+    title: Log Retention and Integrity Standard
+    tier: tier-2
+    file: 00-governance/standards/log-retention-standard.md
+    owner: security
+    approver: security
+    review_cadence: annual
+    version: 0.0.0
+    status: scaffold
+    frameworks: [soc2, iso27001, sox-itgc]
+    linked_controls: [MON-01]
+  - id: STD-AI-204
+    title: AI Agent Identity and Access Standard
+    tier: tier-2
+    file: 04-ai-governance/agent-identity-and-access-policy.md
+    owner: security
+    approver: security
+    review_cadence: annual
+    version: 0.0.0
+    status: scaffold
+    frameworks: [nist-ai-rmf, iso42001]
+    linked_controls: [AAT-01]
+
+  # ---- Tier 3: procedures and runbooks ----
+  - id: PRC-SEC-301
+    title: Quarterly Access Review Procedure
+    tier: tier-3
+    file: 00-governance/procedures/access-review-procedure.md
+    owner: it
+    approver: security
+    review_cadence: semiannual
+    version: 0.0.0
+    status: scaffold
+    frameworks: [soc2, sox-itgc]
+    linked_controls: [IAC-17]
+  - id: PRC-SEC-302
+    title: Incident Response Runbook (including AI scope incidents)
+    tier: tier-3
+    file: 04-ai-governance/ai-incident-response-playbook.md
+    owner: security
+    approver: security
+    review_cadence: semiannual
+    version: 0.0.0
+    status: scaffold
+    frameworks: [soc2, iso27001, nist-ai-rmf]
+    linked_controls: [IRO-01, AAT-01]
+  - id: PRC-GRC-303
+    title: Exception Intake and Closure Procedure
+    tier: tier-3
+    file: 00-governance/exceptions-process.md
+    owner: grc
+    approver: grc
+    review_cadence: semiannual
+    version: 0.1.0
+    status: scaffold
+    frameworks: [soc2, iso27001]
+    linked_controls: []

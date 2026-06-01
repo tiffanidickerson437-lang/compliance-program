@@ -1,0 +1,94 @@
+schema:
+  control: CHG-02
+  title: Production change merge record
+  source_system: GitHub (branch protection + merge API)
+  collection: computed
+  ai_generated: false
+  oscal_form: assessment-results observation, per-merge aggregate plus exception list
+  description: >
+    A computed log of merges to the production branch for the period, pulled from
+    the source-control API. Each merge carries a linked work item, an independent
+    reviewer, and passing checks. Branch protection is the technical enforcement
+    of the policy, so direct pushes are blocked rather than reviewed after the
+    fact. Emergency or un-reviewed changes are exceptions with a closure path.
+  field_contract: >
+    Every field below names its source system and how it is computed. The record
+    is pulled from the merge API, never authored by a model, which is why
+    ai_generated is a required constant false and a true value is rejected.
+  fields:
+    - name: control
+      type: string
+      const: CHG-02
+      required: true
+      source: pipeline constant
+      computation: Set to the control ID this record evidences.
+      description: Control identifier this record evidences.
+    - name: period
+      type: string
+      format: YYYY-Qn or YYYY-MM
+      required: true
+      source: reporting calendar
+      computation: The reporting period the merge log covers.
+      description: Reporting period.
+    - name: source
+      type: string
+      required: true
+      source: system inventory
+      computation: Names the source-control system and the APIs the record was pulled from.
+      description: Source-control system and the APIs the record was pulled from.
+    - name: merges_to_prod
+      type: integer
+      required: true
+      source: source-control merge API (protected branch)
+      computation: Count of merges to the protected production branch in the period.
+      description: Total merges to the protected production branch in the period.
+    - name: with_linked_ticket
+      type: integer
+      required: true
+      source: merge metadata joined to the work-tracking system
+      computation: Count of merges linked to a tracked work item; target equals merges_to_prod.
+      description: Merges linked to a tracked work item.
+    - name: with_independent_review
+      type: integer
+      required: true
+      source: pull-request review records (reviewer identity not equal to author)
+      computation: Count of merges approved by a reviewer distinct from the author.
+      description: Merges approved by a reviewer other than the author.
+    - name: direct_pushes_blocked
+      type: integer
+      required: true
+      source: branch-protection audit log
+      computation: Count of direct pushes to the protected branch that branch protection rejected.
+      description: Direct pushes to the protected branch that branch protection blocked.
+    - name: exceptions_without_review
+      type: integer
+      required: true
+      source: emergency-change log joined to merge records
+      computation: Count of emergency or un-reviewed changes recorded as exceptions for reconciliation.
+      description: Emergency or un-reviewed changes recorded as exceptions.
+    - name: ai_generated
+      type: boolean
+      const: false
+      required: true
+      source: pipeline metadata
+      computation: Set false because the record is pulled from the source-control API, not authored by a model.
+      description: Must be false. Evidence must be traceable to the merge API, so model-authored records are rejected by schema.
+  example:
+    control: CHG-02
+    period: 2026-05
+    source: GitHub (branch protection + merge API)
+    merges_to_prod: 138
+    with_linked_ticket: 138
+    with_independent_review: 137
+    direct_pushes_blocked: 6
+    exceptions_without_review: 1
+    ai_generated: false
+  audit_ready_when:
+    - Record is pulled from the merge API, not screenshots of individual pull requests.
+    - with_linked_ticket equals merges_to_prod, or the delta is an itemized exception.
+    - Each value in exceptions_without_review has a reconciliation note and closure path.
+    - direct_pushes_blocked demonstrates branch protection is enforcing, not advisory.
+  rejected_when:
+    - ai_generated is true.
+    - with_independent_review is asserted without reviewer identities distinct from authors.
+    - exceptions_without_review is greater than zero with no closure path.

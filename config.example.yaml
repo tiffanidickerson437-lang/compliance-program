@@ -1,0 +1,141 @@
+# =============================================================================
+# config.example.yaml  -  the single configuration file that drives this program.
+#
+# WHAT THIS FILE IS
+#   A program-neutral, illustrative example configuration. The program reads its
+#   configuration from a file of this shape. Every other artifact in the repo
+#   resolves from these values: the control library is filtered, pillars and
+#   control families are turned on, evidence source systems are named, and risk
+#   tolerance bands are seeded. To run the program for a real environment, supply
+#   a file of this shape with real values.
+#
+# HOW THIS CONFIG DRIVES THE PROGRAM
+#     1. FILTER the control library (02-controls/control-library.yaml) and the
+#        crosswalk to only the frameworks named under `frameworks`.
+#     2. TURN ON pillars and control families based on `data-types`,
+#        `ai-products`, and `listings` (for example minors -> COPPA consent
+#        control; ai-products -> the 04-ai-governance pillar; a listing ->
+#        SOX ITGC scope and Audit Committee cadence).
+#     3. ROUTE notifications and name evidence source systems from `stack`
+#        (a failed daily check opens a GitHub Issue; the Issue is the evidence
+#        of due diligence; the fix is a Pull Request a human approves).
+#     4. SEED risk tolerance bands in 01-risk-management from `risk.appetite`.
+#   Change a value, re-run the scaffold, and the program re-renders. Adding a
+#   framework is a crosswalk mapping, never a new control.
+#
+# THE EXAMPLE ARCHETYPE
+#   The values below describe a neutral archetype: a consumer location-safety
+#   service that processes precise location and minors' data, runs an agentic AI
+#   layer on a real-time location graph, and is publicly listed (which brings IT
+#   general controls into scope). It is illustrative only and makes NO claim
+#   about any real organization. SOX ITGC here is framework-mapped from home-lab
+#   work and is NOT a statement that any public-company SOX audit was performed.
+# =============================================================================
+
+schema_version: 1                 # config schema version; the scaffold reads this to stay compatible
+
+company:
+  name: "Example Location-Safety Service"        # illustrative archetype name; replace with the real organization
+  legal_entity: "Example Location-Safety Service, Inc."  # full legal name used on signed documents
+  industry: consumer-tech         # selects the default control families and the situation framing
+  sub_industry: family-safety-location  # narrows risk scenarios to precise location and minors
+  size: enterprise                # startup | mid | enterprise -> drives committee depth and RACI granularity
+  stage: continuous               # pre-audit | in-audit | post-audit | continuous -> sets 30-60-90 emphasis
+  description: >
+    Consumer family-safety and location-sharing service holding real-time
+    precise location for tens of millions of members, including children.
+    AI-native, with an agentic layer on a real-time location graph as the
+    stated product bet.
+
+  # A non-empty `listings` block marks this as a public company. That single
+  # fact turns on SOX ITGC scope (00-governance/sox-itgc-scope.md), Audit
+  # Committee cadence (committee-charter.md), and board reporting in dollars.
+  # The exchanges and tickers below are illustrative placeholders.
+  listings:
+    - exchange: primary-exchange  # illustrative; non-empty listings turn on SOX ITGC scope
+      ticker: "EXMPL"
+    - exchange: secondary-exchange  # multi-listed example
+      ticker: "EXMPL2"
+
+frameworks:
+  # The scaffold filters 02-controls/control-library.yaml and
+  # 02-controls/framework-crosswalk.yaml to ONLY the frameworks listed here.
+  # One control is defined once and rendered into each framework's view; adding
+  # a framework later is a mapping, not a rebuild.
+  primary:                        # certification targets, audited on an annual cycle
+    - soc2                        # SOC 2 Type II - Security, Availability, Confidentiality
+    - iso27001                    # ISO/IEC 27001:2022 ISMS
+  emerging:                       # privacy, consumer-protection, and AI regimes selected by data-types + jurisdictions + ai-products
+    - gdpr                        # EU GDPR (selected because regulated-jurisdictions includes eu)
+    - ccpa                        # CCPA as amended by CPRA (selected because regulated-jurisdictions includes us)
+    - coppa                       # amended COPPA Rule (2024-2025 amendments); key compliance date 2026-04-22; selected because data-types includes minors
+    - nist-ai-rmf                 # NIST AI RMF 1.0 (selected because ai-products: true)
+    - iso42001                    # ISO/IEC 42001:2023 AI management system; named honestly as a forward target
+    - eu-ai-act                   # EU AI Act; high-risk obligations land 2026-08-02
+  financial:                      # turned on because `listings` is non-empty
+    - sox-itgc                    # ITGC over access, change, operations. FRAMEWORK-MAPPED from home lab. NOT an audited opinion. Scoped with Internal Audit.
+
+stack:
+  # `stack` names the systems of record. Evidence schemas point at these as the
+  # source; the drift-monitor Action checks these endpoints; comms/ticketing/docs
+  # decide where notifications and reports land. The values below are ILLUSTRATIVE
+  # examples and are confirmed against reality in Phase 1 discovery.
+  cloud:
+    - aws                         # example; names evidence sources for IAC/CHG/MON controls
+  identity:
+    - okta                        # example; drives IAC-17 access-review evidence (IdP joined to HRIS)
+  code:
+    - github                      # the GitHub-native operating model lives here; CHG-02 evidence is the merge record
+  ticketing:
+    - jira                        # control remediation tickets; the ticket is the work order
+  docs:
+    - notion                      # stakeholder reports render here after human review
+  comms:
+    - slack                       # drift, TPRM, and audit-deadline notifications route here
+  grc-tool:
+    - anecdotes                   # the audit-facing interface; this repo stays the evidence system of record
+
+risk:
+  # `risk.appetite` seeds the tolerance bands in 01-risk-management/risk-register.yaml
+  # and risk-appetite-statement.md. The BUSINESS owns these decisions; GRC
+  # supplies the model and the options.
+  appetite: growth-stage          # low | moderate | growth-stage | high
+  quantification: fair            # FAIR is the quantification method across the register
+  tolerance-statements:           # pre-declared thresholds that become hard gates in the register
+    - "Agent access to precise location or minors' data requires purpose-bound authorization and a human gate for irreversible actions."
+    - "Minor data processing is denied when verifiable parental consent is absent or withdrawn."
+    - "No regulated personal data enters an ungoverned AI model."
+
+# `ai-products: true` turns on the 04-ai-governance pillar, the OWASP LLM Top 10
+# control set, agent-identity controls, and the NIST AI RMF + ISO 42001 crosswalk.
+ai-products: true
+ai:
+  # Detail block that shapes AI-specific controls and the human-oversight register.
+  agentic: true                   # autonomous agents act on the real-time location graph -> AAT-01 and human gates
+  product_surface: location-graph # the real-time location graph the agentic layer operates on
+  high_impact_actions:            # each becomes a row in 04-ai-governance/human-oversight-gates
+    - location_disclosure
+    - action_on_minor_account
+    - irreversible_write
+  foundation_model_use: true      # turns on AI model-vendor risk tiering in 03-tprm and 04-ai-governance
+
+# `data-types` selects the mandatory control families and the privacy obligation set.
+data-types:
+  - pii                           # -> privacy family, access control, breach-notification clocks
+  - precise-location              # -> AAT-01 agent authorization, purpose-bound tokens, highest-sensitivity tier
+  - minors                        # -> PRI-03.13 verifiable parental consent (COPPA), restricted data class, human gates
+
+# `regulated-jurisdictions` selects which privacy regimes appear in the obligation
+# register: us -> ccpa + coppa, eu -> gdpr + eu-ai-act, uk -> uk-gdpr, australia -> privacy-act.
+regulated-jurisdictions:
+  - us
+  - eu
+  - uk
+  - australia
+
+# Provenance and guardrails. The scaffold prints these in generated narratives so
+# every reader knows the basis of the configuration.
+provenance:
+  basis: illustrative-example     # this example makes no claim about any real organization's internal posture
+  sox_itgc_basis: home-lab-framework-mapping   # never claim a prior public-company SOX audit
+  evidence_in_repo: illustrative  # example evidence is illustrative; replace with computed exports before audit

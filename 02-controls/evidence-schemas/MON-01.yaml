@@ -1,0 +1,97 @@
+schema:
+  control: MON-01
+  title: SIEM coverage and log-integrity report
+  source_system: SIEM + immutable object-lock store
+  collection: computed
+  ai_generated: false
+  oscal_form: assessment-results observation, coverage aggregate plus exception list
+  description: >
+    A computed coverage report showing in-scope sources forwarding to the central
+    append-only store, retention applied, integrity checks passed, and alert
+    acknowledgement times. Control-health checks run off these logs; a failed
+    check opens a tracked issue and that issue is the evidence of due diligence.
+    Forwarding gaps and missed alert acknowledgements surface as exceptions.
+  field_contract: >
+    Every field below names its source system and how it is computed. The report
+    is computed from the SIEM and the object-lock store, never authored by a
+    model, which is why ai_generated is a required constant false and a true value
+    is rejected.
+  fields:
+    - name: control
+      type: string
+      const: MON-01
+      required: true
+      source: pipeline constant
+      computation: Set to the control ID this record evidences.
+      description: Control identifier this record evidences.
+    - name: period
+      type: string
+      format: YYYY-Qn or YYYY-MM
+      required: true
+      source: reporting calendar
+      computation: The reporting period the coverage report covers.
+      description: Reporting period.
+    - name: source
+      type: string
+      required: true
+      source: system inventory
+      computation: Names the monitoring platform and the integrity-protected store.
+      description: Monitoring platform and the integrity-protected store.
+    - name: sources_forwarding
+      type: string
+      format: forwarding/total
+      required: true
+      source: source inventory joined to SIEM ingestion status
+      computation: Ratio of in-scope sources actively forwarding to the central store, measured against the inventory.
+      description: Ratio of in-scope sources actively forwarding to the central store.
+    - name: retention_days
+      type: integer
+      required: true
+      source: object-lock store retention configuration
+      computation: Retention applied to the central store, in days.
+      description: Retention applied to the central store, in days.
+    - name: integrity_checks_failed
+      type: integer
+      required: true
+      source: write-once / object-lock integrity verification job
+      computation: Count of failed integrity checks on the store; target is zero.
+      description: Count of failed write-once or object-lock integrity checks; target is zero.
+    - name: alerts_ack_within_sla
+      type: string
+      format: acknowledged/total
+      required: true
+      source: alert queue acknowledgement timestamps
+      computation: Ratio of defined alerts acknowledged within the SLA window.
+      description: Ratio of defined alerts acknowledged within the SLA window.
+    - name: drift_issues_opened
+      type: integer
+      required: true
+      source: control-drift workflow (Issues tagged by control)
+      computation: Count of tracked Issues opened by failed control-health checks in the period.
+      description: Tracked issues opened by failed control-health checks in the period.
+    - name: ai_generated
+      type: boolean
+      const: false
+      required: true
+      source: pipeline metadata
+      computation: Set false because the report is computed from the SIEM and object-lock store, not authored by a model.
+      description: Must be false. Evidence must be traceable to the log store, so model-authored records are rejected by schema.
+  example:
+    control: MON-01
+    period: 2026-Q2
+    source: SIEM + immutable object-lock store
+    sources_forwarding: "64/64"
+    retention_days: 400
+    integrity_checks_failed: 0
+    alerts_ack_within_sla: "309/311"
+    drift_issues_opened: 14
+    ai_generated: false
+  audit_ready_when:
+    - Coverage report reconciles to the source inventory, not a console screenshot.
+    - integrity_checks_failed is zero, demonstrating records cannot be silently altered.
+    - retention_days meets or exceeds the retention standard for the period.
+    - Each alert outside SLA and each forwarding gap is an itemized exception.
+  rejected_when:
+    - ai_generated is true.
+    - sources_forwarding is below the inventory count with no exception list.
+    - integrity_checks_failed is greater than zero without an incident or remediation.

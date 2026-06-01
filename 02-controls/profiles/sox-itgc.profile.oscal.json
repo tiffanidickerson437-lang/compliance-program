@@ -1,0 +1,37 @@
+{
+  "profile": {
+    "uuid": "6753908c-86aa-480b-a558-58dce5542a22",
+    "metadata": {
+      "title": "SOX ITGC Profile (framework-mapped, home lab)",
+      "published": "2026-06-01T04:30:00Z",
+      "last-modified": "2026-06-01T04:30:00Z",
+      "version": "1.0.0",
+      "oscal-version": "1.1.3",
+      "remarks": "Resolves the owned control library into the SOX IT general controls view across the access, change, and operations pillars: IAC-17 (access to programs and data), CHG-02 (change management and segregation of dev and approver), MON-01 (computer operations and monitoring of privileged activity). This association is framework mapping only (home lab) and is not represented as audited. No depth claim is made beyond the crosswalk line.",
+      "props": [
+        {
+          "name": "basis",
+          "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+          "value": "framework-mapped-home-lab"
+        }
+      ]
+    },
+    "imports": [
+      {
+        "href": "../control-library.oscal.json",
+        "include-controls": [
+          {
+            "with-ids": [
+              "iac-17",
+              "chg-02",
+              "mon-01"
+            ]
+          }
+        ]
+      }
+    ],
+    "merge": {
+      "as-is": true
+    }
+  }
+}

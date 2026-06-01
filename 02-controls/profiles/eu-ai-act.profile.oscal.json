@@ -1,0 +1,28 @@
+{
+  "profile": {
+    "uuid": "5f4744e4-40b9-4f6a-b3aa-b4e7ccf3047b",
+    "metadata": {
+      "title": "EU AI Act (2024) Profile",
+      "published": "2026-06-01T04:30:00Z",
+      "last-modified": "2026-06-01T04:30:00Z",
+      "version": "1.0.0",
+      "oscal-version": "1.1.3",
+      "remarks": "Resolves the owned control library into the EU AI Act view. AAT-01 maps to the record-keeping and logging duty for high-risk systems at Art.17(1)(c). High-risk obligations land from August 2 2026; this profile demonstrates readiness, not a conformity assessment."
+    },
+    "imports": [
+      {
+        "href": "../control-library.oscal.json",
+        "include-controls": [
+          {
+            "with-ids": [
+              "aat-01"
+            ]
+          }
+        ]
+      }
+    ],
+    "merge": {
+      "as-is": true
+    }
+  }
+}

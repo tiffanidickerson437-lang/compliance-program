@@ -1,0 +1,1212 @@
+metadata:
+  title: Control Library
+  version: "2.0.0"
+  scf_version: "SCF 2025.4"
+  format: SCF-mapped, OSCAL-aligned
+  oscal_catalog: control-library.oscal.json
+  per_control_docs: controls/
+  example_profile: consumer location-safety service that processes minors' data (illustrative)
+  note: >
+    Single definition per control. SCF is the unifying control spine; the
+    machine-readable form is control-library.oscal.json, and a deep per-control
+    narrative lives under controls/. Example evidence is illustrative and is not
+    a claim about any real organization's internal posture. SOX ITGC entries are
+    framework mapping only (home lab) and are never represented as audited.
+  voice: Declarative and principle-led. Functions and roles, no personal names.
+  selection: >
+    Seven deliberate controls drawn from 1,468 across 33 SCF domains. The point
+    is choosing what matters for a consumer location-safety service that
+    processes minors' data, runs an agentic AI layer on a real-time location
+    graph, and carries public-company IT general controls. The count is held at
+    seven on purpose; depth per control is the deliverable, not breadth of list.
+  structure_per_control: >
+    Each control carries a full statement, multi-paragraph implementation
+    guidance, assignable parameters, control enhancements, assessment objectives,
+    assessment methods (EXAMINE, INTERVIEW, TEST) with specific procedures, a
+    field-level evidence schema reference, an automation and CI mapping, the
+    framework crosswalk with real references, illustrative example evidence, and
+    the RACI asks per audience.
+
+controls:
+  - id: AAT-01
+    scf_id: AAT-01
+    scf_domain: AAT
+    scf_domain_name: Artificial Intelligence & Autonomous Technologies
+    class: SCF
+    csf_function: Govern
+    family: AI governance
+    title: AI and autonomous technologies governance
+    owner: GRC + Security (Legal/Privacy joint on lawful basis)
+    automation: partial
+    review: continuous; governance review quarterly, DPIA on material change
+    doc: controls/AAT-01.md
+    why: >
+      An agentic layer acting on a real-time location graph of tens of millions
+      of members, including children, needs a control for autonomous systems that
+      read sensitive data and take consequential actions. This is the hero
+      control: it governs how an agent is identified, scoped, gated, and revoked.
+    statement: >
+      Policies for AI and autonomous-technology risk are defined, owned, and
+      enforced. Autonomous agents read precise location or minor data only under
+      purpose-bound authorization, at minimum scope, with full decision logging,
+      and with human accountability for high-impact actions. No agent holds
+      standing access to sensitive production data.
+    implementation_guidance: >
+      Treat every autonomous agent as a sponsored non-human identity with a named
+      human-function sponsor, a declared purpose, and a defined data scope. No
+      agent holds standing access to precise location or minor data; access is
+      brokered at the moment of need and expires automatically. The unit of
+      evidence is the authorization decision, not a screenshot or an assertion.
+
+      Place a central authorization broker, expressed as policy-as-code (for
+      example Open Policy Agent), in front of every sensitive read. The broker
+      evaluates each request against the requesting agent's identity, the declared
+      purpose, the live consent state read from the consent system of record, and
+      the data-minimization rule for that purpose. Default is deny. On a grant,
+      bind the access to a purpose token with a short time-to-live so it cannot be
+      reused outside the triggering event, release only the fields the purpose
+      requires, and record the fields withheld, because demonstrable minimization
+      is itself evidence.
+
+      Stop any irreversible action, and any action on a minor's account, at a
+      human gate: a named function approves before the action proceeds, and the
+      approval is recorded against the decision. Map agent risks to the OWASP Top
+      10 for LLM Applications, in particular excessive agency, insecure output
+      handling, and sensitive-information disclosure, and carry those mappings
+      into the AI control set in 04-ai-governance. Maintain a kill-switch path
+      that revokes all agent tokens and halts autonomous action within a defined
+      interval, owned by a named function, and re-run the data protection impact
+      assessment on any material change to agent scope, model, or purpose.
+    parameters:
+      - id: aat-01_prm_token_ttl_ceiling
+        label: Purpose-token time-to-live ceiling
+        value: 300 seconds
+        guidance: A grant on precise location or minor data expires no later than this; tune down per purpose, never up.
+      - id: aat-01_prm_human_gate_actions
+        label: Actions requiring a human gate
+        value: [location_disclosure, action_on_minor_account, irreversible_write]
+        guidance: Each listed action stops for a named-function approval recorded against the decision.
+      - id: aat-01_prm_killswitch_sla
+        label: Kill-switch revocation interval
+        value: 5 minutes
+        guidance: Maximum interval from kill-switch activation to full token revocation and halt of autonomous action.
+      - id: aat-01_prm_dpia_trigger
+        label: DPIA re-assessment trigger
+        value: material change to agent scope, model, or purpose
+        guidance: Any trigger forces a refreshed data protection impact assessment before the change ships.
+    enhancements:
+      - id: AAT-01(1)
+        title: Deny-by-default brokered authorization
+        statement: Every sensitive read passes a central authorization broker that defaults to deny and evaluates identity, purpose, and live consent state.
+      - id: AAT-01(2)
+        title: Purpose-bound, time-boxed access
+        statement: Grants are bound to a declared purpose and a short-lived token; standing access to precise location or minor data is not permitted.
+      - id: AAT-01(3)
+        title: Human gate for irreversible or minor-account actions
+        statement: Irreversible actions, and any action on a minor's account, require a recorded approval by a named function before execution.
+      - id: AAT-01(4)
+        title: Kill-switch and revocation path
+        statement: A named function can revoke all agent tokens and halt autonomous action within the defined interval, exercised in test at least annually.
+    assessment_objectives:
+      - id: aat-01_obj_registry
+        statement: Determine that every agent with access to precise location or minor data is registered as a sponsored non-human identity with a named sponsor and no standing production-data access.
+      - id: aat-01_obj_broker
+        statement: Determine that every sensitive read is brokered deny-by-default against the live consent state.
+      - id: aat-01_obj_scope
+        statement: Determine that grants are purpose-bound, time-boxed within the TTL ceiling, and minimized to the fields the purpose requires.
+      - id: aat-01_obj_gate
+        statement: Determine that irreversible actions and minor-account actions pass a recorded human gate before execution.
+      - id: aat-01_obj_killswitch
+        statement: Determine that a kill-switch with a named owner exists and revokes within the defined interval.
+      - id: aat-01_obj_dpia
+        statement: Determine that a current DPIA covers the agent scope and model in effect for the period.
+    assessment_methods:
+      examine:
+        - The AI and autonomous-technology policy, the agent registry, and the broker policy bundle in effect for the period.
+        - The data protection impact assessment and the lawful-basis determination for processing precise location and minor data.
+        - The kill-switch runbook and its most recent test record.
+      interview:
+        - The authorization-broker owner (Security) on deny-by-default behavior and TTL enforcement.
+        - Legal/Privacy on lawful basis, the DPIA, and the limits on minor-data use.
+        - Engineering on how each sensitive read is bound to a purpose token, and the kill-switch owner on the revocation path.
+      test:
+        - Replay a sample of broker decisions for agents with location or minor scope; confirm deny-by-default, TTL enforcement, and field minimization against the purpose rule.
+        - Drive a test account to consent-withdrawn state and confirm the broker denies the read.
+        - Attempt an irreversible action on a minor test account and confirm it blocks until the human gate is satisfied.
+        - Activate the kill-switch in a controlled test and confirm tokens revoke and autonomous action halts within the interval.
+    evidence_schema:
+      summary: >
+        Broker decision record joined to the consent store: trigger, lawful basis,
+        fields released, fields withheld, token TTL, consent state, human-gate
+        status, and grant or deny.
+      record: evidence-schemas/AAT-01.yaml
+      collection: computed
+      ai_generated: false
+    ci_mapping:
+      ci_check: >
+        A daily job reads the broker decision store joined to the consent service
+        and computes: percent of sensitive reads that were brokered, count of
+        grants exceeding the TTL ceiling, count of grants issued while consent was
+        withdrawn or absent, and count of irreversible minor-account actions with
+        no recorded human gate.
+      drift_issue: >
+        Any nonzero count on the last three measures opens a control-drift Issue
+        tagged AAT-01 with the offending decision IDs, the owning function
+        (Security), and the framework impact (NIST AI RMF, ISO 42001, EU AI Act).
+      workflow: .github/workflows/control-drift-monitor.yml
+    framework_mappings:
+      - framework: NIST AI RMF 1.0
+        references: ["GOVERN 1.0", "GOVERN 2.1", "GOVERN 4.1", "MAP 3.5"]
+      - framework: ISO/IEC 42001:2023
+        references: ["5.1", "8.1", "A.2.2", "A.6.2.2"]
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC1.4"]
+      - framework: EU AI Act (2024)
+        references: ["Art.17(1)(c)"]
+    test_procedure: >
+      Sample broker decision logs for agents with location or minor-data scope;
+      verify deny-by-default, TTL enforcement, and a human gate on irreversible
+      minor-account actions. Reconcile the sample to the DPIA and the policy
+      version in effect for the period.
+    example_evidence:
+      control: AAT-01
+      period: 2026-Q2
+      source: Agent Authorization Broker (OPA) + Consent Service
+      agent_id: safety-alert-agent
+      trigger: crash_detection_high_confidence
+      lawful_basis: consent on record + vital interests
+      data_released: [lat, lon, timestamp]
+      data_withheld: [location_history, place_labels, contacts]
+      token_ttl_seconds: 120
+      consent_state: active
+      human_gate: required for irreversible action on minor account
+      decision: granted
+      ai_generated: false
+    props:
+      - name: scf-id
+        value: AAT-01
+      - name: scf-domain
+        value: AAT
+      - name: nist-csf-function
+        value: Govern
+      - name: automation
+        value: partial
+      - name: hero-control
+        value: "true"
+    stakeholder_asks:
+      - audience: Security
+        raci: A
+        ask: Own the authorization broker and deny-by-default policy; certify no agent holds standing location entitlement outside an active safety event.
+      - audience: Engineering
+        raci: R
+        ask: Bind every location read to a purpose token with a TTL and emit the decision record; the broker log is the evidence, not screenshots.
+      - audience: Legal/Privacy
+        raci: A
+        ask: Name the lawful basis for processing precise location, sign the DPIA, and confirm minor-data use is limited to the requested service.
+      - audience: C-Suite / Board
+        raci: I
+        ask: Accept the residual risk of an agent touching sensitive location data, with the kill-switch owner named. This is a board-visible risk.
+      - audience: Customer
+        raci: I
+        ask: Receive plain-language notice of what the safety agent accesses and the consent toggle; the consent state feeds the control.
+      - audience: Auditor
+        raci: I
+        ask: Receive the computed decision log plus the DPIA and policy version; sample against the log, not a live demo.
+
+  - id: PRI-03.13
+    scf_id: PRI-03.13
+    scf_domain: PRI
+    scf_domain_name: Data Privacy
+    class: SCF
+    csf_function: Protect
+    family: privacy
+    title: Parent or guardian opt-in consent for minors
+    owner: Legal/Privacy (Security enforces)
+    automation: partial
+    review: continuous consent state; policy and flow review quarterly
+    doc: controls/PRI-03.13.md
+    why: >
+      A consumer location-safety service at this scale processes the data of
+      children. The amended COPPA Rule and the minor provisions of CCPA/CPRA
+      require verifiable parental consent before that data is processed. This
+      control proves consent is on record and authoritative.
+    statement: >
+      Minor personal data processes only after verifiable parent or guardian
+      opt-in consent is recorded. Consent state is authoritative: absent or
+      withdrawn consent blocks processing and disclosure, and a separate
+      verifiable consent is required before any disclosure of a child's data to a
+      third party.
+    implementation_guidance: >
+      Capture consent as a first-class record keyed to the child account, carrying
+      the verification method, the scope of processing it authorizes, and the
+      timestamp. Make the consent service the single system of record that every
+      feature, integration, and agent checks before processing a minor's data, so
+      that a withdrawal propagates everywhere at once rather than feature by
+      feature. The record, not a policy assertion, is the evidence.
+
+      Use a verification method that meets the standard set by the amended COPPA
+      Rule for the processing in question, and record which method was used.
+      Disclosure of a child's data to a third party requires a separate verifiable
+      consent, recorded distinctly from the consent to operate the service. Hold
+      minor data to a tighter minimization and retention rule than adult data, and
+      delete or restrict it when consent is withdrawn or the lawful basis ends.
+
+      Treat any processing observed without active consent as an exception that
+      surfaces, not as a silent gap: it opens a tracked Issue, names the owning
+      function, and carries a remediation path. The consent service is also the
+      input to AAT-01: an agent's read of a minor's data is brokered against the
+      same consent state, so the privacy control and the agent control cannot
+      disagree about whether consent is present.
+    parameters:
+      - id: pri-03.13_prm_withdrawal_sla
+        label: Withdrawal propagation SLA
+        value: near-real-time (under 1 hour to full propagation)
+        guidance: Time from a recorded withdrawal to processing and disclosure being blocked across all paths.
+      - id: pri-03.13_prm_minor_threshold
+        label: Minor age threshold
+        value: under 13 (COPPA); broader where local law sets a higher age
+        guidance: Drives which accounts fall in scope for verifiable parental consent.
+      - id: pri-03.13_prm_verification_methods
+        label: Accepted verification methods
+        value: methods recognized under 16 CFR 312.5(b) for the processing in question
+        guidance: Record the specific method used per account; weaker methods do not satisfy stronger processing.
+      - id: pri-03.13_prm_third_party_consent
+        label: Separate consent for third-party disclosure
+        value: required
+        guidance: Disclosure to a third party needs a distinct verifiable consent, not the operating consent.
+    enhancements:
+      - id: PRI-03.13(1)
+        title: Consent service as authoritative gate
+        statement: Every feature, integration, and agent checks the consent service before processing a minor's data; the service is the single system of record.
+      - id: PRI-03.13(2)
+        title: Separate consent before third-party disclosure
+        statement: Disclosure of a child's data to a third party requires a separate, distinctly recorded verifiable consent.
+      - id: PRI-03.13(3)
+        title: Immediate withdrawal propagation
+        statement: A recorded withdrawal blocks processing and disclosure across all paths within the propagation SLA.
+      - id: PRI-03.13(4)
+        title: Minor data minimization and retention limit
+        statement: Minor data is held to a tighter minimization and retention rule and is deleted or restricted when consent ends.
+    assessment_objectives:
+      - id: pri-03.13_obj_record
+        statement: Determine that every in-scope minor account has a recorded verifiable parental consent before processing.
+      - id: pri-03.13_obj_method
+        statement: Determine that the verification method used meets the standard for the processing it authorizes.
+      - id: pri-03.13_obj_thirdparty
+        statement: Determine that no third-party disclosure of a child's data occurs without a separate recorded consent.
+      - id: pri-03.13_obj_withdrawal
+        statement: Determine that withdrawals are honored within the propagation SLA and block processing and disclosure.
+      - id: pri-03.13_obj_deny
+        statement: Determine that processing is denied when consent is absent or withdrawn.
+    assessment_methods:
+      examine:
+        - The consent register and the verification-method configuration for minor accounts in scope.
+        - The COPPA and CCPA/CPRA obligation mapping and the third-party disclosure flow design.
+        - The minor-data retention and deletion rule.
+      interview:
+        - Legal/Privacy on what verifiable consent requires and which processing needs a separate consent.
+        - Engineering on where the consent check sits in the request path and how withdrawal propagates.
+        - Product on the consent and disclosure flow design and the absence of dark patterns.
+      test:
+        - Sample minor accounts and confirm a recorded verifiable parental consent with a valid method before processing.
+        - Withdraw consent on a test account and confirm processing and disclosure are blocked within the SLA.
+        - Attempt a third-party disclosure without a separate consent and confirm the path denies it.
+    evidence_schema:
+      summary: >
+        Consent register per minor: verification method, scope, state, third-party
+        disclosures without active consent, and withdrawals honored within SLA.
+      record: evidence-schemas/PRI-03.13.yaml
+      collection: computed
+      ai_generated: false
+    ci_mapping:
+      ci_check: >
+        A daily job exports the consent register and computes: minor accounts in
+        scope, accounts with verified parental consent, third-party disclosures
+        without active consent (target zero), and the ratio of withdrawals honored
+        within the propagation SLA.
+      drift_issue: >
+        Any third-party disclosure without active consent, or any positive delta
+        between in-scope accounts and accounts with verified consent, opens an
+        Issue tagged PRI-03.13 naming Legal/Privacy as owner with the framework
+        impact (COPPA, CCPA/CPRA).
+      workflow: .github/workflows/control-drift-monitor.yml
+    framework_mappings:
+      - framework: COPPA (amended 2024)
+        references: ["16 CFR 312", "§6502(b)(1)(A)(ii)"]
+      - framework: CCPA / CPRA (2026)
+        references: ["§7070(a)"]
+    test_procedure: >
+      Export the consent register for minor accounts in scope; sample verification
+      method and active consent; confirm processing and broker paths deny when
+      consent is withdrawn.
+    example_evidence:
+      control: PRI-03.13
+      period: 2026-Q2
+      source: Consent Service + data-access broker
+      minor_accounts_in_scope: 18420
+      with_verified_parental_consent: 18420
+      verification_method: verifiable parental consent
+      third_party_disclosures_without_consent: 0
+      withdrawals_honored_within_sla: "211/211"
+      ai_generated: false
+    props:
+      - name: scf-id
+        value: PRI-03.13
+      - name: scf-domain
+        value: PRI
+      - name: nist-csf-function
+        value: Protect
+      - name: automation
+        value: partial
+    stakeholder_asks:
+      - audience: Legal/Privacy
+        raci: A
+        ask: Define what verifiable consent requires and which processing needs separate consent; own the COPPA obligation mapping.
+      - audience: Engineering
+        raci: R
+        ask: Check the consent service before processing a minor's data and honor withdrawal immediately. The consent record is the evidence.
+      - audience: Product
+        raci: C
+        ask: Design the consent and disclosure flows to match reasonable parental expectations, with no dark patterns.
+      - audience: Security
+        raci: C
+        ask: Enforce that no agent or integration can read a minor's data when consent is absent or withdrawn.
+      - audience: Auditor
+        raci: I
+        ask: Receive the computed consent register; sample against the consent store, not a screenshot.
+
+  - id: IAC-17
+    scf_id: IAC-17
+    scf_domain: IAC
+    scf_domain_name: Identification & Authentication
+    class: SCF
+    csf_function: Detect
+    family: access management
+    title: Periodic review of account privileges
+    owner: Security (IAM)
+    automation: partial
+    review: quarterly; monthly for production and sensitive-data systems
+    doc: controls/IAC-17.md
+    why: >
+      A public, multi-listed company carries SOX IT general controls. Periodic
+      access review is the access pillar of ITGC and the control auditors test
+      first. The same review limits standing access to precise location and minor
+      data, so it serves privacy as well as financial-reporting integrity.
+    statement: >
+      Privileges for people and service accounts are reviewed on a fixed cadence
+      against role and employment, and unjustified access is removed. Leaver
+      deprovisioning fires from the human-resources system of record, not a manual
+      ticket. Service and other non-human accounts are held to the same bar as
+      human accounts.
+    implementation_guidance: >
+      Drive the recertification campaign from the identity provider joined to the
+      human-resources information system, so every account maps to a live
+      employment status and a named owner. An account with no live owner or
+      employment match is an orphan and an exception, not a finding to defer.
+      Treat service accounts and other non-human identities exactly as human
+      accounts: each has an owner, a justification, and a recertification record.
+
+      The evidence is the revocation event in the log, joined to the entitlement
+      snapshot, not a reviewer's after-the-fact assertion that access looked
+      reasonable. Fire leaver and role-change deprovisioning from the
+      human-resources feed on the same business day as the event, because a
+      manual ticket is the gap auditors find. Run the review quarterly for general
+      systems and monthly for production and sensitive-data systems, where the
+      blast radius is larger.
+
+      Include a segregation-of-duties and toxic-combination check in the review:
+      an account that can both develop a change and approve its release, or both
+      create a vendor and pay it, is a finding regardless of employment status.
+      Orphaned and over-privileged accounts carry a closure SLA, and the campaign
+      does not sign off until every flagged account is closed or documented as an
+      approved exception.
+    parameters:
+      - id: iac-17_prm_cadence_general
+        label: Recertification cadence, general systems
+        value: quarterly
+        guidance: Maximum interval between recertification cycles for in-scope general systems.
+      - id: iac-17_prm_cadence_sensitive
+        label: Recertification cadence, production and sensitive-data systems
+        value: monthly
+        guidance: Tighter cadence where access reaches production, precise location, or minor data.
+      - id: iac-17_prm_leaver_sla
+        label: Leaver deprovisioning SLA
+        value: same business day as the HR event
+        guidance: Interval from the HR termination or role-change event to access revocation.
+      - id: iac-17_prm_orphan_sla
+        label: Orphan and over-privilege closure SLA
+        value: 5 business days
+        guidance: Maximum time to close or formally except a flagged orphaned or over-privileged account.
+    enhancements:
+      - id: IAC-17(1)
+        title: HRIS-driven recertification
+        statement: The campaign is driven from the identity provider joined to the HRIS so every account maps to a live employment status and owner.
+      - id: IAC-17(2)
+        title: Non-human accounts in scope at the same bar
+        statement: Service accounts and other non-human identities have an owner and a recertification record and are reviewed to the same standard as human accounts.
+      - id: IAC-17(3)
+        title: HR-triggered leaver deprovisioning
+        statement: Deprovisioning fires from the human-resources feed on the same business day as the event, not from a manual ticket.
+      - id: IAC-17(4)
+        title: Segregation-of-duties and toxic-combination review
+        statement: The review flags accounts holding conflicting entitlements regardless of employment status.
+    assessment_objectives:
+      - id: iac-17_obj_coverage
+        statement: Determine that 100 percent of in-scope accounts, human and non-human, were reviewed within the cadence.
+      - id: iac-17_obj_revocation
+        statement: Determine that each revocation reconciles to a revocation event in the log.
+      - id: iac-17_obj_orphan
+        statement: Determine that orphaned and over-privileged accounts are zero or are documented exceptions under the closure SLA.
+      - id: iac-17_obj_leaver
+        statement: Determine that leaver deprovisioning fired from the HR feed within the SLA.
+      - id: iac-17_obj_sod
+        statement: Determine that segregation-of-duties conflicts were identified and resolved or excepted.
+    assessment_methods:
+      examine:
+        - The recertification policy, the identity-provider-to-HRIS join design, and the cycle attestation for the period.
+        - The exception log for orphaned, over-privileged, and segregation-of-duties findings.
+      interview:
+        - Security on the revocation SLA and the cycle sign-off bar.
+        - Human Resources on the timeliness of the termination and role-change feed.
+        - Engineering on entitlement decisions for systems their team owns.
+      test:
+        - Pull the entitlement snapshot at cycle start and confirm every in-scope account, including service accounts, was reviewed.
+        - Trace a sample of revocations to revocation events in the log.
+        - Pick a recent leaver and confirm deprovisioning fired from the HR event within the SLA.
+        - Test the population for orphaned, over-privileged, and toxic-combination accounts.
+    evidence_schema:
+      summary: >
+        Recertification attestation joined to the identity-provider and HRIS
+        snapshot: accounts in scope, reviewed, revoked, orphaned, and service
+        accounts recertified.
+      record: evidence-schemas/IAC-17.yaml
+      collection: computed
+      ai_generated: false
+    ci_mapping:
+      ci_check: >
+        A scheduled job reconciles identity-provider entitlements to HRIS active
+        status and computes: accounts in scope, accounts reviewed in the cadence,
+        revocations reconciled to log events, orphaned accounts, and
+        leaver-to-deprovision latency breaches.
+      drift_issue: >
+        Any account past its cadence, any orphaned account, or any leaver-to-
+        deprovision latency breach opens an Issue tagged IAC-17 naming Security as
+        owner with the SOX ITGC access pillar flagged.
+      workflow: .github/workflows/control-drift-monitor.yml
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC6.2", "CC6.3"]
+      - framework: ISO/IEC 27002:2022
+        references: ["5.15", "5.18", "8.2"]
+      - framework: SOX ITGC
+        references: ["Access to programs and data"]
+        partial_mapping: true
+        basis: framework-mapped, home lab
+    test_procedure: >
+      For the review period, verify 100 percent of in-scope accounts were
+      reviewed; reconcile revocations to log events; confirm zero orphaned
+      accounts or document exceptions with closure dates.
+    example_evidence:
+      control: IAC-17
+      period: 2026-Q2
+      source: Okta IGA + Workday HRIS
+      accounts_in_scope: 412
+      reviewed: 412
+      revoked: 7
+      orphaned: 0
+      service_accounts_recertified: "38/38"
+      ai_generated: false
+    props:
+      - name: scf-id
+        value: IAC-17
+      - name: scf-domain
+        value: IAC
+      - name: nist-csf-function
+        value: Detect
+      - name: automation
+        value: partial
+      - name: sox-itgc-pillar
+        value: access
+      - name: sox-itgc-basis
+        value: framework-mapped-home-lab
+    stakeholder_asks:
+      - audience: Security
+        raci: A
+        ask: Own the recertification campaign and the revocation SLA; sign the cycle once every flagged account is closed.
+      - audience: IT
+        raci: R
+        ask: Run the campaign in the IdP and push deprovisioning; the revocation event in the log is the evidence.
+      - audience: HR
+        raci: C
+        ask: Keep termination and role-change dates current so the leaver feed fires the same day. That feed is the trigger.
+      - audience: Engineering
+        raci: R
+        ask: Confirm or revoke each entitlement to systems your team owns within the window.
+      - audience: Auditor
+        raci: I
+        ask: Receive the computed attestation-plus-snapshot export; no live screen-shares.
+
+  - id: CHG-02
+    scf_id: CHG-02
+    scf_domain: CHG
+    scf_domain_name: Change Management
+    class: SCF
+    csf_function: Protect
+    family: change management
+    title: Configuration change control
+    owner: Engineering (Security owns the policy)
+    automation: automated
+    review: per change; policy and exceptions quarterly
+    doc: controls/CHG-02.md
+    why: >
+      Change is a pillar of SOX IT general controls. In a source-control-native
+      program, the pull request is the gate and the evidence is a byproduct of
+      shipping, so the control is enforced by configuration rather than by
+      reminder.
+    statement: >
+      Technical configuration change reaches production only through a
+      peer-reviewed pull request linked to a tracked work item, with required
+      checks passing. Direct pushes to protected branches are blocked, the
+      reviewer is independent of the author, and emergency changes follow a
+      documented after-the-fact review.
+    implementation_guidance: >
+      Make branch protection the technical enforcement of the policy rather than a
+      written rule people are asked to follow. The protected production branch
+      requires a pull request, at least one approving review from a reviewer who
+      is not the author, a linked work item, and a passing set of required status
+      checks. Direct pushes are blocked at the platform, so the bypass path does
+      not exist rather than being discouraged.
+
+      The evidence is the merge record pulled from the source-control API: the
+      linked ticket, the independent reviewer, the passing checks, and the merge
+      timestamp. This is collected, not reconstructed, and it is the same record
+      that satisfies the SOX change assertion of segregation between the function
+      that develops a change and the function that approves its release. Enforce
+      that independence through code-owner rules so the approver cannot be the
+      author.
+
+      Provide an explicit emergency-change path for the rare case where a fix must
+      ship before normal review. The emergency change is logged at the time, and
+      it carries a documented after-the-fact review within the reconciliation
+      window. Any change that reaches production outside the reviewed path is an
+      exception that surfaces in the evidence with a closure path, so the
+      exception rate is visible rather than hidden.
+    parameters:
+      - id: chg-02_prm_min_approvals
+        label: Minimum independent approvals
+        value: 1 (reviewer not equal to author)
+        guidance: Required approving reviews on a protected-branch pull request, none from the author.
+      - id: chg-02_prm_protected_branches
+        label: Protected branches
+        value: production release branches
+        guidance: Branches where direct pushes are blocked and the reviewed-PR gate is enforced.
+      - id: chg-02_prm_required_checks
+        label: Required status checks
+        value: build, automated tests, and security checks must pass
+        guidance: Checks that must pass before merge is permitted; failing checks block the merge.
+      - id: chg-02_prm_emergency_window
+        label: Emergency-change review window
+        value: 3 business days
+        guidance: Maximum time from an emergency change to its documented after-the-fact review.
+    enhancements:
+      - id: CHG-02(1)
+        title: Branch protection blocks direct pushes
+        statement: The protected production branch rejects direct pushes so change can reach production only through a reviewed pull request.
+      - id: CHG-02(2)
+        title: Independent review for segregation of duties
+        statement: At least one approving reviewer is not the author, enforced through code-owner rules, satisfying the SOX change-segregation assertion.
+      - id: CHG-02(3)
+        title: Work-item linkage per change
+        statement: Each merged change links to a tracked work item so the reason for the change is recorded.
+      - id: CHG-02(4)
+        title: Emergency-change after-the-fact review
+        statement: Emergency changes are logged at the time and reviewed within the reconciliation window.
+    assessment_objectives:
+      - id: chg-02_obj_path
+        statement: Determine that production changes reached production only through a reviewed, ticket-linked pull request with passing checks.
+      - id: chg-02_obj_block
+        statement: Determine that direct pushes to protected branches were blocked.
+      - id: chg-02_obj_independence
+        statement: Determine that the approving reviewer was independent of the author.
+      - id: chg-02_obj_emergency
+        statement: Determine that each emergency change was reconciled by an after-the-fact review within the window.
+    assessment_methods:
+      examine:
+        - The branch-protection configuration, the code-owner rules, and the required-checks configuration for the protected branch.
+        - The emergency-change log and the after-the-fact reviews for the period.
+      interview:
+        - Security on the change policy and the emergency-change path.
+        - Engineering on merge discipline and how independence is enforced.
+        - IT on locking the CI/CD identity and check configuration against bypass.
+      test:
+        - Attempt a direct push to the protected branch and confirm it is blocked.
+        - Sample merges and confirm a linked work item, an independent reviewer, and passing checks for each.
+        - Reconcile each emergency change to a documented after-the-fact review within the window.
+    evidence_schema:
+      summary: >
+        Source-control merge record: linked work item, independent reviewer,
+        passing checks, merge timestamp, direct pushes blocked, and exceptions
+        without review.
+      record: evidence-schemas/CHG-02.yaml
+      collection: computed
+      ai_generated: false
+    ci_mapping:
+      ci_check: >
+        A scheduled job queries the merge API for the protected production branch
+        and computes: merges to production, merges with a linked ticket, merges
+        with an independent reviewer, direct pushes blocked, and exceptions
+        without review.
+      drift_issue: >
+        Any merge without an independent reviewer or a linked ticket, or any
+        exception without a closure path, opens an Issue tagged CHG-02 naming
+        Engineering as owner with the SOX ITGC change pillar flagged.
+      workflow: .github/workflows/control-drift-monitor.yml
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC3.4", "CC8.1"]
+      - framework: ISO/IEC 27002:2022
+        references: ["8.19", "8.32"]
+      - framework: NIST CSF 2.0
+        references: ["ID.RA-07"]
+      - framework: SOX ITGC
+        references: ["Change management, segregation of dev and approver"]
+        partial_mapping: true
+        basis: framework-mapped, home lab
+    test_procedure: >
+      Query the merge API for the production branch for the period; confirm linked
+      ticket and independent review; investigate direct pushes and exceptions
+      without review.
+    example_evidence:
+      control: CHG-02
+      period: 2026-05
+      source: GitHub (branch protection + merge API)
+      merges_to_prod: 138
+      with_linked_ticket: 138
+      with_independent_review: 137
+      direct_pushes_blocked: 6
+      exceptions_without_review: 1
+      ai_generated: false
+    props:
+      - name: scf-id
+        value: CHG-02
+      - name: scf-domain
+        value: CHG
+      - name: nist-csf-function
+        value: Protect
+      - name: automation
+        value: automated
+      - name: sox-itgc-pillar
+        value: change
+      - name: sox-itgc-basis
+        value: framework-mapped-home-lab
+    stakeholder_asks:
+      - audience: Engineering
+        raci: R
+        ask: Merge only via a reviewed PR linked to a ticket. The PR is the evidence.
+      - audience: Security
+        raci: A
+        ask: Own the branch-protection policy and the emergency-change path; reconcile the one un-reviewed exception this period.
+      - audience: IT
+        raci: C
+        ask: Keep the CI/CD identity and check configuration locked so the gate cannot be bypassed.
+      - audience: Auditor
+        raci: I
+        ask: Receive the computed merge log; no screenshots of individual PRs.
+
+  - id: MON-01
+    scf_id: MON-01
+    scf_domain: MON
+    scf_domain_name: Continuous Monitoring
+    class: SCF
+    csf_function: Govern
+    family: monitoring
+    title: Continuous monitoring and event logging
+    owner: Security (SOC)
+    automation: automated
+    review: continuous; coverage and retention quarterly
+    doc: controls/MON-01.md
+    why: >
+      Continuous monitoring turns a point-in-time audit into a standing program.
+      It is the operations pillar of SOX IT general controls and the engine of the
+      drift-opens-an-Issue mechanism that makes due diligence visible.
+    statement: >
+      Enterprise monitoring computes control health continuously. Security events
+      ship to a central append-only store with retention and integrity protection.
+      Logs establish what, when, where, source, outcome, and identity, and defined
+      event types alert a monitored queue with an acknowledgement SLA.
+    implementation_guidance: >
+      Forward every in-scope source to a central store, and protect that store
+      with write-once or object-lock integrity so records cannot be silently
+      altered after the fact. The coverage target is the source inventory itself:
+      a source that is in the inventory and not forwarding is a gap that surfaces,
+      not a number quietly left out of the denominator. Each record establishes
+      what happened, when, where, from which source, with what outcome, and under
+      which identity, so an investigator can reconstruct a sequence without
+      guessing.
+
+      Drive control-health checks off these logs rather than off a separate
+      console. A failed check opens a tracked Issue, and that Issue, timestamped
+      and retained, is the evidence of due diligence: it shows the program noticed
+      and acted. Route defined event types to a monitored queue with an
+      acknowledgement SLA tuned by severity, and treat a missed acknowledgement as
+      an exception rather than a number to round away.
+
+      Set a retention floor that meets or exceeds the longest obligation in scope,
+      and verify integrity on a cadence so an altered or missing record is itself
+      an alert. This control is the operations leg of the SOX ITGC mapping, and it
+      is the substrate the other controls compute against: AAT-01 broker decisions,
+      IAC-17 revocations, CHG-02 merges, and IRO-01 incident timelines all land in
+      this store.
+    parameters:
+      - id: mon-01_prm_retention_floor
+        label: Retention floor
+        value: 365 days; longer where an obligation in scope requires it
+        guidance: Minimum retention for the central store; the longest in-scope obligation sets the actual floor.
+      - id: mon-01_prm_ack_sla_high
+        label: Alert acknowledgement SLA, high severity
+        value: 30 minutes
+        guidance: Maximum time to acknowledge a high-severity alert in the monitored queue.
+      - id: mon-01_prm_coverage_target
+        label: Source coverage target
+        value: 100 percent of the source inventory
+        guidance: Every in-scope source forwards; a non-forwarding in-scope source is an exception.
+      - id: mon-01_prm_integrity_cadence
+        label: Integrity-check cadence
+        value: daily
+        guidance: Frequency of write-once or object-lock integrity verification on the central store.
+    enhancements:
+      - id: MON-01(1)
+        title: Append-only integrity protection
+        statement: The central store uses write-once or object-lock so records cannot be silently altered, verified on the integrity cadence.
+      - id: MON-01(2)
+        title: Full source coverage against inventory
+        statement: Coverage is measured against the source inventory, and a non-forwarding in-scope source is an exception.
+      - id: MON-01(3)
+        title: Alerting with acknowledgement SLA
+        statement: Defined event types route to a monitored queue with a severity-tuned acknowledgement SLA.
+      - id: MON-01(4)
+        title: Drift-opens-an-Issue control-health computation
+        statement: A failed control-health check opens a tracked Issue that serves as the evidence of due diligence.
+    assessment_objectives:
+      - id: mon-01_obj_coverage
+        statement: Determine that 100 percent of in-scope sources forward to the central store.
+      - id: mon-01_obj_integrity
+        statement: Determine that integrity protection prevents silent alteration and that integrity checks pass.
+      - id: mon-01_obj_retention
+        statement: Determine that retention meets or exceeds the floor for the period.
+      - id: mon-01_obj_ack
+        statement: Determine that defined alerts are acknowledged within the SLA.
+      - id: mon-01_obj_drift
+        statement: Determine that failed control-health checks opened tracked Issues.
+    assessment_methods:
+      examine:
+        - The source inventory against the forwarding configuration, the retention setting, and the object-lock configuration.
+        - The alert ruleset and the history of drift Issues for the period.
+      interview:
+        - The SOC on the alert ruleset and the retention standard.
+        - IT on source forwarding and integrity controls.
+        - Engineering on emission of the agreed security-event schema.
+      test:
+        - Compare forwarding to the source inventory and identify any gap.
+        - Attempt to alter a stored record and confirm the object-lock prevents it.
+        - Inject a test alert and confirm acknowledgement within the SLA.
+        - Force a control-health failure and confirm a tracked Issue opens.
+    evidence_schema:
+      summary: >
+        SIEM coverage report: forwarding sources against inventory, retention,
+        integrity checks, alert acknowledgement times, and drift Issues opened.
+      record: evidence-schemas/MON-01.yaml
+      collection: computed
+      ai_generated: false
+    ci_mapping:
+      ci_check: >
+        A scheduled job computes: ratio of in-scope sources forwarding, retention
+        days applied, integrity checks failed, ratio of alerts acknowledged within
+        SLA, and drift Issues opened in the period.
+      drift_issue: >
+        Coverage below inventory, any failed integrity check, or acknowledgements
+        outside SLA open an Issue tagged MON-01 naming Security as owner with the
+        SOX ITGC operations pillar flagged.
+      workflow: .github/workflows/control-drift-monitor.yml
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC7.2"]
+      - framework: ISO/IEC 27002:2022
+        references: ["8.15", "8.16"]
+      - framework: NIST CSF 2.0
+        references: ["DE.CM-01", "DE.CM-03", "DE.CM-09"]
+      - framework: SOX ITGC
+        references: ["Computer operations, monitoring of privileged activity"]
+        partial_mapping: true
+        basis: framework-mapped, home lab
+    test_procedure: >
+      Verify the source coverage report matches inventory; confirm retention and
+      integrity checks; sample alert acknowledgement within SLA.
+    example_evidence:
+      control: MON-01
+      period: 2026-Q2
+      source: SIEM + immutable object-lock store
+      sources_forwarding: "64/64"
+      retention_days: 400
+      integrity_checks_failed: 0
+      alerts_ack_within_sla: "309/311"
+      drift_issues_opened: 14
+      ai_generated: false
+    props:
+      - name: scf-id
+        value: MON-01
+      - name: scf-domain
+        value: MON
+      - name: nist-csf-function
+        value: Govern
+      - name: automation
+        value: automated
+      - name: sox-itgc-pillar
+        value: operations
+      - name: sox-itgc-basis
+        value: framework-mapped-home-lab
+    stakeholder_asks:
+      - audience: Security
+        raci: A
+        ask: Own the alert ruleset and the retention standard; account for the two alerts that missed acknowledgement SLA.
+      - audience: IT
+        raci: R
+        ask: Keep every in-scope source forwarding with integrity controls enabled. The coverage report is the evidence.
+      - audience: Engineering
+        raci: C
+        ask: Emit the agreed security event schema from your services so the SOC can parse and alert on it.
+      - audience: Auditor
+        raci: I
+        ask: Receive the computed coverage-and-integrity report; sample against the log store, not a console.
+
+  - id: TPM-01
+    scf_id: TPM-01
+    scf_domain: TPM
+    scf_domain_name: Third-Party Management
+    class: SCF
+    csf_function: Govern
+    family: third-party risk
+    title: Third-party management
+    owner: GRC (Legal/Privacy on terms)
+    automation: partial, workflow-tracked
+    review: at onboarding and renewal; tiered reassessment for high risk
+    doc: controls/TPM-01.md
+    why: >
+      Sensitive data flows to subprocessors and model providers. Diligence depth
+      must match what a party can touch on the location graph, and trust evidence
+      a vendor already produced should be reused rather than re-collected.
+    statement: >
+      Third parties with system or personal-data access are tiered by what they
+      can touch, assessed before onboarding, and bound by security, breach-notice,
+      and processing terms. High-risk parties reassess on cadence, and vendor
+      trust evidence is reused rather than re-questionnaired.
+    implementation_guidance: >
+      Tier by data sensitivity and access first, business dependency and breach
+      impact second. The restricted, highest tier is anchored to parties that
+      touch precise location or children's data on the location graph, and to
+      foundation-model providers whose terms govern whether customer data trains a
+      model. Tier is not a function of contract size: a high-spend tool that never
+      receives sensitive data sits in a lower tier, and a small subprocessor that
+      ingests real-time location sits at the top.
+
+      Accept a current SOC 2 Type II or ISO 27001 certificate in lieu of a custom
+      questionnaire, recording the scope it covers and any exceptions, so the
+      program reuses the assurance the vendor already produced instead of
+      restarting diligence. Bind every in-scope party with a data processing
+      agreement that carries a breach-notice window, processing limits, and
+      subprocessor terms. Map Tier 1 subprocessors so concentration risk, where
+      many critical paths share one provider, is visible.
+
+      AI may draft the gap analysis from the vendor's report and propose a tier,
+      which makes the analyst faster, but a human GRC owner validates scope,
+      exceptions, and tier before anything is recorded. The recorded evidence is
+      computed and human-validated, never model-authored. Reassess high-risk
+      parties on cadence and on material change, and track overdue reassessments
+      to closure rather than letting them age silently.
+    parameters:
+      - id: tpm-01_prm_tiers
+        label: Tier scale
+        value: Tier 1 (restricted) through Tier 4 (minimal)
+        guidance: Tier set by data sensitivity and access first, dependency and breach impact second.
+      - id: tpm-01_prm_reassess_t1
+        label: Reassessment cadence, Tier 1
+        value: annual and on material change
+        guidance: High-risk parties reassess at least annually and whenever scope or posture changes materially.
+      - id: tpm-01_prm_breach_window
+        label: Contractual breach-notice window
+        value: 72 hours or tighter
+        guidance: Maximum notice window required of an in-scope party in the data processing agreement.
+      - id: tpm-01_prm_assurance_artifacts
+        label: Accepted assurance artifacts
+        value: current SOC 2 Type II or ISO 27001, scope recorded
+        guidance: Artifacts accepted in lieu of a custom questionnaire, with scope and exceptions logged.
+    enhancements:
+      - id: TPM-01(1)
+        title: Touch-based tiering
+        statement: Tier is anchored to what a party can touch, with the restricted tier reserved for precise location, children's data, and model-training terms.
+      - id: TPM-01(2)
+        title: Assurance reuse
+        statement: A current SOC 2 Type II or ISO 27001 is accepted in lieu of a custom questionnaire, with scope and exceptions recorded.
+      - id: TPM-01(3)
+        title: AI-drafted gap analysis with human validation
+        statement: AI may draft the gap analysis and propose a tier, but a human GRC owner validates before anything is recorded.
+      - id: TPM-01(4)
+        title: Subprocessor and concentration mapping
+        statement: Tier 1 subprocessors are mapped so concentration risk across shared providers is visible.
+    assessment_objectives:
+      - id: tpm-01_obj_inventory
+        statement: Determine that the vendor inventory reconciles to the tiering model.
+      - id: tpm-01_obj_highrisk
+        statement: Determine that high-risk parties hold current assurance evidence and an executed data processing agreement.
+      - id: tpm-01_obj_cadence
+        statement: Determine that reassessments occurred on cadence and overdue items are tracked to closure.
+      - id: tpm-01_obj_validation
+        statement: Determine that AI-proposed tiers and gap analyses were validated by a human GRC owner before being recorded.
+    assessment_methods:
+      examine:
+        - The tiering model, the vendor register, the executed data processing agreements, and the assurance artifacts with their expiries.
+      interview:
+        - GRC on the tiering bar and the assessment sign-off.
+        - Legal/Privacy on the data processing, breach-notice, and processing-limit clauses.
+        - Engineering on the data and access each party actually needs.
+      test:
+        - Reconcile the vendor inventory to the register and the tiering model.
+        - Sample high-risk parties and confirm current assurance evidence and an executed data processing agreement.
+        - Trace an AI-proposed tier to the human validation record.
+        - Check overdue reassessments to a closure path.
+    evidence_schema:
+      summary: >
+        Third-party register: tier, assessment date and outcome, executed contract
+        clauses, assurance-evidence expiry, and overdue reassessments.
+      record: evidence-schemas/TPM-01.yaml
+      collection: computed
+      ai_generated: false
+    ci_mapping:
+      ci_check: >
+        A scheduled job joins the vendor-risk tool to the contract system and
+        computes: vendors in scope, ratio of high-risk parties with current
+        assurance, ratio with an executed data processing agreement, count with a
+        current SOC 2, and overdue reassessments.
+      drift_issue: >
+        Any high-risk party without current assurance, or any overdue
+        reassessment without an exception, opens an Issue tagged TPM-01 naming GRC
+        as owner with the framework impact (SOC 2, NIST CSF, CCPA/CPRA).
+      workflow: .github/workflows/control-drift-monitor.yml
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC1.4", "CC2.3"]
+      - framework: ISO/IEC 27002:2022
+        references: ["5.19", "8.3"]
+      - framework: NIST CSF 2.0
+        references: ["GV.SC-04", "GV.SC-06", "GV.SC-07"]
+      - framework: NIST AI RMF 1.0
+        references: ["MANAGE 3.0"]
+      - framework: CCPA / CPRA (2026)
+        references: ["§7052(a)"]
+    test_procedure: >
+      Reconcile the vendor inventory to the tiering model; confirm high-risk
+      parties have current assessments and DPAs; track overdue reassessments to
+      closure.
+    example_evidence:
+      control: TPM-01
+      period: 2026-Q2
+      source: Vendor Risk tool + CLM
+      vendors_in_scope: 96
+      high_risk_current: "18/18"
+      with_executed_dpa: "96/96"
+      with_current_soc2: 71
+      overdue_reassessment: 2
+      ai_generated: false
+    props:
+      - name: scf-id
+        value: TPM-01
+      - name: scf-domain
+        value: TPM
+      - name: nist-csf-function
+        value: Govern
+      - name: automation
+        value: partial
+    stakeholder_asks:
+      - audience: GRC
+        raci: A
+        ask: Own the tiering model and the assessment bar; sign off that high-risk parties have current assurance evidence.
+      - audience: Legal/Privacy
+        raci: R
+        ask: Land the DPA, breach-notice window, and processing-limit clauses in every in-scope contract. The executed clauses are the evidence.
+      - audience: Vendor
+        raci: R
+        ask: Provide a current SOC 2 or equivalent and complete intake before access; refresh on renewal.
+      - audience: Engineering
+        raci: C
+        ask: Confirm the data and access each party actually needs so the tier reflects real exposure.
+      - audience: Auditor
+        raci: I
+        ask: Receive the computed register; reconcile the two overdue reassessments.
+
+  - id: IRO-01
+    scf_id: IRO-01
+    scf_domain: IRO
+    scf_domain_name: Incident Response
+    class: SCF
+    csf_function: Govern
+    family: incident response
+    title: Incident response operations
+    owner: Security (Legal/Privacy on notification)
+    automation: partial
+    review: per incident; tabletop and plan review annually
+    doc: controls/IRO-01.md
+    why: >
+      Incident response is where regulatory clocks become real: breach
+      notification within statutory timelines, and AI-specific incidents such as
+      an autonomous agent acting out of scope on the location graph.
+    statement: >
+      Incidents are detected, triaged, contained, and recorded against a governed
+      plan, including AI scope breaches. Legal/Privacy owns notification within
+      statutory timelines, and every incident receives a post-incident review.
+    implementation_guidance: >
+      Generate the incident record from the paging and tracking tooling rather
+      than reconstructing a narrative after the fact. The record carries the
+      detection time, the severity, the containment and resolution timestamps, the
+      notification decision and its basis, and a link to the post-incident review.
+      Because the record is sourced from tooling, the timeline is defensible: it
+      shows when the program detected, decided, and acted, not when someone
+      remembered to write it down.
+
+      Run a severity scale that sets containment expectations by level, and route
+      severity-1 incidents to a named escalation including the board where the
+      obligation requires it. Legal/Privacy owns the notification decision: whether
+      a statutory or contractual threshold is met, and if so, that the regulator
+      and affected parties are notified within the clock that applies. The decision
+      and its basis are logged, because the decision not to notify is as much a
+      record as the decision to notify.
+
+      Keep an AI-incident runbook for the case where an autonomous agent acts out
+      of scope on the location graph, with a kill-switch path that ties back to
+      AAT-01. Every incident, regardless of severity, gets a post-incident review
+      that feeds control design, and the program tabletops at least annually,
+      including an AI-scope scenario, so the plan is exercised before it is needed.
+    parameters:
+      - id: iro-01_prm_severity_scale
+        label: Severity scale
+        value: Sev1 through Sev4
+        guidance: Severity levels that set containment expectations and escalation paths.
+      - id: iro-01_prm_reg_clock
+        label: Regulatory notification clock
+        value: 72 hours where GDPR applies; the applicable statutory window otherwise
+        guidance: The notification window for a threshold-meeting incident, set by the regime in scope.
+      - id: iro-01_prm_containment_sla
+        label: Containment SLA, severity-1
+        value: defined per the severity scale
+        guidance: Target interval from triage to containment for the highest severity.
+      - id: iro-01_prm_tabletop
+        label: Tabletop cadence
+        value: at least annual, including an AI-scope scenario
+        guidance: Frequency of exercising the plan, including an autonomous-agent scenario.
+    enhancements:
+      - id: IRO-01(1)
+        title: AI-scope incident handling and kill-switch
+        statement: An AI-incident runbook covers an agent acting out of scope on the location graph, with a kill-switch path tied to AAT-01.
+      - id: IRO-01(2)
+        title: Notification decision log with statutory clock
+        statement: Legal/Privacy logs the notification decision and its basis, and meets the statutory clock when a threshold is met.
+      - id: IRO-01(3)
+        title: Mandatory post-incident review
+        statement: Every incident receives a post-incident review that feeds back into control design.
+      - id: IRO-01(4)
+        title: Annual tabletop including an AI scenario
+        statement: The plan is exercised at least annually, including an autonomous-agent scope scenario.
+    assessment_objectives:
+      - id: iro-01_obj_timeline
+        statement: Determine that incident records carry complete timeline fields sourced from tooling.
+      - id: iro-01_obj_review
+        statement: Determine that every incident received a post-incident review.
+      - id: iro-01_obj_notify
+        statement: Determine that threshold-meeting incidents carry a decision log and met the statutory timeline.
+      - id: iro-01_obj_ai
+        statement: Determine that AI-scope incidents reference the kill-switch action taken.
+    assessment_methods:
+      examine:
+        - The incident response plan, the severity scale, the breach-decision log, and the post-incident reviews for the period.
+        - The AI-incident runbook and the most recent tabletop record.
+      interview:
+        - Security on the plan, the severity scale, the containment SLA, and the tabletop.
+        - Legal/Privacy on notification decisions and the statutory clocks.
+        - Engineering on containment and recovery on their services.
+      test:
+        - Sample incidents and confirm complete timeline fields sourced from the tracker.
+        - Verify a post-incident review exists for each sampled incident.
+        - For a threshold-meeting incident, confirm the decision basis and the statutory timeline were met.
+        - Tabletop an AI-scope agent incident and confirm the kill-switch path executes.
+    evidence_schema:
+      summary: >
+        IR platform record: detection, severity, containment, resolution,
+        notification decision, statutory timeline, and post-review link.
+      record: evidence-schemas/IRO-01.yaml
+      collection: computed
+      ai_generated: false
+    ci_mapping:
+      ci_check: >
+        A scheduled job reads the incident tracker and the breach-decision log and
+        computes: incidents, severity-1 count, AI-scope incidents, median
+        detect-to-triage minutes, incidents meeting a notification threshold,
+        regulator notified within the clock, and post-incident reviews completed.
+      drift_issue: >
+        Any incident missing a post-incident review, or any threshold-meeting
+        incident missing a decision basis, opens an Issue tagged IRO-01 naming
+        Security and Legal/Privacy as owners.
+      workflow: .github/workflows/control-drift-monitor.yml
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC7.3", "CC7.4"]
+      - framework: ISO/IEC 27002:2022
+        references: ["5.24"]
+      - framework: NIST CSF 2.0
+        references: ["DE.AE", "RS.MI"]
+      - framework: NIST AI RMF 1.0
+        references: ["GOVERN 6.2", "MANAGE 2.4"]
+      - framework: CCPA / CPRA (2026)
+        references: ["§7123(c)(17)"]
+    test_procedure: >
+      Sample incidents for complete timeline fields; verify post-incident reviews
+      completed; for notification-threshold incidents, confirm the decision log and
+      statutory timelines.
+    example_evidence:
+      control: IRO-01
+      period: 2026-Q2
+      source: paging + incident tracker + breach-decision log
+      incidents: 9
+      sev1: 1
+      ai_scope_incidents: 1
+      median_detect_to_triage_min: 11
+      notify_threshold_met: 1
+      regulator_notified_within_72h: 1
+      post_reviews_completed: 9
+      ai_generated: false
+    props:
+      - name: scf-id
+        value: IRO-01
+      - name: scf-domain
+        value: IRO
+      - name: nist-csf-function
+        value: Govern
+      - name: automation
+        value: partial
+    stakeholder_asks:
+      - audience: Security
+        raci: A
+        ask: Own the IR plan, the severity scale, and the containment SLA; run the post-incident review and the annual tabletop.
+      - audience: Engineering
+        raci: R
+        ask: Execute containment and recovery on your services and feed timestamps to the incident record. That record is the evidence.
+      - audience: Legal/Privacy
+        raci: A
+        ask: Own the breach-notification decision and timeline; determine when statutory thresholds are met and document the basis.
+      - audience: C-Suite / Board
+        raci: I
+        ask: Receive Sev1 notification and the post-incident summary. Major-incident escalation is a board-visible obligation.
+      - audience: Customer
+        raci: I
+        ask: Receive breach notification when the threshold is met, within the statutory window.
+      - audience: Auditor
+        raci: I
+        ask: Receive the computed incident records with timelines and review links; no reconstructed narratives.

@@ -1,0 +1,127 @@
+schema:
+  control: AAT-01
+  title: Agent authorization broker decision record
+  source_system: Agent Authorization Broker (OPA) + Consent Service
+  collection: computed
+  ai_generated: false
+  oscal_form: assessment-results observation, one per sensitive read
+  description: >
+    Each record is one authorization decision for an agent requesting precise
+    location or minor data. It is produced by the authorization broker joined to
+    the consent system of record. It is the evidence that the agent held
+    purpose-bound, time-boxed, least-privilege access and that a human gate stood
+    in front of irreversible actions on a minor's account. Screenshots are not
+    acceptable; the broker log is the evidence.
+  field_contract: >
+    Every field below names its source system and how it is computed. The record
+    is assembled by an extract job, never authored by a model, which is why
+    ai_generated is a required constant false and a true value is rejected.
+  fields:
+    - name: control
+      type: string
+      const: AAT-01
+      required: true
+      source: pipeline constant
+      computation: Set to the control ID this record evidences.
+      description: Control identifier this record evidences.
+    - name: period
+      type: string
+      format: YYYY-Qn or YYYY-MM
+      required: true
+      source: reporting calendar
+      computation: The reporting period the sampled decisions are drawn from.
+      description: Reporting period the sample is drawn from.
+    - name: source
+      type: string
+      required: true
+      source: system inventory
+      computation: Names the broker and consent systems the decision and consent state were read from.
+      description: System of record the decision and consent state were read from.
+    - name: agent_id
+      type: string
+      required: true
+      source: agent registry joined to broker decision log (agent_id)
+      computation: Copied from the sponsored non-human identity recorded on the decision.
+      description: Sponsored non-human identity that requested the read.
+    - name: trigger
+      type: string
+      required: true
+      source: broker decision log (trigger)
+      computation: The event that initiated the request, for example a high-confidence crash detection.
+      description: Event that initiated the request.
+    - name: lawful_basis
+      type: string
+      required: true
+      source: policy register joined to Consent Service at decision time
+      computation: The processing basis resolved for precise location or minor data when the decision was made.
+      description: Processing basis for precise location or minor data at decision time.
+    - name: data_released
+      type: array
+      items: string
+      required: true
+      source: broker decision log (released_fields)
+      computation: The fields the broker released after applying the minimization rule for the purpose.
+      description: Fields released on a grant, scoped to the minimum needed.
+    - name: data_withheld
+      type: array
+      items: string
+      required: true
+      source: broker decision log (withheld_fields)
+      computation: Sensitive fields the broker explicitly withheld, demonstrating minimum scope.
+      description: Sensitive fields explicitly withheld, demonstrating minimum scope.
+    - name: token_ttl_seconds
+      type: integer
+      required: true
+      source: purpose-token issuer
+      computation: The time-to-live stamped on the issued purpose token; standing access is not permitted.
+      description: Time to live of the purpose token.
+    - name: consent_state
+      type: string
+      enum: [active, withdrawn, absent]
+      required: true
+      source: Consent Service
+      computation: The consent state read at decision time for the affected member.
+      description: Consent state at decision time.
+    - name: human_gate
+      type: string
+      required: true
+      source: approval workflow joined to the decision
+      computation: Whether a human approval was required and satisfied for an irreversible action on a minor account.
+      description: Human-approval requirement for irreversible action on a minor account.
+    - name: decision
+      type: string
+      enum: [granted, denied]
+      required: true
+      source: broker decision log (outcome)
+      computation: The broker outcome for the request.
+      description: Broker outcome for the request.
+    - name: ai_generated
+      type: boolean
+      const: false
+      required: true
+      source: pipeline metadata
+      computation: Set false because the record is extracted from the broker log joined to the consent store, not authored by a model.
+      description: Must be false. Evidence must be traceable to a system of record, so model-authored records are rejected by schema.
+  example:
+    control: AAT-01
+    period: 2026-Q2
+    source: Agent Authorization Broker (OPA) + Consent Service
+    agent_id: safety-alert-agent
+    trigger: crash_detection_high_confidence
+    lawful_basis: consent on record + vital interests
+    data_released: [lat, lon, timestamp]
+    data_withheld: [location_history, place_labels, contacts]
+    token_ttl_seconds: 120
+    consent_state: active
+    human_gate: required for irreversible action on minor account
+    decision: granted
+    ai_generated: false
+  audit_ready_when:
+    - Record is computed from the broker log joined to the consent store, not authored.
+    - Every grant on location or minor data carries a lawful_basis and a finite token_ttl_seconds.
+    - Irreversible actions on a minor account show a satisfied human_gate.
+    - The sample reconciles to the DPIA and policy version in effect for the period.
+  rejected_when:
+    - ai_generated is true.
+    - A granted location read is missing lawful_basis or token_ttl_seconds.
+    - consent_state is withdrawn or absent and decision is granted.

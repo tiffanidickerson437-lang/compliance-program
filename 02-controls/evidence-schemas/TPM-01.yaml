@@ -1,0 +1,98 @@
+schema:
+  control: TPM-01
+  title: Third-party register and assurance evidence
+  source_system: Vendor Risk tool + CLM
+  collection: computed
+  ai_generated: false
+  oscal_form: assessment-results observation, register aggregate plus overdue list
+  description: >
+    A computed register of third parties with system or personal data access:
+    risk tier, assessment date and outcome, executed contract clauses, and
+    assurance-evidence expiry. Vendor trust evidence the party already produced
+    is reused rather than re-questionnaired. AI may draft the gap analysis from
+    the vendor's report and propose a tier, but a human GRC owner validates scope,
+    exceptions, and tier before anything is recorded.
+  field_contract: >
+    Every field below names its source system and how it is computed. AI may
+    draft analysis, but the recorded register is computed from the vendor-risk
+    tool and the contract system and is human-validated, which is why ai_generated
+    is a required constant false and a true value is rejected.
+  fields:
+    - name: control
+      type: string
+      const: TPM-01
+      required: true
+      source: pipeline constant
+      computation: Set to the control ID this record evidences.
+      description: Control identifier this record evidences.
+    - name: period
+      type: string
+      format: YYYY-Qn or YYYY-MM
+      required: true
+      source: reporting calendar
+      computation: The reporting period the register covers.
+      description: Reporting period.
+    - name: source
+      type: string
+      required: true
+      source: system inventory
+      computation: Names the vendor-risk tool and the contract lifecycle system the register was joined from.
+      description: Vendor risk tool and contract lifecycle system the register was joined from.
+    - name: vendors_in_scope
+      type: integer
+      required: true
+      source: vendor-risk tool (parties with system or personal-data access)
+      computation: Count of third parties with system or personal-data access in the period.
+      description: Third parties with system or personal data access in the period.
+    - name: high_risk_current
+      type: string
+      format: current/total
+      required: true
+      source: vendor-risk tool (Tier 1 assurance expiry)
+      computation: Ratio of high-risk parties whose assurance evidence is current as of the period.
+      description: Ratio of high-risk parties whose assurance evidence is current.
+    - name: with_executed_dpa
+      type: string
+      format: executed/total
+      required: true
+      source: contract lifecycle system (executed DPA records)
+      computation: Ratio of in-scope parties bound by an executed data processing agreement.
+      description: Ratio of in-scope parties bound by an executed data processing agreement.
+    - name: with_current_soc2
+      type: integer
+      required: true
+      source: assurance-artifact register (SOC 2 Type II validity)
+      computation: Count of parties with a current SOC 2 Type II or accepted equivalent.
+      description: Count of parties with a current SOC 2 Type II or accepted equivalent.
+    - name: overdue_reassessment
+      type: integer
+      required: true
+      source: vendor-risk tool (reassessment due dates)
+      computation: Count of parties past their reassessment due date; reconcile to closure.
+      description: Parties past their reassessment due date.
+    - name: ai_generated
+      type: boolean
+      const: false
+      required: true
+      source: pipeline metadata
+      computation: Set false because the recorded register is computed and human-validated, even where AI drafted the gap analysis.
+      description: Must be false. AI may draft analysis, but the recorded evidence is human-validated and computed, so model-authored records are rejected by schema.
+  example:
+    control: TPM-01
+    period: 2026-Q2
+    source: Vendor Risk tool + CLM
+    vendors_in_scope: 96
+    high_risk_current: "18/18"
+    with_executed_dpa: "96/96"
+    with_current_soc2: 71
+    overdue_reassessment: 2
+    ai_generated: false
+  audit_ready_when:
+    - Register reconciles to the vendor inventory and the tiering model.
+    - Every high-risk party shows current assurance evidence, or is an itemized exception.
+    - Executed DPA clauses are present for in-scope parties.
+    - overdue_reassessment items each carry a reconciliation note and closure path.
+  rejected_when:
+    - ai_generated is true for the recorded evidence.
+    - A tier or gap analysis is recorded without human GRC validation.
+    - high_risk_current is below total with no exception list.

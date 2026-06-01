@@ -1,0 +1,168 @@
+metadata:
+  title: Stakeholder Map
+  pillar: 07-stakeholder-management
+  owner_function: GRC
+  example_profile: consumer location-safety service (illustrative)
+  principle: >
+    One posture, every audience. The same control set is rendered into the language
+    each function speaks, so no team re-answers a question another team already
+    answered. Reducing stakeholder fatigue is the deliverable. This map is organized
+    by function, never by person. Roles are functions, not names.
+  voice: >
+    Declarative and principle-led. No personal names anywhere in this program.
+
+# Each entry: a function, what it cares about, how GRC serves it, the controls most
+# relevant to it, and the rendering it receives. Functions only.
+functions:
+  - function: board
+    cares_about: >
+      A multi-listed entity certifies with no material weakness, and the highest-leverage
+      risks are visible in business terms.
+    grc_serves: >
+      One SOX-mapped control set and a FAIR risk register with computed evidence behind
+      every assertion. The board sees dollar exposure and the cost to close a gap, not the
+      audit calendar.
+    rendering: >
+      Board reporting: three numbers, where the program is, where it needs to be, what it
+      costs to close. Risk in business terms.
+    relevant_controls: [IAC-17, CHG-02, MON-01, AAT-01]
+    cadence: quarterly
+    fatigue_reduction: One current picture replaces several partial ones.
+    sox_itgc_note: SOX ITGC is framework-mapped, home lab, never audited.
+
+  - function: internal-audit
+    cares_about: >
+      Independent third-line testing and SOX program ownership, with clean inputs rather
+      than a quarter-end scramble.
+    grc_serves: >
+      Computed evidence from systems of record, scoped jointly with internal audit. GRC
+      runs first and second line; internal audit keeps independent testing.
+    rendering: >
+      Computed control records and the audit-readiness roll-up; sampling against logs, not
+      live demos.
+    relevant_controls: [IAC-17, CHG-02, MON-01]
+    cadence: per audit cycle
+    fatigue_reduction: Evidence is pre-validated before fieldwork starts.
+    sox_itgc_note: SOX ITGC is framework-mapped, home lab, never audited.
+
+  - function: audit-committee
+    cares_about: >
+      Reporting it can certify against, with material risks and their treatment surfaced
+      on a predictable cadence.
+    grc_serves: >
+      A single current view fed from the same control set, with exceptions and findings
+      aged and visible.
+    rendering: Audit-committee summary; exception aging; material-risk treatment status.
+    relevant_controls: [MON-01, IRO-01, TPM-01]
+    cadence: quarterly
+    fatigue_reduction: One feed, not several partial reports to reconcile.
+
+  - function: security
+    cares_about: >
+      A durable program for tens of millions of users including children, enforced in the
+      systems where work happens.
+    grc_serves: >
+      An owned control library, an evidence pipeline, and continuous monitoring across
+      frameworks. Security owns enforcement; GRC owns the control definition and evidence.
+    rendering: Control-health dashboard; drift Issues; alert and coverage records.
+    relevant_controls: [AAT-01, IAC-17, MON-01, IRO-01]
+    cadence: continuous
+    fatigue_reduction: Drift opens an Issue automatically; no manual evidence hunts.
+
+  - function: engineering
+    cares_about: >
+      Shipping the location graph without compliance blocking releases.
+    grc_serves: >
+      Controls delivered as policy-as-code and sprint tickets in engineering's own system.
+      Evidence is a byproduct of shipping; the reviewed PR is the gate and the evidence.
+    rendering: >
+      Controls as work items with acceptance criteria; the PR is the gate (CHG-02); SDLC
+      control gates in 05-secure-development.
+    relevant_controls: [CHG-02, AAT-01, MON-01]
+    cadence: per sprint and per change
+    fatigue_reduction: GRC joins the sprint; the gate does not stop the build.
+
+  - function: product
+    cares_about: >
+      Building features on location and family data that meet reasonable parental
+      expectations without dark patterns.
+    grc_serves: >
+      Privacy-by-design at the design gate; consent and disclosure flows defined with
+      Legal/Privacy; the human gate on high-impact actions on minors.
+    rendering: Design-gate review; consent-flow requirements; responsible-AI statement.
+    relevant_controls: [PRI-03.13, AAT-01]
+    cadence: per feature
+    fatigue_reduction: Requirements arrive at design time, not as late audit findings.
+
+  - function: legal
+    cares_about: >
+      COPPA, litigation defense, and consistent privacy promises across every customer
+      touchpoint.
+    grc_serves: >
+      Legal commitments enforced as controls with computed evidence; contract terms (DPA,
+      breach notice, processing limits) tracked against executed contracts.
+    rendering: Obligation register; executed-clause evidence; honest-history posture.
+    relevant_controls: [PRI-03.13, TPM-01, IRO-01]
+    cadence: continuous and per matter
+    fatigue_reduction: One source for what was promised and where it is enforced.
+
+  - function: privacy
+    cares_about: >
+      Lawful basis for processing precise location and minors' data, and immediate effect
+      of consent withdrawal.
+    grc_serves: >
+      Consent as the authoritative system-of-record check; DPIA on material change; data
+      classification carving out children's and precise-location data as restricted.
+    rendering: Consent register; DPIA records; data-flow review at the design gate.
+    relevant_controls: [PRI-03.13, AAT-01, TPM-01]
+    cadence: continuous; DPIA on material change
+    fatigue_reduction: Withdrawal propagates from one consent service everywhere.
+
+  - function: sales
+    cares_about: >
+      Closing enterprise deals without security questionnaires stalling for weeks.
+    grc_serves: >
+      A prevetted trust brief and questionnaire answers from the same controls. Sales
+      answers the routine 80 percent; the sensitive 20 percent routes to GRC under NDA.
+    rendering: >
+      Trust center, prevetted sales FAQ (see sales-faq.yaml), questionnaire first-drafts.
+    relevant_controls: [TPM-01, PRI-03.13, AAT-01, IRO-01]
+    cadence: per deal
+    fatigue_reduction: The routine answer is ready; nobody re-answers it per deal.
+
+  - function: finance
+    cares_about: >
+      Predictable audit cost, vendor-spend tied to assessed risk, and no surprise
+      remediation bills.
+    grc_serves: >
+      Tiered third-party risk so diligence cost matches exposure; computed readiness so
+      audit cycles do not balloon; risk quantified in dollars.
+    rendering: Readiness roll-up; vendor tier distribution; FAIR exposure in business terms.
+    relevant_controls: [TPM-01, MON-01]
+    cadence: quarterly and at renewal
+    fatigue_reduction: Diligence is right-sized; effort tracks exposure, not contract size.
+
+  - function: customer
+    cares_about: >
+      What the safety features access, how children's data is handled, and being notified
+      when a threshold is met.
+    grc_serves: >
+      Plain-language notice and consent toggles; a trust center that reflects computed,
+      current state; breach notification within statutory windows.
+    rendering: Trust center; responsible-AI statement; consent notices; breach notice.
+    relevant_controls: [AAT-01, PRI-03.13, IRO-01]
+    cadence: continuous; on material change or incident
+    fatigue_reduction: Current posture is published, not assembled on request.
+
+# How GRC consults vs decides, so the map cannot be read as GRC owning business risk.
+ownership_split:
+  business_owns: risk appetite and treatment decisions; acceptance of residual risk
+  grc_owns: control definition, evidence schemas, continuous monitoring, translation
+  enforcement_owns: security, engineering, IT, legal, privacy per RACI in control-library.yaml
+  internal_audit_owns: independent third-line testing and SOX program ownership
+
+cross_reference:
+  controls: ../02-controls/control-library.yaml
+  sales_faq: ./sales-faq.yaml
+  trust_collateral: ./trust-collateral.md
+  evidence: ../06-evidence-and-audit/evidence-architecture.md

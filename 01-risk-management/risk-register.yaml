@@ -1,0 +1,406 @@
+# =============================================================================
+# risk-register.yaml  -  the quantified risk register, structured with FAIR.
+#
+# FAIR (Factor Analysis of Information Risk) decomposes risk into frequency and
+# magnitude so the board sees dollar exposure, not a heat-map color. Each
+# scenario carries:
+#   loss_event_frequency  = threat_event_frequency x vulnerability  (events/year)
+#   loss_magnitude        = primary_loss + secondary_loss           (USD per event)
+#   annualized_loss_exposure (ALE) = frequency x magnitude          (USD/year, a range)
+# See fair-model.md for the method and a worked example.
+#
+# OWNERSHIP: the BUSINESS owns the treatment decision. GRC supplies the model,
+# the data, and the options. The `risk_owner` signs; the `accountable_function`
+# runs the treatment. See 00-governance/risk-appetite-statement.md for the bands
+# each residual exposure is measured against.
+#
+# BASIS: scenarios are derived from an illustrative archetype (a consumer
+# location-safety service that processes minors' data) and its market.
+# Frequencies and magnitudes are ILLUSTRATIVE estimates to exercise the
+# model; they are not internal data and must be calibrated in Phase 1 with the
+# business. No claim is made about any real organization's internal posture.
+#
+# CURRENCY: all monetary fields are USD integers.
+# =============================================================================
+
+metadata:
+  pillar: 01-risk-management
+  method: fair
+  currency: USD
+  basis: illustrative-example
+  owner_function: grc
+  signs_treatment: business
+  review_cadence: quarterly
+  status: scaffold
+  appetite_reference: 00-governance/risk-appetite-statement.md
+  qualitative_frequency_bands:
+    very_low: "< 0.1 events/year"
+    low: "0.1 to 1 events/year"
+    moderate: "1 to 6 events/year"
+    high: "6 to 24 events/year"
+    very_high: "> 24 events/year"
+
+risks:
+  - id: RISK-001
+    title: Precise-location exposure of members
+    category: precise-location-exposure
+    description: >
+      An interface, integration, or autonomous agent discloses members' precise
+      location beyond an authorized purpose, exposing real-time whereabouts of
+      individuals, potentially including minors.
+    asset_at_risk: Real-time precise-location data on the location graph
+    threat_community: External attacker, abusive insider, and over-scoped automation
+    threat_event_frequency_per_year:
+      band: moderate
+      min: 1
+      most_likely: 4
+      max: 12
+      rationale: "Location is a high-value target; attempts against APIs and tokens are frequent for a service at this scale."
+    vulnerability:
+      estimate: 0.15
+      rationale: "With purpose-bound authorization and least-privilege agent tokens in place, most attempts are expected to fail; estimate calibrated in Phase 1."
+    loss_event_frequency_per_year:
+      band: low
+      min: 0.1
+      most_likely: 0.6
+      max: 2.0
+    loss_magnitude_usd:
+      primary:
+        min: 250000
+        most_likely: 900000
+        max: 3000000
+        forms: [response, investigation, notification]
+      secondary:
+        min: 1000000
+        most_likely: 6000000
+        max: 25000000
+        forms: [fines_and_judgments, reputation, lost_revenue, regulatory_action]
+    annualized_loss_exposure_usd:
+      min: 125000
+      most_likely: 4140000
+      max: 56000000
+    current_controls: [AAT-01, MON-01, IAC-17]
+    inherent_risk: high
+    treatment:
+      decision: mitigate
+      rationale: "Out of appetite by hard limit; precise location demands purpose-bound authorization and a human gate."
+      actions:
+        - "Enforce deny-by-default authorization broker with TTL-bound purpose tokens for every location read (AAT-01)."
+        - "Remove standing location entitlements; bind reads to an active safety purpose."
+        - "Alert on any location read outside an active purpose (MON-01)."
+    accountable_function: security
+    risk_owner: business
+    residual_risk:
+      band: low
+      annualized_loss_exposure_usd:
+        min: 50000
+        most_likely: 700000
+        max: 6000000
+      appetite_alignment: within-appetite-after-treatment
+    linked_controls: [AAT-01, MON-01, IAC-17]
+    review_date: 2026-Q3
+    status: open
+
+  - id: RISK-002
+    title: Processing minors' data without verifiable parental consent
+    category: minors-data
+    description: >
+      A feature, integration, or agent processes or discloses a minor's personal
+      data when verifiable parental consent is absent or has been withdrawn,
+      breaching the amended COPPA Rule and related privacy obligations.
+    asset_at_risk: Children's personal data and the consent system of record
+    threat_community: Product change without a consent check, third-party disclosure, agent action
+    threat_event_frequency_per_year:
+      band: moderate
+      min: 1
+      most_likely: 3
+      max: 8
+      rationale: "Many features and agents may touch a minor's data; each path is an opportunity for a missed consent check."
+    vulnerability:
+      estimate: 0.2
+      rationale: "Lower where the consent service is the authoritative gate every path checks; higher where checks are ad hoc."
+    loss_event_frequency_per_year:
+      band: low
+      min: 0.2
+      most_likely: 0.6
+      max: 1.6
+    loss_magnitude_usd:
+      primary:
+        min: 200000
+        most_likely: 700000
+        max: 2000000
+        forms: [response, investigation, remediation]
+      secondary:
+        min: 2000000
+        most_likely: 9000000
+        max: 40000000
+        forms: [fines_and_judgments, regulatory_action, reputation, lost_revenue]
+    annualized_loss_exposure_usd:
+      min: 440000
+      most_likely: 5820000
+      max: 67200000
+    current_controls: [PRI-03.13, AAT-01]
+    inherent_risk: high
+    treatment:
+      decision: mitigate
+      rationale: "Zero-appetite category; no minor data is processed without active verifiable parental consent."
+      actions:
+        - "Make the consent service authoritative; every feature and agent checks it before processing a minor's data (PRI-03.13)."
+        - "Propagate withdrawal immediately and block disclosure absent active consent."
+        - "Require separate verifiable consent before any third-party disclosure of a child's data."
+    accountable_function: privacy
+    risk_owner: business
+    residual_risk:
+      band: low
+      annualized_loss_exposure_usd:
+        min: 100000
+        most_likely: 1200000
+        max: 9000000
+      appetite_alignment: within-appetite-after-treatment
+    linked_controls: [PRI-03.13, AAT-01]
+    review_date: 2026-Q3
+    status: open
+
+  - id: RISK-003
+    title: Agentic AI acts out of scope on the location graph
+    category: agentic-ai-behavior
+    description: >
+      An autonomous agent takes a high-impact action outside its authorized
+      scope, for example disclosing location, acting on a minor's account, or
+      making an irreversible write, through excessive agency, prompt injection,
+      or a tool-grant error.
+    asset_at_risk: Members' safety, minors' accounts, and precise location
+    threat_community: Compromised or mis-scoped agent, prompt injection, model or tool failure
+    threat_event_frequency_per_year:
+      band: moderate
+      min: 1
+      most_likely: 5
+      max: 15
+      rationale: "Agentic systems acting at machine speed create many decision points; injection and scope errors are emerging and frequent."
+    vulnerability:
+      estimate: 0.18
+      rationale: "Reduced by least-privilege agent identity, human gates on irreversible actions, and full delegation logging."
+    loss_event_frequency_per_year:
+      band: low
+      min: 0.2
+      most_likely: 0.9
+      max: 3.0
+    loss_magnitude_usd:
+      primary:
+        min: 150000
+        most_likely: 800000
+        max: 3000000
+        forms: [response, containment, investigation]
+      secondary:
+        min: 1500000
+        most_likely: 7000000
+        max: 35000000
+        forms: [reputation, lost_revenue, regulatory_action, fines_and_judgments]
+    annualized_loss_exposure_usd:
+      min: 330000
+      most_likely: 7020000
+      max: 114000000
+    current_controls: [AAT-01, IRO-01, MON-01]
+    inherent_risk: high
+    treatment:
+      decision: mitigate
+      rationale: "Out of appetite by hard limit; high-impact agent actions on minors or location require a human gate."
+      actions:
+        - "Register every agent as a sponsored non-human identity with least-privilege, short-lived tokens (AAT-01)."
+        - "Gate irreversible actions on a minor's account behind a named human approval."
+        - "Maintain an AI-incident runbook with a kill-switch path for autonomous agents (IRO-01)."
+        - "Log every agent decision; alert on out-of-scope action (MON-01)."
+    accountable_function: security
+    risk_owner: business
+    residual_risk:
+      band: moderate
+      annualized_loss_exposure_usd:
+        min: 100000
+        most_likely: 1500000
+        max: 12000000
+      appetite_alignment: within-appetite-after-treatment
+    linked_controls: [AAT-01, IRO-01, MON-01]
+    review_date: 2026-Q3
+    status: open
+
+  - id: RISK-004
+    title: Vendor or subprocessor breach exposing sensitive data
+    category: vendor-breach
+    description: >
+      A third party or fourth-party subprocessor that processes location, PII,
+      or minors' data suffers a breach, exposing data the company is accountable
+      for, with concentration risk where many critical paths share a subprocessor.
+    asset_at_risk: Sensitive data held by or routed through third parties
+    threat_community: Attacker against a vendor, vendor misconfiguration, subprocessor failure
+    threat_event_frequency_per_year:
+      band: moderate
+      min: 1
+      most_likely: 3
+      max: 6
+      rationale: "Vendor breaches are common across the supply chain; likelihood rises with the number of high-risk subprocessors."
+    vulnerability:
+      estimate: 0.25
+      rationale: "Reduced by tiering, current SOC 2 or ISO assurance, and contractual breach-notice terms; calibrated in Phase 1."
+    loss_event_frequency_per_year:
+      band: low
+      min: 0.25
+      most_likely: 0.75
+      max: 1.5
+    loss_magnitude_usd:
+      primary:
+        min: 100000
+        most_likely: 500000
+        max: 1500000
+        forms: [response, investigation, notification]
+      secondary:
+        min: 500000
+        most_likely: 3500000
+        max: 18000000
+        forms: [reputation, lost_revenue, fines_and_judgments, regulatory_action]
+    annualized_loss_exposure_usd:
+      min: 150000
+      most_likely: 3000000
+      max: 29250000
+    current_controls: [TPM-01, IRO-01]
+    inherent_risk: moderate
+    treatment:
+      decision: mitigate-and-transfer
+      rationale: "Mitigate through tiered diligence; transfer residual through contractual and insurance terms."
+      actions:
+        - "Tier vendors by what they can touch; reserve deep review for parties handling location or minors' data (TPM-01)."
+        - "Accept current SOC 2 Type II or ISO 27001 in lieu of custom questionnaires; log scope and exceptions."
+        - "Map Tier 1 subprocessors to surface concentration risk; keep breach-notice windows in every DPA."
+        - "Transfer residual exposure through contractual indemnity and cyber insurance."
+    accountable_function: grc
+    risk_owner: business
+    residual_risk:
+      band: low
+      annualized_loss_exposure_usd:
+        min: 75000
+        most_likely: 1200000
+        max: 8000000
+      appetite_alignment: within-appetite-after-treatment
+    linked_controls: [TPM-01, IRO-01]
+    review_date: 2026-Q3
+    status: open
+
+  - id: RISK-005
+    title: Unauthorized or unreviewed production change
+    category: change-failure
+    description: >
+      A configuration or code change reaches production without independent
+      review or a linked work item, causing an outage, a security regression, or
+      an integrity issue in a financially relevant system (a SOX ITGC change
+      concern for a public company).
+    asset_at_risk: Production integrity and the reliability of financial reporting
+    threat_community: Direct push to a protected branch, bypassed review, unmanaged emergency change
+    threat_event_frequency_per_year:
+      band: high
+      min: 4
+      most_likely: 12
+      max: 30
+      rationale: "High change velocity at this stage; each unreviewed path is an opportunity for an unauthorized change."
+    vulnerability:
+      estimate: 0.1
+      rationale: "Low where branch protection blocks direct pushes and requires an independent reviewer; emergency changes are reconciled after the fact."
+    loss_event_frequency_per_year:
+      band: moderate
+      min: 0.4
+      most_likely: 1.2
+      max: 3.0
+    loss_magnitude_usd:
+      primary:
+        min: 50000
+        most_likely: 300000
+        max: 1500000
+        forms: [response, restoration, rework]
+      secondary:
+        min: 100000
+        most_likely: 1200000
+        max: 8000000
+        forms: [lost_revenue, reputation, sox_deficiency]
+    annualized_loss_exposure_usd:
+      min: 60000
+      most_likely: 1800000
+      max: 28500000
+    current_controls: [CHG-02, MON-01, IAC-17]
+    inherent_risk: moderate
+    treatment:
+      decision: mitigate
+      rationale: "Within moderate appetite for change risk; bring residual down through enforced branch protection."
+      actions:
+        - "Enforce branch protection: reviewed, ticket-linked Pull Requests only; block direct pushes (CHG-02)."
+        - "Reconcile every emergency or unreviewed change as a tracked exception."
+        - "Compute the merge log from the source-control API as the evidence, not screenshots."
+    accountable_function: engineering
+    risk_owner: business
+    residual_risk:
+      band: low
+      annualized_loss_exposure_usd:
+        min: 25000
+        most_likely: 400000
+        max: 3500000
+      appetite_alignment: within-appetite-after-treatment
+    linked_controls: [CHG-02, MON-01, IAC-17]
+    review_date: 2026-Q3
+    status: open
+
+  - id: RISK-006
+    title: Access not removed at role change or departure
+    category: access-management
+    description: >
+      A human or service account retains access after a role change or
+      departure, creating an over-privileged or orphaned account that an attacker
+      or insider can use; a SOX ITGC access concern for a public company.
+    asset_at_risk: In-scope systems, financially relevant applications, and sensitive data
+    threat_community: Departed worker, orphaned service account, abusive insider
+    threat_event_frequency_per_year:
+      band: high
+      min: 6
+      most_likely: 18
+      max: 40
+      rationale: "Joiner, mover, and leaver events are frequent at enterprise scale; each is an opportunity for stale access."
+    vulnerability:
+      estimate: 0.08
+      rationale: "Low where deprovisioning fires from the HR feed and recertification runs on cadence (IAC-17)."
+    loss_event_frequency_per_year:
+      band: moderate
+      min: 0.5
+      most_likely: 1.4
+      max: 3.2
+    loss_magnitude_usd:
+      primary:
+        min: 50000
+        most_likely: 250000
+        max: 1000000
+        forms: [response, investigation]
+      secondary:
+        min: 200000
+        most_likely: 1500000
+        max: 9000000
+        forms: [reputation, fines_and_judgments, sox_deficiency]
+    annualized_loss_exposure_usd:
+      min: 125000
+      most_likely: 2450000
+      max: 32000000
+    current_controls: [IAC-17, MON-01]
+    inherent_risk: moderate
+    treatment:
+      decision: mitigate
+      rationale: "Within low appetite; drive deprovisioning from the HR feed and recertify on cadence."
+      actions:
+        - "Recertify privileges quarterly, monthly for production and sensitive-data systems (IAC-17)."
+        - "Fire leaver deprovisioning from the HR feed, not a manual ticket."
+        - "Treat service accounts the same as human accounts; close orphans within SLA."
+    accountable_function: security
+    risk_owner: business
+    residual_risk:
+      band: low
+      annualized_loss_exposure_usd:
+        min: 50000
+        most_likely: 600000
+        max: 5000000
+      appetite_alignment: within-appetite-after-treatment
+    linked_controls: [IAC-17, MON-01]
+    review_date: 2026-Q3
+    status: open

@@ -1,0 +1,33 @@
+{
+  "profile": {
+    "uuid": "75e20044-3c23-47a0-b0ae-1cdd791eb839",
+    "metadata": {
+      "title": "SOC 2 (TSC 2017) Profile",
+      "published": "2026-06-01T04:30:00Z",
+      "last-modified": "2026-06-01T04:30:00Z",
+      "version": "1.0.0",
+      "oscal-version": "1.1.3",
+      "remarks": "Resolves the owned control library into the SOC 2 view. The controls are defined once in control-library.oscal.json; this profile selects the subset that satisfies the 2017 Trust Services Criteria. Collect evidence once, satisfy many: the same control objects appear in other framework profiles without being redefined."
+    },
+    "imports": [
+      {
+        "href": "../control-library.oscal.json",
+        "include-controls": [
+          {
+            "with-ids": [
+              "aat-01",
+              "iac-17",
+              "chg-02",
+              "mon-01",
+              "tpm-01",
+              "iro-01"
+            ]
+          }
+        ]
+      }
+    ],
+    "merge": {
+      "as-is": true
+    }
+  }
+}

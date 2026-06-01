@@ -1,0 +1,32 @@
+{
+  "profile": {
+    "uuid": "627baedb-e665-43a0-b98d-a742b671c88c",
+    "metadata": {
+      "title": "ISO/IEC 27001:2022 Profile",
+      "published": "2026-06-01T04:30:00Z",
+      "last-modified": "2026-06-01T04:30:00Z",
+      "version": "1.0.0",
+      "oscal-version": "1.1.3",
+      "remarks": "Resolves the owned control library into the ISO/IEC 27001:2022 view, with Annex A controls expressed per ISO/IEC 27002:2022. Adding this framework was a mapping, not a rebuild: the control objects are the same ones SOC 2 resolves."
+    },
+    "imports": [
+      {
+        "href": "../control-library.oscal.json",
+        "include-controls": [
+          {
+            "with-ids": [
+              "iac-17",
+              "chg-02",
+              "mon-01",
+              "tpm-01",
+              "iro-01"
+            ]
+          }
+        ]
+      }
+    ],
+    "merge": {
+      "as-is": true
+    }
+  }
+}

@@ -1,0 +1,2062 @@
+{
+  "catalog": {
+    "uuid": "cfa65382-acbd-4f65-b5b4-8746efda6fda",
+    "metadata": {
+      "title": "Compliance Program Control Library (SCF-mapped)",
+      "published": "2026-06-01T04:30:00Z",
+      "last-modified": "2026-06-01T04:30:00Z",
+      "version": "2.0.0",
+      "oscal-version": "1.1.3",
+      "remarks": "Seven deliberate controls expressed against the Secure Controls Framework (SCF 2025.4) spine and published as an OSCAL catalog. Each control carries assignable parameters, control enhancements (as nested controls), an assessment objective with itemized objectives, and assessment methods (EXAMINE, INTERVIEW, TEST) modeled as method parts. Statements and guidance are kept in lineage with control-library.yaml, the human-readable source of truth. SOX ITGC associations are framework mapping only (home lab) and are not represented as audited. Example evidence elsewhere in the repository is illustrative and is not a claim about any real organization's internal posture.",
+      "roles": [
+        {
+          "id": "control-owner",
+          "title": "Control owner (by function)"
+        },
+        {
+          "id": "grc",
+          "title": "GRC"
+        },
+        {
+          "id": "security",
+          "title": "Security"
+        },
+        {
+          "id": "legal-privacy",
+          "title": "Legal/Privacy"
+        }
+      ],
+      "props": [
+        {
+          "name": "scf-version",
+          "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+          "value": "SCF 2025.4"
+        }
+      ]
+    },
+    "controls": [
+      {
+        "id": "aat-01",
+        "class": "SCF",
+        "title": "AI and autonomous technologies governance",
+        "params": [
+          {
+            "id": "aat-01_prm_token_ttl_ceiling",
+            "label": "Purpose-token time-to-live ceiling",
+            "guidelines": [
+              {
+                "prose": "A grant on precise location or minor data expires no later than this; tune down per purpose, never up."
+              }
+            ],
+            "values": [
+              "300 seconds"
+            ]
+          },
+          {
+            "id": "aat-01_prm_human_gate_actions",
+            "label": "Actions requiring a human gate",
+            "guidelines": [
+              {
+                "prose": "Each listed action stops for a named-function approval recorded against the decision."
+              }
+            ],
+            "values": [
+              "location_disclosure",
+              "action_on_minor_account",
+              "irreversible_write"
+            ]
+          },
+          {
+            "id": "aat-01_prm_killswitch_sla",
+            "label": "Kill-switch revocation interval",
+            "guidelines": [
+              {
+                "prose": "Maximum interval from kill-switch activation to full token revocation and halt of autonomous action."
+              }
+            ],
+            "values": [
+              "5 minutes"
+            ]
+          },
+          {
+            "id": "aat-01_prm_dpia_trigger",
+            "label": "DPIA re-assessment trigger",
+            "guidelines": [
+              {
+                "prose": "Any trigger forces a refreshed data protection impact assessment before the change ships."
+              }
+            ],
+            "values": [
+              "material change to agent scope, model, or purpose"
+            ]
+          }
+        ],
+        "props": [
+          {
+            "name": "scf-id",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "AAT-01"
+          },
+          {
+            "name": "scf-domain",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "AAT"
+          },
+          {
+            "name": "nist-csf-function",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "Govern"
+          },
+          {
+            "name": "automation",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "partial"
+          },
+          {
+            "name": "hero-control",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "true"
+          }
+        ],
+        "parts": [
+          {
+            "id": "aat-01_smt",
+            "name": "statement",
+            "prose": "Policies for AI and autonomous-technology risk are defined, owned, and enforced. Autonomous agents read precise location or minor data only under purpose-bound authorization, at minimum scope, with full decision logging, and with human accountability for high-impact actions. No agent holds standing access to sensitive production data."
+          },
+          {
+            "id": "aat-01_gdn",
+            "name": "guidance",
+            "prose": "Treat every autonomous agent as a sponsored non-human identity with a named human-function sponsor, a declared purpose, and a defined data scope. No agent holds standing access to precise location or minor data; access is brokered at the moment of need and expires automatically. The unit of evidence is the authorization decision, not a screenshot or an assertion.\nPlace a central authorization broker, expressed as policy-as-code (for example Open Policy Agent), in front of every sensitive read. The broker evaluates each request against the requesting agent's identity, the declared purpose, the live consent state read from the consent system of record, and the data-minimization rule for that purpose. Default is deny. On a grant, bind the access to a purpose token with a short time-to-live so it cannot be reused outside the triggering event, release only the fields the purpose requires, and record the fields withheld, because demonstrable minimization is itself evidence.\nStop any irreversible action, and any action on a minor's account, at a human gate: a named function approves before the action proceeds, and the approval is recorded against the decision. Map agent risks to the OWASP Top 10 for LLM Applications, in particular excessive agency, insecure output handling, and sensitive-information disclosure, and carry those mappings into the AI control set in 04-ai-governance. Maintain a kill-switch path that revokes all agent tokens and halts autonomous action within a defined interval, owned by a named function, and re-run the data protection impact assessment on any material change to agent scope, model, or purpose."
+          },
+          {
+            "id": "aat-01_obj",
+            "name": "assessment-objective",
+            "parts": [
+              {
+                "id": "aat-01_obj.1",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "AAT-01-OBJ-1"
+                  }
+                ],
+                "prose": "Determine that every agent with access to precise location or minor data is registered as a sponsored non-human identity with a named sponsor and no standing production-data access."
+              },
+              {
+                "id": "aat-01_obj.2",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "AAT-01-OBJ-2"
+                  }
+                ],
+                "prose": "Determine that every sensitive read is brokered deny-by-default against the live consent state."
+              },
+              {
+                "id": "aat-01_obj.3",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "AAT-01-OBJ-3"
+                  }
+                ],
+                "prose": "Determine that grants are purpose-bound, time-boxed within the TTL ceiling, and minimized to the fields the purpose requires."
+              },
+              {
+                "id": "aat-01_obj.4",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "AAT-01-OBJ-4"
+                  }
+                ],
+                "prose": "Determine that irreversible actions and minor-account actions pass a recorded human gate before execution."
+              },
+              {
+                "id": "aat-01_obj.5",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "AAT-01-OBJ-5"
+                  }
+                ],
+                "prose": "Determine that a kill-switch with a named owner exists and revokes within the defined interval."
+              },
+              {
+                "id": "aat-01_obj.6",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "AAT-01-OBJ-6"
+                  }
+                ],
+                "prose": "Determine that a current DPIA covers the agent scope and model in effect for the period."
+              }
+            ]
+          },
+          {
+            "id": "aat-01_asm-examine",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "EXAMINE"
+              }
+            ],
+            "parts": [
+              {
+                "id": "aat-01_asm-examine_obj",
+                "name": "assessment-objects",
+                "prose": "- The AI and autonomous-technology policy, the agent registry, and the broker policy bundle in effect for the period.\n- The data protection impact assessment and the lawful-basis determination for processing precise location and minor data.\n- The kill-switch runbook and its most recent test record."
+              }
+            ]
+          },
+          {
+            "id": "aat-01_asm-interview",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "INTERVIEW"
+              }
+            ],
+            "parts": [
+              {
+                "id": "aat-01_asm-interview_obj",
+                "name": "assessment-objects",
+                "prose": "- The authorization-broker owner (Security) on deny-by-default behavior and TTL enforcement.\n- Legal/Privacy on lawful basis, the DPIA, and the limits on minor-data use.\n- Engineering on how each sensitive read is bound to a purpose token, and the kill-switch owner on the revocation path."
+              }
+            ]
+          },
+          {
+            "id": "aat-01_asm-test",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "TEST"
+              }
+            ],
+            "parts": [
+              {
+                "id": "aat-01_asm-test_obj",
+                "name": "assessment-objects",
+                "prose": "- Replay a sample of broker decisions for agents with location or minor scope; confirm deny-by-default, TTL enforcement, and field minimization against the purpose rule.\n- Drive a test account to consent-withdrawn state and confirm the broker denies the read.\n- Attempt an irreversible action on a minor test account and confirm it blocks until the human gate is satisfied.\n- Activate the kill-switch in a controlled test and confirm tokens revoke and autonomous action halts within the interval."
+              }
+            ]
+          }
+        ],
+        "controls": [
+          {
+            "id": "aat-01.1",
+            "class": "SCF-enhancement",
+            "title": "Deny-by-default brokered authorization",
+            "props": [
+              {
+                "name": "label",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "AAT-01(1)"
+              }
+            ],
+            "parts": [
+              {
+                "id": "aat-01.1_smt",
+                "name": "statement",
+                "prose": "Every sensitive read passes a central authorization broker that defaults to deny and evaluates identity, purpose, and live consent state."
+              }
+            ]
+          },
+          {
+            "id": "aat-01.2",
+            "class": "SCF-enhancement",
+            "title": "Purpose-bound, time-boxed access",
+            "props": [
+              {
+                "name": "label",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "AAT-01(2)"
+              }
+            ],
+            "parts": [
+              {
+                "id": "aat-01.2_smt",
+                "name": "statement",
+                "prose": "Grants are bound to a declared purpose and a short-lived token; standing access to precise location or minor data is not permitted."
+              }
+            ]
+          },
+          {
+            "id": "aat-01.3",
+            "class": "SCF-enhancement",
+            "title": "Human gate for irreversible or minor-account actions",
+            "props": [
+              {
+                "name": "label",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "AAT-01(3)"
+              }
+            ],
+            "parts": [
+              {
+                "id": "aat-01.3_smt",
+                "name": "statement",
+                "prose": "Irreversible actions, and any action on a minor's account, require a recorded approval by a named function before execution."
+              }
+            ]
+          },
+          {
+            "id": "aat-01.4",
+            "class": "SCF-enhancement",
+            "title": "Kill-switch and revocation path",
+            "props": [
+              {
+                "name": "label",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "AAT-01(4)"
+              }
+            ],
+            "parts": [
+              {
+                "id": "aat-01.4_smt",
+                "name": "statement",
+                "prose": "A named function can revoke all agent tokens and halt autonomous action within the defined interval, exercised in test at least annually."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "pri-03.13",
+        "class": "SCF",
+        "title": "Parent or guardian opt-in consent for minors",
+        "params": [
+          {
+            "id": "pri-03.13_prm_withdrawal_sla",
+            "label": "Withdrawal propagation SLA",
+            "guidelines": [
+              {
+                "prose": "Time from a recorded withdrawal to processing and disclosure being blocked across all paths."
+              }
+            ],
+            "values": [
+              "near-real-time (under 1 hour to full propagation)"
+            ]
+          },
+          {
+            "id": "pri-03.13_prm_minor_threshold",
+            "label": "Minor age threshold",
+            "guidelines": [
+              {
+                "prose": "Drives which accounts fall in scope for verifiable parental consent."
+              }
+            ],
+            "values": [
+              "under 13 (COPPA); broader where local law sets a higher age"
+            ]
+          },
+          {
+            "id": "pri-03.13_prm_verification_methods",
+            "label": "Accepted verification methods",
+            "guidelines": [
+              {
+                "prose": "Record the specific method used per account; weaker methods do not satisfy stronger processing."
+              }
+            ],
+            "values": [
+              "methods recognized under 16 CFR 312.5(b) for the processing in question"
+            ]
+          },
+          {
+            "id": "pri-03.13_prm_third_party_consent",
+            "label": "Separate consent for third-party disclosure",
+            "guidelines": [
+              {
+                "prose": "Disclosure to a third party needs a distinct verifiable consent, not the operating consent."
+              }
+            ],
+            "values": [
+              "required"
+            ]
+          }
+        ],
+        "props": [
+          {
+            "name": "scf-id",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "PRI-03.13"
+          },
+          {
+            "name": "scf-domain",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "PRI"
+          },
+          {
+            "name": "nist-csf-function",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "Protect"
+          },
+          {
+            "name": "automation",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "partial"
+          }
+        ],
+        "parts": [
+          {
+            "id": "pri-03.13_smt",
+            "name": "statement",
+            "prose": "Minor personal data processes only after verifiable parent or guardian opt-in consent is recorded. Consent state is authoritative: absent or withdrawn consent blocks processing and disclosure, and a separate verifiable consent is required before any disclosure of a child's data to a third party."
+          },
+          {
+            "id": "pri-03.13_gdn",
+            "name": "guidance",
+            "prose": "Capture consent as a first-class record keyed to the child account, carrying the verification method, the scope of processing it authorizes, and the timestamp. Make the consent service the single system of record that every feature, integration, and agent checks before processing a minor's data, so that a withdrawal propagates everywhere at once rather than feature by feature. The record, not a policy assertion, is the evidence.\nUse a verification method that meets the standard set by the amended COPPA Rule for the processing in question, and record which method was used. Disclosure of a child's data to a third party requires a separate verifiable consent, recorded distinctly from the consent to operate the service. Hold minor data to a tighter minimization and retention rule than adult data, and delete or restrict it when consent is withdrawn or the lawful basis ends.\nTreat any processing observed without active consent as an exception that surfaces, not as a silent gap: it opens a tracked Issue, names the owning function, and carries a remediation path. The consent service is also the input to AAT-01: an agent's read of a minor's data is brokered against the same consent state, so the privacy control and the agent control cannot disagree about whether consent is present."
+          },
+          {
+            "id": "pri-03.13_obj",
+            "name": "assessment-objective",
+            "parts": [
+              {
+                "id": "pri-03.13_obj.1",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "PRI-03.13-OBJ-1"
+                  }
+                ],
+                "prose": "Determine that every in-scope minor account has a recorded verifiable parental consent before processing."
+              },
+              {
+                "id": "pri-03.13_obj.2",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "PRI-03.13-OBJ-2"
+                  }
+                ],
+                "prose": "Determine that the verification method used meets the standard for the processing it authorizes."
+              },
+              {
+                "id": "pri-03.13_obj.3",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "PRI-03.13-OBJ-3"
+                  }
+                ],
+                "prose": "Determine that no third-party disclosure of a child's data occurs without a separate recorded consent."
+              },
+              {
+                "id": "pri-03.13_obj.4",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "PRI-03.13-OBJ-4"
+                  }
+                ],
+                "prose": "Determine that withdrawals are honored within the propagation SLA and block processing and disclosure."
+              },
+              {
+                "id": "pri-03.13_obj.5",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "PRI-03.13-OBJ-5"
+                  }
+                ],
+                "prose": "Determine that processing is denied when consent is absent or withdrawn."
+              }
+            ]
+          },
+          {
+            "id": "pri-03.13_asm-examine",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "EXAMINE"
+              }
+            ],
+            "parts": [
+              {
+                "id": "pri-03.13_asm-examine_obj",
+                "name": "assessment-objects",
+                "prose": "- The consent register and the verification-method configuration for minor accounts in scope.\n- The COPPA and CCPA/CPRA obligation mapping and the third-party disclosure flow design.\n- The minor-data retention and deletion rule."
+              }
+            ]
+          },
+          {
+            "id": "pri-03.13_asm-interview",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "INTERVIEW"
+              }
+            ],
+            "parts": [
+              {
+                "id": "pri-03.13_asm-interview_obj",
+                "name": "assessment-objects",
+                "prose": "- Legal/Privacy on what verifiable consent requires and which processing needs a separate consent.\n- Engineering on where the consent check sits in the request path and how withdrawal propagates.\n- Product on the consent and disclosure flow design and the absence of dark patterns."
+              }
+            ]
+          },
+          {
+            "id": "pri-03.13_asm-test",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "TEST"
+              }
+            ],
+            "parts": [
+              {
+                "id": "pri-03.13_asm-test_obj",
+                "name": "assessment-objects",
+                "prose": "- Sample minor accounts and confirm a recorded verifiable parental consent with a valid method before processing.\n- Withdraw consent on a test account and confirm processing and disclosure are blocked within the SLA.\n- Attempt a third-party disclosure without a separate consent and confirm the path denies it."
+              }
+            ]
+          }
+        ],
+        "controls": [
+          {
+            "id": "pri-03.13.1",
+            "class": "SCF-enhancement",
+            "title": "Consent service as authoritative gate",
+            "props": [
+              {
+                "name": "label",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "PRI-03.13(1)"
+              }
+            ],
+            "parts": [
+              {
+                "id": "pri-03.13.1_smt",
+                "name": "statement",
+                "prose": "Every feature, integration, and agent checks the consent service before processing a minor's data; the service is the single system of record."
+              }
+            ]
+          },
+          {
+            "id": "pri-03.13.2",
+            "class": "SCF-enhancement",
+            "title": "Separate consent before third-party disclosure",
+            "props": [
+              {
+                "name": "label",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "PRI-03.13(2)"
+              }
+            ],
+            "parts": [
+              {
+                "id": "pri-03.13.2_smt",
+                "name": "statement",
+                "prose": "Disclosure of a child's data to a third party requires a separate, distinctly recorded verifiable consent."
+              }
+            ]
+          },
+          {
+            "id": "pri-03.13.3",
+            "class": "SCF-enhancement",
+            "title": "Immediate withdrawal propagation",
+            "props": [
+              {
+                "name": "label",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "PRI-03.13(3)"
+              }
+            ],
+            "parts": [
+              {
+                "id": "pri-03.13.3_smt",
+                "name": "statement",
+                "prose": "A recorded withdrawal blocks processing and disclosure across all paths within the propagation SLA."
+              }
+            ]
+          },
+          {
+            "id": "pri-03.13.4",
+            "class": "SCF-enhancement",
+            "title": "Minor data minimization and retention limit",
+            "props": [
+              {
+                "name": "label",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "PRI-03.13(4)"
+              }
+            ],
+            "parts": [
+              {
+                "id": "pri-03.13.4_smt",
+                "name": "statement",
+                "prose": "Minor data is held to a tighter minimization and retention rule and is deleted or restricted when consent ends."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "iac-17",
+        "class": "SCF",
+        "title": "Periodic review of account privileges",
+        "params": [
+          {
+            "id": "iac-17_prm_cadence_general",
+            "label": "Recertification cadence, general systems",
+            "guidelines": [
+              {
+                "prose": "Maximum interval between recertification cycles for in-scope general systems."
+              }
+            ],
+            "values": [
+              "quarterly"
+            ]
+          },
+          {
+            "id": "iac-17_prm_cadence_sensitive",
+            "label": "Recertification cadence, production and sensitive-data systems",
+            "guidelines": [
+              {
+                "prose": "Tighter cadence where access reaches production, precise location, or minor data."
+              }
+            ],
+            "values": [
+              "monthly"
+            ]
+          },
+          {
+            "id": "iac-17_prm_leaver_sla",
+            "label": "Leaver deprovisioning SLA",
+            "guidelines": [
+              {
+                "prose": "Interval from the HR termination or role-change event to access revocation."
+              }
+            ],
+            "values": [
+              "same business day as the HR event"
+            ]
+          },
+          {
+            "id": "iac-17_prm_orphan_sla",
+            "label": "Orphan and over-privilege closure SLA",
+            "guidelines": [
+              {
+                "prose": "Maximum time to close or formally except a flagged orphaned or over-privileged account."
+              }
+            ],
+            "values": [
+              "5 business days"
+            ]
+          }
+        ],
+        "props": [
+          {
+            "name": "scf-id",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "IAC-17"
+          },
+          {
+            "name": "scf-domain",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "IAC"
+          },
+          {
+            "name": "nist-csf-function",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "Detect"
+          },
+          {
+            "name": "automation",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "partial"
+          },
+          {
+            "name": "sox-itgc-pillar",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "access"
+          },
+          {
+            "name": "sox-itgc-basis",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "framework-mapped-home-lab"
+          }
+        ],
+        "parts": [
+          {
+            "id": "iac-17_smt",
+            "name": "statement",
+            "prose": "Privileges for people and service accounts are reviewed on a fixed cadence against role and employment, and unjustified access is removed. Leaver deprovisioning fires from the human-resources system of record, not a manual ticket. Service and other non-human accounts are held to the same bar as human accounts."
+          },
+          {
+            "id": "iac-17_gdn",
+            "name": "guidance",
+            "prose": "Drive the recertification campaign from the identity provider joined to the human-resources information system, so every account maps to a live employment status and a named owner. An account with no live owner or employment match is an orphan and an exception, not a finding to defer. Treat service accounts and other non-human identities exactly as human accounts: each has an owner, a justification, and a recertification record.\nThe evidence is the revocation event in the log, joined to the entitlement snapshot, not a reviewer's after-the-fact assertion that access looked reasonable. Fire leaver and role-change deprovisioning from the human-resources feed on the same business day as the event, because a manual ticket is the gap auditors find. Run the review quarterly for general systems and monthly for production and sensitive-data systems, where the blast radius is larger.\nInclude a segregation-of-duties and toxic-combination check in the review: an account that can both develop a change and approve its release, or both create a vendor and pay it, is a finding regardless of employment status. Orphaned and over-privileged accounts carry a closure SLA, and the campaign does not sign off until every flagged account is closed or documented as an approved exception."
+          },
+          {
+            "id": "iac-17_obj",
+            "name": "assessment-objective",
+            "parts": [
+              {
+                "id": "iac-17_obj.1",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "IAC-17-OBJ-1"
+                  }
+                ],
+                "prose": "Determine that 100 percent of in-scope accounts, human and non-human, were reviewed within the cadence."
+              },
+              {
+                "id": "iac-17_obj.2",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "IAC-17-OBJ-2"
+                  }
+                ],
+                "prose": "Determine that each revocation reconciles to a revocation event in the log."
+              },
+              {
+                "id": "iac-17_obj.3",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "IAC-17-OBJ-3"
+                  }
+                ],
+                "prose": "Determine that orphaned and over-privileged accounts are zero or are documented exceptions under the closure SLA."
+              },
+              {
+                "id": "iac-17_obj.4",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "IAC-17-OBJ-4"
+                  }
+                ],
+                "prose": "Determine that leaver deprovisioning fired from the HR feed within the SLA."
+              },
+              {
+                "id": "iac-17_obj.5",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "IAC-17-OBJ-5"
+                  }
+                ],
+                "prose": "Determine that segregation-of-duties conflicts were identified and resolved or excepted."
+              }
+            ]
+          },
+          {
+            "id": "iac-17_asm-examine",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "EXAMINE"
+              }
+            ],
+            "parts": [
+              {
+                "id": "iac-17_asm-examine_obj",
+                "name": "assessment-objects",
+                "prose": "- The recertification policy, the identity-provider-to-HRIS join design, and the cycle attestation for the period.\n- The exception log for orphaned, over-privileged, and segregation-of-duties findings."
+              }
+            ]
+          },
+          {
+            "id": "iac-17_asm-interview",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "INTERVIEW"
+              }
+            ],
+            "parts": [
+              {
+                "id": "iac-17_asm-interview_obj",
+                "name": "assessment-objects",
+                "prose": "- Security on the revocation SLA and the cycle sign-off bar.\n- Human Resources on the timeliness of the termination and role-change feed.\n- Engineering on entitlement decisions for systems their team owns."
+              }
+            ]
+          },
+          {
+            "id": "iac-17_asm-test",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "TEST"
+              }
+            ],
+            "parts": [
+              {
+                "id": "iac-17_asm-test_obj",
+                "name": "assessment-objects",
+                "prose": "- Pull the entitlement snapshot at cycle start and confirm every in-scope account, including service accounts, was reviewed.\n- Trace a sample of revocations to revocation events in the log.\n- Pick a recent leaver and confirm deprovisioning fired from the HR event within the SLA.\n- Test the population for orphaned, over-privileged, and toxic-combination accounts."
+              }
+            ]
+          }
+        ],
+        "controls": [
+          {
+            "id": "iac-17.1",
+            "class": "SCF-enhancement",
+            "title": "HRIS-driven recertification",
+            "props": [
+              {
+                "name": "label",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "IAC-17(1)"
+              }
+            ],
+            "parts": [
+              {
+                "id": "iac-17.1_smt",
+                "name": "statement",
+                "prose": "The campaign is driven from the identity provider joined to the HRIS so every account maps to a live employment status and owner."
+              }
+            ]
+          },
+          {
+            "id": "iac-17.2",
+            "class": "SCF-enhancement",
+            "title": "Non-human accounts in scope at the same bar",
+            "props": [
+              {
+                "name": "label",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "IAC-17(2)"
+              }
+            ],
+            "parts": [
+              {
+                "id": "iac-17.2_smt",
+                "name": "statement",
+                "prose": "Service accounts and other non-human identities have an owner and a recertification record and are reviewed to the same standard as human accounts."
+              }
+            ]
+          },
+          {
+            "id": "iac-17.3",
+            "class": "SCF-enhancement",
+            "title": "HR-triggered leaver deprovisioning",
+            "props": [
+              {
+                "name": "label",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "IAC-17(3)"
+              }
+            ],
+            "parts": [
+              {
+                "id": "iac-17.3_smt",
+                "name": "statement",
+                "prose": "Deprovisioning fires from the human-resources feed on the same business day as the event, not from a manual ticket."
+              }
+            ]
+          },
+          {
+            "id": "iac-17.4",
+            "class": "SCF-enhancement",
+            "title": "Segregation-of-duties and toxic-combination review",
+            "props": [
+              {
+                "name": "label",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "IAC-17(4)"
+              }
+            ],
+            "parts": [
+              {
+                "id": "iac-17.4_smt",
+                "name": "statement",
+                "prose": "The review flags accounts holding conflicting entitlements regardless of employment status."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "chg-02",
+        "class": "SCF",
+        "title": "Configuration change control",
+        "params": [
+          {
+            "id": "chg-02_prm_min_approvals",
+            "label": "Minimum independent approvals",
+            "guidelines": [
+              {
+                "prose": "Required approving reviews on a protected-branch pull request, none from the author."
+              }
+            ],
+            "values": [
+              "1 (reviewer not equal to author)"
+            ]
+          },
+          {
+            "id": "chg-02_prm_protected_branches",
+            "label": "Protected branches",
+            "guidelines": [
+              {
+                "prose": "Branches where direct pushes are blocked and the reviewed-PR gate is enforced."
+              }
+            ],
+            "values": [
+              "production release branches"
+            ]
+          },
+          {
+            "id": "chg-02_prm_required_checks",
+            "label": "Required status checks",
+            "guidelines": [
+              {
+                "prose": "Checks that must pass before merge is permitted; failing checks block the merge."
+              }
+            ],
+            "values": [
+              "build, automated tests, and security checks must pass"
+            ]
+          },
+          {
+            "id": "chg-02_prm_emergency_window",
+            "label": "Emergency-change review window",
+            "guidelines": [
+              {
+                "prose": "Maximum time from an emergency change to its documented after-the-fact review."
+              }
+            ],
+            "values": [
+              "3 business days"
+            ]
+          }
+        ],
+        "props": [
+          {
+            "name": "scf-id",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "CHG-02"
+          },
+          {
+            "name": "scf-domain",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "CHG"
+          },
+          {
+            "name": "nist-csf-function",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "Protect"
+          },
+          {
+            "name": "automation",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "automated"
+          },
+          {
+            "name": "sox-itgc-pillar",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "change"
+          },
+          {
+            "name": "sox-itgc-basis",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "framework-mapped-home-lab"
+          }
+        ],
+        "parts": [
+          {
+            "id": "chg-02_smt",
+            "name": "statement",
+            "prose": "Technical configuration change reaches production only through a peer-reviewed pull request linked to a tracked work item, with required checks passing. Direct pushes to protected branches are blocked, the reviewer is independent of the author, and emergency changes follow a documented after-the-fact review."
+          },
+          {
+            "id": "chg-02_gdn",
+            "name": "guidance",
+            "prose": "Make branch protection the technical enforcement of the policy rather than a written rule people are asked to follow. The protected production branch requires a pull request, at least one approving review from a reviewer who is not the author, a linked work item, and a passing set of required status checks. Direct pushes are blocked at the platform, so the bypass path does not exist rather than being discouraged.\nThe evidence is the merge record pulled from the source-control API: the linked ticket, the independent reviewer, the passing checks, and the merge timestamp. This is collected, not reconstructed, and it is the same record that satisfies the SOX change assertion of segregation between the function that develops a change and the function that approves its release. Enforce that independence through code-owner rules so the approver cannot be the author.\nProvide an explicit emergency-change path for the rare case where a fix must ship before normal review. The emergency change is logged at the time, and it carries a documented after-the-fact review within the reconciliation window. Any change that reaches production outside the reviewed path is an exception that surfaces in the evidence with a closure path, so the exception rate is visible rather than hidden."
+          },
+          {
+            "id": "chg-02_obj",
+            "name": "assessment-objective",
+            "parts": [
+              {
+                "id": "chg-02_obj.1",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "CHG-02-OBJ-1"
+                  }
+                ],
+                "prose": "Determine that production changes reached production only through a reviewed, ticket-linked pull request with passing checks."
+              },
+              {
+                "id": "chg-02_obj.2",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "CHG-02-OBJ-2"
+                  }
+                ],
+                "prose": "Determine that direct pushes to protected branches were blocked."
+              },
+              {
+                "id": "chg-02_obj.3",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "CHG-02-OBJ-3"
+                  }
+                ],
+                "prose": "Determine that the approving reviewer was independent of the author."
+              },
+              {
+                "id": "chg-02_obj.4",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "CHG-02-OBJ-4"
+                  }
+                ],
+                "prose": "Determine that each emergency change was reconciled by an after-the-fact review within the window."
+              }
+            ]
+          },
+          {
+            "id": "chg-02_asm-examine",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "EXAMINE"
+              }
+            ],
+            "parts": [
+              {
+                "id": "chg-02_asm-examine_obj",
+                "name": "assessment-objects",
+                "prose": "- The branch-protection configuration, the code-owner rules, and the required-checks configuration for the protected branch.\n- The emergency-change log and the after-the-fact reviews for the period."
+              }
+            ]
+          },
+          {
+            "id": "chg-02_asm-interview",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "INTERVIEW"
+              }
+            ],
+            "parts": [
+              {
+                "id": "chg-02_asm-interview_obj",
+                "name": "assessment-objects",
+                "prose": "- Security on the change policy and the emergency-change path.\n- Engineering on merge discipline and how independence is enforced.\n- IT on locking the CI/CD identity and check configuration against bypass."
+              }
+            ]
+          },
+          {
+            "id": "chg-02_asm-test",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "TEST"
+              }
+            ],
+            "parts": [
+              {
+                "id": "chg-02_asm-test_obj",
+                "name": "assessment-objects",
+                "prose": "- Attempt a direct push to the protected branch and confirm it is blocked.\n- Sample merges and confirm a linked work item, an independent reviewer, and passing checks for each.\n- Reconcile each emergency change to a documented after-the-fact review within the window."
+              }
+            ]
+          }
+        ],
+        "controls": [
+          {
+            "id": "chg-02.1",
+            "class": "SCF-enhancement",
+            "title": "Branch protection blocks direct pushes",
+            "props": [
+              {
+                "name": "label",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "CHG-02(1)"
+              }
+            ],
+            "parts": [
+              {
+                "id": "chg-02.1_smt",
+                "name": "statement",
+                "prose": "The protected production branch rejects direct pushes so change can reach production only through a reviewed pull request."
+              }
+            ]
+          },
+          {
+            "id": "chg-02.2",
+            "class": "SCF-enhancement",
+            "title": "Independent review for segregation of duties",
+            "props": [
+              {
+                "name": "label",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "CHG-02(2)"
+              }
+            ],
+            "parts": [
+              {
+                "id": "chg-02.2_smt",
+                "name": "statement",
+                "prose": "At least one approving reviewer is not the author, enforced through code-owner rules, satisfying the SOX change-segregation assertion."
+              }
+            ]
+          },
+          {
+            "id": "chg-02.3",
+            "class": "SCF-enhancement",
+            "title": "Work-item linkage per change",
+            "props": [
+              {
+                "name": "label",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "CHG-02(3)"
+              }
+            ],
+            "parts": [
+              {
+                "id": "chg-02.3_smt",
+                "name": "statement",
+                "prose": "Each merged change links to a tracked work item so the reason for the change is recorded."
+              }
+            ]
+          },
+          {
+            "id": "chg-02.4",
+            "class": "SCF-enhancement",
+            "title": "Emergency-change after-the-fact review",
+            "props": [
+              {
+                "name": "label",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "CHG-02(4)"
+              }
+            ],
+            "parts": [
+              {
+                "id": "chg-02.4_smt",
+                "name": "statement",
+                "prose": "Emergency changes are logged at the time and reviewed within the reconciliation window."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mon-01",
+        "class": "SCF",
+        "title": "Continuous monitoring and event logging",
+        "params": [
+          {
+            "id": "mon-01_prm_retention_floor",
+            "label": "Retention floor",
+            "guidelines": [
+              {
+                "prose": "Minimum retention for the central store; the longest in-scope obligation sets the actual floor."
+              }
+            ],
+            "values": [
+              "365 days; longer where an obligation in scope requires it"
+            ]
+          },
+          {
+            "id": "mon-01_prm_ack_sla_high",
+            "label": "Alert acknowledgement SLA, high severity",
+            "guidelines": [
+              {
+                "prose": "Maximum time to acknowledge a high-severity alert in the monitored queue."
+              }
+            ],
+            "values": [
+              "30 minutes"
+            ]
+          },
+          {
+            "id": "mon-01_prm_coverage_target",
+            "label": "Source coverage target",
+            "guidelines": [
+              {
+                "prose": "Every in-scope source forwards; a non-forwarding in-scope source is an exception."
+              }
+            ],
+            "values": [
+              "100 percent of the source inventory"
+            ]
+          },
+          {
+            "id": "mon-01_prm_integrity_cadence",
+            "label": "Integrity-check cadence",
+            "guidelines": [
+              {
+                "prose": "Frequency of write-once or object-lock integrity verification on the central store."
+              }
+            ],
+            "values": [
+              "daily"
+            ]
+          }
+        ],
+        "props": [
+          {
+            "name": "scf-id",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "MON-01"
+          },
+          {
+            "name": "scf-domain",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "MON"
+          },
+          {
+            "name": "nist-csf-function",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "Govern"
+          },
+          {
+            "name": "automation",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "automated"
+          },
+          {
+            "name": "sox-itgc-pillar",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "operations"
+          },
+          {
+            "name": "sox-itgc-basis",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "framework-mapped-home-lab"
+          }
+        ],
+        "parts": [
+          {
+            "id": "mon-01_smt",
+            "name": "statement",
+            "prose": "Enterprise monitoring computes control health continuously. Security events ship to a central append-only store with retention and integrity protection. Logs establish what, when, where, source, outcome, and identity, and defined event types alert a monitored queue with an acknowledgement SLA."
+          },
+          {
+            "id": "mon-01_gdn",
+            "name": "guidance",
+            "prose": "Forward every in-scope source to a central store, and protect that store with write-once or object-lock integrity so records cannot be silently altered after the fact. The coverage target is the source inventory itself: a source that is in the inventory and not forwarding is a gap that surfaces, not a number quietly left out of the denominator. Each record establishes what happened, when, where, from which source, with what outcome, and under which identity, so an investigator can reconstruct a sequence without guessing.\nDrive control-health checks off these logs rather than off a separate console. A failed check opens a tracked Issue, and that Issue, timestamped and retained, is the evidence of due diligence: it shows the program noticed and acted. Route defined event types to a monitored queue with an acknowledgement SLA tuned by severity, and treat a missed acknowledgement as an exception rather than a number to round away.\nSet a retention floor that meets or exceeds the longest obligation in scope, and verify integrity on a cadence so an altered or missing record is itself an alert. This control is the operations leg of the SOX ITGC mapping, and it is the substrate the other controls compute against: AAT-01 broker decisions, IAC-17 revocations, CHG-02 merges, and IRO-01 incident timelines all land in this store."
+          },
+          {
+            "id": "mon-01_obj",
+            "name": "assessment-objective",
+            "parts": [
+              {
+                "id": "mon-01_obj.1",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "MON-01-OBJ-1"
+                  }
+                ],
+                "prose": "Determine that 100 percent of in-scope sources forward to the central store."
+              },
+              {
+                "id": "mon-01_obj.2",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "MON-01-OBJ-2"
+                  }
+                ],
+                "prose": "Determine that integrity protection prevents silent alteration and that integrity checks pass."
+              },
+              {
+                "id": "mon-01_obj.3",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "MON-01-OBJ-3"
+                  }
+                ],
+                "prose": "Determine that retention meets or exceeds the floor for the period."
+              },
+              {
+                "id": "mon-01_obj.4",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "MON-01-OBJ-4"
+                  }
+                ],
+                "prose": "Determine that defined alerts are acknowledged within the SLA."
+              },
+              {
+                "id": "mon-01_obj.5",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "MON-01-OBJ-5"
+                  }
+                ],
+                "prose": "Determine that failed control-health checks opened tracked Issues."
+              }
+            ]
+          },
+          {
+            "id": "mon-01_asm-examine",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "EXAMINE"
+              }
+            ],
+            "parts": [
+              {
+                "id": "mon-01_asm-examine_obj",
+                "name": "assessment-objects",
+                "prose": "- The source inventory against the forwarding configuration, the retention setting, and the object-lock configuration.\n- The alert ruleset and the history of drift Issues for the period."
+              }
+            ]
+          },
+          {
+            "id": "mon-01_asm-interview",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "INTERVIEW"
+              }
+            ],
+            "parts": [
+              {
+                "id": "mon-01_asm-interview_obj",
+                "name": "assessment-objects",
+                "prose": "- The SOC on the alert ruleset and the retention standard.\n- IT on source forwarding and integrity controls.\n- Engineering on emission of the agreed security-event schema."
+              }
+            ]
+          },
+          {
+            "id": "mon-01_asm-test",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "TEST"
+              }
+            ],
+            "parts": [
+              {
+                "id": "mon-01_asm-test_obj",
+                "name": "assessment-objects",
+                "prose": "- Compare forwarding to the source inventory and identify any gap.\n- Attempt to alter a stored record and confirm the object-lock prevents it.\n- Inject a test alert and confirm acknowledgement within the SLA.\n- Force a control-health failure and confirm a tracked Issue opens."
+              }
+            ]
+          }
+        ],
+        "controls": [
+          {
+            "id": "mon-01.1",
+            "class": "SCF-enhancement",
+            "title": "Append-only integrity protection",
+            "props": [
+              {
+                "name": "label",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "MON-01(1)"
+              }
+            ],
+            "parts": [
+              {
+                "id": "mon-01.1_smt",
+                "name": "statement",
+                "prose": "The central store uses write-once or object-lock so records cannot be silently altered, verified on the integrity cadence."
+              }
+            ]
+          },
+          {
+            "id": "mon-01.2",
+            "class": "SCF-enhancement",
+            "title": "Full source coverage against inventory",
+            "props": [
+              {
+                "name": "label",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "MON-01(2)"
+              }
+            ],
+            "parts": [
+              {
+                "id": "mon-01.2_smt",
+                "name": "statement",
+                "prose": "Coverage is measured against the source inventory, and a non-forwarding in-scope source is an exception."
+              }
+            ]
+          },
+          {
+            "id": "mon-01.3",
+            "class": "SCF-enhancement",
+            "title": "Alerting with acknowledgement SLA",
+            "props": [
+              {
+                "name": "label",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "MON-01(3)"
+              }
+            ],
+            "parts": [
+              {
+                "id": "mon-01.3_smt",
+                "name": "statement",
+                "prose": "Defined event types route to a monitored queue with a severity-tuned acknowledgement SLA."
+              }
+            ]
+          },
+          {
+            "id": "mon-01.4",
+            "class": "SCF-enhancement",
+            "title": "Drift-opens-an-Issue control-health computation",
+            "props": [
+              {
+                "name": "label",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "MON-01(4)"
+              }
+            ],
+            "parts": [
+              {
+                "id": "mon-01.4_smt",
+                "name": "statement",
+                "prose": "A failed control-health check opens a tracked Issue that serves as the evidence of due diligence."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "tpm-01",
+        "class": "SCF",
+        "title": "Third-party management",
+        "params": [
+          {
+            "id": "tpm-01_prm_tiers",
+            "label": "Tier scale",
+            "guidelines": [
+              {
+                "prose": "Tier set by data sensitivity and access first, dependency and breach impact second."
+              }
+            ],
+            "values": [
+              "Tier 1 (restricted) through Tier 4 (minimal)"
+            ]
+          },
+          {
+            "id": "tpm-01_prm_reassess_t1",
+            "label": "Reassessment cadence, Tier 1",
+            "guidelines": [
+              {
+                "prose": "High-risk parties reassess at least annually and whenever scope or posture changes materially."
+              }
+            ],
+            "values": [
+              "annual and on material change"
+            ]
+          },
+          {
+            "id": "tpm-01_prm_breach_window",
+            "label": "Contractual breach-notice window",
+            "guidelines": [
+              {
+                "prose": "Maximum notice window required of an in-scope party in the data processing agreement."
+              }
+            ],
+            "values": [
+              "72 hours or tighter"
+            ]
+          },
+          {
+            "id": "tpm-01_prm_assurance_artifacts",
+            "label": "Accepted assurance artifacts",
+            "guidelines": [
+              {
+                "prose": "Artifacts accepted in lieu of a custom questionnaire, with scope and exceptions logged."
+              }
+            ],
+            "values": [
+              "current SOC 2 Type II or ISO 27001, scope recorded"
+            ]
+          }
+        ],
+        "props": [
+          {
+            "name": "scf-id",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "TPM-01"
+          },
+          {
+            "name": "scf-domain",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "TPM"
+          },
+          {
+            "name": "nist-csf-function",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "Govern"
+          },
+          {
+            "name": "automation",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "partial"
+          }
+        ],
+        "parts": [
+          {
+            "id": "tpm-01_smt",
+            "name": "statement",
+            "prose": "Third parties with system or personal-data access are tiered by what they can touch, assessed before onboarding, and bound by security, breach-notice, and processing terms. High-risk parties reassess on cadence, and vendor trust evidence is reused rather than re-questionnaired."
+          },
+          {
+            "id": "tpm-01_gdn",
+            "name": "guidance",
+            "prose": "Tier by data sensitivity and access first, business dependency and breach impact second. The restricted, highest tier is anchored to parties that touch precise location or children's data on the location graph, and to foundation-model providers whose terms govern whether customer data trains a model. Tier is not a function of contract size: a high-spend tool that never receives sensitive data sits in a lower tier, and a small subprocessor that ingests real-time location sits at the top.\nAccept a current SOC 2 Type II or ISO 27001 certificate in lieu of a custom questionnaire, recording the scope it covers and any exceptions, so the program reuses the assurance the vendor already produced instead of restarting diligence. Bind every in-scope party with a data processing agreement that carries a breach-notice window, processing limits, and subprocessor terms. Map Tier 1 subprocessors so concentration risk, where many critical paths share one provider, is visible.\nAI may draft the gap analysis from the vendor's report and propose a tier, which makes the analyst faster, but a human GRC owner validates scope, exceptions, and tier before anything is recorded. The recorded evidence is computed and human-validated, never model-authored. Reassess high-risk parties on cadence and on material change, and track overdue reassessments to closure rather than letting them age silently."
+          },
+          {
+            "id": "tpm-01_obj",
+            "name": "assessment-objective",
+            "parts": [
+              {
+                "id": "tpm-01_obj.1",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "TPM-01-OBJ-1"
+                  }
+                ],
+                "prose": "Determine that the vendor inventory reconciles to the tiering model."
+              },
+              {
+                "id": "tpm-01_obj.2",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "TPM-01-OBJ-2"
+                  }
+                ],
+                "prose": "Determine that high-risk parties hold current assurance evidence and an executed data processing agreement."
+              },
+              {
+                "id": "tpm-01_obj.3",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "TPM-01-OBJ-3"
+                  }
+                ],
+                "prose": "Determine that reassessments occurred on cadence and overdue items are tracked to closure."
+              },
+              {
+                "id": "tpm-01_obj.4",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "TPM-01-OBJ-4"
+                  }
+                ],
+                "prose": "Determine that AI-proposed tiers and gap analyses were validated by a human GRC owner before being recorded."
+              }
+            ]
+          },
+          {
+            "id": "tpm-01_asm-examine",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "EXAMINE"
+              }
+            ],
+            "parts": [
+              {
+                "id": "tpm-01_asm-examine_obj",
+                "name": "assessment-objects",
+                "prose": "- The tiering model, the vendor register, the executed data processing agreements, and the assurance artifacts with their expiries."
+              }
+            ]
+          },
+          {
+            "id": "tpm-01_asm-interview",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "INTERVIEW"
+              }
+            ],
+            "parts": [
+              {
+                "id": "tpm-01_asm-interview_obj",
+                "name": "assessment-objects",
+                "prose": "- GRC on the tiering bar and the assessment sign-off.\n- Legal/Privacy on the data processing, breach-notice, and processing-limit clauses.\n- Engineering on the data and access each party actually needs."
+              }
+            ]
+          },
+          {
+            "id": "tpm-01_asm-test",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "TEST"
+              }
+            ],
+            "parts": [
+              {
+                "id": "tpm-01_asm-test_obj",
+                "name": "assessment-objects",
+                "prose": "- Reconcile the vendor inventory to the register and the tiering model.\n- Sample high-risk parties and confirm current assurance evidence and an executed data processing agreement.\n- Trace an AI-proposed tier to the human validation record.\n- Check overdue reassessments to a closure path."
+              }
+            ]
+          }
+        ],
+        "controls": [
+          {
+            "id": "tpm-01.1",
+            "class": "SCF-enhancement",
+            "title": "Touch-based tiering",
+            "props": [
+              {
+                "name": "label",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "TPM-01(1)"
+              }
+            ],
+            "parts": [
+              {
+                "id": "tpm-01.1_smt",
+                "name": "statement",
+                "prose": "Tier is anchored to what a party can touch, with the restricted tier reserved for precise location, children's data, and model-training terms."
+              }
+            ]
+          },
+          {
+            "id": "tpm-01.2",
+            "class": "SCF-enhancement",
+            "title": "Assurance reuse",
+            "props": [
+              {
+                "name": "label",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "TPM-01(2)"
+              }
+            ],
+            "parts": [
+              {
+                "id": "tpm-01.2_smt",
+                "name": "statement",
+                "prose": "A current SOC 2 Type II or ISO 27001 is accepted in lieu of a custom questionnaire, with scope and exceptions recorded."
+              }
+            ]
+          },
+          {
+            "id": "tpm-01.3",
+            "class": "SCF-enhancement",
+            "title": "AI-drafted gap analysis with human validation",
+            "props": [
+              {
+                "name": "label",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "TPM-01(3)"
+              }
+            ],
+            "parts": [
+              {
+                "id": "tpm-01.3_smt",
+                "name": "statement",
+                "prose": "AI may draft the gap analysis and propose a tier, but a human GRC owner validates before anything is recorded."
+              }
+            ]
+          },
+          {
+            "id": "tpm-01.4",
+            "class": "SCF-enhancement",
+            "title": "Subprocessor and concentration mapping",
+            "props": [
+              {
+                "name": "label",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "TPM-01(4)"
+              }
+            ],
+            "parts": [
+              {
+                "id": "tpm-01.4_smt",
+                "name": "statement",
+                "prose": "Tier 1 subprocessors are mapped so concentration risk across shared providers is visible."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "iro-01",
+        "class": "SCF",
+        "title": "Incident response operations",
+        "params": [
+          {
+            "id": "iro-01_prm_severity_scale",
+            "label": "Severity scale",
+            "guidelines": [
+              {
+                "prose": "Severity levels that set containment expectations and escalation paths."
+              }
+            ],
+            "values": [
+              "Sev1 through Sev4"
+            ]
+          },
+          {
+            "id": "iro-01_prm_reg_clock",
+            "label": "Regulatory notification clock",
+            "guidelines": [
+              {
+                "prose": "The notification window for a threshold-meeting incident, set by the regime in scope."
+              }
+            ],
+            "values": [
+              "72 hours where GDPR applies; the applicable statutory window otherwise"
+            ]
+          },
+          {
+            "id": "iro-01_prm_containment_sla",
+            "label": "Containment SLA, severity-1",
+            "guidelines": [
+              {
+                "prose": "Target interval from triage to containment for the highest severity."
+              }
+            ],
+            "values": [
+              "defined per the severity scale"
+            ]
+          },
+          {
+            "id": "iro-01_prm_tabletop",
+            "label": "Tabletop cadence",
+            "guidelines": [
+              {
+                "prose": "Frequency of exercising the plan, including an autonomous-agent scenario."
+              }
+            ],
+            "values": [
+              "at least annual, including an AI-scope scenario"
+            ]
+          }
+        ],
+        "props": [
+          {
+            "name": "scf-id",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "IRO-01"
+          },
+          {
+            "name": "scf-domain",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "IRO"
+          },
+          {
+            "name": "nist-csf-function",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "Govern"
+          },
+          {
+            "name": "automation",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "partial"
+          }
+        ],
+        "parts": [
+          {
+            "id": "iro-01_smt",
+            "name": "statement",
+            "prose": "Incidents are detected, triaged, contained, and recorded against a governed plan, including AI scope breaches. Legal/Privacy owns notification within statutory timelines, and every incident receives a post-incident review."
+          },
+          {
+            "id": "iro-01_gdn",
+            "name": "guidance",
+            "prose": "Generate the incident record from the paging and tracking tooling rather than reconstructing a narrative after the fact. The record carries the detection time, the severity, the containment and resolution timestamps, the notification decision and its basis, and a link to the post-incident review. Because the record is sourced from tooling, the timeline is defensible: it shows when the program detected, decided, and acted, not when someone remembered to write it down.\nRun a severity scale that sets containment expectations by level, and route severity-1 incidents to a named escalation including the board where the obligation requires it. Legal/Privacy owns the notification decision: whether a statutory or contractual threshold is met, and if so, that the regulator and affected parties are notified within the clock that applies. The decision and its basis are logged, because the decision not to notify is as much a record as the decision to notify.\nKeep an AI-incident runbook for the case where an autonomous agent acts out of scope on the location graph, with a kill-switch path that ties back to AAT-01. Every incident, regardless of severity, gets a post-incident review that feeds control design, and the program tabletops at least annually, including an AI-scope scenario, so the plan is exercised before it is needed."
+          },
+          {
+            "id": "iro-01_obj",
+            "name": "assessment-objective",
+            "parts": [
+              {
+                "id": "iro-01_obj.1",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "IRO-01-OBJ-1"
+                  }
+                ],
+                "prose": "Determine that incident records carry complete timeline fields sourced from tooling."
+              },
+              {
+                "id": "iro-01_obj.2",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "IRO-01-OBJ-2"
+                  }
+                ],
+                "prose": "Determine that every incident received a post-incident review."
+              },
+              {
+                "id": "iro-01_obj.3",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "IRO-01-OBJ-3"
+                  }
+                ],
+                "prose": "Determine that threshold-meeting incidents carry a decision log and met the statutory timeline."
+              },
+              {
+                "id": "iro-01_obj.4",
+                "name": "objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                    "value": "IRO-01-OBJ-4"
+                  }
+                ],
+                "prose": "Determine that AI-scope incidents reference the kill-switch action taken."
+              }
+            ]
+          },
+          {
+            "id": "iro-01_asm-examine",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "EXAMINE"
+              }
+            ],
+            "parts": [
+              {
+                "id": "iro-01_asm-examine_obj",
+                "name": "assessment-objects",
+                "prose": "- The incident response plan, the severity scale, the breach-decision log, and the post-incident reviews for the period.\n- The AI-incident runbook and the most recent tabletop record."
+              }
+            ]
+          },
+          {
+            "id": "iro-01_asm-interview",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "INTERVIEW"
+              }
+            ],
+            "parts": [
+              {
+                "id": "iro-01_asm-interview_obj",
+                "name": "assessment-objects",
+                "prose": "- Security on the plan, the severity scale, the containment SLA, and the tabletop.\n- Legal/Privacy on notification decisions and the statutory clocks.\n- Engineering on containment and recovery on their services."
+              }
+            ]
+          },
+          {
+            "id": "iro-01_asm-test",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "TEST"
+              }
+            ],
+            "parts": [
+              {
+                "id": "iro-01_asm-test_obj",
+                "name": "assessment-objects",
+                "prose": "- Sample incidents and confirm complete timeline fields sourced from the tracker.\n- Verify a post-incident review exists for each sampled incident.\n- For a threshold-meeting incident, confirm the decision basis and the statutory timeline were met.\n- Tabletop an AI-scope agent incident and confirm the kill-switch path executes."
+              }
+            ]
+          }
+        ],
+        "controls": [
+          {
+            "id": "iro-01.1",
+            "class": "SCF-enhancement",
+            "title": "AI-scope incident handling and kill-switch",
+            "props": [
+              {
+                "name": "label",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "IRO-01(1)"
+              }
+            ],
+            "parts": [
+              {
+                "id": "iro-01.1_smt",
+                "name": "statement",
+                "prose": "An AI-incident runbook covers an agent acting out of scope on the location graph, with a kill-switch path tied to AAT-01."
+              }
+            ]
+          },
+          {
+            "id": "iro-01.2",
+            "class": "SCF-enhancement",
+            "title": "Notification decision log with statutory clock",
+            "props": [
+              {
+                "name": "label",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "IRO-01(2)"
+              }
+            ],
+            "parts": [
+              {
+                "id": "iro-01.2_smt",
+                "name": "statement",
+                "prose": "Legal/Privacy logs the notification decision and its basis, and meets the statutory clock when a threshold is met."
+              }
+            ]
+          },
+          {
+            "id": "iro-01.3",
+            "class": "SCF-enhancement",
+            "title": "Mandatory post-incident review",
+            "props": [
+              {
+                "name": "label",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "IRO-01(3)"
+              }
+            ],
+            "parts": [
+              {
+                "id": "iro-01.3_smt",
+                "name": "statement",
+                "prose": "Every incident receives a post-incident review that feeds back into control design."
+              }
+            ]
+          },
+          {
+            "id": "iro-01.4",
+            "class": "SCF-enhancement",
+            "title": "Annual tabletop including an AI scenario",
+            "props": [
+              {
+                "name": "label",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "IRO-01(4)"
+              }
+            ],
+            "parts": [
+              {
+                "id": "iro-01.4_smt",
+                "name": "statement",
+                "prose": "The plan is exercised at least annually, including an autonomous-agent scope scenario."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,158 @@
+metadata:
+  title: Attestation Reuse Register
+  pillar: 03-tprm
+  control_anchor: TPM-01
+  owner_function: GRC
+  contributing_functions:
+    - security
+    - legal
+    - privacy
+  example_profile: consumer location-safety service (illustrative)
+  note: >
+    Illustrative example. Entries below are not claims about any real organization's
+    real vendors or posture. The register logs the decision to accept a vendor's own
+    trust evidence in lieu of a custom questionnaire, with the scope the evidence
+    covers and the exceptions it does not. AI drafts the gap analysis; a human GRC
+    owner validates scope and exceptions; the record lands only on a merged pull
+    request. ai_generated applies to evidence, never to drafted analysis.
+
+# What the program will accept in lieu of a custom questionnaire, and the conditions.
+acceptance_policy:
+  principle: >
+    Trust evidence the vendor already produced is reused, not re-questionnaired.
+    Reuse is the default for Tier 2 and below. Deep review (Tier 1) may use an
+    attestation as an input but never as a substitute.
+  accepted_in_lieu_of_questionnaire:
+    - type: soc2_type_ii
+      label: SOC 2 Type II report (TSC 2017)
+      satisfies: security baseline, operating effectiveness over the report period
+    - type: iso_27001_certificate
+      label: ISO/IEC 27001 certificate plus current Statement of Applicability
+      satisfies: ISMS scope and control selection
+    - type: pen_test_letter
+      label: Independent penetration-test attestation letter
+      satisfies: external testing recency and remediation posture
+      role: supplements an attestation; not sufficient on its own
+  currency_requirements:
+    soc2_report_age_months_max: 12
+    bridge_letter_required_if_gap_days_over: 90
+    iso_certificate_must_be: in-force, not expired or suspended
+    pen_test_age_months_max: 12
+  must_log_for_every_reuse:
+    - vendor_id and service
+    - tier and the route taken
+    - attestation type and report or certificate period
+    - scope fit: does the audited scope cover the service the company actually uses
+    - exceptions and qualified opinions noted in the report
+    - complementary user-entity controls the company must operate
+    - bridge-letter gap, if any
+    - gaps not covered by the attestation, routed to a short targeted follow-up
+    - human validator (function) and the pull request that recorded the decision
+  reject_when:
+    - audited scope excludes the service or region the company will use
+    - report is qualified on a control central to the vendor's data handling and no remediation is evidenced
+    - report or certificate is stale beyond the currency thresholds and no bridge letter is offered
+    - vendor is Tier 1 (escalate to deep review; attestation is input only)
+
+# Illustrative reuse decisions. Generic IDs and service categories, no real vendor or person names.
+reuse_register:
+  - vendor_id: vnd-2041
+    service: enterprise CRM (adult PII)
+    tier: 2
+    route: attestation_review
+    attestation:
+      type: soc2_type_ii
+      report_period: 2025-04-01 to 2026-03-31
+      report_age_months: 2
+      bridge_letter: not required
+    scope_fit: covered; audited scope includes the SaaS region in use
+    exceptions_noted:
+      - one access-review exception in the period, remediation evidenced in report
+    complementary_user_entity_controls:
+      - customer configures SSO and enforces MFA
+      - customer manages role assignment within the tenant
+    gaps_to_followup: []
+    decision: accept_in_lieu_of_questionnaire
+    human_validated_by: grc
+    recorded_via: pull_request
+    ai_generated: false
+
+  - vendor_id: vnd-3187
+    service: foundation-model API (location-graph agent)
+    tier: 1
+    route: deep_review
+    attestation:
+      type: soc2_type_ii
+      report_period: 2025-01-01 to 2025-12-31
+      report_age_months: 5
+      bridge_letter: required and received
+    scope_fit: partial; report covers platform security, not model-training data use
+    exceptions_noted: []
+    complementary_user_entity_controls:
+      - customer must opt out of training-on-customer-data where offered
+    gaps_to_followup:
+      - training-data-use and retention terms (contract, not attestation)
+      - region and subprocessor chain for inference
+      - model-update notice and exit terms
+    decision: attestation_as_input_only
+    note: Tier 1 requires deep review; attestation does not substitute.
+    human_validated_by: grc
+    recorded_via: pull_request
+    ai_generated: false
+
+  - vendor_id: vnd-5530
+    service: ad-measurement (aggregated, no location-graph data)
+    tier: 3
+    route: light_questionnaire
+    attestation:
+      type: iso_27001_certificate
+      certificate_status: in-force
+      statement_of_applicability: current
+    scope_fit: covered for the analytics service in use
+    exceptions_noted: []
+    complementary_user_entity_controls:
+      - customer sends only aggregated, non-personal events
+    gaps_to_followup: []
+    decision: accept_in_lieu_of_questionnaire
+    note: High business dependency did not raise the tier; no sensitive data touched.
+    human_validated_by: grc
+    recorded_via: pull_request
+    ai_generated: false
+
+  - vendor_id: vnd-6004
+    service: marketing email platform
+    tier: 4
+    route: inherent_risk_screen
+    attestation:
+      type: soc2_type_ii
+      report_period: 2024-07-01 to 2025-06-30
+      report_age_months: 12
+      bridge_letter: not offered
+    scope_fit: covered
+    exceptions_noted: []
+    complementary_user_entity_controls:
+      - customer manages list segmentation and suppression
+    gaps_to_followup:
+      - report at currency limit; request refreshed report or bridge letter at renewal
+    decision: accept_with_renewal_condition
+    human_validated_by: grc
+    recorded_via: pull_request
+    ai_generated: false
+
+# How reused evidence is kept current after acceptance.
+expiry_tracking:
+  on_attestation_expiry:
+    action: open a GitHub Issue labeled evidence
+    issue_is: the due-diligence record that the evidence lapsed
+    closure: refreshed report or bridge letter accepted via pull request
+  cross_reference:
+    continuous_monitoring: ./continuous-monitoring.md
+    intake_workflow: ./tiered-intake-workflow.md
+    tiering_model: ./vendor-tiering-model.md
+
+framework_mapping:
+  soc2: [CC1.4, CC2.3, CC9.2]
+  iso27002: ["5.19", "5.21", "5.22"]
+  nist_csf: [GV.SC-04, GV.SC-06, GV.SC-07]
+  nist_ai_rmf: [MANAGE-3.0]
+  ccpa_cpra: [7052-a]

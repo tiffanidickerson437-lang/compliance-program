@@ -1,0 +1,96 @@
+schema:
+  control: IAC-17
+  title: Access recertification attestation and entitlement snapshot
+  source_system: Okta IGA + Workday HRIS
+  collection: computed
+  ai_generated: false
+  oscal_form: assessment-results observation, per-cycle aggregate plus revocation list
+  description: >
+    A per-cycle reviewer attestation joined to an entitlement snapshot from the
+    identity provider and the HRIS, so every account maps to a live employment
+    status and an owner. Service accounts are treated the same as human accounts.
+    The revocation event in the log is the evidence; orphaned or over-privileged
+    accounts are exceptions with a closure SLA.
+  field_contract: >
+    Every field below names its source system and how it is computed. The
+    attestation and snapshot are joined by an extract job, never authored by a
+    model, which is why ai_generated is a required constant false and a true value
+    is rejected.
+  fields:
+    - name: control
+      type: string
+      const: IAC-17
+      required: true
+      source: pipeline constant
+      computation: Set to the control ID this record evidences.
+      description: Control identifier this record evidences.
+    - name: period
+      type: string
+      format: YYYY-Qn or YYYY-MM
+      required: true
+      source: reporting calendar
+      computation: The recertification cycle period.
+      description: Recertification cycle period.
+    - name: source
+      type: string
+      required: true
+      source: system inventory
+      computation: Names the identity provider and HRIS the snapshot was joined from.
+      description: Identity provider and HRIS the snapshot was joined from.
+    - name: accounts_in_scope
+      type: integer
+      required: true
+      source: identity provider entitlements joined to HRIS active status
+      computation: Count of human and service accounts subject to review this cycle.
+      description: Human and service accounts subject to review this cycle.
+    - name: reviewed
+      type: integer
+      required: true
+      source: recertification campaign (reviewer attestations)
+      computation: Count of in-scope accounts actually reviewed; target equals accounts_in_scope.
+      description: Accounts actually reviewed; target equals accounts_in_scope.
+    - name: revoked
+      type: integer
+      required: true
+      source: identity provider revocation events
+      computation: Count of entitlements removed as a result of the review, each tied to a revocation event.
+      description: Entitlements removed as a result of the review.
+    - name: orphaned
+      type: integer
+      required: true
+      source: identity provider entitlements with no HRIS owner match
+      computation: Count of accounts with no live owner or employment match; target is zero.
+      description: Accounts with no live owner or employment match; target is zero.
+    - name: service_accounts_recertified
+      type: string
+      format: recertified/total
+      required: true
+      source: identity provider non-human identities joined to owner register
+      computation: Ratio of service accounts recertified, held to the same bar as human accounts.
+      description: Ratio of service accounts recertified.
+    - name: ai_generated
+      type: boolean
+      const: false
+      required: true
+      source: pipeline metadata
+      computation: Set false because the record is joined from the identity provider and HRIS, not authored by a model.
+      description: Must be false. Evidence must be traceable to the identity provider and HRIS, so model-authored records are rejected by schema.
+  example:
+    control: IAC-17
+    period: 2026-Q2
+    source: Okta IGA + Workday HRIS
+    accounts_in_scope: 412
+    reviewed: 412
+    revoked: 7
+    orphaned: 0
+    service_accounts_recertified: "38/38"
+    ai_generated: false
+  audit_ready_when:
+    - reviewed equals accounts_in_scope, or the gap is an itemized exception with a closure date.
+    - Each revocation reconciles to a revocation event in the log.
+    - orphaned is zero, or each orphan is an exception under SLA.
+    - Service accounts are present in scope, not excluded.
+  rejected_when:
+    - ai_generated is true.
+    - reviewed is less than accounts_in_scope with no exception list.
+    - Revocations are asserted without a corresponding log event.

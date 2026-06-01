@@ -1,0 +1,159 @@
+# Evidence Validator
+#
+# Validates evidence records against the evidence schemas before a control can be
+# marked operating. Runs on the pull request, because the PR is the gate.
+#
+# HARD RULES (cause a non-zero exit, failing the build):
+#   - Every record must carry the envelope: control, period, source, ai_generated.
+#   - ai_generated MUST be false. A record with ai_generated: true is AI-authored
+#     evidence and is rejected by schema. Code supplies proof; AI never authors it.
+#   - Where a schema exists for the control family, required body fields must be present.
+#
+# Nothing is marked operating without passing validation.
+
+name: Evidence Validator
+
+on:
+  pull_request:
+    paths:
+      - "06-evidence-and-audit/**"
+      - "02-controls/control-library.yaml"
+      - "**/*.evidence.yaml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout program repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install parser
+        run: pip install --quiet pyyaml
+
+      - name: Validate evidence records against schema
+        run: |
+          python3 - <<'PY'
+          import os, sys, glob, yaml
+
+          REQUIRED_ENVELOPE = ["control", "period", "source", "ai_generated"]
+
+          # Where evidence records and schemas live. Missing dirs are fine in the
+          # scaffold; the validator passes cleanly when there is nothing to check.
+          record_globs = [
+              "06-evidence-and-audit/evidence-records/**/*.yaml",
+              "06-evidence-and-audit/evidence-records/**/*.yml",
+              "**/*.evidence.yaml",
+          ]
+          # Schemas are authored as 02-controls/evidence-schemas/<CONTROL>.yaml with the
+          # shape: {schema: {control, fields: [{name, required, const}], ...}}.
+          schema_dirs = [
+              "02-controls/evidence-schemas",
+              "06-evidence-and-audit/evidence-schemas",
+          ]
+
+          # Load any schemas present: required body fields and any const values per control.
+          schemas = {}
+          for schema_dir in schema_dirs:
+              if not os.path.isdir(schema_dir):
+                  continue
+              for sp in glob.glob(os.path.join(schema_dir, "*.yaml")):
+                  with open(sp) as f:
+                      doc = yaml.safe_load(f) or {}
+                  s = doc.get("schema", doc)
+                  cid = s.get("control")
+                  if not cid:
+                      continue
+                  fields = s.get("fields", []) or []
+                  schemas[cid] = {
+                      "required": [x["name"] for x in fields
+                                   if isinstance(x, dict) and x.get("required") and "name" in x],
+                      "consts": {x["name"]: x["const"] for x in fields
+                                 if isinstance(x, dict) and "const" in x and "name" in x},
+                  }
+
+          # Collect candidate record files.
+          files = set()
+          for g in record_globs:
+              files.update(glob.glob(g, recursive=True))
+
+          def iter_records(doc):
+              # A record is a dict carrying an ai_generated key. Support a single
+              # record, a list of records, or a {records: [...]} container.
+              if isinstance(doc, dict):
+                  if "ai_generated" in doc or "control" in doc:
+                      yield doc
+                  for key in ("records", "evidence", "evidence_records"):
+                      val = doc.get(key)
+                      if isinstance(val, list):
+                          for r in val:
+                              if isinstance(r, dict):
+                                  yield r
+              elif isinstance(doc, list):
+                  for r in doc:
+                      if isinstance(r, dict) and ("ai_generated" in r or "control" in r):
+                          yield r
+
+          violations = []
+          checked = 0
+
+          for path in sorted(files):
+              try:
+                  with open(path) as f:
+                      docs = list(yaml.safe_load_all(f))
+              except yaml.YAMLError as e:
+                  violations.append("{}: invalid YAML ({})".format(path, e))
+                  continue
+              for doc in docs:
+                  for rec in iter_records(doc):
+                      checked += 1
+                      # Envelope completeness.
+                      for field in REQUIRED_ENVELOPE:
+                          if field not in rec:
+                              violations.append(
+                                  "{}: record {} missing envelope field '{}'".format(
+                                      path, rec.get("control", "?"), field))
+                      # The non-negotiable rule.
+                      if rec.get("ai_generated") is not False:
+                          violations.append(
+                              "{}: record {} has ai_generated={!r}; must be false "
+                              "(AI-authored evidence is rejected)".format(
+                                  path, rec.get("control", "?"), rec.get("ai_generated")))
+                      # Body fields and const values where a schema exists for this control.
+                      cid = rec.get("control")
+                      schema = schemas.get(cid)
+                      if schema:
+                          for field in schema["required"]:
+                              if field not in rec:
+                                  violations.append(
+                                      "{}: record {} missing schema field '{}'".format(
+                                          path, cid, field))
+                          for field, want in schema["consts"].items():
+                              if field in rec and rec[field] != want:
+                                  violations.append(
+                                      "{}: record {} field '{}'={!r} violates const {!r}".format(
+                                          path, cid, field, rec[field], want))
+
+          if checked == 0:
+              print("No evidence records found to validate. Scaffold passes.")
+              sys.exit(0)
+
+          if violations:
+              print("EVIDENCE VALIDATION FAILED. {} record(s) checked.".format(checked))
+              for v in violations:
+                  print("  - " + v)
+              # Non-zero exit fails the build; the PR cannot merge as operating.
+              sys.exit(1)
+
+          print("Evidence validation passed. {} record(s) checked, all schema-valid, "
+                "all ai_generated: false.".format(checked))
+          sys.exit(0)
+          PY

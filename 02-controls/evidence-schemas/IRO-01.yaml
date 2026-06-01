@@ -1,0 +1,109 @@
+schema:
+  control: IRO-01
+  title: Incident response record with notification decision
+  source_system: paging + incident tracker + breach-decision log
+  collection: computed
+  ai_generated: false
+  oscal_form: assessment-results observation, per-incident timeline plus aggregate
+  description: >
+    A computed incident record generated from paging and tracking tooling, not a
+    reconstructed narrative: detection time, severity, containment and resolution
+    timestamps, the notification decision and its basis, and the post-incident
+    review link. AI-specific incidents, such as an agent acting out of scope on
+    the location graph, are in scope and carry a kill-switch path in the runbook.
+  field_contract: >
+    Every field below names its source system and how it is computed. The record
+    is generated from paging and tracking tooling, never authored by a model,
+    which is why ai_generated is a required constant false and a true value is
+    rejected.
+  fields:
+    - name: control
+      type: string
+      const: IRO-01
+      required: true
+      source: pipeline constant
+      computation: Set to the control ID this record evidences.
+      description: Control identifier this record evidences.
+    - name: period
+      type: string
+      format: YYYY-Qn or YYYY-MM
+      required: true
+      source: reporting calendar
+      computation: The reporting period the records cover.
+      description: Reporting period.
+    - name: source
+      type: string
+      required: true
+      source: system inventory
+      computation: Names the paging, incident tracker, and breach-decision systems of record.
+      description: Paging, incident tracker, and breach-decision systems of record.
+    - name: incidents
+      type: integer
+      required: true
+      source: incident tracker (records in period)
+      computation: Count of incidents recorded in the period.
+      description: Total incidents recorded in the period.
+    - name: sev1
+      type: integer
+      required: true
+      source: incident tracker (severity field)
+      computation: Count of severity-1 incidents.
+      description: Count of severity-1 incidents.
+    - name: ai_scope_incidents
+      type: integer
+      required: true
+      source: incident tracker (AI-scope tag)
+      computation: Count of AI-specific incidents, including agent scope breaches on the location graph.
+      description: Count of AI-specific incidents, including agent scope breaches.
+    - name: median_detect_to_triage_min
+      type: integer
+      required: true
+      source: paging and tracker timestamps
+      computation: Median minutes from detection to triage across incidents in the period.
+      description: Median minutes from detection to triage across incidents.
+    - name: notify_threshold_met
+      type: integer
+      required: true
+      source: breach-decision log
+      computation: Count of incidents that met a regulatory or contractual notification threshold.
+      description: Incidents that met a regulatory or contractual notification threshold.
+    - name: regulator_notified_within_72h
+      type: integer
+      required: true
+      source: breach-decision log joined to notification timestamps
+      computation: Count of threshold-meeting incidents where a regulator was notified within the statutory clock.
+      description: Threshold-meeting incidents where a regulator was notified within 72 hours.
+    - name: post_reviews_completed
+      type: integer
+      required: true
+      source: post-incident review register
+      computation: Count of completed post-incident reviews; target equals incidents.
+      description: Post-incident reviews completed; target equals incidents.
+    - name: ai_generated
+      type: boolean
+      const: false
+      required: true
+      source: pipeline metadata
+      computation: Set false because the record is generated from paging and tracking tooling, not authored by a model.
+      description: Must be false. Evidence must be traceable to the incident tooling, so model-authored narratives are rejected by schema.
+  example:
+    control: IRO-01
+    period: 2026-Q2
+    source: paging + incident tracker + breach-decision log
+    incidents: 9
+    sev1: 1
+    ai_scope_incidents: 1
+    median_detect_to_triage_min: 11
+    notify_threshold_met: 1
+    regulator_notified_within_72h: 1
+    post_reviews_completed: 9
+    ai_generated: false
+  audit_ready_when:
+    - Each record is generated from tooling with complete timeline fields.
+    - post_reviews_completed equals incidents, or the gap is an itemized exception.
+    - For each notify_threshold_met incident, a decision log and statutory timeline are present.
+    - AI-scope incidents reference the kill-switch action taken.
+  rejected_when:
+    - ai_generated is true.
+    - A notification-threshold incident lacks a documented decision basis.
+    - Timeline fields are reconstructed rather than sourced from the tracker.

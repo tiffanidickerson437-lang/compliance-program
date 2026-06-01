@@ -1,0 +1,108 @@
+metadata:
+  title: Prevetted Sales FAQ
+  pillar: 07-stakeholder-management
+  owner_function: GRC
+  consuming_function: sales
+  example_profile: consumer location-safety service (illustrative)
+  principle: >
+    Sales answers the routine 80 percent from prevetted, control-backed answers. The
+    sensitive 20 percent routes to GRC, and where noted to Legal and Privacy, under NDA.
+    Every share statement traces to a control and its computed evidence; nothing here is
+    characterized from memory. Functions only, no personal names.
+  share_withhold_rule: >
+    share is what may be said in a non-NDA setting. withhold is what is held back or
+    routed under NDA. A withhold is never a denial; it is a routing decision.
+
+faq:
+  - id: faq-certifications
+    topic: security certifications
+    q: "What security certifications do you hold?"
+    share: "SOC 2 Type II and ISO 27001 on the trust center. Reports on request under NDA."
+    withhold: "Full SOC 2 report, exceptions, bridge letter. GRC only, under NDA."
+    owner_function: sales
+    sensitive_routes_to: [grc]
+    backing_controls: [TPM-01, IAC-17, CHG-02, MON-01]
+    backing_source: trust center rendered from control library (06-evidence-and-audit)
+
+  - id: faq-agent-access
+    topic: AI agent data access
+    q: "Can your AI agents access our data?"
+    share: "Agent access is scoped and logged. Commitments are in the privacy policy."
+    withhold: "Data-flow diagrams, model details, exact control mappings. GRC under NDA."
+    owner_function: sales
+    sensitive_routes_to: [grc, security]
+    backing_controls: [AAT-01]
+    backing_source: agent authorization broker decision records (ai_generated false)
+
+  - id: faq-children-coppa
+    topic: children's data and COPPA
+    q: "How do you handle children's data and COPPA?"
+    share: "Verifiable parental consent governs child data. See Trust and Safety page."
+    withhold: "Internal readiness assessments and open remediation. Legal and GRC under NDA."
+    owner_function: sales
+    sensitive_routes_to: [legal, privacy, grc]
+    backing_controls: [PRI-03.13]
+    backing_source: consent register (ai_generated false)
+
+  - id: faq-subprocessors
+    topic: subprocessors
+    q: "Who are your subprocessors?"
+    share: "Published subprocessor list and residency posture on the trust center."
+    withhold: "Contract terms, full residency architecture, subprocessors in transition."
+    owner_function: sales
+    sensitive_routes_to: [grc, legal]
+    backing_controls: [TPM-01]
+    backing_source: third-party register reconciled to public list (03-tprm)
+
+  - id: faq-location-history
+    topic: location-data history
+    q: "How does the program address concerns about location-data handling and past industry reporting on location-data sales?"
+    share: "Address it directly: industry reporting has raised concerns about historical sale of location data by location services. The program's posture is purpose limitation, consent-gated processing, and no sale of precise location data without consent, all stated in the published privacy policy. Do not deny or minimize the concern."
+    withhold: "Legal strategy on any litigation, internal interpretation of specific commitments, and settlement posture. Legal-led, GRC-supported, strictly under NDA. Sales acknowledges and routes."
+    owner_function: legal
+    sales_action: acknowledge_and_route
+    sensitive_routes_to: [legal, grc]
+    backing_controls: [PRI-03.13]
+    backing_source: published privacy policy; honest-history posture in trust-center-content.md
+
+  - id: faq-breach-ir
+    topic: breach and incident response
+    q: "Have you had a breach, and what is your incident and notification commitment?"
+    share: "Describe the incident-response program and contractual breach-notification timelines per the DPA; IR is in SOC 2 scope. Speak to process and commitments."
+    withhold: "Specific past-incident details, internal post-incident reports, and threat or vulnerability specifics. Confirmation of any incident is GRC and Legal only, under NDA. Sales never characterizes incident history from memory."
+    owner_function: sales
+    sensitive_routes_to: [grc, legal]
+    backing_controls: [IRO-01]
+    backing_source: incident records and breach-decision log (ai_generated false)
+
+  - id: faq-access-control
+    topic: access control
+    q: "How do you control employee and third-party access to our data?"
+    share: "Least-privilege, role-based access, periodic access reviews, and logging, all in SOC 2 scope. Control descriptions can be shared at a summary level from the trust center."
+    withhold: "The access-control matrix, privileged-access inventory, and named-system configurations. Detailed evidence goes to the prospect's auditors under NDA."
+    owner_function: sales
+    sensitive_routes_to: [grc, security]
+    backing_controls: [IAC-17, TPM-01]
+    backing_source: recertification attestation joined to IdP and HRIS (ai_generated false)
+
+  - id: faq-questionnaire
+    topic: security questionnaires
+    q: "Can you complete our security questionnaire (SIG, CAIQ, custom)?"
+    share: "Yes. Offer the trust center first for the common 80 percent, then GRC completes the custom items; pre-mapped answers exist for standard frameworks."
+    withhold: "Any answer that would expose a control gap, a remediation timeline, or sensitive architecture in a non-NDA questionnaire. GRC stages what is shared in-questionnaire versus an NDA-gated follow-up."
+    owner_function: sales
+    sensitive_routes_to: [grc]
+    backing_controls: [TPM-01, AAT-01, PRI-03.13, IAC-17, CHG-02, MON-01, IRO-01]
+    backing_source: framework crosswalk and computed evidence (02-controls, 06-evidence-and-audit)
+
+routing:
+  non_nda_default: share statements only
+  nda_gate: withhold content routes to the named functions under NDA
+  never: sales characterizes incident history, legal strategy, or control gaps from memory
+  staging: GRC stages what is answered in-questionnaire versus an NDA-gated follow-up
+
+cross_reference:
+  stakeholder_map: ./stakeholder-map.yaml
+  trust_collateral: ./trust-collateral.md
+  trust_center: ../06-evidence-and-audit/trust-center-content.md
+  controls: ../02-controls/control-library.yaml

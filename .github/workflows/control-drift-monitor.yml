@@ -1,0 +1,136 @@
+# Control Drift Monitor
+#
+# Computes control health daily from the systems of record named per control in
+# 02-controls/control-library.yaml and 06-evidence-and-audit/evidence-architecture.md.
+# When a control drifts, this workflow opens a GitHub Issue labeled "evidence".
+#
+# OPERATING MODEL (explicit and non-negotiable):
+#   - The Issue IS the evidence of due diligence. It is timestamped and immutable.
+#   - AI drafts the remediation narrative. A human reviews it.
+#   - Remediation lands by pull request. The merge is the authorization.
+#   - On merge the control status flips. Git history is the audit trail.
+#
+# Real API integrations are commented placeholders. The LOGIC is real.
+
+name: Control Drift Monitor
+
+on:
+  schedule:
+    # Daily at 12:00 UTC. Audit readiness is a standing state, checked every day.
+    - cron: "0 12 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  drift-check:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout program repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install parser
+        run: pip install --quiet pyyaml
+
+      - name: Load example config
+        run: |
+          test -f config.example.yaml
+          echo "config.example.yaml present; control health computed from systems of record."
+
+      - name: Compute control health from systems of record
+        id: compute
+        run: |
+          python3 - <<'PY'
+          import os, yaml
+
+          # Load the one control set. Owners and framework impact come from here,
+          # so a drift Issue is fully populated without hand-entry.
+          with open("02-controls/control-library.yaml") as f:
+              lib = yaml.safe_load(f)
+          controls = {c["id"]: c for c in lib.get("controls", [])}
+
+          # ---------------------------------------------------------------
+          # PLACEHOLDER for real checks. Each entry below would be computed
+          # from the control's named system of record, for example:
+          #   IAC-17  -> identity provider + HRIS  (access review overdue?)
+          #   CHG-02  -> source-control merge API  (un-reviewed merge?)
+          #   MON-01  -> SIEM coverage report      (forwarding gap?)
+          #   TPM-01  -> vendor register + ratings  (attestation expired?)
+          #   PRI-03.13 -> consent service         (processing without consent?)
+          #   AAT-01  -> agent authorization broker (standing entitlement?)
+          #   IRO-01  -> incident tracker           (post-review overdue?)
+          # Until endpoints are wired, drift is read from an optional file the
+          # team can drop in to test the path end to end.
+          # ---------------------------------------------------------------
+          drift = []
+          signal_file = "06-evidence-and-audit/drift-signals.yaml"
+          if os.path.exists(signal_file):
+              with open(signal_file) as f:
+                  drift = (yaml.safe_load(f) or {}).get("drifting", [])
+
+          # Emit one record per drifting control, enriched from the library.
+          lines = []
+          for d in drift:
+              cid = d.get("control")
+              c = controls.get(cid, {})
+              lines.append("|".join([
+                  cid or "UNKNOWN",
+                  d.get("drift_type", "unspecified"),
+                  str(c.get("owner", "unassigned")),
+                  d.get("framework_impact", "see framework-crosswalk.yaml"),
+                  d.get("evidence_needed", "computed record from system of record"),
+              ]))
+
+          with open(os.environ["GITHUB_OUTPUT"], "a") as out:
+              out.write("drift_count={}\n".format(len(lines)))
+              # Pass drift rows to later steps via a file (newline-delimited).
+          with open("drift-rows.txt", "w") as f:
+              f.write("\n".join(lines))
+
+          print("Drift rows computed: {}".format(len(lines)))
+          PY
+
+      - name: Open a GitHub Issue per drift (the Issue IS the evidence)
+        if: steps.compute.outputs.drift_count != '0'
+        run: |
+          while IFS='|' read -r control drift_type owner framework_impact evidence_needed; do
+            [ -z "$control" ] && continue
+            title="Control drift: ${control} (${drift_type})"
+            body_file="$(mktemp)"
+            {
+              echo "## Control drift detected"
+              echo ""
+              echo "- **Control:** ${control}"
+              echo "- **Drift type:** ${drift_type}"
+              echo "- **Owner (function):** ${owner}"
+              echo "- **Framework impact:** ${framework_impact}"
+              echo "- **Evidence needed to close:** ${evidence_needed}"
+              echo ""
+              echo "### Why this Issue exists"
+              echo "This Issue is the evidence of due diligence. It is timestamped and immutable."
+              echo "AI drafts the remediation narrative; a human reviews it; remediation lands by"
+              echo "pull request. The merge is the authorization and flips the control status."
+              echo "Git history is the audit trail."
+            } > "$body_file"
+
+            # Create the Issue, labeled "evidence". --label is created if missing in repo settings.
+            gh issue create \
+              --title "$title" \
+              --body-file "$body_file" \
+              --label "evidence" \
+              --label "control-drift" \
+            || echo "NOTE: configure repo labels/permissions to enable issue creation."
+          done < drift-rows.txt
+
+      - name: No drift summary
+        if: steps.compute.outputs.drift_count == '0'
+        run: echo "No drift detected. All checked controls healthy for this run."

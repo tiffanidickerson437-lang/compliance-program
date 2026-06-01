@@ -1,0 +1,139 @@
+# Stakeholder Report Generator
+#
+# On a schedule, drafts a stakeholder report from computed control statuses and opens
+# a PULL REQUEST for human approval. The PR is the human gate.
+#
+# OPERATING MODEL (explicit):
+#   - AI drafts the narrative. The draft is never published directly.
+#   - The draft lands as a pull request. A human reviews and approves.
+#   - The merge publishes the report. AI drafts; a human decides what matters.
+#
+# The model call is a commented placeholder; the report assembly and the PR gate are real.
+
+name: Stakeholder Report Generator
+
+on:
+  schedule:
+    # Monthly on the 1st at 13:00 UTC. Cadence per audience is set in config.example.yaml.
+    - cron: "0 13 1 * *"
+  workflow_dispatch:
+    inputs:
+      audience:
+        description: "Audience rendering to draft (board, executive, engineering)"
+        required: true
+        default: "board"
+        type: choice
+        options:
+          - board
+          - executive
+          - engineering
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  generate-report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout program repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install parser
+        run: pip install --quiet pyyaml
+
+      - name: Compute control statuses and draft the report
+        id: draft
+        env:
+          AUDIENCE: ${{ github.event.inputs.audience || 'board' }}
+        run: |
+          python3 - <<'PY'
+          import os, datetime, yaml
+
+          audience = os.environ.get("AUDIENCE", "board")
+          today = datetime.date.today().isoformat()
+
+          with open("02-controls/control-library.yaml") as f:
+              lib = yaml.safe_load(f)
+          controls = lib.get("controls", [])
+
+          # ---------------------------------------------------------------
+          # PLACEHOLDER: a real run computes current status and exception
+          # aging from systems of record (see 06-evidence-and-audit). Here
+          # the report is assembled deterministically from the control set
+          # so the PR-gate path is exercised end to end.
+          #
+          # AI DRAFT STEP would go here: pass the computed statuses to the
+          # model to draft the narrative prose. The output remains a draft
+          # until a human approves it on the pull request below.
+          # ---------------------------------------------------------------
+
+          renderings = {
+              "board": "Three numbers: where we are, where we need to be, what it costs to close. Risk in business terms.",
+              "executive": "Control health, open risks, third-party status, AI governance posture, upcoming audit timelines.",
+              "engineering": "Controls as sprint tickets, gates without blocking, the PR is the gate.",
+          }
+          framing = renderings.get(audience, renderings["board"])
+
+          lines = []
+          lines.append("# Stakeholder report ({}) - DRAFT".format(audience))
+          lines.append("")
+          lines.append("> AI draft, pending human approval. This file is published only when this")
+          lines.append("> pull request is reviewed and merged. The merge is the authorization.")
+          lines.append("")
+          lines.append("**Date:** {}".format(today))
+          lines.append("**Rendering:** {}".format(framing))
+          lines.append("")
+          lines.append("## Controls in scope")
+          lines.append("")
+          lines.append("| Control | Name | Owner (function) |")
+          lines.append("|---------|------|------------------|")
+          for c in controls:
+              lines.append("| {} | {} | {} |".format(
+                  c.get("id", "?"), c.get("name", ""), c.get("owner", "")))
+          lines.append("")
+          lines.append("## Notes")
+          lines.append("- Status and exception aging are computed from systems of record at run time.")
+          lines.append("- Evidence is never AI-authored (ai_generated: false). See 06-evidence-and-audit.")
+          lines.append("")
+
+          os.makedirs("07-stakeholder-management/reports", exist_ok=True)
+          out_path = "07-stakeholder-management/reports/{}-{}.md".format(audience, today)
+          with open(out_path, "w") as f:
+              f.write("\n".join(lines))
+
+          with open(os.environ["GITHUB_OUTPUT"], "a") as gh:
+              gh.write("audience={}\n".format(audience))
+              gh.write("report_path={}\n".format(out_path))
+              gh.write("report_date={}\n".format(today))
+
+          print("Drafted {}".format(out_path))
+          PY
+
+      - name: Open a pull request for human approval (the PR is the gate)
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "Draft stakeholder report (${{ steps.draft.outputs.audience }}, ${{ steps.draft.outputs.report_date }})"
+          branch: "report/${{ steps.draft.outputs.audience }}-${{ steps.draft.outputs.report_date }}"
+          title: "Stakeholder report draft: ${{ steps.draft.outputs.audience }} (${{ steps.draft.outputs.report_date }})"
+          labels: |
+            stakeholder-report
+            needs-human-approval
+          body: |
+            ## AI-drafted stakeholder report, pending human approval
+
+            This pull request contains an AI-drafted stakeholder report rendered from the
+            one control set. It is a draft until a human reviews and approves it here.
+
+            - **Audience:** ${{ steps.draft.outputs.audience }}
+            - **File:** `${{ steps.draft.outputs.report_path }}`
+
+            ### The gate
+            AI drafts. A human reviews this PR and approves. The merge publishes the report
+            and is the authorization. Git history is the audit trail. Evidence referenced in
+            the report is computed from systems of record and is never AI-authored.
