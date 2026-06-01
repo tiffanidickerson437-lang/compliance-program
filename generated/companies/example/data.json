@@ -1,0 +1,892 @@
+{
+  "company": {
+    "name": "Example Location-Safety Service",
+    "legal": "Example Location-Safety Service, Inc.",
+    "repo": "tiffanidickerson437-lang/compliance-program",
+    "listings": [
+      {
+        "exchange": "primary-exchange",
+        "ticker": "EXMPL"
+      },
+      {
+        "exchange": "secondary-exchange",
+        "ticker": "EXMPL2"
+      }
+    ],
+    "description": "Consumer family-safety and location-sharing service holding real-time precise location for tens of millions of members, including children. AI-native, with an agentic layer on a real-time location graph as the stated product bet.",
+    "topics": [
+      "example",
+      "grc",
+      "compliance-as-code",
+      "ai-governance",
+      "soc2",
+      "iso27001",
+      "gdpr",
+      "ccpa-cpra",
+      "coppa",
+      "nistairmf",
+      "iso42001",
+      "euaiact"
+    ]
+  },
+  "stats": [
+    {
+      "n": "1",
+      "label": "config file",
+      "sub": "company.yaml drives everything"
+    },
+    {
+      "n": "7",
+      "label": "controls",
+      "sub": "defined once, rendered per framework"
+    },
+    {
+      "n": "9",
+      "label": "frameworks",
+      "sub": "one control set, every view"
+    },
+    {
+      "n": "8",
+      "label": "pillars",
+      "sub": "governance to stakeholders"
+    }
+  ],
+  "frameworks": [
+    {
+      "id": "soc2",
+      "name": "SOC 2",
+      "full": "SOC 2 (TSC 2017)",
+      "kind": "primary"
+    },
+    {
+      "id": "iso27001",
+      "name": "ISO 27001",
+      "full": "ISO/IEC 27001:2022",
+      "kind": "primary"
+    },
+    {
+      "id": "gdpr",
+      "name": "GDPR",
+      "full": "EU GDPR",
+      "kind": "privacy"
+    },
+    {
+      "id": "ccpa_cpra",
+      "name": "CCPA / CPRA",
+      "full": "CCPA / CPRA",
+      "kind": "privacy"
+    },
+    {
+      "id": "coppa",
+      "name": "COPPA",
+      "full": "COPPA (amended 2024)",
+      "kind": "privacy"
+    },
+    {
+      "id": "nist_ai_rmf",
+      "name": "NIST AI RMF",
+      "full": "NIST AI RMF 1.0",
+      "kind": "ai"
+    },
+    {
+      "id": "iso42001",
+      "name": "ISO 42001",
+      "full": "ISO/IEC 42001:2023",
+      "kind": "ai"
+    },
+    {
+      "id": "eu_ai_act",
+      "name": "EU AI Act",
+      "full": "EU AI Act (2024)",
+      "kind": "ai"
+    },
+    {
+      "id": "sox_itgc",
+      "name": "SOX ITGC",
+      "full": "SOX ITGC",
+      "kind": "financial"
+    }
+  ],
+  "pillars": [
+    {
+      "id": "00",
+      "dir": "00-governance",
+      "name": "Governance",
+      "what": "Who owns the program and where authority sits.",
+      "why": "How Example Location-Safety Service's program handles governance — defined once and rendered into every framework's view.",
+      "reads": "Board · Audit & Risk · Internal Audit",
+      "hero": false,
+      "files": [
+        {
+          "name": "program-charter.md",
+          "note": "Purpose, scope, authority, operating model."
+        },
+        {
+          "name": "policy-hierarchy.yaml",
+          "note": "Every policy, its owner, cadence, version."
+        },
+        {
+          "name": "roles-and-responsibilities.md",
+          "note": "RACI by function and by activity."
+        },
+        {
+          "name": "risk-appetite-statement.md",
+          "note": "Appetite by category — owned by the business."
+        },
+        {
+          "name": "committee-charter.md",
+          "note": "Security Steering & Audit and Risk cadence."
+        }
+      ]
+    },
+    {
+      "id": "01",
+      "dir": "01-risk-management",
+      "name": "Risk management",
+      "what": "Risk quantified in dollars, owned by the business.",
+      "why": "How Example Location-Safety Service's program handles risk management — defined once and rendered into every framework's view.",
+      "reads": "C-Suite · Board · GRC",
+      "hero": false,
+      "files": [
+        {
+          "name": "risk-register.yaml",
+          "note": "FAIR scenarios, highest-leverage risks first."
+        },
+        {
+          "name": "fair-model.md",
+          "note": "How quantification is applied, with a worked example."
+        },
+        {
+          "name": "nist-rmf-alignment.md",
+          "note": "How the register feeds the seven RMF steps."
+        },
+        {
+          "name": "risk-treatment-templates.md",
+          "note": "Accept, mitigate, transfer, avoid."
+        }
+      ]
+    },
+    {
+      "id": "02",
+      "dir": "02-controls",
+      "name": "Controls",
+      "what": "The engine. One control defined once; every framework gets its view.",
+      "why": "How Example Location-Safety Service's program handles controls — defined once and rendered into every framework's view.",
+      "reads": "Auditors · Security · Engineering",
+      "hero": true,
+      "files": [
+        {
+          "name": "control-library.yaml",
+          "note": "Controls in full depth — statement, guidance, evidence schema."
+        },
+        {
+          "name": "framework-crosswalk.yaml",
+          "note": "One control, every framework it satisfies."
+        },
+        {
+          "name": "control-library.oscal.json",
+          "note": "The machine-readable, OSCAL-aligned catalog."
+        },
+        {
+          "name": "profiles/",
+          "note": "OSCAL profiles — one per framework view."
+        },
+        {
+          "name": "evidence-schemas/",
+          "note": "Field-level schema per control; evidence is computed."
+        }
+      ]
+    },
+    {
+      "id": "03",
+      "dir": "03-tprm",
+      "name": "Third-party risk",
+      "what": "Right-size diligence to what a vendor can actually touch.",
+      "why": "How Example Location-Safety Service's program handles third-party risk — defined once and rendered into every framework's view.",
+      "reads": "GRC · Legal/Privacy · Procurement",
+      "hero": false,
+      "files": [
+        {
+          "name": "vendor-tiering-model.md",
+          "note": "Tier by data access, not by vendor size."
+        },
+        {
+          "name": "tiered-intake-workflow.md",
+          "note": "Intake routes to the right depth of review."
+        },
+        {
+          "name": "attestation-reuse-register.yaml",
+          "note": "Reuse a current SOC 2 / ISO cert."
+        },
+        {
+          "name": "continuous-monitoring.md",
+          "note": "Reassess high-risk parties on cadence and change."
+        }
+      ]
+    },
+    {
+      "id": "04",
+      "dir": "04-ai-governance",
+      "name": "AI governance",
+      "what": "Govern autonomous agents on sensitive data.",
+      "why": "How Example Location-Safety Service's program handles ai governance — defined once and rendered into every framework's view.",
+      "reads": "Security · Legal/Privacy · Board · Customers",
+      "hero": true,
+      "files": [
+        {
+          "name": "ai-control-set.md",
+          "note": "AAT-01 as the spine, decomposed into sub-controls."
+        },
+        {
+          "name": "agent-governance.md",
+          "note": "Agent identity, purpose-bound tokens, human gate, kill-switch."
+        },
+        {
+          "name": "owasp-llm-top10-mapping.md",
+          "note": "Each OWASP LLM Top 10 item → control → test."
+        },
+        {
+          "name": "responsible-ai-statement.md",
+          "note": "Customer-facing claims, each traced to a control."
+        }
+      ]
+    },
+    {
+      "id": "05",
+      "dir": "05-secure-development",
+      "name": "Secure development",
+      "what": "Security in the SDLC as gates that produce evidence as a byproduct of shipping.",
+      "why": "How Example Location-Safety Service's program handles secure development — defined once and rendered into every framework's view.",
+      "reads": "Engineering · Security",
+      "hero": false,
+      "files": [
+        {
+          "name": "sdlc-control-gates.md",
+          "note": "Where security gates sit in the pipeline."
+        },
+        {
+          "name": "code-review-policy.md",
+          "note": "Independent review, enforced by code-owner rules."
+        },
+        {
+          "name": "secure-pipeline.md",
+          "note": "Build/test/security checks as required status checks."
+        }
+      ]
+    },
+    {
+      "id": "06",
+      "dir": "06-evidence-and-audit",
+      "name": "Evidence and audit",
+      "what": "Evidence pre-validated before it ever reaches the auditor.",
+      "why": "How Example Location-Safety Service's program handles evidence and audit — defined once and rendered into every framework's view.",
+      "reads": "Auditors · GRC",
+      "hero": false,
+      "files": [
+        {
+          "name": "evidence-architecture.md",
+          "note": "How evidence is computed from systems of record."
+        },
+        {
+          "name": "continuous-evidence.md",
+          "note": "Readiness as a standing state, not a sprint."
+        },
+        {
+          "name": "poam-as-issues.md",
+          "note": "Plan of action & milestones, tracked as GitHub Issues."
+        },
+        {
+          "name": "trust-center-content.md",
+          "note": "What goes in the public trust center."
+        }
+      ]
+    },
+    {
+      "id": "07",
+      "dir": "07-stakeholder-management",
+      "name": "Stakeholder management",
+      "what": "One posture, every audience.",
+      "why": "How Example Location-Safety Service's program handles stakeholder management — defined once and rendered into every framework's view.",
+      "reads": "Sales · Board · Customers · Every function",
+      "hero": false,
+      "files": [
+        {
+          "name": "stakeholder-map.yaml",
+          "note": "Every audience, what they need, how they read it."
+        },
+        {
+          "name": "sales-faq.yaml",
+          "note": "The security questions deals actually ask."
+        },
+        {
+          "name": "trust-collateral.md",
+          "note": "Reusable trust artifacts that shorten reviews."
+        }
+      ]
+    }
+  ],
+  "rootFiles": [
+    {
+      "name": "README.md",
+      "note": "The program of record. Start here."
+    },
+    {
+      "name": "company.yaml",
+      "note": "The single input. One file customizes the entire program.",
+      "config": true
+    },
+    {
+      "name": "company.template.yaml",
+      "note": "Blank, fully documented version to fork and fill."
+    },
+    {
+      "name": "30-60-90/",
+      "note": "Discover → Design → Operate, plus the maturity roadmap.",
+      "folder": true
+    },
+    {
+      "name": ".github/workflows/",
+      "note": "Drift monitor, evidence validator, report generator.",
+      "folder": true
+    }
+  ],
+  "flow": [
+    {
+      "key": "config",
+      "label": "company.yaml",
+      "kind": "input",
+      "title": "One config file",
+      "body": "Frameworks, data types, AI posture, listings, stack. Edit this one file and re-run the scaffold — the whole program re-renders. Adding a framework is a crosswalk mapping, never a new control.",
+      "tag": "the single input"
+    },
+    {
+      "key": "scaffold",
+      "label": "GitHub Action",
+      "kind": "machine",
+      "title": "The scaffold renders",
+      "body": "An Action filters the control library to the company's frameworks and turns on the pillars and families the config requires.",
+      "tag": "code, not a binder"
+    },
+    {
+      "key": "checks",
+      "label": "Daily checks",
+      "kind": "machine",
+      "title": "Control health is computed",
+      "body": "Scheduled jobs read the systems of record and compute pass or fail for each control. Code decides; the system of record supplies the evidence.",
+      "tag": "evidence is computed"
+    },
+    {
+      "key": "branch",
+      "label": "healthy / drift",
+      "kind": "branch",
+      "title": "Green, or a drift Issue",
+      "body": "Healthy → status stays green and evidence is recorded. Drift → a GitHub Issue opens automatically with the control ID, owner, framework impact, and evidence needed.",
+      "tag": "the Issue IS the due diligence"
+    },
+    {
+      "key": "ai",
+      "label": "AI drafts",
+      "kind": "ai",
+      "title": "AI drafts the fix and the narrative",
+      "body": "AI proposes the remediation and writes the auditor-facing narrative and gap analysis. It never authors evidence; evidence is computed from systems of record and rejected by schema if model-generated.",
+      "tag": "leverage, not authority"
+    },
+    {
+      "key": "pr",
+      "label": "Pull Request",
+      "kind": "human",
+      "title": "A human gate: the Pull Request",
+      "body": "A named function reviews the AI-drafted remediation. The merge is the authorization. Nothing becomes record without a human approving it first.",
+      "tag": "the human gate"
+    },
+    {
+      "key": "trail",
+      "label": "git history",
+      "kind": "record",
+      "title": "Git history is the audit trail",
+      "body": "On merge, the control status updates and the commit records who decided what, when, and why. The trail is immutable and already exists — audit prep is a query, not a reconstruction.",
+      "tag": "the immutable trail"
+    }
+  ],
+  "controls": [
+    {
+      "id": "AAT-01",
+      "family": "AI governance",
+      "title": "AI and autonomous technologies governance",
+      "owner": "GRC + Security (Legal/Privacy joint on lawful basis)",
+      "automation": "partial",
+      "hero": true,
+      "sox": false,
+      "why": "An agentic layer acting on a real-time location graph of tens of millions of members, including children, needs a control for autonomous systems that read sensitive data and take consequential actions. This is the hero control: it governs how an agent is identified, scoped, gated, and revoked.",
+      "statement": "Policies for AI and autonomous-technology risk are defined, owned, and enforced. Autonomous agents read precise location or minor data only under purpose-bound authorization, at minimum scope, with full decision logging, and with human accountability for high-impact actions. No agent holds standing access to sensitive production data.",
+      "crosswalk": [
+        {
+          "fw": "nist_ai_rmf",
+          "refs": [
+            "GOVERN 1.0",
+            "GOVERN 2.1",
+            "GOVERN 4.1",
+            "MAP 3.5"
+          ]
+        },
+        {
+          "fw": "iso42001",
+          "refs": [
+            "5.1",
+            "8.1",
+            "A.2.2",
+            "A.6.2.2"
+          ]
+        },
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC1.4"
+          ]
+        },
+        {
+          "fw": "eu_ai_act",
+          "refs": [
+            "Art.17(1)(c)"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "Agent Authorization Broker (OPA) + Consent Service",
+        "rows": [
+          [
+            "agent_id",
+            "safety-alert-agent"
+          ],
+          [
+            "trigger",
+            "crash_detection_high_confidence"
+          ],
+          [
+            "token_ttl_seconds",
+            "120"
+          ],
+          [
+            "consent_state",
+            "active"
+          ],
+          [
+            "decision",
+            "granted"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "PRI-03.13",
+      "family": "privacy",
+      "title": "Parent or guardian opt-in consent for minors",
+      "owner": "Legal/Privacy (Security enforces)",
+      "automation": "partial",
+      "hero": false,
+      "sox": false,
+      "why": "A consumer location-safety service at this scale processes the data of children. The amended COPPA Rule and the minor provisions of CCPA/CPRA require verifiable parental consent before that data is processed. This control proves consent is on record and authoritative.",
+      "statement": "Minor personal data processes only after verifiable parent or guardian opt-in consent is recorded. Consent state is authoritative: absent or withdrawn consent blocks processing and disclosure, and a separate verifiable consent is required before any disclosure of a child's data to a third party.",
+      "crosswalk": [
+        {
+          "fw": "coppa",
+          "refs": [
+            "16 CFR 312",
+            "§6502(b)(1)(A)(ii)"
+          ]
+        },
+        {
+          "fw": "ccpa_cpra",
+          "refs": [
+            "§7070(a)"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "Consent Service + data-access broker",
+        "rows": [
+          [
+            "minor_accounts_in_scope",
+            "18420"
+          ],
+          [
+            "with_verified_parental_consent",
+            "18420"
+          ],
+          [
+            "verification_method",
+            "verifiable parental consent"
+          ],
+          [
+            "third_party_disclosures_without_consent",
+            "0"
+          ],
+          [
+            "withdrawals_honored_within_sla",
+            "211/211"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "IAC-17",
+      "family": "access management",
+      "title": "Periodic review of account privileges",
+      "owner": "Security (IAM)",
+      "automation": "partial",
+      "hero": false,
+      "sox": true,
+      "why": "A public, multi-listed company carries SOX IT general controls. Periodic access review is the access pillar of ITGC and the control auditors test first. The same review limits standing access to precise location and minor data, so it serves privacy as well as financial-reporting integrity.",
+      "statement": "Privileges for people and service accounts are reviewed on a fixed cadence against role and employment, and unjustified access is removed. Leaver deprovisioning fires from the human-resources system of record, not a manual ticket. Service and other non-human accounts are held to the same bar as human accounts.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC6.2",
+            "CC6.3"
+          ]
+        },
+        {
+          "fw": "sox_itgc",
+          "refs": [
+            "Access to programs and data"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "Okta IGA + Workday HRIS",
+        "rows": [
+          [
+            "accounts_in_scope",
+            "412"
+          ],
+          [
+            "reviewed",
+            "412"
+          ],
+          [
+            "revoked",
+            "7"
+          ],
+          [
+            "orphaned",
+            "0"
+          ],
+          [
+            "service_accounts_recertified",
+            "38/38"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "CHG-02",
+      "family": "change management",
+      "title": "Configuration change control",
+      "owner": "Engineering (Security owns the policy)",
+      "automation": "automated",
+      "hero": false,
+      "sox": true,
+      "why": "Change is a pillar of SOX IT general controls. In a source-control-native program, the pull request is the gate and the evidence is a byproduct of shipping, so the control is enforced by configuration rather than by reminder.",
+      "statement": "Technical configuration change reaches production only through a peer-reviewed pull request linked to a tracked work item, with required checks passing. Direct pushes to protected branches are blocked, the reviewer is independent of the author, and emergency changes follow a documented after-the-fact review.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC3.4",
+            "CC8.1"
+          ]
+        },
+        {
+          "fw": "sox_itgc",
+          "refs": [
+            "Change management, segregation of dev and approver"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "GitHub (branch protection + merge API)",
+        "rows": [
+          [
+            "merges_to_prod",
+            "138"
+          ],
+          [
+            "with_linked_ticket",
+            "138"
+          ],
+          [
+            "with_independent_review",
+            "137"
+          ],
+          [
+            "direct_pushes_blocked",
+            "6"
+          ],
+          [
+            "exceptions_without_review",
+            "1"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "MON-01",
+      "family": "monitoring",
+      "title": "Continuous monitoring and event logging",
+      "owner": "Security (SOC)",
+      "automation": "automated",
+      "hero": false,
+      "sox": true,
+      "why": "Continuous monitoring turns a point-in-time audit into a standing program. It is the operations pillar of SOX IT general controls and the engine of the drift-opens-an-Issue mechanism that makes due diligence visible.",
+      "statement": "Enterprise monitoring computes control health continuously. Security events ship to a central append-only store with retention and integrity protection. Logs establish what, when, where, source, outcome, and identity, and defined event types alert a monitored queue with an acknowledgement SLA.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC7.2"
+          ]
+        },
+        {
+          "fw": "sox_itgc",
+          "refs": [
+            "Computer operations, monitoring of privileged activity"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "SIEM + immutable object-lock store",
+        "rows": [
+          [
+            "sources_forwarding",
+            "64/64"
+          ],
+          [
+            "retention_days",
+            "400"
+          ],
+          [
+            "integrity_checks_failed",
+            "0"
+          ],
+          [
+            "alerts_ack_within_sla",
+            "309/311"
+          ],
+          [
+            "drift_issues_opened",
+            "14"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "TPM-01",
+      "family": "third-party risk",
+      "title": "Third-party management",
+      "owner": "GRC (Legal/Privacy on terms)",
+      "automation": "partial, workflow-tracked",
+      "hero": false,
+      "sox": false,
+      "why": "Sensitive data flows to subprocessors and model providers. Diligence depth must match what a party can touch on the location graph, and trust evidence a vendor already produced should be reused rather than re-collected.",
+      "statement": "Third parties with system or personal-data access are tiered by what they can touch, assessed before onboarding, and bound by security, breach-notice, and processing terms. High-risk parties reassess on cadence, and vendor trust evidence is reused rather than re-questionnaired.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC1.4",
+            "CC2.3"
+          ]
+        },
+        {
+          "fw": "nist_ai_rmf",
+          "refs": [
+            "MANAGE 3.0"
+          ]
+        },
+        {
+          "fw": "ccpa_cpra",
+          "refs": [
+            "§7052(a)"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "Vendor Risk tool + CLM",
+        "rows": [
+          [
+            "vendors_in_scope",
+            "96"
+          ],
+          [
+            "high_risk_current",
+            "18/18"
+          ],
+          [
+            "with_executed_dpa",
+            "96/96"
+          ],
+          [
+            "with_current_soc2",
+            "71"
+          ],
+          [
+            "overdue_reassessment",
+            "2"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "IRO-01",
+      "family": "incident response",
+      "title": "Incident response operations",
+      "owner": "Security (Legal/Privacy on notification)",
+      "automation": "partial",
+      "hero": false,
+      "sox": false,
+      "why": "Incident response is where regulatory clocks become real: breach notification within statutory timelines, and AI-specific incidents such as an autonomous agent acting out of scope on the location graph.",
+      "statement": "Incidents are detected, triaged, contained, and recorded against a governed plan, including AI scope breaches. Legal/Privacy owns notification within statutory timelines, and every incident receives a post-incident review.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC7.3",
+            "CC7.4"
+          ]
+        },
+        {
+          "fw": "nist_ai_rmf",
+          "refs": [
+            "GOVERN 6.2",
+            "MANAGE 2.4"
+          ]
+        },
+        {
+          "fw": "ccpa_cpra",
+          "refs": [
+            "§7123(c)(17)"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "paging + incident tracker + breach-decision log",
+        "rows": [
+          [
+            "incidents",
+            "9"
+          ],
+          [
+            "sev1",
+            "1"
+          ],
+          [
+            "ai_scope_incidents",
+            "1"
+          ],
+          [
+            "median_detect_to_triage_min",
+            "11"
+          ],
+          [
+            "notify_threshold_met",
+            "1"
+          ],
+          [
+            "regulator_notified_within_72h",
+            "1"
+          ],
+          [
+            "post_reviews_completed",
+            "9"
+          ]
+        ]
+      }
+    }
+  ],
+  "roadmap": [
+    {
+      "months": "1–2",
+      "level": "Baseline",
+      "stage": "Discover",
+      "ships": "Control inventory, regulatory obligation register, a data-flow map, and a map of where compliance slows engineering.",
+      "boundary": "One validated baseline exists — control universe, obligations, data flows, and friction points are known and agreed."
+    },
+    {
+      "months": "2–5",
+      "level": "Defined",
+      "stage": "Common-control spine",
+      "ships": "One owned control library crosswalked to the in-scope frameworks, the OSCAL profiles that resolve each view, and the first collect-once evidence pipelines.",
+      "boundary": "Every in-scope control is defined once, crosswalked, owned by a named function, and assigned an evidence source."
+    },
+    {
+      "months": "5–9",
+      "level": "Managed",
+      "stage": "Computed continuous evidence",
+      "ships": "Continuous control monitoring with exception aging and the drift-opens-an-Issue loop.",
+      "boundary": "Control health is computed continuously from systems of record rather than reconstructed at audit."
+    },
+    {
+      "months": "9–15",
+      "level": "Quantitatively managed",
+      "stage": "Agentic AI governance",
+      "ships": "An AI control set grounded in ISO 42001 and NIST AI RMF: model inventory, data-use boundaries, agent-action logging, human gates, a kill-switch, and a customer-facing AI trust statement.",
+      "boundary": "The agentic layer operates inside live, measured guardrails; every agent decision is logged and reviewable."
+    },
+    {
+      "months": "15+",
+      "level": "Optimizing",
+      "stage": "Risk-driven, revenue-enabling",
+      "ships": "A live risk register that prioritizes hardening by leverage, and trust artifacts that shorten enterprise security reviews.",
+      "boundary": "Ongoing. Risk leverage, not the audit calendar, sets the backlog."
+    }
+  ],
+  "guardrails": [
+    "Built from public research only. No claim is made about Example Location-Safety Service's internal security posture.",
+    "AI drafts narratives and remediations; a human approves before anything becomes record. Evidence is computed from systems of record, never authored by a model.",
+    "Functions and roles are named — never individuals. Accountability attaches to a function.",
+    "SOX ITGC is in scope as a public company; this program scopes access, change, and operations ITGC with Internal Audit and the external auditor."
+  ],
+  "stack": [
+    {
+      "name": "aws",
+      "role": "cloud — evidence source for access, change, ops"
+    },
+    {
+      "name": "okta",
+      "role": "identity — drives access-review evidence"
+    },
+    {
+      "name": "github",
+      "role": "code — the operating model lives here; change evidence is the merge"
+    },
+    {
+      "name": "jira",
+      "role": "ticketing — the remediation work order"
+    },
+    {
+      "name": "notion",
+      "role": "docs — stakeholder reports render here after review"
+    },
+    {
+      "name": "slack",
+      "role": "comms — drift, TPRM, and deadline notifications route here"
+    },
+    {
+      "name": "anecdotes",
+      "role": "GRC tool — the audit-facing interface; this repo stays the system of record"
+    }
+  ],
+  "contact": {
+    "name": "Tiffani Dickerson",
+    "role": "GRC — governance, risk & compliance",
+    "email": "tiffanidickerson437@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/tiffanidickerson",
+    "repoUrl": "https://github.com/tiffanidickerson437-lang/compliance-program"
+  },
+  "meta": {
+    "slug": "example",
+    "generated_by": "onboard_company.py",
+    "ai_generated": false
+  }
+}
