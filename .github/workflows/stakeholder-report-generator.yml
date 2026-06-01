@@ -116,7 +116,7 @@ jobs:
           PY
 
       - name: Open a pull request for human approval (the PR is the gate)
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v8
         with:
           commit-message: "Draft stakeholder report (${{ steps.draft.outputs.audience }}, ${{ steps.draft.outputs.report_date }})"
           branch: "report/${{ steps.draft.outputs.audience }}-${{ steps.draft.outputs.report_date }}"
