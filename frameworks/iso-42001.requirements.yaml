@@ -1,0 +1,27 @@
+# A NEW framework, not in the base in-scope set. Onboarded as a mapping only — no control is rewritten.
+framework:
+  id: iso42001
+  name: "ISO/IEC 42001:2023 (AI Management System)"
+  note: "Demonstration target for the mapping engine — proves the program scales to a framework it was not built around."
+requirements:
+  - id: "A.2.2"
+    title: "AI policy"
+    text: "The organization shall document and approve an AI policy that sets objectives, commitments, and governance for artificial intelligence and autonomous systems."
+  - id: "A.3.2"
+    title: "AI roles and responsibilities"
+    text: "Roles, responsibilities, and authorities for the governance of AI systems shall be defined and allocated."
+  - id: "A.5.2"
+    title: "AI system impact assessment"
+    text: "The organization shall assess the impacts and risks of AI systems on individuals and groups across the system life cycle."
+  - id: "A.6.2.4"
+    title: "AI system change management"
+    text: "Changes to AI models, prompts, configuration, and tool grants shall be controlled, evaluated before deployment, and approved."
+  - id: "A.7.2"
+    title: "Data for AI systems"
+    text: "Data used by AI systems shall be managed for provenance, quality, classification, and privacy."
+  - id: "A.9.2"
+    title: "Responsible use and human oversight of AI"
+    text: "The organization shall enforce accountable use of AI systems, with least-privilege access to data and human oversight of high-impact actions."
+  - id: "A.10.2"
+    title: "Third-party AI relationships"
+    text: "Responsibilities with third parties that supply AI systems, models, or data shall be assessed and bound by terms."

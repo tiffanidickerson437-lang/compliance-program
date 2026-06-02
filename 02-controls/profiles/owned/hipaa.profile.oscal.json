@@ -1,0 +1,42 @@
+{
+  "profile": {
+    "uuid": "2f09d474-64a3-48d2-8ae2-50cd05bc069e",
+    "metadata": {
+      "title": "HIPAA Security Rule — view over the owned control library",
+      "last-modified": "2026-06-02T05:43:55.814398+00:00",
+      "version": "1.0.0",
+      "oscal-version": "1.1.3"
+    },
+    "imports": [
+      {
+        "href": "./owned-controls.oscal.json",
+        "include-controls": [
+          {
+            "with-ids": [
+              "gov-01",
+              "gov-02",
+              "ast-03",
+              "iam-01",
+              "iam-02",
+              "iam-04",
+              "cry-01",
+              "dch-02",
+              "mon-01",
+              "end-02",
+              "iro-01",
+              "iro-02",
+              "bcd-01",
+              "bcd-02",
+              "sat-01",
+              "hrs-01",
+              "pes-01"
+            ]
+          }
+        ]
+      }
+    ],
+    "merge": {
+      "as-is": true
+    }
+  }
+}
