@@ -14,6 +14,10 @@ frameworks:
   - MON-01
   - TPM-01
   - IRO-01
+  - CRY-01
+  - VPM-01
+  - DCH-01
+  - SAT-02
   note: null
 - slug: iso27001
   name: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)
@@ -24,12 +28,21 @@ frameworks:
   - MON-01
   - TPM-01
   - IRO-01
+  - CRY-01
+  - VPM-01
+  - DCH-01
+  - SAT-02
   note: null
 - slug: gdpr
-  name: gdpr
-  profile: null
-  controls: []
-  note: no owned control mapped yet; tracked as a forward target
+  name: EU GDPR
+  profile: profiles/gdpr.profile.oscal.json
+  controls:
+  - CRY-01
+  - DCH-01
+  - PRI-03.13
+  - TPM-01
+  - IRO-01
+  note: null
 - slug: ccpa
   name: CCPA / CPRA (2026)
   profile: profiles/ccpa-cpra.profile.oscal.json
@@ -37,9 +50,10 @@ frameworks:
   - PRI-03.13
   - TPM-01
   - IRO-01
+  - DCH-01
   note: null
 - slug: coppa
-  name: COPPA (amended 2024)
+  name: COPPA (amended 2025)
   profile: profiles/coppa.profile.oscal.json
   controls:
   - PRI-03.13

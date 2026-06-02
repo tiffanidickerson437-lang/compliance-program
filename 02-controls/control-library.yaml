@@ -14,11 +14,11 @@ metadata:
     framework mapping only (home lab) and are never represented as audited.
   voice: Declarative and principle-led. Functions and roles, no personal names.
   selection: >
-    Seven deliberate controls drawn from 1,468 across 33 SCF domains. The point
+    Eleven deliberate controls drawn from 1,468 across 33 SCF domains. The point
     is choosing what matters for a consumer location-safety service that
     processes minors' data, runs an agentic AI layer on a real-time location
     graph, and carries public-company IT general controls. The count is held at
-    seven on purpose; depth per control is the deliverable, not breadth of list.
+    eleven on purpose; depth per control is the deliverable, not breadth of list.
   structure_per_control: >
     Each control carries a full statement, multi-paragraph implementation
     guidance, assignable parameters, control enhancements, assessment objectives,
@@ -160,7 +160,7 @@ controls:
       - framework: ISO/IEC 42001:2023
         references: ["5.1", "8.1", "A.2.2", "A.6.2.2"]
       - framework: SOC 2 (TSC 2017)
-        references: ["CC1.4"]
+        references: ["CC6.1", "CC6.2", "CC6.3"]
       - framework: EU AI Act (2024)
         references: ["Art.17(1)(c)"]
     test_procedure: >
@@ -331,7 +331,7 @@ controls:
         impact (COPPA, CCPA/CPRA).
       workflow: .github/workflows/control-drift-monitor.yml
     framework_mappings:
-      - framework: COPPA (amended 2024)
+      - framework: COPPA (amended 2025)
         references: ["16 CFR 312", "§6502(b)(1)(A)(ii)"]
       - framework: CCPA / CPRA (2026)
         references: ["§7070(a)"]
@@ -994,9 +994,9 @@ controls:
       workflow: .github/workflows/control-drift-monitor.yml
     framework_mappings:
       - framework: SOC 2 (TSC 2017)
-        references: ["CC1.4", "CC2.3"]
+        references: ["CC9.2", "CC2.3"]
       - framework: ISO/IEC 27002:2022
-        references: ["5.19", "8.3"]
+        references: ["5.19", "5.20", "5.22"]
       - framework: NIST CSF 2.0
         references: ["GV.SC-04", "GV.SC-06", "GV.SC-07"]
       - framework: NIST AI RMF 1.0
@@ -1165,7 +1165,7 @@ controls:
       - framework: NIST AI RMF 1.0
         references: ["GOVERN 6.2", "MANAGE 2.4"]
       - framework: CCPA / CPRA (2026)
-        references: ["§7123(c)(17)"]
+        references: ["Civil Code §1798.82", "§7123(c)(17)"]
     test_procedure: >
       Sample incidents for complete timeline fields; verify post-incident reviews
       completed; for notification-threshold incidents, confirm the decision log and
@@ -1210,3 +1210,588 @@ controls:
       - audience: Auditor
         raci: I
         ask: Receive the computed incident records with timelines and review links; no reconstructed narratives.
+
+  - id: CRY-01
+    scf_id: CRY-01
+    scf_domain: CRY
+    scf_domain_name: Cryptographic Protections
+    class: SCF
+    csf_function: Protect
+    family: cryptography
+    title: Use of cryptographic controls
+    owner: Security (Engineering implements)
+    automation: partial
+    review: continuous posture; algorithm and key-policy review annually
+    doc: controls/CRY-01.md
+    why: >
+      A service holding real-time precise location and minor data must make that
+      data unreadable to anyone without authorization, at rest and in transit. The
+      public trust material already claims TLS in transit and AES at rest; this
+      control is what turns that claim into a tested, evidenced state rather than a
+      marketing line. It also underwrites every other control: the consent gate,
+      the access review, and the agent broker all assume the underlying data is
+      encrypted and the keys are governed.
+    statement: >
+      Sensitive and regulated data is protected with cryptographic controls that
+      meet a defined standard, in transit and at rest. Keys are generated, stored,
+      rotated, and revoked under a documented key-management process, separated
+      from the data they protect. Weak or deprecated algorithms and protocols are
+      not used, and exceptions are tracked and time-bound.
+    implementation_guidance: >
+      Define the cryptographic standard once, as policy-as-code where it can be
+      enforced: the approved algorithms, minimum key lengths, and protocol
+      versions, plus the explicit deny-list of deprecated ones. Encrypt precise
+      location and minor data at rest with authenticated encryption and in transit
+      with current TLS, and treat any endpoint negotiating a deprecated protocol as
+      drift, not an accepted state. Keep keys in a managed key store or HSM, never
+      in source, configuration, or application logs, and separate the duty to
+      manage keys from the duty to access the data those keys protect. Rotate keys
+      on a defined cadence and on any suspected compromise, and make revocation
+      fast enough that a compromised key is a bounded event. Where the AI layer or
+      an analytics pipeline processes location data, prefer minimization and
+      tokenization so the cleartext is exposed to the fewest systems possible. The
+      evidence is the computed configuration state — cipher in use per data store,
+      protocol per endpoint, key age and rotation status — not a policy assertion
+      that encryption is "enabled."
+    parameters:
+      - id: cry-01_prm_at_rest_standard
+        label: Data-at-rest standard
+        value: authenticated encryption, AES-256 or stronger
+        guidance: Applies to precise location and minor data stores; tune up per data class, never down.
+      - id: cry-01_prm_in_transit_standard
+        label: Data-in-transit standard
+        value: TLS 1.2 minimum, TLS 1.3 preferred; deprecated protocols denied
+        guidance: Any endpoint negotiating below the floor is drift.
+      - id: cry-01_prm_key_rotation_interval
+        label: Key rotation interval
+        value: 365 days maximum, or immediately on suspected compromise
+        guidance: Maximum age before a key must rotate; shorter for the highest-sensitivity stores.
+      - id: cry-01_prm_key_data_duty_separation
+        label: Key/data duty separation
+        value: required
+        guidance: The function that manages keys is not the function that reads the protected data.
+    enhancements:
+      - id: CRY-01(1)
+        title: Approved-algorithm enforcement
+        statement: An enforced standard names approved algorithms, key lengths, and protocol versions and denies deprecated ones; violations surface as drift.
+      - id: CRY-01(2)
+        title: Managed key custody and separation of duties
+        statement: Keys live in a managed key store or HSM, never in source or logs, and key management is separated from data access.
+      - id: CRY-01(3)
+        title: Scheduled and event-driven rotation
+        statement: Keys rotate on cadence and immediately on suspected compromise, with revocation bounded by a defined interval.
+      - id: CRY-01(4)
+        title: Minimization of cleartext exposure
+        statement: Location and minor data are tokenized or minimized so the fewest systems, including the AI layer, ever hold cleartext.
+    assessment_objectives:
+      - id: cry-01_obj_encrypted
+        statement: Determine that precise location and minor data are encrypted at rest and in transit to the defined standard.
+      - id: cry-01_obj_no_deprecated
+        statement: Determine that no in-scope endpoint or store uses a deprecated algorithm or protocol outside a tracked, time-bound exception.
+      - id: cry-01_obj_key_custody
+        statement: Determine that keys are held in a managed store, separated from data-access duties, and absent from source and logs.
+      - id: cry-01_obj_rotation
+        statement: Determine that keys rotate within the defined interval and revoke within the defined window on compromise.
+    assessment_methods:
+      examine:
+        - The cryptographic standard and the approved/deny algorithm and protocol lists.
+        - The key-management process, the key inventory, and the rotation and revocation records.
+        - The encryption configuration for the precise-location and minor-data stores.
+      interview:
+        - Security on the standard, the deny-list, and how violations surface as drift.
+        - Engineering on where keys live, how rotation runs, and how cleartext exposure is minimized in the data and AI pipelines.
+      test:
+        - Sample data stores and confirm authenticated encryption at the defined strength.
+        - Probe a sample of endpoints and confirm none negotiate a deprecated protocol.
+        - Pull the key inventory and confirm rotation within interval and no keys present in source or logs.
+    evidence_schema:
+      summary: >
+        Per data store and endpoint: cipher or protocol in use, key reference, key
+        age, last rotation, and any deprecated-protocol negotiation observed.
+      record: evidence-schemas/CRY-01.yaml
+      collection: computed
+      ai_generated: false
+    ci_mapping:
+      ci_check: >
+        A daily job inventories encryption configuration across in-scope stores and
+        endpoints and computes: stores below the at-rest standard (target zero),
+        endpoints negotiating a deprecated protocol (target zero), and keys past
+        the rotation interval.
+      drift_issue: >
+        Any store below standard, any deprecated-protocol endpoint, or any overdue
+        key opens an Issue tagged CRY-01 naming Security as owner, with the
+        framework impact (SOC 2, ISO 27001, GDPR).
+      workflow: .github/workflows/control-drift-monitor.yml
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC6.1", "CC6.7"]
+      - framework: ISO/IEC 27002:2022
+        references: ["8.24"]
+      - framework: NIST CSF 2.0
+        references: ["PR.DS-01", "PR.DS-02"]
+      - framework: GDPR
+        references: ["Art. 32"]
+    test_procedure: >
+      Sample in-scope stores and endpoints; confirm authenticated encryption at the
+      at-rest standard and no deprecated protocol negotiated; pull the key
+      inventory and confirm rotation within interval and no keys in source or logs.
+    props:
+      - name: scf-id
+        value: CRY-01
+      - name: scf-domain
+        value: CRY
+      - name: nist-csf-function
+        value: Protect
+      - name: automation
+        value: partial
+    stakeholder_asks:
+      - audience: Security
+        raci: A
+        ask: Own the cryptographic standard and key-management process; certify no in-scope store or endpoint runs below the floor.
+      - audience: Engineering
+        raci: R
+        ask: Implement encryption to standard, keep keys out of source and logs, and emit the configuration state as evidence.
+      - audience: Legal/Privacy
+        raci: C
+        ask: Confirm the standard meets the security-of-processing bar for precise location and minor data.
+      - audience: Auditor
+        raci: I
+        ask: Receive the computed configuration and key inventory; sample against the store, not a screenshot.
+
+  - id: VPM-01
+    scf_id: VPM-01
+    scf_domain: VPM
+    scf_domain_name: Vulnerability & Patch Management
+    class: SCF
+    csf_function: Identify
+    family: vulnerability management
+    title: Vulnerability and patch management
+    owner: Security (Engineering remediates)
+    automation: automated
+    review: continuous scanning; SLA review quarterly
+    doc: controls/VPM-01.md
+    why: >
+      Every auditor expects a vulnerability and patch program, and its absence is
+      the gap a security questionnaire probes first. For a service on a
+      multi-cluster cloud estate shipping continuously, unpatched dependencies and
+      exposed services are the most common path to the precise-location data this
+      program exists to protect. This control makes finding and fixing known
+      weaknesses a measured, time-bound loop rather than a periodic scramble.
+    statement: >
+      Technical vulnerabilities across code, dependencies, images, and
+      infrastructure are discovered continuously, triaged by severity and exposure,
+      and remediated within defined service levels. Internet-facing and
+      sensitive-data systems carry the tightest timelines. Unremediated
+      vulnerabilities past SLA are tracked as exceptions with a named owner and a
+      closure plan.
+    implementation_guidance: >
+      Discover vulnerabilities from more than one vantage point: dependency and
+      container scanning in the pipeline, infrastructure and external-surface
+      scanning in the running estate, and the intake of vendor and CISA advisories.
+      Normalize findings into one queue with a severity and an exposure dimension,
+      because a critical on an internet-facing system holding location data is not
+      the same risk as the same critical on an isolated internal tool. Set
+      remediation SLAs by that combination and enforce them as the aging clock on
+      the queue, not as a guideline. Patch through the same governed change path as
+      any other production change (CHG-02), so the fix carries its own evidence.
+      When a fix cannot ship inside the SLA, it becomes a tracked exception with a
+      compensating control, a named owning function, and an expiry, never a silent
+      overdue. Feed the highest-exposure findings into the risk register so the
+      program is steered by real weakness, not only by audit cadence.
+    parameters:
+      - id: vpm-01_prm_critical_sla
+        label: Critical remediation SLA (internet-facing / sensitive data)
+        value: 15 days
+        guidance: Maximum from confirmed finding to remediation for the highest-exposure systems.
+      - id: vpm-01_prm_high_sla
+        label: High remediation SLA
+        value: 30 days
+        guidance: Tune by exposure; sensitive-data systems trend toward the critical timeline.
+      - id: vpm-01_prm_scan_cadence
+        label: Scan cadence
+        value: continuous in pipeline; external surface at least weekly
+        guidance: Discovery is continuous, not a quarterly event.
+      - id: vpm-01_prm_exception_ceiling
+        label: Exception ceiling
+        value: time-bound, compensating control required
+        guidance: No vulnerability sits overdue without a tracked exception and an expiry.
+    enhancements:
+      - id: VPM-01(1)
+        title: Multi-source continuous discovery
+        statement: Pipeline dependency/image scanning, running-estate and external-surface scanning, and advisory intake feed one normalized queue.
+      - id: VPM-01(2)
+        title: Exposure-weighted SLAs
+        statement: Remediation timelines are set by severity and exposure together; internet-facing and sensitive-data systems carry the tightest clocks.
+      - id: VPM-01(3)
+        title: Patch through the change gate
+        statement: Remediations ship via the governed pull-request change path (CHG-02), so the fix produces its own evidence.
+      - id: VPM-01(4)
+        title: Tracked, expiring exceptions
+        statement: A miss past SLA becomes an exception with a compensating control, a named owner, and an expiry.
+    assessment_objectives:
+      - id: vpm-01_obj_discovery
+        statement: Determine that vulnerabilities are discovered continuously across code, dependencies, images, and infrastructure.
+      - id: vpm-01_obj_triage
+        statement: Determine that findings are triaged by severity and exposure and assigned the corresponding SLA.
+      - id: vpm-01_obj_remediation
+        statement: Determine that remediations are delivered within SLA, or carried as a tracked, time-bound exception with a compensating control.
+      - id: vpm-01_obj_exposure
+        statement: Determine that internet-facing and sensitive-data systems receive the tightest remediation timelines.
+    assessment_methods:
+      examine:
+        - The vulnerability-management policy, the SLA matrix, and the scanner and advisory-source inventory.
+        - The current finding queue with severity, exposure, age, and disposition.
+        - The exception register with compensating controls and expiries.
+      interview:
+        - Security on triage, the SLA model, and how exposure is weighted.
+        - Engineering on how patches ship through the change path and how exceptions are tracked.
+      test:
+        - Sample findings and confirm triage, SLA assignment, and on-time remediation or a valid exception.
+        - Confirm an internet-facing sample carries the critical SLA and was met or exception-tracked.
+        - Confirm no overdue finding exists without a tracked, unexpired exception.
+    evidence_schema:
+      summary: >
+        Per finding: source, severity, exposure class, affected asset, age, SLA,
+        disposition, and exception status.
+      record: evidence-schemas/VPM-01.yaml
+      collection: computed
+      ai_generated: false
+    ci_mapping:
+      ci_check: >
+        A daily job reads the normalized finding queue and computes: criticals past
+        SLA on internet-facing or sensitive-data systems (target zero), highs past
+        SLA, and overdue findings without a tracked exception.
+      drift_issue: >
+        Any nonzero count opens an Issue tagged VPM-01 naming Security as owner with
+        the affected assets and the framework impact (SOC 2, ISO 27001, NIST CSF).
+      workflow: .github/workflows/control-drift-monitor.yml
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC7.1"]
+      - framework: ISO/IEC 27002:2022
+        references: ["8.8"]
+      - framework: NIST CSF 2.0
+        references: ["ID.RA-01", "PR.PS-02"]
+    test_procedure: >
+      Sample findings for triage, SLA assignment, and on-time remediation or a valid
+      exception; confirm internet-facing and sensitive-data systems carry the
+      tightest timelines; confirm no overdue finding lacks a tracked exception.
+    props:
+      - name: scf-id
+        value: VPM-01
+      - name: scf-domain
+        value: VPM
+      - name: nist-csf-function
+        value: Identify
+      - name: automation
+        value: automated
+    stakeholder_asks:
+      - audience: Security
+        raci: A
+        ask: Own discovery, triage, and the SLA model; certify no overdue critical on an exposed or sensitive-data system.
+      - audience: Engineering
+        raci: R
+        ask: Remediate within SLA through the change gate; the merge is the fix evidence.
+      - audience: GRC
+        raci: C
+        ask: Carry exposure-weighted findings into the risk register so leverage steers remediation.
+      - audience: Auditor
+        raci: I
+        ask: Receive the computed finding queue and exception register; sample against the scanner, not a report.
+
+  - id: DCH-01
+    scf_id: DCH-01
+    scf_domain: DCH
+    scf_domain_name: Data Classification & Handling
+    class: SCF
+    csf_function: Identify
+    family: data protection
+    title: Data classification and protection
+    owner: Legal/Privacy (Security and Engineering enforce)
+    automation: partial
+    review: continuous handling checks; classification scheme review annually
+    doc: controls/DCH-01.md
+    why: >
+      Every other data control inherits its scope from this one. Precise location
+      and minor data are the crown jewels; if they are not classified, inventoried,
+      and bound to handling and retention rules, then encryption, access review,
+      consent, and the agent broker are all guarding a boundary no one has drawn.
+      This control draws the boundary: it names the highest-sensitivity classes,
+      holds them to minimization and retention limits, and makes deletion a
+      recorded event.
+    statement: >
+      Data is classified by sensitivity, and precise location and minor data are
+      designated the highest-sensitivity class. Handling, retention, and disposal
+      rules attach to the classification and are enforced. Data is minimized to
+      what the declared purpose requires and deleted or restricted when the lawful
+      basis ends. Cleartext flows of the highest-sensitivity classes are
+      inventoried so every other control knows its scope.
+    implementation_guidance: >
+      Define a classification scheme with a small number of levels and an
+      unambiguous top class for precise location and minor data. Attach handling
+      rules to the class rather than to the system, so a new store inherits the
+      rule the moment its data is classified. Maintain an inventory of where the
+      highest-sensitivity classes live and flow, because that inventory is the
+      scoping input for CRY-01 encryption, IAC-17 access review, AAT-01 agent
+      brokering, and PRI-03.13 consent. Enforce minimization at collection and at
+      use: collect only what the declared purpose needs, and where the AI layer or
+      analytics consume location data, prefer aggregation or tokenization over raw
+      cleartext. Set retention limits per class and make deletion a recorded,
+      verifiable event tied to consent withdrawal, account closure, or the end of
+      the lawful basis, not a background process no one can attest to. Treat the
+      appearance of a highest-sensitivity class in an unapproved store or an
+      unclassified flow as drift that opens an Issue, because an unknown copy of
+      location data is the failure this control exists to catch.
+    parameters:
+      - id: dch-01_prm_top_classes
+        label: Highest-sensitivity classes
+        value: precise location, minor data
+        guidance: Inherit the tightest handling, retention, and access rules.
+      - id: dch-01_prm_minor_retention
+        label: Minor-data retention limit
+        value: shortest interval that serves the declared purpose
+        guidance: Held tighter than adult data; deletion fires on consent withdrawal or account closure.
+      - id: dch-01_prm_deletion_evidence
+        label: Deletion evidence
+        value: recorded and verifiable per request
+        guidance: Disposal is an evidenced event, not an assumed background job.
+      - id: dch-01_prm_unclassified_flow
+        label: Unclassified sensitive flow
+        value: drift, opens an Issue
+        guidance: A highest-sensitivity class in an unapproved or unclassified store surfaces, never sits silent.
+    enhancements:
+      - id: DCH-01(1)
+        title: Top-class designation for location and minor data
+        statement: Precise location and minor data are designated the highest-sensitivity class and inherit the tightest rules.
+      - id: DCH-01(2)
+        title: Sensitive-data flow inventory
+        statement: The locations and flows of the highest-sensitivity classes are inventoried and serve as the scope input to CRY-01, IAC-17, AAT-01, and PRI-03.13.
+      - id: DCH-01(3)
+        title: Minimization at collection and use
+        statement: Collection is limited to the declared purpose; the AI and analytics layers prefer aggregation or tokenization over raw cleartext.
+      - id: DCH-01(4)
+        title: Recorded deletion on end of basis
+        statement: Deletion or restriction is a recorded, verifiable event on consent withdrawal, account closure, or end of lawful basis.
+    assessment_objectives:
+      - id: dch-01_obj_scheme
+        statement: Determine that a classification scheme exists and precise location and minor data are the highest-sensitivity class.
+      - id: dch-01_obj_rules
+        statement: Determine that handling, retention, and disposal rules attach to classification and are enforced.
+      - id: dch-01_obj_inventory
+        statement: Determine that an inventory of the highest-sensitivity data and its flows exists and scopes the dependent controls.
+      - id: dch-01_obj_minimization
+        statement: Determine that minimization is applied at collection and use, and deletion on end-of-basis is recorded and verifiable.
+    assessment_methods:
+      examine:
+        - The classification scheme, the handling and retention rules per class, and the sensitive-data flow inventory.
+        - The minimization rules applied to the AI and analytics pipelines.
+        - The deletion and restriction records tied to consent withdrawal and account closure.
+      interview:
+        - Legal/Privacy on the scheme, retention limits, and lawful-basis-driven deletion.
+        - Engineering on how classification drives handling and how deletion is recorded and verified.
+      test:
+        - Sample stores and confirm the highest-sensitivity classes are classified, inventoried, and held to the handling rule.
+        - Trigger a deletion case (consent withdrawal or closure) and confirm the data is deleted or restricted with a record.
+        - Search for a highest-sensitivity class in an unapproved store and confirm it surfaces as drift.
+    evidence_schema:
+      summary: >
+        Per highest-sensitivity data store and flow: classification, retention
+        rule, approved/unapproved status, and deletion records for end-of-basis
+        cases.
+      record: evidence-schemas/DCH-01.yaml
+      collection: computed
+      ai_generated: false
+    ci_mapping:
+      ci_check: >
+        A daily job reconciles the sensitive-data inventory and computes:
+        highest-sensitivity classes in unapproved or unclassified stores (target
+        zero), records past the retention limit, and end-of-basis deletions
+        completed versus due.
+      drift_issue: >
+        Any unapproved sensitive store, any over-retained record, or any missed
+        end-of-basis deletion opens an Issue tagged DCH-01 naming Legal/Privacy as
+        owner with the framework impact (SOC 2, ISO 27001, GDPR, CCPA/CPRA).
+      workflow: .github/workflows/control-drift-monitor.yml
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["C1.1", "C1.2"]
+      - framework: ISO/IEC 27002:2022
+        references: ["5.12", "5.13", "8.10", "8.12"]
+      - framework: NIST CSF 2.0
+        references: ["ID.AM-07", "PR.DS-01"]
+      - framework: GDPR
+        references: ["Art. 5(1)(c)", "Art. 5(1)(e)", "Art. 32"]
+      - framework: CCPA / CPRA (2026)
+        references: ["Civil Code §1798.100(c)"]
+    test_procedure: >
+      Sample highest-sensitivity stores for classification, handling, and retention;
+      trigger an end-of-basis deletion and confirm a verifiable record; search for a
+      top-class in an unapproved store and confirm it surfaces as drift.
+    props:
+      - name: scf-id
+        value: DCH-01
+      - name: scf-domain
+        value: DCH
+      - name: nist-csf-function
+        value: Identify
+      - name: automation
+        value: partial
+    stakeholder_asks:
+      - audience: Legal/Privacy
+        raci: A
+        ask: Own the classification scheme and retention limits; define lawful-basis-driven deletion for minor and location data.
+      - audience: Engineering
+        raci: R
+        ask: Enforce handling by classification, maintain the sensitive-data inventory, and record deletions as evidence.
+      - audience: Security
+        raci: C
+        ask: Confirm the highest-sensitivity inventory scopes encryption, access review, and the agent broker.
+      - audience: Auditor
+        raci: I
+        ask: Receive the computed inventory and deletion records; sample against the store, not an attestation.
+
+  - id: SAT-02
+    scf_id: SAT-02
+    scf_domain: SAT
+    scf_domain_name: Security Awareness & Training
+    class: SCF
+    csf_function: Protect
+    family: awareness and training
+    title: Security awareness and role-based training
+    owner: Security (People/HR delivers)
+    automation: partial
+    review: annual baseline; role-based on assignment and on material change
+    doc: controls/SAT-02.md
+    why: >
+      This is the control that legitimately sits at SOC 2 CC1.4 — commitment to
+      competence — which is why AAT-01 was moved off it. People are the control
+      surface that no broker covers: the engineer who mishandles a location export,
+      the support agent who is socially engineered into disclosing a minor's data.
+      A workforce trained to the specific risks of precise location, minor data,
+      and an agentic AI layer is a control, and its absence is the soft spot a
+      determined attacker targets first.
+    statement: >
+      Personnel complete security and privacy awareness training on hire and on a
+      recurring cadence, and role-based training is delivered to functions with
+      elevated access or specific obligations. Training covers the risks specific
+      to this service: precise-location and minor-data handling, social-engineering
+      resistance, and the governance of the agentic AI layer. Completion is
+      tracked, and non-completion for in-scope roles is an exception with a named
+      owner.
+    implementation_guidance: >
+      Deliver a baseline to everyone and a sharper, role-based module to the
+      functions that carry elevated risk: engineers who can touch the location
+      graph, support staff who field account requests, and the functions
+      accountable for the AI layer and for consent. Tie the role-based content to
+      the actual controls — what verifiable parental consent requires (PRI-03.13),
+      what an agent is and is not allowed to do on a minor's account (AAT-01), how
+      to handle a sensitive-data export (DCH-01) — so training reinforces the
+      program rather than running parallel to it. Make completion a computed state
+      drawn from the learning system of record keyed to the HRIS, so the in-scope
+      population is current as people join, move, and leave, and a role change
+      re-triggers the module its new access requires. Treat non-completion for an
+      in-scope role as a tracked exception with an owner and an expiry, not a
+      number that quietly drifts. Refresh content on material change — a new
+      regulation, a new AI capability, a recurring incident theme — so the training
+      tracks the risk rather than the calendar.
+    parameters:
+      - id: sat-02_prm_baseline_cadence
+        label: Baseline cadence
+        value: on hire, then annually
+        guidance: All personnel; completion tracked against the HRIS population.
+      - id: sat-02_prm_role_based_trigger
+        label: Role-based trigger
+        value: on assignment to an elevated-access or obligation-bearing role, and on material change
+        guidance: Engineers on the location graph, support, AI-layer and consent owners.
+      - id: sat-02_prm_completion_sla
+        label: Completion SLA (new hires)
+        value: 30 days from start
+        guidance: Maximum interval before baseline completion for a new joiner.
+      - id: sat-02_prm_non_completion
+        label: Non-completion handling
+        value: tracked exception, named owner, expiry
+        guidance: In-scope non-completion surfaces, never sits silent.
+    enhancements:
+      - id: SAT-02(1)
+        title: Role-based modules tied to controls
+        statement: Elevated-access and obligation-bearing roles receive training mapped to PRI-03.13, AAT-01, and DCH-01, reinforcing the program's own controls.
+      - id: SAT-02(2)
+        title: HRIS-keyed completion state
+        statement: Completion is computed from the learning system of record keyed to the HRIS, so the in-scope population stays current through joins, moves, and leaves.
+      - id: SAT-02(3)
+        title: Re-trigger on role change
+        statement: A move into an elevated role re-triggers the module that role requires before access is exercised.
+      - id: SAT-02(4)
+        title: Content refresh on material change
+        statement: New regulation, new AI capability, or a recurring incident theme refreshes content out of the annual cycle.
+    assessment_objectives:
+      - id: sat-02_obj_baseline
+        statement: Determine that all personnel complete baseline awareness training on hire and on the recurring cadence.
+      - id: sat-02_obj_role_based
+        statement: Determine that role-based training reaches the elevated-access and obligation-bearing functions, tied to the controls they operate.
+      - id: sat-02_obj_computed
+        statement: Determine that completion is computed from a system of record keyed to the current workforce population.
+      - id: sat-02_obj_exception
+        statement: Determine that non-completion for in-scope roles is carried as a tracked, time-bound exception.
+    assessment_methods:
+      examine:
+        - The training curriculum, the role-to-module mapping, and the completion records keyed to the HRIS.
+        - The content-refresh history against regulatory and incident triggers.
+        - The exception register for in-scope non-completion.
+      interview:
+        - Security on the curriculum and how role-based content maps to the controls.
+        - People/HR on how completion is tracked against joins, moves, and leaves.
+      test:
+        - Sample new hires and confirm baseline completion within SLA.
+        - Sample an elevated-access role and confirm the role-based module was assigned and completed on assignment.
+        - Confirm no in-scope role sits non-complete without a tracked, unexpired exception.
+    evidence_schema:
+      summary: >
+        Per person in scope: role, assigned modules, completion status and date, and
+        exception status for any non-completion.
+      record: evidence-schemas/SAT-02.yaml
+      collection: computed
+      ai_generated: false
+    ci_mapping:
+      ci_check: >
+        A daily job joins the learning system of record to the HRIS and computes:
+        in-scope personnel without current baseline completion, elevated-access
+        roles without their role-based module, and new hires past the completion
+        SLA.
+      drift_issue: >
+        Any nonzero count opens an Issue tagged SAT-02 naming Security as owner with
+        the framework impact (SOC 2, ISO 27001, NIST CSF).
+      workflow: .github/workflows/control-drift-monitor.yml
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC1.4", "CC2.2"]
+      - framework: ISO/IEC 27002:2022
+        references: ["6.3"]
+      - framework: NIST CSF 2.0
+        references: ["PR.AT-01", "PR.AT-02"]
+    test_procedure: >
+      Sample new hires for baseline completion within SLA; sample an elevated-access
+      role for the assigned role-based module on assignment; confirm no in-scope
+      role sits non-complete without a tracked, unexpired exception.
+    props:
+      - name: scf-id
+        value: SAT-02
+      - name: scf-domain
+        value: SAT
+      - name: nist-csf-function
+        value: Protect
+      - name: automation
+        value: partial
+    stakeholder_asks:
+      - audience: Security
+        raci: A
+        ask: Own the curriculum and the role-to-control mapping; certify the in-scope population is current.
+      - audience: People/HR
+        raci: R
+        ask: Deliver training and keep completion keyed to the live workforce through joins, moves, and leaves.
+      - audience: Engineering
+        raci: C
+        ask: Confirm role-based content matches what each elevated role actually does on the location graph.
+      - audience: Auditor
+        raci: I
+        ask: Receive the computed completion state; sample against the learning record, not a sign-in sheet.

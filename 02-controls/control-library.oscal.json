@@ -7,7 +7,7 @@
       "last-modified": "2026-06-01T04:30:00Z",
       "version": "2.0.0",
       "oscal-version": "1.1.3",
-      "remarks": "Seven deliberate controls expressed against the Secure Controls Framework (SCF 2025.4) spine and published as an OSCAL catalog. Each control carries assignable parameters, control enhancements (as nested controls), an assessment objective with itemized objectives, and assessment methods (EXAMINE, INTERVIEW, TEST) modeled as method parts. Statements and guidance are kept in lineage with control-library.yaml, the human-readable source of truth. SOX ITGC associations are framework mapping only (home lab) and are not represented as audited. Example evidence elsewhere in the repository is illustrative and is not a claim about any real organization's internal posture.",
+      "remarks": "Eleven deliberate controls expressed against the Secure Controls Framework (SCF 2025.4) spine and published as an OSCAL catalog. Each control carries assignable parameters, control enhancements (as nested controls), an assessment objective with itemized objectives, and assessment methods (EXAMINE, INTERVIEW, TEST) modeled as method parts. Statements and guidance are kept in lineage with control-library.yaml, the human-readable source of truth. SOX ITGC associations are framework mapping only (home lab) and are not represented as audited. Example evidence elsewhere in the repository is illustrative and is not a claim about any real organization's internal posture.",
       "roles": [
         {
           "id": "control-owner",
@@ -2052,6 +2052,398 @@
                 "id": "iro-01.4_smt",
                 "name": "statement",
                 "prose": "The plan is exercised at least annually, including an autonomous-agent scope scenario."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "cry-01",
+        "class": "SCF",
+        "title": "Use of cryptographic controls",
+        "props": [
+          {
+            "name": "scf-id",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "CRY-01"
+          },
+          {
+            "name": "scf-domain",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "CRY"
+          },
+          {
+            "name": "nist-csf-function",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "Protect"
+          },
+          {
+            "name": "automation",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "partial"
+          }
+        ],
+        "parts": [
+          {
+            "id": "cry-01_smt",
+            "name": "statement",
+            "prose": "Sensitive and regulated data is protected with cryptographic controls that meet a defined standard, in transit and at rest. Keys are generated, stored, rotated, and revoked under a documented key-management process, separated from the data they protect. Weak or deprecated algorithms and protocols are not used, and exceptions are tracked and time-bound."
+          },
+          {
+            "id": "cry-01_gdn",
+            "name": "guidance",
+            "prose": "Define the cryptographic standard once, as policy-as-code where it can be enforced: the approved algorithms, minimum key lengths, and protocol versions, plus the explicit deny-list of deprecated ones. Encrypt precise location and minor data at rest with authenticated encryption and in transit with current TLS, and treat any endpoint negotiating a deprecated protocol as drift, not an accepted state. Keep keys in a managed key store or HSM, never in source, configuration, or application logs, and separate the duty to manage keys from the duty to access the data those keys protect. Rotate keys on a defined cadence and on any suspected compromise, and make revocation fast enough that a compromised key is a bounded event. Where the AI layer or an analytics pipeline processes location data, prefer minimization and tokenization so the cleartext is exposed to the fewest systems possible. The evidence is the computed configuration state — cipher in use per data store, protocol per endpoint, key age and rotation status — not a policy assertion that encryption is \"enabled.\""
+          },
+          {
+            "id": "cry-01_obj",
+            "name": "assessment-objective",
+            "prose": "The control operates effectively when an assessor can determine that: (1) precise location and minor data are encrypted at rest and in transit to the defined standard; (2) no in-scope endpoint or store uses a deprecated algorithm or protocol outside a tracked, time-bound exception; (3) keys are held in a managed store, separated from data-access duties, and absent from source and logs; (4) keys rotate within the defined interval and revoke within the defined window on compromise."
+          },
+          {
+            "id": "cry-01_asm-examine",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "EXAMINE"
+              }
+            ],
+            "parts": [
+              {
+                "id": "cry-01_asm-examine_obj",
+                "name": "assessment-objects",
+                "prose": "- The cryptographic standard and the approved/deny algorithm and protocol lists.\n- The key-management process, the key inventory, and the rotation and revocation records.\n- The encryption configuration for the precise-location and minor-data stores."
+              }
+            ]
+          },
+          {
+            "id": "cry-01_asm-interview",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "INTERVIEW"
+              }
+            ],
+            "parts": [
+              {
+                "id": "cry-01_asm-interview_obj",
+                "name": "assessment-objects",
+                "prose": "- Security on the standard, the deny-list, and how violations surface as drift.\n- Engineering on where keys live, how rotation runs, and how cleartext exposure is minimized in the data and AI pipelines."
+              }
+            ]
+          },
+          {
+            "id": "cry-01_asm-test",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "TEST"
+              }
+            ],
+            "parts": [
+              {
+                "id": "cry-01_asm-test_obj",
+                "name": "assessment-objects",
+                "prose": "- Sample data stores and confirm authenticated encryption at the defined strength.\n- Probe a sample of endpoints and confirm none negotiate a deprecated protocol.\n- Pull the key inventory and confirm rotation within interval and no keys present in source or logs."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "vpm-01",
+        "class": "SCF",
+        "title": "Vulnerability and patch management",
+        "props": [
+          {
+            "name": "scf-id",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "VPM-01"
+          },
+          {
+            "name": "scf-domain",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "VPM"
+          },
+          {
+            "name": "nist-csf-function",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "Identify"
+          },
+          {
+            "name": "automation",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "automated"
+          }
+        ],
+        "parts": [
+          {
+            "id": "vpm-01_smt",
+            "name": "statement",
+            "prose": "Technical vulnerabilities across code, dependencies, images, and infrastructure are discovered continuously, triaged by severity and exposure, and remediated within defined service levels. Internet-facing and sensitive-data systems carry the tightest timelines. Unremediated vulnerabilities past SLA are tracked as exceptions with a named owner and a closure plan."
+          },
+          {
+            "id": "vpm-01_gdn",
+            "name": "guidance",
+            "prose": "Discover vulnerabilities from more than one vantage point: dependency and container scanning in the pipeline, infrastructure and external-surface scanning in the running estate, and the intake of vendor and CISA advisories. Normalize findings into one queue with a severity and an exposure dimension, because a critical on an internet-facing system holding location data is not the same risk as the same critical on an isolated internal tool. Set remediation SLAs by that combination and enforce them as the aging clock on the queue, not as a guideline. Patch through the same governed change path as any other production change (CHG-02), so the fix carries its own evidence. When a fix cannot ship inside the SLA, it becomes a tracked exception with a compensating control, a named owning function, and an expiry, never a silent overdue. Feed the highest-exposure findings into the risk register so the program is steered by real weakness, not only by audit cadence."
+          },
+          {
+            "id": "vpm-01_obj",
+            "name": "assessment-objective",
+            "prose": "The control operates effectively when an assessor can determine that: (1) vulnerabilities are discovered continuously across code, dependencies, images, and infrastructure; (2) findings are triaged by severity and exposure and assigned the corresponding SLA; (3) remediations are delivered within SLA, or carried as a tracked, time-bound exception with a compensating control; (4) internet-facing and sensitive-data systems receive the tightest remediation timelines."
+          },
+          {
+            "id": "vpm-01_asm-examine",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "EXAMINE"
+              }
+            ],
+            "parts": [
+              {
+                "id": "vpm-01_asm-examine_obj",
+                "name": "assessment-objects",
+                "prose": "- The vulnerability-management policy, the SLA matrix, and the scanner and advisory-source inventory.\n- The current finding queue with severity, exposure, age, and disposition.\n- The exception register with compensating controls and expiries."
+              }
+            ]
+          },
+          {
+            "id": "vpm-01_asm-interview",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "INTERVIEW"
+              }
+            ],
+            "parts": [
+              {
+                "id": "vpm-01_asm-interview_obj",
+                "name": "assessment-objects",
+                "prose": "- Security on triage, the SLA model, and how exposure is weighted.\n- Engineering on how patches ship through the change path and how exceptions are tracked."
+              }
+            ]
+          },
+          {
+            "id": "vpm-01_asm-test",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "TEST"
+              }
+            ],
+            "parts": [
+              {
+                "id": "vpm-01_asm-test_obj",
+                "name": "assessment-objects",
+                "prose": "- Sample findings and confirm triage, SLA assignment, and on-time remediation or a valid exception.\n- Confirm an internet-facing sample carries the critical SLA and was met or exception-tracked.\n- Confirm no overdue finding exists without a tracked, unexpired exception."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "dch-01",
+        "class": "SCF",
+        "title": "Data classification and protection",
+        "props": [
+          {
+            "name": "scf-id",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "DCH-01"
+          },
+          {
+            "name": "scf-domain",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "DCH"
+          },
+          {
+            "name": "nist-csf-function",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "Identify"
+          },
+          {
+            "name": "automation",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "partial"
+          }
+        ],
+        "parts": [
+          {
+            "id": "dch-01_smt",
+            "name": "statement",
+            "prose": "Data is classified by sensitivity, and precise location and minor data are designated the highest-sensitivity class. Handling, retention, and disposal rules attach to the classification and are enforced. Data is minimized to what the declared purpose requires and deleted or restricted when the lawful basis ends. Cleartext flows of the highest-sensitivity classes are inventoried so every other control knows its scope."
+          },
+          {
+            "id": "dch-01_gdn",
+            "name": "guidance",
+            "prose": "Define a classification scheme with a small number of levels and an unambiguous top class for precise location and minor data. Attach handling rules to the class rather than to the system, so a new store inherits the rule the moment its data is classified. Maintain an inventory of where the highest-sensitivity classes live and flow, because that inventory is the scoping input for CRY-01 encryption, IAC-17 access review, AAT-01 agent brokering, and PRI-03.13 consent. Enforce minimization at collection and at use: collect only what the declared purpose needs, and where the AI layer or analytics consume location data, prefer aggregation or tokenization over raw cleartext. Set retention limits per class and make deletion a recorded, verifiable event tied to consent withdrawal, account closure, or the end of the lawful basis, not a background process no one can attest to. Treat the appearance of a highest-sensitivity class in an unapproved store or an unclassified flow as drift that opens an Issue, because an unknown copy of location data is the failure this control exists to catch."
+          },
+          {
+            "id": "dch-01_obj",
+            "name": "assessment-objective",
+            "prose": "The control operates effectively when an assessor can determine that: (1) a classification scheme exists and precise location and minor data are the highest-sensitivity class; (2) handling, retention, and disposal rules attach to classification and are enforced; (3) an inventory of the highest-sensitivity data and its flows exists and scopes the dependent controls; (4) minimization is applied at collection and use, and deletion on end-of-basis is recorded and verifiable."
+          },
+          {
+            "id": "dch-01_asm-examine",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "EXAMINE"
+              }
+            ],
+            "parts": [
+              {
+                "id": "dch-01_asm-examine_obj",
+                "name": "assessment-objects",
+                "prose": "- The classification scheme, the handling and retention rules per class, and the sensitive-data flow inventory.\n- The minimization rules applied to the AI and analytics pipelines.\n- The deletion and restriction records tied to consent withdrawal and account closure."
+              }
+            ]
+          },
+          {
+            "id": "dch-01_asm-interview",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "INTERVIEW"
+              }
+            ],
+            "parts": [
+              {
+                "id": "dch-01_asm-interview_obj",
+                "name": "assessment-objects",
+                "prose": "- Legal/Privacy on the scheme, retention limits, and lawful-basis-driven deletion.\n- Engineering on how classification drives handling and how deletion is recorded and verified."
+              }
+            ]
+          },
+          {
+            "id": "dch-01_asm-test",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "TEST"
+              }
+            ],
+            "parts": [
+              {
+                "id": "dch-01_asm-test_obj",
+                "name": "assessment-objects",
+                "prose": "- Sample stores and confirm the highest-sensitivity classes are classified, inventoried, and held to the handling rule.\n- Trigger a deletion case (consent withdrawal or closure) and confirm the data is deleted or restricted with a record.\n- Search for a highest-sensitivity class in an unapproved store and confirm it surfaces as drift."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sat-02",
+        "class": "SCF",
+        "title": "Security awareness and role-based training",
+        "props": [
+          {
+            "name": "scf-id",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "SAT-02"
+          },
+          {
+            "name": "scf-domain",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "SAT"
+          },
+          {
+            "name": "nist-csf-function",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "Protect"
+          },
+          {
+            "name": "automation",
+            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+            "value": "partial"
+          }
+        ],
+        "parts": [
+          {
+            "id": "sat-02_smt",
+            "name": "statement",
+            "prose": "Personnel complete security and privacy awareness training on hire and on a recurring cadence, and role-based training is delivered to functions with elevated access or specific obligations. Training covers the risks specific to this service: precise-location and minor-data handling, social-engineering resistance, and the governance of the agentic AI layer. Completion is tracked, and non-completion for in-scope roles is an exception with a named owner."
+          },
+          {
+            "id": "sat-02_gdn",
+            "name": "guidance",
+            "prose": "Deliver a baseline to everyone and a sharper, role-based module to the functions that carry elevated risk: engineers who can touch the location graph, support staff who field account requests, and the functions accountable for the AI layer and for consent. Tie the role-based content to the actual controls — what verifiable parental consent requires (PRI-03.13), what an agent is and is not allowed to do on a minor's account (AAT-01), how to handle a sensitive-data export (DCH-01) — so training reinforces the program rather than running parallel to it. Make completion a computed state drawn from the learning system of record keyed to the HRIS, so the in-scope population is current as people join, move, and leave, and a role change re-triggers the module its new access requires. Treat non-completion for an in-scope role as a tracked exception with an owner and an expiry, not a number that quietly drifts. Refresh content on material change — a new regulation, a new AI capability, a recurring incident theme — so the training tracks the risk rather than the calendar."
+          },
+          {
+            "id": "sat-02_obj",
+            "name": "assessment-objective",
+            "prose": "The control operates effectively when an assessor can determine that: (1) all personnel complete baseline awareness training on hire and on the recurring cadence; (2) role-based training reaches the elevated-access and obligation-bearing functions, tied to the controls they operate; (3) completion is computed from a system of record keyed to the current workforce population; (4) non-completion for in-scope roles is carried as a tracked, time-bound exception."
+          },
+          {
+            "id": "sat-02_asm-examine",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "EXAMINE"
+              }
+            ],
+            "parts": [
+              {
+                "id": "sat-02_asm-examine_obj",
+                "name": "assessment-objects",
+                "prose": "- The training curriculum, the role-to-module mapping, and the completion records keyed to the HRIS.\n- The content-refresh history against regulatory and incident triggers.\n- The exception register for in-scope non-completion."
+              }
+            ]
+          },
+          {
+            "id": "sat-02_asm-interview",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "INTERVIEW"
+              }
+            ],
+            "parts": [
+              {
+                "id": "sat-02_asm-interview_obj",
+                "name": "assessment-objects",
+                "prose": "- Security on the curriculum and how role-based content maps to the controls.\n- People/HR on how completion is tracked against joins, moves, and leaves."
+              }
+            ]
+          },
+          {
+            "id": "sat-02_asm-test",
+            "name": "assessment-method",
+            "props": [
+              {
+                "name": "method",
+                "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
+                "value": "TEST"
+              }
+            ],
+            "parts": [
+              {
+                "id": "sat-02_asm-test_obj",
+                "name": "assessment-objects",
+                "prose": "- Sample new hires and confirm baseline completion within SLA.\n- Sample an elevated-access role and confirm the role-based module was assigned and completed on assignment.\n- Confirm no in-scope role sits non-complete without a tracked, unexpired exception."
               }
             ]
           }

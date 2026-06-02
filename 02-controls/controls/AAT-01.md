@@ -96,7 +96,7 @@ One control, every framework it satisfies. References are real and are kept in l
 |-----------|------------|-------|
 | NIST AI RMF 1.0 | GOVERN 1.0, GOVERN 2.1, GOVERN 4.1, MAP 3.5 | framework-mapped |
 | ISO/IEC 42001:2023 | 5.1, 8.1, A.2.2, A.6.2.2 | framework-mapped |
-| SOC 2 (TSC 2017) | CC1.4 | framework-mapped |
+| SOC 2 (TSC 2017) | CC6.1, CC6.2, CC6.3 | framework-mapped |
 | EU AI Act (2024) | Art.17(1)(c) | framework-mapped |
 
 ## RACI asks by audience

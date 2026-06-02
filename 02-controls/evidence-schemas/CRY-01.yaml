@@ -1,0 +1,104 @@
+schema:
+  control: CRY-01
+  title: Cryptographic configuration and key inventory record
+  source_system: Configuration state + managed key store / HSM
+  collection: computed
+  ai_generated: false
+  oscal_form: assessment-results observation, one per in-scope store or endpoint
+  description: >
+    Each record is the computed cryptographic state of one in-scope data store or
+    endpoint: the cipher or protocol in use, the key reference, the key age and
+    last rotation, and any deprecated-protocol negotiation observed. It is
+    produced from configuration state joined to the managed key store, never a
+    policy assertion that encryption is "enabled." Screenshots are not acceptable;
+    the computed configuration is the evidence.
+  field_contract: >
+    Every field below names its source system and how it is computed. The record
+    is assembled by an extract job from configuration state and the key store,
+    never authored by a model, which is why ai_generated is a required constant
+    false and a true value is rejected.
+  fields:
+    - name: control
+      type: string
+      const: CRY-01
+      required: true
+      source: pipeline constant
+      computation: Set to the control ID this record evidences.
+      description: Control identifier this record evidences.
+    - name: period
+      type: string
+      format: YYYY-Qn or YYYY-MM
+      required: true
+      source: reporting calendar
+      computation: The reporting period the inventory is drawn from.
+      description: Reporting period the record is drawn from.
+    - name: source
+      type: string
+      required: true
+      source: system inventory
+      computation: Names the configuration-state and key-store systems the record was read from.
+      description: System of record the configuration and key state were read from.
+    - name: store_or_endpoint
+      type: string
+      required: true
+      source: asset inventory (in-scope store or endpoint identifier)
+      computation: The in-scope data store or endpoint this record evidences.
+      description: In-scope data store or endpoint the cryptographic state is computed for.
+    - name: cipher_or_protocol
+      type: string
+      required: true
+      source: configuration state (cipher per store; negotiated protocol per endpoint)
+      computation: The authenticated-encryption cipher at rest or the negotiated TLS protocol in transit.
+      description: Cipher in use at rest or protocol negotiated in transit.
+    - name: key_ref
+      type: string
+      required: true
+      source: managed key store / HSM (key handle)
+      computation: The managed key handle protecting the store; keys are absent from source and logs.
+      description: Managed key reference; never an inline key, source, or log value.
+    - name: key_age_days
+      type: integer
+      required: true
+      source: managed key store (key creation timestamp)
+      computation: Days since the key was created or last rotated, measured against the rotation interval.
+      description: Age of the key in days, compared to the rotation interval.
+    - name: last_rotation
+      type: string
+      format: ISO 8601 date
+      required: true
+      source: managed key store (last rotation event)
+      computation: The date of the most recent rotation for the key protecting this store.
+      description: Date of the most recent key rotation.
+    - name: deprecated_protocol_observed
+      type: boolean
+      required: true
+      source: endpoint probe (negotiated-protocol check)
+      computation: True if the endpoint negotiated a protocol below the in-transit floor; such a result is drift.
+      description: Whether a deprecated protocol was observed; true is drift.
+    - name: ai_generated
+      type: boolean
+      const: false
+      required: true
+      source: pipeline metadata
+      computation: Set false because the record is extracted from configuration state and the key store, not authored by a model.
+      description: Must be false. Evidence must be traceable to a system of record, so model-authored records are rejected by schema.
+  example:
+    control: CRY-01
+    period: 2026-Q2
+    source: Configuration state + managed key store / HSM
+    store_or_endpoint: location-graph-primary
+    cipher_or_protocol: AES-256-GCM
+    key_ref: kms://prod/location-graph/cek-2026
+    key_age_days: 84
+    last_rotation: "2026-03-09"
+    deprecated_protocol_observed: false
+    ai_generated: false
+  audit_ready_when:
+    - Record is computed from configuration state joined to the key store, not authored.
+    - Every in-scope store shows authenticated encryption at or above the at-rest standard.
+    - No endpoint shows deprecated_protocol_observed true outside a tracked, time-bound exception.
+    - key_age_days is within the rotation interval, or the key carries a tracked exception.
+  rejected_when:
+    - ai_generated is true.
+    - key_ref is an inline key value or resolves to source or logs.
+    - deprecated_protocol_observed is true with no tracked exception.

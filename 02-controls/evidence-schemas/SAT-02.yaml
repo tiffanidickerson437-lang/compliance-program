@@ -1,0 +1,106 @@
+schema:
+  control: SAT-02
+  title: Training completion record keyed to the workforce
+  source_system: Learning system of record + HRIS
+  collection: computed
+  ai_generated: false
+  oscal_form: assessment-results observation, one per person in scope
+  description: >
+    Each record is the computed training state for one person in scope: their
+    role, the modules assigned to that role, the completion status and date, and
+    the exception status for any non-completion. It is produced from the learning
+    system of record joined to the HRIS, so the in-scope population is current
+    through joins, moves, and leaves. Screenshots and sign-in sheets are not
+    acceptable; the computed completion state is the evidence.
+  field_contract: >
+    Every field below names its source system and how it is computed. The record
+    is assembled by an extract job from the learning and HR systems, never
+    authored by a model, which is why ai_generated is a required constant false
+    and a true value is rejected.
+  fields:
+    - name: control
+      type: string
+      const: SAT-02
+      required: true
+      source: pipeline constant
+      computation: Set to the control ID this record evidences.
+      description: Control identifier this record evidences.
+    - name: period
+      type: string
+      format: YYYY-Qn or YYYY-MM
+      required: true
+      source: reporting calendar
+      computation: The reporting period the completion state is drawn from.
+      description: Reporting period the record is drawn from.
+    - name: source
+      type: string
+      required: true
+      source: system inventory
+      computation: Names the learning system of record and the HRIS the record was joined from.
+      description: Systems of record the completion and population state were read from.
+    - name: person_ref
+      type: string
+      required: true
+      source: HRIS (workforce identifier)
+      computation: The in-scope person this record evidences; keyed to the live HRIS population.
+      description: In-scope person identifier, keyed to the HRIS.
+    - name: role
+      type: string
+      required: true
+      source: HRIS (role / access tier)
+      computation: The person's role, which drives the role-based module assignment.
+      description: Role of the person, driving role-based assignment.
+    - name: assigned_modules
+      type: array
+      items: string
+      required: true
+      source: learning system of record (role-to-module mapping)
+      computation: The baseline and role-based modules assigned to this person's role.
+      description: Modules assigned, baseline plus role-based.
+    - name: completion_status
+      type: string
+      enum: [complete, incomplete]
+      required: true
+      source: learning system of record (completion state)
+      computation: Whether the person has completed the assigned modules for the period.
+      description: Completion status for the assigned modules.
+    - name: completion_date
+      type: string
+      format: ISO 8601 date
+      required: true
+      source: learning system of record (completion timestamp)
+      computation: The date the assigned modules were completed; empty where incomplete.
+      description: Date of completion; empty where incomplete.
+    - name: exception_status
+      type: string
+      required: true
+      source: exception register (named owner + expiry)
+      computation: Whether an in-scope non-completion carries a tracked exception with an owner and an expiry; none if complete.
+      description: Exception status for any non-completion, including named owner and expiry.
+    - name: ai_generated
+      type: boolean
+      const: false
+      required: true
+      source: pipeline metadata
+      computation: Set false because the record is extracted from the learning system and HRIS, not authored by a model.
+      description: Must be false. Evidence must be traceable to a system of record, so model-authored records are rejected by schema.
+  example:
+    control: SAT-02
+    period: 2026-Q2
+    source: Learning system of record + HRIS
+    person_ref: engineer-location-graph-0142
+    role: Engineering (location graph)
+    assigned_modules: [baseline-awareness, role-location-data, role-ai-governance]
+    completion_status: complete
+    completion_date: "2026-04-18"
+    exception_status: none
+    ai_generated: false
+  audit_ready_when:
+    - Record is computed from the learning system joined to the HRIS, not authored.
+    - Every in-scope person has the baseline plus the modules their role requires.
+    - Completion is current for the period, or non-completion carries a tracked exception.
+    - The in-scope population reconciles to the live HRIS through joins, moves, and leaves.
+  rejected_when:
+    - ai_generated is true.
+    - An in-scope role shows completion_status incomplete with no tracked exception.
+    - exception_status claims an exception with no named owner or expiry.
