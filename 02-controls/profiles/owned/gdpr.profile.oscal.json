@@ -1,0 +1,35 @@
+{
+  "profile": {
+    "uuid": "b70dd9fb-8a9c-427a-aad8-d035feb351f3",
+    "metadata": {
+      "title": "GDPR — view over the owned control library",
+      "last-modified": "2026-06-02T05:43:55.814550+00:00",
+      "version": "1.0.0",
+      "oscal-version": "1.1.3"
+    },
+    "imports": [
+      {
+        "href": "./owned-controls.oscal.json",
+        "include-controls": [
+          {
+            "with-ids": [
+              "rsk-01",
+              "cry-01",
+              "dch-01",
+              "dch-02",
+              "pri-01",
+              "pri-02",
+              "pri-03",
+              "iro-02",
+              "tpm-01",
+              "tpm-02"
+            ]
+          }
+        ]
+      }
+    ],
+    "merge": {
+      "as-is": true
+    }
+  }
+}

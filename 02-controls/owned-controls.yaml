@@ -1,0 +1,663 @@
+metadata:
+  title: Owned Control Library
+  owner: Tiffani Dickerson
+  version: "1.0.0"
+  authored: true
+  source_of_truth: true
+  license_note: >
+    Control statements are original, authored work owned in this repository.
+    Framework references are authored mappings keyed to public sources (NIST SP 800-53
+    rev 5 is public domain; SOC 2 TSC, ISO/IEC 27001:2022, HIPAA, NIST CSF 2.0, PCI DSS
+    v4, GDPR are public standards/regulations). No content is derived from a licensed
+    metaframework. Mappings are at control-family granularity; confirm exact sub-references
+    against each source framework before audit use.
+  framework_keys:
+    soc2: "SOC 2 (TSC 2017)"
+    iso27001: "ISO 27001:2022"
+    nist80053: "NIST 800-53 r5"
+    nistcsf: "NIST CSF 2.0"
+    hipaa: "HIPAA Security Rule"
+    pci: "PCI DSS v4"
+    gdpr: "GDPR"
+  relationships: [equivalent-to, subset-of, superset-of, intersects-with]
+
+controls:
+
+  # ---------------- Governance ----------------
+  - id: GOV-01
+    title: Security and privacy governance program
+    domain: Governance
+    statement: >
+      A documented security and privacy program defines scope, ownership, and objectives,
+      is approved by leadership, and is reviewed at least annually. Authority and accountability
+      for the program are assigned to a named function.
+    evidence: Approved program charter with version history and the annual review record.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC1.1, CC1.2, CC1.3]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.5.1", "5.1", "5.2"]}
+      - {fw: nist80053, rel: subset-of, refs: [PM-1, PL-1]}
+      - {fw: nistcsf, rel: intersects-with, refs: ["GV.OC", "GV.PO"]}
+      - {fw: hipaa, rel: intersects-with, refs: ["164.316(a)"]}
+
+  - id: GOV-02
+    title: Policy hierarchy and periodic review
+    domain: Governance
+    statement: >
+      Policies, standards, and procedures form a maintained hierarchy with named owners,
+      a review cadence, and version control. Each document is reviewed and re-approved on
+      cadence or on material change.
+    evidence: Policy register listing owner, version, last-review date, and approval.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC5.3]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.5.1", "A.5.37"]}
+      - {fw: nist80053, rel: subset-of, refs: ["AC-1", "AU-1", "CM-1"]}
+      - {fw: hipaa, rel: intersects-with, refs: ["164.316(b)(1)", "164.316(b)(2)"]}
+      - {fw: pci, rel: intersects-with, refs: ["12.1"]}
+
+  - id: GOV-03
+    title: Roles, responsibilities, and segregation of duties
+    domain: Governance
+    statement: >
+      Security responsibilities are assigned by role and documented in a RACI. Conflicting
+      duties are separated; where separation is impractical, a compensating control is recorded.
+    evidence: RACI matrix and the segregation-of-duties exception register.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC1.3, CC1.4]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.5.2", "A.5.3"]}
+      - {fw: nist80053, rel: subset-of, refs: [AC-5, PM-2]}
+      - {fw: nistcsf, rel: intersects-with, refs: ["GV.RR"]}
+
+  - id: GOV-04
+    title: Program metrics and leadership reporting
+    domain: Governance
+    statement: >
+      Control health and program performance are measured and reported to leadership on a
+      fixed cadence, with material risks escalated. Metrics are computed from systems of record,
+      not assembled by hand.
+    evidence: Periodic leadership report and the underlying computed metric set.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC4.1, CC4.2]}
+      - {fw: iso27001, rel: intersects-with, refs: ["9.1", "9.3"]}
+      - {fw: nist80053, rel: subset-of, refs: [CA-7, PM-6]}
+      - {fw: nistcsf, rel: intersects-with, refs: ["GV.OV"]}
+
+  # ---------------- Risk Management ----------------
+  - id: RSK-01
+    title: Risk assessment methodology
+    domain: Risk Management
+    statement: >
+      Risk is assessed using a documented, repeatable method that estimates likelihood and
+      impact in defined terms. Assessments run on cadence and on significant change.
+    evidence: The methodology document and a dated assessment produced from it.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC3.1, CC3.2, CC3.4]}
+      - {fw: iso27001, rel: intersects-with, refs: ["6.1.2", "8.2"]}
+      - {fw: nist80053, rel: subset-of, refs: [RA-3, PM-9]}
+      - {fw: nistcsf, rel: intersects-with, refs: ["ID.RA", "GV.RM"]}
+      - {fw: gdpr, rel: intersects-with, refs: ["Art 35"]}
+
+  - id: RSK-02
+    title: Risk register and treatment
+    domain: Risk Management
+    statement: >
+      Identified risks are recorded in a register with an owner, treatment decision, and target
+      date. Accepted risk is approved at an authority level matched to its severity.
+    evidence: Risk register with treatment decisions and acceptance approvals.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC3.2, CC9.1]}
+      - {fw: iso27001, rel: intersects-with, refs: ["6.1.3", "8.3"]}
+      - {fw: nist80053, rel: subset-of, refs: [RA-7, CA-5]}
+      - {fw: nistcsf, rel: intersects-with, refs: ["GV.RM", "ID.RA"]}
+
+  # ---------------- Asset Management ----------------
+  - id: AST-01
+    title: Asset inventory and ownership
+    domain: Asset Management
+    statement: >
+      A maintained inventory records hardware, software, services, and data stores with an owner
+      for each. The inventory is reconciled from authoritative discovery, not a manual list.
+    evidence: Inventory export with owners, reconciled against discovery, dated.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC6.1]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.5.9", "A.5.10"]}
+      - {fw: nist80053, rel: subset-of, refs: [CM-8, PM-5]}
+      - {fw: nistcsf, rel: intersects-with, refs: ["ID.AM"]}
+      - {fw: pci, rel: intersects-with, refs: ["12.5.1", "9.5.1"]}
+
+  - id: AST-02
+    title: Data and asset classification
+    domain: Asset Management
+    statement: >
+      Assets and data are classified by sensitivity against a defined scheme, and handling
+      requirements follow from the classification.
+    evidence: Classification scheme and a sample of classified assets/data stores.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC6.1, C1.1]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.5.12", "A.5.13"]}
+      - {fw: nist80053, rel: subset-of, refs: [RA-2, MP-3]}
+      - {fw: nistcsf, rel: intersects-with, refs: ["ID.AM-05"]}
+
+  - id: AST-03
+    title: Secure disposal of media and equipment
+    domain: Asset Management
+    statement: >
+      Media and equipment holding confidential data are sanitized or destroyed before disposal
+      or reuse, with the action recorded.
+    evidence: Sanitization/destruction records tied to asset IDs.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC6.5]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.7.10", "A.7.14", "A.8.10"]}
+      - {fw: nist80053, rel: subset-of, refs: [MP-6]}
+      - {fw: hipaa, rel: intersects-with, refs: ["164.310(d)(2)"]}
+      - {fw: pci, rel: intersects-with, refs: ["9.4.6", "3.2.1"]}
+
+  # ---------------- Identity & Access Management ----------------
+  - id: IAM-01
+    title: Access provisioning from joiner-mover-leaver
+    domain: Identity & Access Management
+    statement: >
+      Access is granted, changed, and revoked from authoritative HR events. Leaver access is
+      removed on the same day the leaver event fires; the feed is the trigger, not a ticket.
+    evidence: Provisioning and deprovisioning records joined to the HR feed.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC6.1, CC6.2, CC6.3]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.5.16", "A.5.18"]}
+      - {fw: nist80053, rel: subset-of, refs: [AC-2, PS-4, PS-5]}
+      - {fw: nistcsf, rel: intersects-with, refs: ["PR.AA"]}
+      - {fw: hipaa, rel: intersects-with, refs: ["164.308(a)(3)", "164.308(a)(4)"]}
+
+  - id: IAM-02
+    title: Periodic review of access privileges
+    domain: Identity & Access Management
+    statement: >
+      Access to systems and data is reviewed on a fixed cadence against role and employment
+      status; unjustified access is removed. Service and non-human accounts are reviewed on the
+      same cadence as people.
+    evidence: Recertification record joined to the IdP and HRIS, with the revocation timestamp.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC6.2, CC6.3]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.5.15", "A.5.18", "A.8.2"]}
+      - {fw: nist80053, rel: subset-of, refs: [AC-2, AC-6]}
+      - {fw: nistcsf, rel: intersects-with, refs: ["PR.AA-05"]}
+      - {fw: hipaa, rel: intersects-with, refs: ["164.308(a)(3)(ii)(B)", "164.308(a)(4)"]}
+
+  - id: IAM-03
+    title: Least privilege and privileged access management
+    domain: Identity & Access Management
+    statement: >
+      Access follows least privilege. Privileged access is brokered, time-bound where feasible,
+      and separately logged. Standing administrative access is minimized.
+    evidence: Privileged-access grant records and the session log.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC6.1, CC6.3]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.8.2", "A.8.18"]}
+      - {fw: nist80053, rel: subset-of, refs: [AC-6, AC-2(7)]}
+      - {fw: nistcsf, rel: intersects-with, refs: ["PR.AA-05"]}
+      - {fw: pci, rel: intersects-with, refs: ["7.2", "7.3"]}
+
+  - id: IAM-04
+    title: Authentication and multi-factor enforcement
+    domain: Identity & Access Management
+    statement: >
+      Users authenticate with unique identities and phishing-resistant multi-factor where
+      supported. MFA is enforced for remote and administrative access.
+    evidence: Authentication policy and an MFA-coverage report by system.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC6.1]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.5.17", "A.8.5"]}
+      - {fw: nist80053, rel: subset-of, refs: [IA-2, IA-5]}
+      - {fw: nistcsf, rel: intersects-with, refs: ["PR.AA-03"]}
+      - {fw: hipaa, rel: intersects-with, refs: ["164.312(d)"]}
+      - {fw: pci, rel: intersects-with, refs: ["8.3", "8.4", "8.5"]}
+
+  - id: IAM-05
+    title: Service and non-human identity governance
+    domain: Identity & Access Management
+    statement: >
+      Service accounts, API keys, and workload identities are registered with an owner,
+      scoped to least privilege, and rotated or expired. No standing secret without an owner.
+    evidence: Non-human identity register with owner, scope, and rotation status.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC6.1, CC6.3]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.5.16", "A.8.2"]}
+      - {fw: nist80053, rel: subset-of, refs: [AC-2, IA-5(5)]}
+      - {fw: nistcsf, rel: intersects-with, refs: ["PR.AA-01"]}
+
+  # ---------------- Change Management ----------------
+  - id: CHG-01
+    title: Configuration change control
+    domain: Change Management
+    statement: >
+      Production change reaches systems only through a peer-reviewed, tracked change with
+      required checks passing. Direct changes to protected environments are blocked; emergency
+      changes follow a documented after-the-fact review.
+    evidence: Merge/change record with linked ticket, independent reviewer, and passing checks.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC8.1]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.8.32", "A.8.19"]}
+      - {fw: nist80053, rel: subset-of, refs: [CM-3, CM-4, CM-5]}
+      - {fw: nistcsf, rel: intersects-with, refs: ["PR.PS-01"]}
+      - {fw: pci, rel: intersects-with, refs: ["6.5.1", "6.5.2"]}
+
+  - id: CHG-02
+    title: Baseline configuration and hardening
+    domain: Change Management
+    statement: >
+      Systems are built from approved, hardened baselines, and deviations are detected and
+      reconciled. Baselines follow a recognized hardening standard.
+    evidence: Baseline definitions and a configuration-drift report.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC7.1, CC8.1]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.8.9"]}
+      - {fw: nist80053, rel: subset-of, refs: [CM-2, CM-6]}
+      - {fw: nistcsf, rel: intersects-with, refs: ["PR.PS-01"]}
+      - {fw: pci, rel: intersects-with, refs: ["2.2"]}
+
+  # ---------------- Cryptographic Protections ----------------
+  - id: CRY-01
+    title: Encryption in transit and at rest
+    domain: Cryptographic Protections
+    statement: >
+      Confidential data is encrypted in transit with current protocols and at rest in storage
+      and backups. Deprecated algorithms and protocols are disallowed.
+    evidence: Encryption standard and a coverage report across data stores and endpoints.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC6.1, CC6.7]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.8.24"]}
+      - {fw: nist80053, rel: subset-of, refs: [SC-8, SC-13, SC-28]}
+      - {fw: nistcsf, rel: intersects-with, refs: ["PR.DS-01", "PR.DS-02"]}
+      - {fw: hipaa, rel: intersects-with, refs: ["164.312(a)(2)(iv)", "164.312(e)(2)(ii)"]}
+      - {fw: pci, rel: intersects-with, refs: ["3.5", "4.2"]}
+      - {fw: gdpr, rel: intersects-with, refs: ["Art 32.1(a)"]}
+
+  - id: CRY-02
+    title: Key management
+    domain: Cryptographic Protections
+    statement: >
+      Cryptographic keys are generated, stored, rotated, and retired under a defined lifecycle,
+      with access to key material restricted and logged.
+    evidence: Key-management procedure and key inventory with rotation records.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC6.1]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.8.24"]}
+      - {fw: nist80053, rel: subset-of, refs: [SC-12, SC-17]}
+      - {fw: pci, rel: intersects-with, refs: ["3.6", "3.7"]}
+
+  # ---------------- Data Protection & Privacy ----------------
+  - id: DCH-01
+    title: Data handling and loss prevention
+    domain: Data Protection & Privacy
+    statement: >
+      Confidential data is handled per its classification across storage, transmission, and
+      sharing, and exfiltration of regulated data is monitored and constrained.
+    evidence: Handling standard and DLP/monitoring coverage for regulated data.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [C1.1, C1.2]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.5.14", "A.8.12"]}
+      - {fw: nist80053, rel: subset-of, refs: [AC-4, SC-7, SI-4]}
+      - {fw: nistcsf, rel: intersects-with, refs: ["PR.DS"]}
+      - {fw: gdpr, rel: intersects-with, refs: ["Art 5.1(f)", "Art 32"]}
+
+  - id: DCH-02
+    title: Data retention and disposal
+    domain: Data Protection & Privacy
+    statement: >
+      Data is retained only as long as required by a defined schedule and is disposed of when
+      the schedule expires, with disposal recorded.
+    evidence: Retention schedule and disposal records by data category.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [C1.2, P4.2]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.5.33", "A.8.10"]}
+      - {fw: nist80053, rel: subset-of, refs: [SI-12, MP-6]}
+      - {fw: gdpr, rel: intersects-with, refs: ["Art 5.1(e)", "Art 17"]}
+      - {fw: hipaa, rel: intersects-with, refs: ["164.316(b)(2)(i)"]}
+
+  - id: PRI-01
+    title: Privacy notice and lawful basis
+    domain: Data Protection & Privacy
+    statement: >
+      Personal data is processed for a stated purpose under a documented lawful basis, and a
+      plain-language notice describes what is collected, why, and the individual's rights.
+    evidence: Processing register with lawful basis and the published privacy notice.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [P1.1, P2.1]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.5.34"]}
+      - {fw: nist80053, rel: subset-of, refs: [PT-1, PT-5, PM-9]}
+      - {fw: gdpr, rel: intersects-with, refs: ["Art 6", "Art 13", "Art 30"]}
+
+  - id: PRI-02
+    title: Data subject rights handling
+    domain: Data Protection & Privacy
+    statement: >
+      Requests to access, correct, delete, or port personal data are honored within statutory
+      timelines, with identity verified before action.
+    evidence: Rights-request log with timestamps and outcomes.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [P5.1, P6.1]}
+      - {fw: nist80053, rel: subset-of, refs: [PT-6, IP-1]}
+      - {fw: gdpr, rel: intersects-with, refs: ["Art 12", "Art 15", "Art 16", "Art 17", "Art 20"]}
+
+  - id: PRI-03
+    title: Parental consent for minors
+    domain: Data Protection & Privacy
+    statement: >
+      A minor's personal data is processed only after verifiable parental or guardian consent is
+      recorded. Consent state is authoritative: absent or withdrawn consent blocks processing.
+    evidence: Consent register per minor with verification method and state.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [P2.1]}
+      - {fw: nist80053, rel: subset-of, refs: [PT-4, PT-5]}
+      - {fw: gdpr, rel: intersects-with, refs: ["Art 8"]}
+
+  # ---------------- Logging & Monitoring ----------------
+  - id: MON-01
+    title: Centralized logging and event monitoring
+    domain: Logging & Monitoring
+    statement: >
+      Security-relevant events ship to a central store and are monitored for defined conditions
+      that alert a tracked queue. Logs capture what, when, where, source, outcome, and identity.
+    evidence: SIEM coverage report and alert-acknowledgement records.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC7.2]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.8.15", "A.8.16"]}
+      - {fw: nist80053, rel: subset-of, refs: [AU-2, AU-6, SI-4]}
+      - {fw: nistcsf, rel: intersects-with, refs: ["DE.CM", "DE.AE"]}
+      - {fw: hipaa, rel: intersects-with, refs: ["164.312(b)", "164.308(a)(1)(ii)(D)"]}
+      - {fw: pci, rel: intersects-with, refs: ["10.2", "10.4"]}
+
+  - id: MON-02
+    title: Log integrity and retention
+    domain: Logging & Monitoring
+    statement: >
+      Logs are protected against alteration with write-once or equivalent integrity controls and
+      retained for a defined period. Clocks are synchronized to an authoritative source.
+    evidence: Retention configuration, integrity-check results, and time-sync status.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC7.2]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.8.15", "A.8.17"]}
+      - {fw: nist80053, rel: subset-of, refs: [AU-9, AU-11, AU-8]}
+      - {fw: pci, rel: intersects-with, refs: ["10.3", "10.6"]}
+
+  # ---------------- Network Security ----------------
+  - id: NET-01
+    title: Network segmentation and boundary protection
+    domain: Network Security
+    statement: >
+      Networks are segmented by trust and sensitivity, and traffic crossing boundaries is
+      filtered by default-deny rules that are reviewed on cadence.
+    evidence: Network diagram, firewall ruleset, and the rule-review record.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC6.6, CC6.1]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.8.20", "A.8.22"]}
+      - {fw: nist80053, rel: subset-of, refs: [SC-7, AC-4]}
+      - {fw: nistcsf, rel: intersects-with, refs: ["PR.IR-01"]}
+      - {fw: pci, rel: intersects-with, refs: ["1.2", "1.3", "1.4"]}
+
+  - id: NET-02
+    title: Secure remote access
+    domain: Network Security
+    statement: >
+      Remote access to internal resources is authenticated, encrypted, and least-privilege,
+      and administrative access originates from controlled paths.
+    evidence: Remote-access configuration and an access-path review.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC6.6, CC6.7]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.6.7", "A.8.5"]}
+      - {fw: nist80053, rel: subset-of, refs: [AC-17, SC-7]}
+      - {fw: pci, rel: intersects-with, refs: ["8.5", "1.4"]}
+
+  # ---------------- Secure Development ----------------
+  - id: SDLC-01
+    title: Secure development gates
+    domain: Secure Development
+    statement: >
+      Security requirements and checks are built into design, build, test, and deploy stages,
+      and a release cannot pass without its required gates emitting evidence.
+    evidence: Pipeline gate configuration and gate results per release.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC8.1]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.8.25", "A.8.27", "A.8.28"]}
+      - {fw: nist80053, rel: subset-of, refs: [SA-3, SA-8, SA-11]}
+      - {fw: nistcsf, rel: intersects-with, refs: ["PR.PS-06"]}
+      - {fw: pci, rel: intersects-with, refs: ["6.2"]}
+
+  - id: SDLC-02
+    title: Software supply chain and dependency integrity
+    domain: Secure Development
+    statement: >
+      Third-party and open-source components are inventoried, scanned for known vulnerabilities,
+      and verified for integrity before use. Build provenance is recorded.
+    evidence: Software bill of materials and dependency-scan results.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC8.1, CC9.2]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.8.28", "A.8.30"]}
+      - {fw: nist80053, rel: subset-of, refs: [SA-12, SR-3, SR-4]}
+      - {fw: nistcsf, rel: intersects-with, refs: ["GV.SC", "ID.RA-09"]}
+
+  - id: SDLC-03
+    title: Secrets management
+    domain: Secure Development
+    statement: >
+      Secrets are stored in a managed vault, never in source or configuration, and are scanned
+      for in code. Exposed secrets are rotated on detection.
+    evidence: Secrets-scanning results and vault usage evidence.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC6.1]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.8.24", "A.8.31"]}
+      - {fw: nist80053, rel: subset-of, refs: [IA-5, SC-12]}
+      - {fw: pci, rel: intersects-with, refs: ["6.3.1", "8.6"]}
+
+  # ---------------- Vulnerability & Patch Management ----------------
+  - id: VPM-01
+    title: Vulnerability identification and remediation
+    domain: Vulnerability & Patch Management
+    statement: >
+      Vulnerabilities are discovered from multiple vantage points, normalized into one queue
+      with severity and exposure, and remediated within SLAs enforced as an aging clock.
+    evidence: Vulnerability queue with SLA aging and remediation records.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC7.1, CC3.2]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.8.8"]}
+      - {fw: nist80053, rel: subset-of, refs: [RA-5, SI-2]}
+      - {fw: nistcsf, rel: intersects-with, refs: ["ID.RA-01", "PR.PS-02"]}
+      - {fw: pci, rel: intersects-with, refs: ["6.3.3", "11.3"]}
+
+  - id: VPM-02
+    title: Penetration testing
+    domain: Vulnerability & Patch Management
+    statement: >
+      Independent testing exercises the environment on cadence and after significant change,
+      and findings feed the remediation queue and the risk register.
+    evidence: Test reports and the tracked remediation of findings.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC4.1, CC7.1]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.8.8", "A.8.29"]}
+      - {fw: nist80053, rel: subset-of, refs: [CA-8, RA-5]}
+      - {fw: pci, rel: intersects-with, refs: ["11.4"]}
+
+  # ---------------- Endpoint Security ----------------
+  - id: END-01
+    title: Endpoint protection and detection
+    domain: Endpoint Security
+    statement: >
+      Endpoints run managed protection that detects and responds to malicious activity, with
+      coverage and health monitored centrally.
+    evidence: Endpoint coverage and health report.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC6.8, CC7.1]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.8.7"]}
+      - {fw: nist80053, rel: subset-of, refs: [SI-3, SI-4]}
+      - {fw: nistcsf, rel: intersects-with, refs: ["DE.CM-09"]}
+      - {fw: pci, rel: intersects-with, refs: ["5.2", "5.3"]}
+
+  - id: END-02
+    title: Device management and hardening
+    domain: Endpoint Security
+    statement: >
+      Managed devices enforce configuration, disk encryption, and screen lock, and access from
+      unmanaged devices to confidential data is restricted.
+    evidence: MDM policy and a compliance report by device.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC6.7, CC6.8]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.8.1", "A.7.9"]}
+      - {fw: nist80053, rel: subset-of, refs: [CM-6, AC-19]}
+      - {fw: hipaa, rel: intersects-with, refs: ["164.310(d)(1)", "164.312(a)(2)(iv)"]}
+
+  # ---------------- Incident Response ----------------
+  - id: IRO-01
+    title: Incident response operations
+    domain: Incident Response
+    statement: >
+      Incidents are detected, triaged, contained, and recorded against a governed plan, including
+      AI scope breaches. Every incident gets a post-incident review.
+    evidence: Incident records with detection, containment, and review links.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC7.3, CC7.4, CC7.5]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.5.24", "A.5.25", "A.5.26"]}
+      - {fw: nist80053, rel: subset-of, refs: [IR-4, IR-5, IR-8]}
+      - {fw: nistcsf, rel: intersects-with, refs: ["RS.MA", "DE.AE"]}
+      - {fw: hipaa, rel: intersects-with, refs: ["164.308(a)(6)"]}
+      - {fw: pci, rel: intersects-with, refs: ["12.10"]}
+
+  - id: IRO-02
+    title: Breach notification
+    domain: Incident Response
+    statement: >
+      When an incident meets a statutory or contractual threshold, affected parties and regulators
+      are notified within required windows, with the decision and its basis recorded.
+    evidence: Notification decision log with timelines and basis.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC7.4, P6.3]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.5.26", "A.5.5"]}
+      - {fw: nist80053, rel: subset-of, refs: [IR-6]}
+      - {fw: gdpr, rel: intersects-with, refs: ["Art 33", "Art 34"]}
+      - {fw: hipaa, rel: intersects-with, refs: ["164.400", "164.404", "164.410"]}
+
+  # ---------------- Business Continuity & DR ----------------
+  - id: BCD-01
+    title: Business continuity and disaster recovery
+    domain: Business Continuity & DR
+    statement: >
+      Recovery objectives are set from a business impact analysis, and continuity and recovery
+      plans are documented, resourced, and tested on cadence.
+    evidence: BIA, plans, and the dated test results against objectives.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [A1.2, A1.3]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.5.29", "A.5.30"]}
+      - {fw: nist80053, rel: subset-of, refs: [CP-2, CP-4]}
+      - {fw: nistcsf, rel: intersects-with, refs: ["RC.RP", "PR.IR-03"]}
+      - {fw: hipaa, rel: intersects-with, refs: ["164.308(a)(7)"]}
+
+  - id: BCD-02
+    title: Backup and restoration
+    domain: Business Continuity & DR
+    statement: >
+      Critical data and systems are backed up on a defined schedule with backups protected and
+      restoration verified by test, not assumption.
+    evidence: Backup configuration and successful restoration-test records.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [A1.2]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.8.13"]}
+      - {fw: nist80053, rel: subset-of, refs: [CP-9, CP-10]}
+      - {fw: hipaa, rel: intersects-with, refs: ["164.308(a)(7)(ii)(A)", "164.308(a)(7)(ii)(B)"]}
+
+  # ---------------- Third-Party Risk ----------------
+  - id: TPM-01
+    title: Third-party risk management
+    domain: Third-Party Risk
+    statement: >
+      Third parties with system or data access are tiered by what they can touch, assessed before
+      onboarding, bound by security and processing terms, and reassessed on cadence by tier.
+    evidence: Vendor register with tier, assessment, contract terms, and assurance expiry.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC9.2, CC2.3]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.5.19", "A.5.20", "A.5.22"]}
+      - {fw: nist80053, rel: subset-of, refs: [SR-3, SR-6, SA-9]}
+      - {fw: nistcsf, rel: intersects-with, refs: ["GV.SC"]}
+      - {fw: gdpr, rel: intersects-with, refs: ["Art 28"]}
+      - {fw: pci, rel: intersects-with, refs: ["12.8"]}
+
+  - id: TPM-02
+    title: Subprocessor and data-flow assurance
+    domain: Third-Party Risk
+    statement: >
+      Where personal or sensitive data flows to subprocessors, processing terms, breach-notice
+      windows, and transfer mechanisms are in place and recorded.
+    evidence: Subprocessor list with executed terms and transfer mechanisms.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC9.2]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.5.21"]}
+      - {fw: nist80053, rel: subset-of, refs: [SR-5, SA-9]}
+      - {fw: gdpr, rel: intersects-with, refs: ["Art 28", "Art 44", "Art 46"]}
+
+  # ---------------- Security Awareness & HR ----------------
+  - id: SAT-01
+    title: Security awareness and role-based training
+    domain: Security Awareness & Training
+    statement: >
+      Personnel complete security awareness training on hire and on cadence, with role-based
+      training for higher-risk roles and tracked completion.
+    evidence: Training completion records by person and role.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC1.4, CC2.2]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.6.3"]}
+      - {fw: nist80053, rel: subset-of, refs: [AT-2, AT-3]}
+      - {fw: nistcsf, rel: intersects-with, refs: ["PR.AT"]}
+      - {fw: hipaa, rel: intersects-with, refs: ["164.308(a)(5)"]}
+      - {fw: pci, rel: intersects-with, refs: ["12.6"]}
+
+  - id: HRS-01
+    title: Personnel screening and agreements
+    domain: Human Resources Security
+    statement: >
+      Personnel are screened proportionate to role before access, and acknowledge security and
+      confidentiality obligations. A disciplinary path exists for violations.
+    evidence: Screening records and signed acknowledgements.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC1.1, CC1.4]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.6.1", "A.6.2", "A.6.4"]}
+      - {fw: nist80053, rel: subset-of, refs: [PS-3, PS-6, PS-8]}
+      - {fw: hipaa, rel: intersects-with, refs: ["164.308(a)(3)(ii)(B)"]}
+
+  # ---------------- Physical & Environmental ----------------
+  - id: PES-01
+    title: Physical access and environmental protection
+    domain: Physical & Environmental
+    statement: >
+      Physical access to facilities and data-bearing equipment is restricted, logged, and reviewed.
+      Where infrastructure is cloud-hosted, provider attestations are inherited and tracked.
+    evidence: Physical access records or the inherited provider attestation register.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC6.4]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.7.1", "A.7.2", "A.7.4"]}
+      - {fw: nist80053, rel: subset-of, refs: [PE-2, PE-3, PE-6]}
+      - {fw: hipaa, rel: intersects-with, refs: ["164.310(a)(1)", "164.310(b)"]}
+      - {fw: pci, rel: intersects-with, refs: ["9.2", "9.3"]}
+
+  # ---------------- AI Governance ----------------
+  - id: AAT-01
+    title: AI and autonomous-technology governance
+    domain: AI Governance
+    statement: >
+      AI and autonomous systems operate under defined policy. Agents read sensitive data only
+      under purpose-bound authorization, minimum scope, full logging, and human accountability
+      for high-impact actions.
+    evidence: Agent authorization broker decision records joined to the consent state.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC1.2, CC6.1]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.5.1", "A.8.2"]}
+      - {fw: nist80053, rel: subset-of, refs: [AC-3, AC-6, AU-2]}
+      - {fw: nistcsf, rel: intersects-with, refs: ["GV.OC", "PR.AA"]}
+
+  - id: AAT-02
+    title: Model and prompt change management
+    domain: AI Governance
+    statement: >
+      Changes to models, prompts, and tool grants follow change control with pre-deployment
+      evaluation, drift checks, rollback, and an approval gate.
+    evidence: Model-change records with evaluation results and approvals.
+    maps_to:
+      - {fw: soc2, rel: intersects-with, refs: [CC8.1]}
+      - {fw: iso27001, rel: intersects-with, refs: ["A.8.32"]}
+      - {fw: nist80053, rel: subset-of, refs: [CM-3, SA-11]}
+      - {fw: nistcsf, rel: intersects-with, refs: ["PR.PS-01"]}
