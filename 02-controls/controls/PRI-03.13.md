@@ -14,7 +14,7 @@
 
 ## Why this control
 
-A consumer location-safety service at this scale processes the data of children. The amended COPPA Rule and the minor provisions of CCPA/CPRA require verifiable parental consent before that data is processed. This control proves consent is on record and authoritative.
+A consumer location-safety service at this scale processes the data of children. The amended COPPA Rule and the minor provisions of CCPA/CPRA require verifiable parental consent before that data is processed. This control proves consent is on record and authoritative. The amended Rule (published April 22, 2025; compliance date April 22, 2026) adds a separate-consent requirement for third-party disclosure.
 
 ## Control statement
 
@@ -92,8 +92,9 @@ One control, every framework it satisfies. References are real and are kept in l
 
 | Framework | References | Basis |
 |-----------|------------|-------|
-| COPPA (amended 2024) | 16 CFR 312, §6502(b)(1)(A)(ii) | framework-mapped |
+| COPPA (amended 2025) | 16 CFR 312, §6502(b)(1)(A)(ii) | framework-mapped |
 | CCPA / CPRA (2026) | §7070(a) | framework-mapped |
+| GDPR | Art. 8 | framework-mapped |
 
 ## RACI asks by audience
 

@@ -1,7 +1,7 @@
 # Evidence Architecture
 
 **Pillar:** 06-evidence-and-audit
-**Control anchors:** all seven seed controls; mechanism is [`MON-01`](../02-controls/control-library.yaml)
+**Control anchors:** all eleven seed controls; mechanism is [`MON-01`](../02-controls/control-library.yaml)
 **Owner (function):** GRC (accountable). Security, Engineering, IT, and Legal/Privacy own the source systems.
 **Configuration:** illustrative example in `config.example.yaml` (neutral; not a real organization).
 

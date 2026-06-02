@@ -12,14 +12,14 @@ summary:
   frameworks_in_scope:
   - SOC 2 (TSC 2017)
   - ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)
-  - gdpr
+  - EU GDPR
   - CCPA / CPRA (2026)
-  - COPPA (amended 2024)
+  - COPPA (amended 2025)
   - NIST AI RMF 1.0
   - ISO/IEC 42001:2023
   - EU AI Act (2024)
   - SOX ITGC
-  controls_in_scope_count: 7
+  controls_in_scope_count: 11
   controls_in_scope:
   - AAT-01
   - PRI-03.13
@@ -28,6 +28,10 @@ summary:
   - MON-01
   - TPM-01
   - IRO-01
+  - CRY-01
+  - VPM-01
+  - DCH-01
+  - SAT-02
   pillars_enabled:
   - 00-governance
   - 01-risk-management
@@ -71,12 +75,14 @@ in_scope_controls:
   owner: Legal/Privacy (Security enforces)
   automation: partial
   selected_because:
+  - 'framework: EU GDPR'
   - 'framework: CCPA / CPRA (2026)'
-  - 'framework: COPPA (amended 2024)'
+  - 'framework: COPPA (amended 2025)'
   - 'data-type: minors'
   frameworks_satisfied:
-  - COPPA (amended 2024)
+  - COPPA (amended 2025)
   - CCPA / CPRA (2026)
+  - GDPR
 - id: IAC-17
   title: Periodic review of account privileges
   family: access management
@@ -129,6 +135,7 @@ in_scope_controls:
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
   - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: EU GDPR'
   - 'framework: CCPA / CPRA (2026)'
   - 'framework: NIST AI RMF 1.0'
   frameworks_satisfied:
@@ -137,6 +144,7 @@ in_scope_controls:
   - NIST CSF 2.0
   - NIST AI RMF 1.0
   - CCPA / CPRA (2026)
+  - GDPR
 - id: IRO-01
   title: Incident response operations
   family: incident response
@@ -145,6 +153,7 @@ in_scope_controls:
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
   - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: EU GDPR'
   - 'framework: CCPA / CPRA (2026)'
   - 'framework: NIST AI RMF 1.0'
   frameworks_satisfied:
@@ -153,3 +162,58 @@ in_scope_controls:
   - NIST CSF 2.0
   - NIST AI RMF 1.0
   - CCPA / CPRA (2026)
+  - GDPR
+- id: CRY-01
+  title: Use of cryptographic controls
+  family: cryptography
+  owner: Security (Engineering implements)
+  automation: partial
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: EU GDPR'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO/IEC 27002:2022
+  - NIST CSF 2.0
+  - GDPR
+- id: VPM-01
+  title: Vulnerability and patch management
+  family: vulnerability management
+  owner: Security (Engineering remediates)
+  automation: automated
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO/IEC 27002:2022
+  - NIST CSF 2.0
+- id: DCH-01
+  title: Data classification and protection
+  family: data protection
+  owner: Legal/Privacy (Security and Engineering enforce)
+  automation: partial
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: EU GDPR'
+  - 'framework: CCPA / CPRA (2026)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO/IEC 27002:2022
+  - NIST CSF 2.0
+  - GDPR
+  - CCPA / CPRA (2026)
+- id: SAT-02
+  title: Security awareness and role-based training
+  family: awareness and training
+  owner: Security (People/HR delivers)
+  automation: partial
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO/IEC 27002:2022
+  - NIST CSF 2.0

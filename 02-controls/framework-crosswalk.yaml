@@ -32,7 +32,7 @@ frameworks:
     name: NIST CSF 2.0
     profile: profiles/nist-csf.profile.oscal.json
   coppa:
-    name: COPPA (amended 2024)
+    name: COPPA (amended 2025)
     profile: profiles/coppa.profile.oscal.json
   ccpa_cpra:
     name: CCPA / CPRA (2026)
@@ -44,6 +44,9 @@ frameworks:
     name: SOX ITGC
     basis: framework-mapped, home lab   # framework-mapped, home lab
     profile: profiles/sox-itgc.profile.oscal.json
+  gdpr:
+    name: EU GDPR
+    profile: profiles/gdpr.profile.oscal.json
 
 # View 1: one control, every framework it satisfies (real references).
 by_control:
@@ -53,14 +56,16 @@ by_control:
     - framework: ISO/IEC 42001:2023
       refs: ["5.1", "8.1", "A.2.2", "A.6.2.2"]
     - framework: SOC 2 (TSC 2017)
-      refs: ["CC1.4"]
+      refs: ["CC6.1", "CC6.2", "CC6.3"]
     - framework: EU AI Act (2024)
       refs: ["Art.17(1)(c)"]
   PRI-03.13:
-    - framework: COPPA (amended 2024)
+    - framework: COPPA (amended 2025)
       refs: ["16 CFR 312", "§6502(b)(1)(A)(ii)"]
     - framework: CCPA / CPRA (2026)
       refs: ["§7070(a)"]
+    - framework: EU GDPR
+      refs: ["Art. 8"]
   IAC-17:
     - framework: SOC 2 (TSC 2017)
       refs: ["CC6.2", "CC6.3"]
@@ -91,15 +96,17 @@ by_control:
       basis: framework-mapped, home lab
   TPM-01:
     - framework: SOC 2 (TSC 2017)
-      refs: ["CC1.4", "CC2.3"]
+      refs: ["CC9.2", "CC2.3"]
     - framework: ISO/IEC 27002:2022
-      refs: ["5.19", "8.3"]
+      refs: ["5.19", "5.20", "5.22"]
     - framework: NIST CSF 2.0
       refs: ["GV.SC-04", "GV.SC-06", "GV.SC-07"]
     - framework: NIST AI RMF 1.0
       refs: ["MANAGE 3.0"]
     - framework: CCPA / CPRA (2026)
       refs: ["§7052(a)"]
+    - framework: EU GDPR
+      refs: ["Art. 28"]
   IRO-01:
     - framework: SOC 2 (TSC 2017)
       refs: ["CC7.3", "CC7.4"]
@@ -110,13 +117,49 @@ by_control:
     - framework: NIST AI RMF 1.0
       refs: ["GOVERN 6.2", "MANAGE 2.4"]
     - framework: CCPA / CPRA (2026)
-      refs: ["§7123(c)(17)"]
+      refs: ["Civil Code §1798.82", "§7123(c)(17)"]
+    - framework: EU GDPR
+      refs: ["Art. 33", "Art. 34"]
+  CRY-01:
+    - framework: SOC 2 (TSC 2017)
+      refs: ["CC6.1", "CC6.7"]
+    - framework: ISO/IEC 27002:2022
+      refs: ["8.24"]
+    - framework: NIST CSF 2.0
+      refs: ["PR.DS-01", "PR.DS-02"]
+    - framework: EU GDPR
+      refs: ["Art. 32"]
+  VPM-01:
+    - framework: SOC 2 (TSC 2017)
+      refs: ["CC7.1"]
+    - framework: ISO/IEC 27002:2022
+      refs: ["8.8"]
+    - framework: NIST CSF 2.0
+      refs: ["ID.RA-01", "PR.PS-02"]
+  DCH-01:
+    - framework: SOC 2 (TSC 2017)
+      refs: ["C1.1", "C1.2"]
+    - framework: ISO/IEC 27002:2022
+      refs: ["5.12", "5.13", "8.10", "8.12"]
+    - framework: NIST CSF 2.0
+      refs: ["ID.AM-07", "PR.DS-01"]
+    - framework: EU GDPR
+      refs: ["Art. 5(1)(c)", "Art. 5(1)(e)", "Art. 32"]
+    - framework: CCPA / CPRA (2026)
+      refs: ["Civil Code §1798.100(c)"]
+  SAT-02:
+    - framework: SOC 2 (TSC 2017)
+      refs: ["CC1.4", "CC2.2"]
+    - framework: ISO/IEC 27002:2022
+      refs: ["6.3"]
+    - framework: NIST CSF 2.0
+      refs: ["PR.AT-01", "PR.AT-02"]
 
 # View 2: one framework, every control that satisfies it (the auditor's question).
 by_framework:
   soc2:
     - control: AAT-01
-      refs: ["CC1.4"]
+      refs: ["CC6.1", "CC6.2", "CC6.3"]
     - control: IAC-17
       refs: ["CC6.2", "CC6.3"]
     - control: CHG-02
@@ -124,9 +167,17 @@ by_framework:
     - control: MON-01
       refs: ["CC7.2"]
     - control: TPM-01
-      refs: ["CC1.4", "CC2.3"]
+      refs: ["CC9.2", "CC2.3"]
     - control: IRO-01
       refs: ["CC7.3", "CC7.4"]
+    - control: CRY-01
+      refs: ["CC6.1", "CC6.7"]
+    - control: VPM-01
+      refs: ["CC7.1"]
+    - control: DCH-01
+      refs: ["C1.1", "C1.2"]
+    - control: SAT-02
+      refs: ["CC1.4", "CC2.2"]
   iso27001:
     - control: IAC-17
       refs: ["5.15", "5.18", "8.2"]
@@ -135,9 +186,17 @@ by_framework:
     - control: MON-01
       refs: ["8.15", "8.16"]
     - control: TPM-01
-      refs: ["5.19", "8.3"]
+      refs: ["5.19", "5.20", "5.22"]
     - control: IRO-01
       refs: ["5.24"]
+    - control: CRY-01
+      refs: ["8.24"]
+    - control: VPM-01
+      refs: ["8.8"]
+    - control: DCH-01
+      refs: ["5.12", "5.13", "8.10", "8.12"]
+    - control: SAT-02
+      refs: ["6.3"]
   iso42001:
     - control: AAT-01
       refs: ["5.1", "8.1", "A.2.2", "A.6.2.2"]
@@ -157,6 +216,14 @@ by_framework:
       refs: ["GV.SC-04", "GV.SC-06", "GV.SC-07"]
     - control: IRO-01
       refs: ["DE.AE", "RS.MI"]
+    - control: CRY-01
+      refs: ["PR.DS-01", "PR.DS-02"]
+    - control: VPM-01
+      refs: ["ID.RA-01", "PR.PS-02"]
+    - control: DCH-01
+      refs: ["ID.AM-07", "PR.DS-01"]
+    - control: SAT-02
+      refs: ["PR.AT-01", "PR.AT-02"]
   coppa:
     - control: PRI-03.13
       refs: ["16 CFR 312", "§6502(b)(1)(A)(ii)"]
@@ -166,7 +233,9 @@ by_framework:
     - control: TPM-01
       refs: ["§7052(a)"]
     - control: IRO-01
-      refs: ["§7123(c)(17)"]
+      refs: ["Civil Code §1798.82", "§7123(c)(17)"]
+    - control: DCH-01
+      refs: ["Civil Code §1798.100(c)"]
   eu_ai_act:
     - control: AAT-01
       refs: ["Art.17(1)(c)"]
@@ -182,3 +251,14 @@ by_framework:
       - control: MON-01
         pillar: operations
         refs: ["Computer operations, monitoring of privileged activity"]
+  gdpr:
+    - control: CRY-01
+      refs: ["Art. 32"]
+    - control: DCH-01
+      refs: ["Art. 5(1)(c)", "Art. 5(1)(e)", "Art. 32"]
+    - control: PRI-03.13
+      refs: ["Art. 8"]
+    - control: TPM-01
+      refs: ["Art. 28"]
+    - control: IRO-01
+      refs: ["Art. 33", "Art. 34"]

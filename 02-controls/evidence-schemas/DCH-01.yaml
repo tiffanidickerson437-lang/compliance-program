@@ -1,0 +1,98 @@
+schema:
+  control: DCH-01
+  title: Sensitive-data inventory and deletion record
+  source_system: Data inventory + deletion logs
+  collection: computed
+  ai_generated: false
+  oscal_form: assessment-results observation, one per highest-sensitivity store or flow
+  description: >
+    Each record is the computed handling state of one highest-sensitivity data
+    store or flow: its classification, the retention rule that attaches to that
+    class, its approved or unapproved status, and the deletion record for any
+    end-of-basis case. It is produced from the data inventory joined to the
+    deletion logs, so deletion is an evidenced event rather than an assumed
+    background job. Screenshots are not acceptable; the computed inventory is the
+    evidence.
+  field_contract: >
+    Every field below names its source system and how it is computed. The record
+    is assembled by an extract job from the data inventory and deletion logs,
+    never authored by a model, which is why ai_generated is a required constant
+    false and a true value is rejected.
+  fields:
+    - name: control
+      type: string
+      const: DCH-01
+      required: true
+      source: pipeline constant
+      computation: Set to the control ID this record evidences.
+      description: Control identifier this record evidences.
+    - name: period
+      type: string
+      format: YYYY-Qn or YYYY-MM
+      required: true
+      source: reporting calendar
+      computation: The reporting period the inventory is drawn from.
+      description: Reporting period the record is drawn from.
+    - name: source
+      type: string
+      required: true
+      source: system inventory
+      computation: Names the data-inventory and deletion-log systems the record was joined from.
+      description: Systems of record the inventory and deletion state were read from.
+    - name: store_or_flow
+      type: string
+      required: true
+      source: data inventory (highest-sensitivity store or flow identifier)
+      computation: The highest-sensitivity data store or flow this record evidences.
+      description: Highest-sensitivity data store or flow the handling state is computed for.
+    - name: classification
+      type: string
+      required: true
+      source: data inventory (assigned classification)
+      computation: The sensitivity class assigned; precise location and minor data are the top class.
+      description: Sensitivity classification assigned to the store or flow.
+    - name: retention_rule
+      type: string
+      required: true
+      source: classification scheme (retention rule per class)
+      computation: The retention rule that attaches to the classification, not to the system.
+      description: Retention rule attached to the classification.
+    - name: approval_status
+      type: string
+      enum: [approved, unapproved]
+      required: true
+      source: data inventory (approved-store reconciliation)
+      computation: Whether the store is an approved location for the class; unapproved is drift.
+      description: Approved or unapproved status of the store for the class.
+    - name: deletion_record
+      type: string
+      required: true
+      source: deletion logs (end-of-basis deletion events)
+      computation: The deletion or restriction record for end-of-basis cases; none if not applicable in the period.
+      description: Recorded deletion or restriction for end-of-basis cases.
+    - name: ai_generated
+      type: boolean
+      const: false
+      required: true
+      source: pipeline metadata
+      computation: Set false because the record is extracted from the data inventory and deletion logs, not authored by a model.
+      description: Must be false. Evidence must be traceable to a system of record, so model-authored records are rejected by schema.
+  example:
+    control: DCH-01
+    period: 2026-Q2
+    source: Data inventory + deletion logs
+    store_or_flow: location-graph-primary
+    classification: highest-sensitivity (precise location)
+    retention_rule: shortest interval that serves the declared purpose
+    approval_status: approved
+    deletion_record: "211/211 end-of-basis deletions recorded"
+    ai_generated: false
+  audit_ready_when:
+    - Record is computed from the data inventory joined to the deletion logs, not authored.
+    - Precise location and minor data show the highest-sensitivity classification.
+    - Every in-scope store shows approved status, or an unapproved store is a tracked exception.
+    - End-of-basis deletions are recorded and verifiable for the period.
+  rejected_when:
+    - ai_generated is true.
+    - A highest-sensitivity class appears in an unapproved store with no tracked exception.
+    - An end-of-basis case shows no deletion_record.

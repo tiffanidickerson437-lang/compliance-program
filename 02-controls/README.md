@@ -6,7 +6,7 @@ One control, defined once, rendered into the language every framework and every 
 
 The Secure Controls Framework (SCF) is the unifying taxonomy. SCF 2025.4 carries 1,468 controls across 33 domains and publishes crosswalks to 200+ authoritative sources (SOC 2, ISO 27001/27002, ISO 42001, NIST CSF, NIST AI RMF, COPPA, CCPA/CPRA, EU AI Act, and more). Mapping a program to one meta-framework, instead of maintaining a separate control set per framework, is what makes "collect once, satisfy many" real rather than aspirational.
 
-This program does not invent SCF taxonomy. The seven control IDs used here (AAT-01, PRI-03.13, IAC-17, CHG-02, MON-01, TPM-01, IRO-01) are real SCF identifiers, selected deliberately. Seven from 1,468 is the point: choose what matters for a consumer location-safety service that processes minors' data, runs an agentic AI layer on a real-time location graph, and carries public-company IT general controls, rather than padding a count. Depth per control is the deliverable; breadth of list is not.
+This program does not invent SCF taxonomy. The eleven control IDs used here (AAT-01, PRI-03.13, IAC-17, CHG-02, MON-01, TPM-01, IRO-01, CRY-01, VPM-01, DCH-01, SAT-02) are real SCF identifiers, selected deliberately. Eleven from 1,468 is the point: choose what matters for a consumer location-safety service that processes minors' data, runs an agentic AI layer on a real-time location graph, and carries public-company IT general controls, rather than padding a count. Depth per control is the deliverable; breadth of list is not.
 
 ## Why OSCAL as the machine-readable format
 
@@ -16,7 +16,7 @@ The honest tradeoff: OSCAL adoption is still emerging. Tooling maturity varies, 
 
 ## How deep each control goes
 
-Each of the seven controls is specified at senior assessment depth. A control carries:
+Each of the eleven controls is specified at senior assessment depth. A control carries:
 
 - A full control **statement** and multi-paragraph **implementation guidance** that is concrete about mechanism, not generic policy language.
 - Assignable **parameters** (for example a purpose-token TTL ceiling, a recertification cadence, a retention floor) so the control is tuned rather than rewritten.
@@ -67,14 +67,14 @@ The cost of the next framework is the cost of a crosswalk and a profile, measure
 
 | File | What it is |
 |------|------------|
-| `control-library.yaml` | Single definition of all 7 controls: id, SCF domain, class, title, statement, multi-paragraph implementation guidance, parameters, enhancements, assessment objectives, assessment methods (EXAMINE / INTERVIEW / TEST), owner by function, automation, review cadence, framework mappings, evidence schema, CI mapping, example evidence, props, and RACI asks. |
-| `control-library.oscal.json` | The same 7 controls as an OSCAL 1.1.3 catalog: metadata, controls with lowercased ids, class `SCF`, params, props, parts for statement and guidance, an assessment-objective part with itemized objectives, assessment-method parts (EXAMINE / INTERVIEW / TEST), and enhancements as nested controls. |
-| `controls/` | One deep, human-readable narrative per control (`AAT-01.md` through `IRO-01.md`). |
+| `control-library.yaml` | Single definition of all 11 controls: id, SCF domain, class, title, statement, multi-paragraph implementation guidance, parameters, enhancements, assessment objectives, assessment methods (EXAMINE / INTERVIEW / TEST), owner by function, automation, review cadence, framework mappings, evidence schema, CI mapping, example evidence, props, and RACI asks. |
+| `control-library.oscal.json` | The same 11 controls as an OSCAL 1.1.3 catalog: metadata, controls with lowercased ids, class `SCF`, params, props, parts for statement and guidance, an assessment-objective part with itemized objectives, assessment-method parts (EXAMINE / INTERVIEW / TEST), and enhancements as nested controls. |
+| `controls/` | One deep, human-readable narrative per control (`AAT-01.md` through `SAT-02.md`). |
 | `framework-crosswalk.yaml` | Real references for every framework each control satisfies, queryable by control and by framework. SOX ITGC lines are marked framework-mapped, home lab. |
-| `profiles/*.profile.oscal.json` | One OSCAL profile per framework (soc2, iso27001, iso42001, nist-ai-rmf, nist-csf, coppa, ccpa-cpra, eu-ai-act, sox-itgc). Each imports the catalog and selects control IDs. |
+| `profiles/*.profile.oscal.json` | One OSCAL profile per framework (soc2, iso27001, iso42001, nist-ai-rmf, nist-csf, coppa, ccpa-cpra, eu-ai-act, sox-itgc, gdpr). Each imports the catalog and selects control IDs. |
 | `evidence-schemas/*.yaml` | One audit-ready, field-level evidence record shape per control. Each field names its source system, type, and how it is computed; the schema defines what makes a record audit-ready and what gets rejected. |
 
-## The deliberate seven
+## The deliberate eleven
 
 | ID | Domain | Control | Why it is here |
 |----|--------|---------|----------------|
@@ -85,6 +85,10 @@ The cost of the next framework is the cost of a crosswalk and a profile, measure
 | MON-01 | MON | Continuous monitoring and event logging | The operations pillar of SOX ITGC, and the drift-opens-an-issue mechanism. |
 | TPM-01 | TPM | Third-party management | Diligence depth matched to what a vendor or model provider can touch on the location graph. |
 | IRO-01 | IRO | Incident response operations | Where regulatory clocks get real, including AI scope breaches. |
+| CRY-01 | CRY | Use of cryptographic controls | Makes the at-rest and in-transit encryption claim a tested, evidenced state and governs the keys. |
+| VPM-01 | VPM | Vulnerability and patch management | The program every security questionnaire probes first; exposure-weighted remediation SLAs. |
+| DCH-01 | DCH | Data classification and protection | Draws the boundary every other data control inherits its scope from; minimization and retention. |
+| SAT-02 | SAT | Security awareness and role-based training | The competence control at SOC 2 CC1.4; the people surface no broker covers. |
 
 ## Hard rules honored here
 

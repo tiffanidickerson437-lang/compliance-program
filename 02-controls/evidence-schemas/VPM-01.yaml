@@ -1,0 +1,113 @@
+schema:
+  control: VPM-01
+  title: Vulnerability finding and remediation record
+  source_system: Vulnerability scanners + ticketing system
+  collection: computed
+  ai_generated: false
+  oscal_form: assessment-results observation, one per finding
+  description: >
+    Each record is one normalized vulnerability finding: its discovery source,
+    severity, exposure class, affected asset, age, the assigned remediation SLA,
+    its disposition, and any exception status. It is produced from the scanner
+    inventory joined to the ticketing system of record, so the aging clock is
+    computed rather than asserted. Screenshots are not acceptable; the normalized
+    finding queue is the evidence.
+  field_contract: >
+    Every field below names its source system and how it is computed. The record
+    is assembled by an extract job from the scanner and ticketing systems, never
+    authored by a model, which is why ai_generated is a required constant false
+    and a true value is rejected.
+  fields:
+    - name: control
+      type: string
+      const: VPM-01
+      required: true
+      source: pipeline constant
+      computation: Set to the control ID this record evidences.
+      description: Control identifier this record evidences.
+    - name: period
+      type: string
+      format: YYYY-Qn or YYYY-MM
+      required: true
+      source: reporting calendar
+      computation: The reporting period the finding queue is drawn from.
+      description: Reporting period the record is drawn from.
+    - name: source
+      type: string
+      required: true
+      source: scanner and advisory inventory
+      computation: Names the scanner or advisory feed the finding was discovered by.
+      description: Discovery source the finding was raised by.
+    - name: severity
+      type: string
+      enum: [critical, high, medium, low]
+      required: true
+      source: scanner (normalized severity)
+      computation: The normalized severity assigned to the finding.
+      description: Normalized severity of the finding.
+    - name: exposure_class
+      type: string
+      enum: [internet-facing, sensitive-data, internal]
+      required: true
+      source: asset inventory (exposure dimension)
+      computation: The exposure of the affected asset; internet-facing and sensitive-data carry the tightest SLAs.
+      description: Exposure class of the affected asset.
+    - name: affected_asset
+      type: string
+      required: true
+      source: asset inventory (affected asset identifier)
+      computation: The asset the finding affects.
+      description: Asset the finding affects.
+    - name: age_days
+      type: integer
+      required: true
+      source: ticketing system (finding open timestamp)
+      computation: Days since the finding was confirmed, measured against the assigned SLA.
+      description: Age of the finding in days, compared to the SLA.
+    - name: sla_days
+      type: integer
+      required: true
+      source: SLA matrix (severity x exposure)
+      computation: The remediation SLA assigned by severity and exposure together.
+      description: Remediation SLA in days assigned to the finding.
+    - name: disposition
+      type: string
+      enum: [open, remediated, exception]
+      required: true
+      source: ticketing system (finding state)
+      computation: The current state of the finding, whether open, remediated, or carried as an exception.
+      description: Current disposition of the finding.
+    - name: exception_status
+      type: string
+      required: true
+      source: exception register (compensating control + expiry)
+      computation: Whether the finding carries a tracked exception with a compensating control and an expiry; none if not.
+      description: Exception status, including compensating control and expiry where applicable.
+    - name: ai_generated
+      type: boolean
+      const: false
+      required: true
+      source: pipeline metadata
+      computation: Set false because the record is extracted from the scanner and ticketing systems, not authored by a model.
+      description: Must be false. Evidence must be traceable to a system of record, so model-authored records are rejected by schema.
+  example:
+    control: VPM-01
+    period: 2026-Q2
+    source: container-scan
+    severity: critical
+    exposure_class: internet-facing
+    affected_asset: api-gateway-edge
+    age_days: 6
+    sla_days: 15
+    disposition: remediated
+    exception_status: none
+    ai_generated: false
+  audit_ready_when:
+    - Record is computed from the scanner joined to the ticketing system, not authored.
+    - Every finding carries a severity, an exposure_class, and an SLA assigned by their combination.
+    - Findings are remediated within sla_days, or carry a tracked exception with a compensating control.
+    - No internet-facing or sensitive-data critical sits past SLA without an exception.
+  rejected_when:
+    - ai_generated is true.
+    - A finding is past sla_days with disposition open and no exception.
+    - exception_status claims an exception with no compensating control or expiry.

@@ -256,9 +256,9 @@ Cross-cutting directories:
 
 ---
 
-## The deliberate seven controls (full depth in the library)
+## The deliberate eleven controls (full depth in the library)
 
-Seven SCF-mapped controls, each specified at senior assessment depth (statement, multi-paragraph
+Eleven SCF-mapped controls, each specified at senior assessment depth (statement, multi-paragraph
 implementation guidance, parameters, enhancements, assessment objectives, EXAMINE / INTERVIEW /
 TEST methods, a field-level evidence schema, and a CI mapping). The deep narrative for each lives
 under [`02-controls/controls/`](02-controls/controls/).
@@ -272,6 +272,10 @@ under [`02-controls/controls/`](02-controls/controls/).
 | MON-01 | Monitoring | Continuous logging and drift detection |
 | TPM-01 | Third party | Vendor tiering and assurance |
 | IRO-01 | Incident | Incident response including AI-scope incidents |
+| CRY-01 | Cryptography | Encryption at rest and in transit, key management |
+| VPM-01 | Vulnerability management | Continuous discovery and exposure-weighted remediation SLAs |
+| DCH-01 | Data protection | Classification, sensitive-data inventory, and retention |
+| SAT-02 | Awareness and training | Security awareness and role-based training |
 
 ---
 
