@@ -64,6 +64,8 @@ by_control:
       refs: ["16 CFR 312", "§6502(b)(1)(A)(ii)"]
     - framework: CCPA / CPRA (2026)
       refs: ["§7070(a)"]
+    - framework: EU GDPR
+      refs: ["Art. 8"]
   IAC-17:
     - framework: SOC 2 (TSC 2017)
       refs: ["CC6.2", "CC6.3"]
@@ -103,6 +105,8 @@ by_control:
       refs: ["MANAGE 3.0"]
     - framework: CCPA / CPRA (2026)
       refs: ["§7052(a)"]
+    - framework: EU GDPR
+      refs: ["Art. 28"]
   IRO-01:
     - framework: SOC 2 (TSC 2017)
       refs: ["CC7.3", "CC7.4"]
@@ -114,6 +118,8 @@ by_control:
       refs: ["GOVERN 6.2", "MANAGE 2.4"]
     - framework: CCPA / CPRA (2026)
       refs: ["Civil Code §1798.82", "§7123(c)(17)"]
+    - framework: EU GDPR
+      refs: ["Art. 33", "Art. 34"]
   CRY-01:
     - framework: SOC 2 (TSC 2017)
       refs: ["CC6.1", "CC6.7"]

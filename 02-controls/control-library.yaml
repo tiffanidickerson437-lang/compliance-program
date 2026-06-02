@@ -335,6 +335,8 @@ controls:
         references: ["16 CFR 312", "§6502(b)(1)(A)(ii)"]
       - framework: CCPA / CPRA (2026)
         references: ["§7070(a)"]
+      - framework: GDPR
+        references: ["Art. 8"]
     test_procedure: >
       Export the consent register for minor accounts in scope; sample verification
       method and active consent; confirm processing and broker paths deny when
@@ -1003,6 +1005,8 @@ controls:
         references: ["MANAGE 3.0"]
       - framework: CCPA / CPRA (2026)
         references: ["§7052(a)"]
+      - framework: GDPR
+        references: ["Art. 28"]
     test_procedure: >
       Reconcile the vendor inventory to the tiering model; confirm high-risk
       parties have current assessments and DPAs; track overdue reassessments to
@@ -1166,6 +1170,8 @@ controls:
         references: ["GOVERN 6.2", "MANAGE 2.4"]
       - framework: CCPA / CPRA (2026)
         references: ["Civil Code §1798.82", "§7123(c)(17)"]
+      - framework: GDPR
+        references: ["Art. 33", "Art. 34"]
     test_procedure: >
       Sample incidents for complete timeline fields; verify post-incident reviews
       completed; for notification-threshold incidents, confirm the decision log and

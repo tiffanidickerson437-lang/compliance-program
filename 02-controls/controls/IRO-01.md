@@ -96,6 +96,7 @@ One control, every framework it satisfies. References are real and are kept in l
 | NIST CSF 2.0 | DE.AE, RS.MI | framework-mapped |
 | NIST AI RMF 1.0 | GOVERN 6.2, MANAGE 2.4 | framework-mapped |
 | CCPA / CPRA (2026) | Civil Code §1798.82, §7123(c)(17) | framework-mapped |
+| GDPR | Art. 33, Art. 34 | framework-mapped |
 
 ## RACI asks by audience
 

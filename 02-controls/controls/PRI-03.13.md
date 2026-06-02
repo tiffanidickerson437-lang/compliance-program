@@ -94,6 +94,7 @@ One control, every framework it satisfies. References are real and are kept in l
 |-----------|------------|-------|
 | COPPA (amended 2025) | 16 CFR 312, §6502(b)(1)(A)(ii) | framework-mapped |
 | CCPA / CPRA (2026) | §7070(a) | framework-mapped |
+| GDPR | Art. 8 | framework-mapped |
 
 ## RACI asks by audience
 

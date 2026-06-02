@@ -82,6 +82,7 @@ in_scope_controls:
   frameworks_satisfied:
   - COPPA (amended 2025)
   - CCPA / CPRA (2026)
+  - GDPR
 - id: IAC-17
   title: Periodic review of account privileges
   family: access management
@@ -143,6 +144,7 @@ in_scope_controls:
   - NIST CSF 2.0
   - NIST AI RMF 1.0
   - CCPA / CPRA (2026)
+  - GDPR
 - id: IRO-01
   title: Incident response operations
   family: incident response
@@ -160,6 +162,7 @@ in_scope_controls:
   - NIST CSF 2.0
   - NIST AI RMF 1.0
   - CCPA / CPRA (2026)
+  - GDPR
 - id: CRY-01
   title: Use of cryptographic controls
   family: cryptography
