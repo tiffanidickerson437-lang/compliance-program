@@ -200,7 +200,7 @@ The program is executable, not a binder. Each area has a real entry point and a 
 | AI drafting | `python3 tools/draft_narrative.py --control CHG-02 --dry-run` | Drafts auditor narratives from computed evidence; the pull request is the gate | [`stakeholder-report-generator.yml`](.github/workflows/stakeholder-report-generator.yml) |
 | Evidence checks | validated on pull request | Validates records against the evidence schemas; rejects `ai_generated: true` | [`evidence-validator.yml`](.github/workflows/evidence-validator.yml) |
 | Control health | `python3 tools/check_control_health.py` | Computes drift; opens a GitHub Issue that starts the fix loop | [`control-drift-monitor.yml`](.github/workflows/control-drift-monitor.yml) |
-| Company onboarding | `python3 tools/onboard_company.py --config companies/<co>.config.yaml --slug <co> --dry-run` | Renders a company-tailored program payload from one config — filters controls to the in-scope frameworks, drops control families a company's data types don't trigger, sets SOX scope from listings, keeps evidence computed | — |
+| Company onboarding | `python3 tools/onboard_company.py --config config.example.yaml --slug example --dry-run` | Renders a tailored program payload from one config — filters controls to the in-scope frameworks, drops control families a company's data types don't trigger, sets SOX scope from listings, keeps evidence computed (`generated/companies/example/data.json`) | — |
 
 > This whole program — the engine, the onboarding generator, and the rendered briefs — was built by
 > directing AI under governance. The build story: [**How I built this with AI**](docs/how-i-built-this-with-ai.md).

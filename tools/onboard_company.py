@@ -48,7 +48,7 @@ FRAMEWORKS = {
     "nist_ai_rmf": {"name": "NIST AI RMF", "full": "NIST AI RMF 1.0",            "kind": "ai"},
     "nist_csf":    {"name": "NIST CSF",    "full": "NIST CSF 2.0",               "kind": "core"},
     "nist_800_53": {"name": "NIST 800-53", "full": "NIST SP 800-53 Rev.5",       "kind": "core"},
-    "coppa":       {"name": "COPPA",       "full": "COPPA (amended 2024)",       "kind": "privacy"},
+    "coppa":       {"name": "COPPA",       "full": "COPPA (amended 2025)",       "kind": "privacy"},
     "ccpa_cpra":   {"name": "CCPA / CPRA", "full": "CCPA / CPRA",                "kind": "privacy"},
     "gdpr":        {"name": "GDPR",        "full": "EU GDPR",                    "kind": "privacy"},
     "eu_ai_act":   {"name": "EU AI Act",   "full": "EU AI Act (2024)",           "kind": "ai"},
@@ -65,6 +65,7 @@ def fw_id(token: str) -> str:
     table = {
         "soc-2": "soc2", "soc2": "soc2",
         "iso-27001": "iso27001", "iso27001": "iso27001", "iso-iec-27001-2022": "iso27001",
+        "iso-27002": "iso27001", "iso27002": "iso27001", "iso-iec-27002-2022": "iso27001",
         "iso-27017": "iso27017", "iso27017": "iso27017",
         "iso-27018": "iso27018", "iso27018": "iso27018",
         "iso-27701": "iso27701", "iso27701": "iso27701",
@@ -85,7 +86,7 @@ def fw_id(token: str) -> str:
         return table[t]
     # substring fallback for control-library full names ("NIST AI RMF 1.0")
     for key, fid in (
-        ("ai rmf", "nist_ai_rmf"), ("42001", "iso42001"), ("27001", "iso27001"),
+        ("ai rmf", "nist_ai_rmf"), ("42001", "iso42001"), ("27002", "iso27001"), ("27001", "iso27001"),
         ("soc 2", "soc2"), ("soc2", "soc2"), ("eu ai act", "eu_ai_act"),
         ("coppa", "coppa"), ("ccpa", "ccpa_cpra"), ("cpra", "ccpa_cpra"),
         ("csf", "nist_csf"), ("800-53", "nist_800_53"), ("sox", "sox_itgc"),
@@ -158,8 +159,8 @@ PILLARS = [
 
 ROOT_FILES = [
     {"name": "README.md", "note": "The program of record. Start here."},
-    {"name": "company.yaml", "note": "The single input. One file customizes the entire program.", "config": True},
-    {"name": "company.template.yaml", "note": "Blank, fully documented version to fork and fill."},
+    {"name": "config.example.yaml", "note": "The single input. One file customizes the entire program.", "config": True},
+    {"name": "config.yaml", "note": "Your copy of the example, with real values."},
     {"name": "30-60-90/", "note": "Discover → Design → Operate, plus the maturity roadmap.", "folder": True},
     {"name": ".github/workflows/", "note": "Drift monitor, evidence validator, report generator.", "folder": True},
 ]
@@ -200,6 +201,40 @@ ROADMAP = [
      "boundary": "Ongoing. Risk leverage, not the audit calendar, sets the backlog."},
 ]
 
+# Generic AI-expedited 30/60/90 used when a company has no value.json overlay.
+DEFAULT_3060_90 = [
+    {"window": "0–30", "theme": "Baseline the control surface",
+     "milestones": ["Inventory the control universe and regulatory obligation register.",
+                    "Map the in-scope frameworks to the existing control library.",
+                    "Stand up the repo as system of record; confirm the GRC-tool sink.",
+                    "Data-flow map; pinpoint where compliance slows engineering."],
+     "aiAccelerates": "AI drafts the control-to-framework crosswalk and the baseline narrative in an afternoon vs ~2 weeks by hand; the inventory stays computed from systems of record."},
+    {"window": "30–60", "theme": "Computed continuous evidence",
+     "milestones": ["Wire daily checks so control health is computed, not reconstructed.",
+                    "Turn on the drift-opens-an-Issue loop.",
+                    "Ship the priority control's audit-ready evidence, crosswalked to every in-scope framework.",
+                    "Route exceptions to the GRC sink with control ID, owner, and framework impact."],
+     "aiAccelerates": "AI drafts the auditor narratives and the crosswalk in an afternoon vs ~3 weeks; evidence stays deterministically computed and is schema-rejected if model-generated."},
+    {"window": "60–90", "theme": "Audit-ready and the trust story",
+     "milestones": ["Run a gap assessment for the next target framework off existing mappings.",
+                    "Publish trust-center collateral and reusable security-questionnaire answers.",
+                    "Extend incident response to AI-agent-scope incidents.",
+                    "Hand leadership a resourced readiness view by framework."],
+     "aiAccelerates": "AI drafts the gap workpapers, crosswalk, and first trust collateral in days vs ~4 weeks, with a named function approving before anything becomes record."},
+]
+
+
+def load_value(config_path: str, slug: str) -> dict:
+    """Per-company VALUE overlay (friction points, real 30/60/90, collateral)."""
+    p = Path(config_path).parent / slug / "value.json"
+    if p.exists():
+        try:
+            return json.loads(p.read_text())
+        except Exception:
+            return {}
+    return {}
+
+
 ENVELOPE = {"control", "period", "source", "ai_generated", "lawful_basis", "human_gate"}
 
 
@@ -223,7 +258,7 @@ def build_company(cfg: dict, in_scope: list[str], slug: str) -> dict:
     c = cfg.get("company", {}) or {}
     topics = [slug, "grc", "compliance-as-code", "ai-governance"]
     for fid in in_scope:
-        nm = FRAMEWORKS.get(fid, {}).get("name", fid).lower().replace(" ", "").replace("/", "-")
+        nm = fid.replace("_", "-")
         if nm not in topics:
             topics.append(nm)
     return {
@@ -244,6 +279,80 @@ def build_frameworks(in_scope: list[str]) -> list[dict]:
     return out
 
 
+# The engine's control narratives are written in the example archetype (precise
+# location, minors). For a company whose data types don't match that archetype,
+# re-contextualize the prose so no foreign-archetype language leaks in.
+def company_context(cfg: dict) -> tuple[str, str]:
+    surface = ((cfg.get("ai", {}) or {}).get("product_surface", "") or "").replace("-", " ").strip()
+    surface = surface or "its production systems"
+    dt = set(cfg.get("data-types", []) or [])
+    nouns = []
+    if "credentials-and-secrets" in dt: nouns.append("credentials and secrets")
+    if "pii" in dt: nouns.append("personal data")
+    if "enterprise-customer-data" in dt: nouns.append("customer data")
+    if "precise-location" in dt: nouns.append("precise location")
+    if "minors" in dt: nouns.append("minors' data")
+    sensitive = ", ".join(nouns) if nouns else "sensitive data"
+    return surface, sensitive
+
+
+WHY_BY_FAMILY = {
+    "ai": "{name} operates an agentic layer over its {surface}. Autonomous systems that hold privileged access need a control for identity, least privilege, decision logging, and a human gate on high-impact actions — the hero control.",
+    "access": "Periodic access review is the access pillar of {pillar}, the control auditors test first. It limits standing access to {sensitive}.",
+    "change": "Change control is a pillar of {pillar}. In a source-control-native program the pull request is the gate, and the evidence is a byproduct of shipping rather than reconstructed for an audit.",
+    "monitor": "Continuous monitoring turns a point-in-time audit into a standing program{sox_clause}. It is the engine of the drift-opens-an-Issue loop that makes due diligence visible.",
+    "third": "Sensitive data flows to subprocessors and model providers. Diligence depth must match what a party can touch across {surface}, and trust evidence a vendor already produced should be reused, not re-collected.",
+    "incident": "When an agent exceeds its scope or a breach clock starts, the response has to be rehearsed and the timeline defensible — including incidents that involve autonomous-agent scope on {sensitive}.",
+    "privacy": "Regulated personal data is processed only on a lawful basis, with the data subject's rights honored end to end across {surface}.",
+}
+
+
+def _fam_key(fam: str):
+    f = (fam or "").lower()
+    if "ai" in f or "autonomous" in f: return "ai"
+    if "access" in f: return "access"
+    if "change" in f: return "change"
+    if "monitor" in f: return "monitor"
+    if "third" in f or "vendor" in f or "supplier" in f: return "third"
+    if "incident" in f: return "incident"
+    if "privacy" in f or "consent" in f: return "privacy"
+    return None
+
+_SUBS = [
+    ("precise location or minor data", "{sensitive}"),
+    ("precise location and minor data", "{sensitive}"),
+    ("minor personal data", "regulated data"),
+    ("minor data", "regulated data"),
+    ("real-time location graph", "{surface}"),
+    ("location graph", "{surface}"),
+    ("family graph", "{surface}"),
+    (", including children", ""),
+    (" including children", ""),
+    ("including minors", ""),
+    ("precise location", "{sensitive}"),
+    ("minors", "regulated data subjects"),
+    ("children", "regulated data subjects"),
+    ("tens of millions of members", "its user base"),
+]
+
+
+def why_for(control: dict, has_sox: bool, surface: str, sensitive: str, name: str) -> str:
+    pillar = "SOX ITGC" if has_sox else "identity and operations governance"
+    sox_clause = " and the operations pillar of SOX ITGC" if has_sox else ""
+    key = _fam_key(control.get("family", ""))
+    tmpl = WHY_BY_FAMILY.get(key) if key else None
+    if not tmpl:
+        return f"{control.get('title','')} — defined once and rendered into every in-scope framework's view."
+    return tmpl.format(name=name, surface=surface, sensitive=sensitive, pillar=pillar, sox_clause=sox_clause)
+
+
+def substitute_archetype(text: str, surface: str, sensitive: str) -> str:
+    import re as _re
+    for needle, repl in _SUBS:
+        text = _re.sub(_re.escape(needle), repl.format(surface=surface, sensitive=sensitive), text, flags=_re.I)
+    return " ".join(text.split())
+
+
 def build_controls(cfg: dict, in_scope: list[str]) -> list[dict]:
     lib = load_yaml(ENGINE_ROOT / "02-controls" / "control-library.yaml")
     data_types = set(cfg.get("data-types", []) or [])
@@ -251,6 +360,11 @@ def build_controls(cfg: dict, in_scope: list[str]) -> list[dict]:
     emphasis = cfg.get("emphasis", {}) or {}
     hero_control = emphasis.get("hero_control")
     in_scope_set = set(in_scope)
+    # Use the engine's narratives verbatim only when the company matches the
+    # example archetype (precise location + minors); otherwise re-contextualize.
+    archetype = ("precise-location" in data_types) and ("minors" in data_types)
+    surface, sensitive = company_context(cfg)
+    name = cfg.get("company", {}).get("name", "the organization")
     out = []
     for c in lib.get("controls", []):
         cid = c.get("id")
@@ -265,9 +379,11 @@ def build_controls(cfg: dict, in_scope: list[str]) -> list[dict]:
                 crosswalk.append({"fw": fid, "refs": m.get("references", []) or []})
         if not crosswalk:
             continue  # control not in scope for any of this company's frameworks
-        # Evidence — computed only; the boundary is enforced here.
+        # Evidence — computed only; the boundary is enforced when sample evidence
+        # is present. Controls without committed example_evidence simply render no
+        # sample rows (the boundary still forbids AI-authored evidence when present).
         ev = c.get("example_evidence", {}) or {}
-        if ev.get("ai_generated") is not False:
+        if ev and ev.get("ai_generated") is not False:
             raise SystemExit(
                 f"refusing to emit {cid}: example_evidence.ai_generated must be false "
                 f"(evidence is computed, never AI-authored)."
@@ -282,8 +398,10 @@ def build_controls(cfg: dict, in_scope: list[str]) -> list[dict]:
             "automation": c.get("automation", "partial"),
             "hero": (cid == hero_control) or (cid == "AAT-01"),
             "sox": ctrl_sox,
-            "why": " ".join((c.get("why", "") or "").split()),
-            "statement": " ".join((c.get("statement", "") or "").split()),
+            "why": (" ".join((c.get("why", "") or "").split()) if archetype
+                    else why_for(c, ctrl_sox, surface, sensitive, name)),
+            "statement": (" ".join((c.get("statement", "") or "").split()) if archetype
+                          else substitute_archetype(" ".join((c.get("statement", "") or "").split()), surface, sensitive)),
             "crosswalk": crosswalk,
             "evidence": {"source": ev.get("source", "system of record"), "rows": rows},
         })
@@ -358,16 +476,23 @@ def main(argv: list[str]) -> int:
     cfg = load_yaml(Path(args.config))
     in_scope = flatten_frameworks(cfg)
     controls = build_controls(cfg, in_scope)
+    val = load_value(args.config, args.slug)
+    # No "every framework, every view" chip may resolve to 0 controls: show a
+    # framework only if at least one control actually maps to it.
+    used_fw = {cw["fw"] for c in controls for cw in c.get("crosswalk", [])}
+    frameworks = [f for f in build_frameworks(in_scope) if f["id"] in used_fw]
 
     grc = {
         "company": build_company(cfg, in_scope, args.slug),
-        "stats": build_stats(len(controls), len(in_scope)),
-        "frameworks": build_frameworks(in_scope),
+        "stats": build_stats(len(controls), len(frameworks)),
+        "frameworks": frameworks,
         "pillars": build_pillars(cfg),
         "rootFiles": ROOT_FILES,
         "flow": FLOW,
+        "frictionPoints": val.get("frictionPoints", []),
         "controls": controls,
-        "roadmap": ROADMAP,
+        "roadmap": val.get("roadmap") or DEFAULT_3060_90,
+        "collateral": val.get("collateral", []),
         "guardrails": build_guardrails(cfg),
         "stack": build_stack(cfg),
         "contact": {

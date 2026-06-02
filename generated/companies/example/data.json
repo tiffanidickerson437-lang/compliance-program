@@ -24,9 +24,9 @@
       "gdpr",
       "ccpa-cpra",
       "coppa",
-      "nistairmf",
+      "nist-ai-rmf",
       "iso42001",
-      "euaiact"
+      "eu-ai-act"
     ]
   },
   "stats": [
@@ -36,7 +36,7 @@
       "sub": "company.yaml drives everything"
     },
     {
-      "n": "7",
+      "n": "11",
       "label": "controls",
       "sub": "defined once, rendered per framework"
     },
@@ -79,7 +79,7 @@
     {
       "id": "coppa",
       "name": "COPPA",
-      "full": "COPPA (amended 2024)",
+      "full": "COPPA (amended 2025)",
       "kind": "privacy"
     },
     {
@@ -331,13 +331,13 @@
       "note": "The program of record. Start here."
     },
     {
-      "name": "company.yaml",
+      "name": "config.example.yaml",
       "note": "The single input. One file customizes the entire program.",
       "config": true
     },
     {
-      "name": "company.template.yaml",
-      "note": "Blank, fully documented version to fork and fill."
+      "name": "config.yaml",
+      "note": "Your copy of the example, with real values."
     },
     {
       "name": "30-60-90/",
@@ -408,6 +408,7 @@
       "tag": "the immutable trail"
     }
   ],
+  "frictionPoints": [],
   "controls": [
     {
       "id": "AAT-01",
@@ -441,7 +442,9 @@
         {
           "fw": "soc2",
           "refs": [
-            "CC1.4"
+            "CC6.1",
+            "CC6.2",
+            "CC6.3"
           ]
         },
         {
@@ -500,6 +503,12 @@
           "refs": [
             "§7070(a)"
           ]
+        },
+        {
+          "fw": "gdpr",
+          "refs": [
+            "Art. 8"
+          ]
         }
       ],
       "evidence": {
@@ -544,6 +553,14 @@
           "refs": [
             "CC6.2",
             "CC6.3"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "5.15",
+            "5.18",
+            "8.2"
           ]
         },
         {
@@ -598,6 +615,13 @@
           ]
         },
         {
+          "fw": "iso27001",
+          "refs": [
+            "8.19",
+            "8.32"
+          ]
+        },
+        {
           "fw": "sox_itgc",
           "refs": [
             "Change management, segregation of dev and approver"
@@ -648,6 +672,13 @@
           ]
         },
         {
+          "fw": "iso27001",
+          "refs": [
+            "8.15",
+            "8.16"
+          ]
+        },
+        {
           "fw": "sox_itgc",
           "refs": [
             "Computer operations, monitoring of privileged activity"
@@ -694,8 +725,16 @@
         {
           "fw": "soc2",
           "refs": [
-            "CC1.4",
+            "CC9.2",
             "CC2.3"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "5.19",
+            "5.20",
+            "5.22"
           ]
         },
         {
@@ -708,6 +747,12 @@
           "fw": "ccpa_cpra",
           "refs": [
             "§7052(a)"
+          ]
+        },
+        {
+          "fw": "gdpr",
+          "refs": [
+            "Art. 28"
           ]
         }
       ],
@@ -756,6 +801,12 @@
           ]
         },
         {
+          "fw": "iso27001",
+          "refs": [
+            "5.24"
+          ]
+        },
+        {
           "fw": "nist_ai_rmf",
           "refs": [
             "GOVERN 6.2",
@@ -765,7 +816,15 @@
         {
           "fw": "ccpa_cpra",
           "refs": [
+            "Civil Code §1798.82",
             "§7123(c)(17)"
+          ]
+        },
+        {
+          "fw": "gdpr",
+          "refs": [
+            "Art. 33",
+            "Art. 34"
           ]
         }
       ],
@@ -802,45 +861,186 @@
           ]
         ]
       }
+    },
+    {
+      "id": "CRY-01",
+      "family": "cryptography",
+      "title": "Use of cryptographic controls",
+      "owner": "Security (Engineering implements)",
+      "automation": "partial",
+      "hero": false,
+      "sox": false,
+      "why": "A service holding real-time precise location and minor data must make that data unreadable to anyone without authorization, at rest and in transit. The public trust material already claims TLS in transit and AES at rest; this control is what turns that claim into a tested, evidenced state rather than a marketing line. It also underwrites every other control: the consent gate, the access review, and the agent broker all assume the underlying data is encrypted and the keys are governed.",
+      "statement": "Sensitive and regulated data is protected with cryptographic controls that meet a defined standard, in transit and at rest. Keys are generated, stored, rotated, and revoked under a documented key-management process, separated from the data they protect. Weak or deprecated algorithms and protocols are not used, and exceptions are tracked and time-bound.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC6.1",
+            "CC6.7"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "8.24"
+          ]
+        },
+        {
+          "fw": "gdpr",
+          "refs": [
+            "Art. 32"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "VPM-01",
+      "family": "vulnerability management",
+      "title": "Vulnerability and patch management",
+      "owner": "Security (Engineering remediates)",
+      "automation": "automated",
+      "hero": false,
+      "sox": false,
+      "why": "Every auditor expects a vulnerability and patch program, and its absence is the gap a security questionnaire probes first. For a service on a multi-cluster cloud estate shipping continuously, unpatched dependencies and exposed services are the most common path to the precise-location data this program exists to protect. This control makes finding and fixing known weaknesses a measured, time-bound loop rather than a periodic scramble.",
+      "statement": "Technical vulnerabilities across code, dependencies, images, and infrastructure are discovered continuously, triaged by severity and exposure, and remediated within defined service levels. Internet-facing and sensitive-data systems carry the tightest timelines. Unremediated vulnerabilities past SLA are tracked as exceptions with a named owner and a closure plan.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC7.1"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "8.8"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "DCH-01",
+      "family": "data protection",
+      "title": "Data classification and protection",
+      "owner": "Legal/Privacy (Security and Engineering enforce)",
+      "automation": "partial",
+      "hero": false,
+      "sox": false,
+      "why": "Every other data control inherits its scope from this one. Precise location and minor data are the crown jewels; if they are not classified, inventoried, and bound to handling and retention rules, then encryption, access review, consent, and the agent broker are all guarding a boundary no one has drawn. This control draws the boundary: it names the highest-sensitivity classes, holds them to minimization and retention limits, and makes deletion a recorded event.",
+      "statement": "Data is classified by sensitivity, and precise location and minor data are designated the highest-sensitivity class. Handling, retention, and disposal rules attach to the classification and are enforced. Data is minimized to what the declared purpose requires and deleted or restricted when the lawful basis ends. Cleartext flows of the highest-sensitivity classes are inventoried so every other control knows its scope.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "C1.1",
+            "C1.2"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "5.12",
+            "5.13",
+            "8.10",
+            "8.12"
+          ]
+        },
+        {
+          "fw": "gdpr",
+          "refs": [
+            "Art. 5(1)(c)",
+            "Art. 5(1)(e)",
+            "Art. 32"
+          ]
+        },
+        {
+          "fw": "ccpa_cpra",
+          "refs": [
+            "Civil Code §1798.100(c)"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "SAT-02",
+      "family": "awareness and training",
+      "title": "Security awareness and role-based training",
+      "owner": "Security (People/HR delivers)",
+      "automation": "partial",
+      "hero": false,
+      "sox": false,
+      "why": "This is the control that legitimately sits at SOC 2 CC1.4 — commitment to competence — which is why AAT-01 was moved off it. People are the control surface that no broker covers: the engineer who mishandles a location export, the support agent who is socially engineered into disclosing a minor's data. A workforce trained to the specific risks of precise location, minor data, and an agentic AI layer is a control, and its absence is the soft spot a determined attacker targets first.",
+      "statement": "Personnel complete security and privacy awareness training on hire and on a recurring cadence, and role-based training is delivered to functions with elevated access or specific obligations. Training covers the risks specific to this service: precise-location and minor-data handling, social-engineering resistance, and the governance of the agentic AI layer. Completion is tracked, and non-completion for in-scope roles is an exception with a named owner.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC1.4",
+            "CC2.2"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "6.3"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
     }
   ],
   "roadmap": [
     {
-      "months": "1–2",
-      "level": "Baseline",
-      "stage": "Discover",
-      "ships": "Control inventory, regulatory obligation register, a data-flow map, and a map of where compliance slows engineering.",
-      "boundary": "One validated baseline exists — control universe, obligations, data flows, and friction points are known and agreed."
+      "window": "0–30",
+      "theme": "Baseline the control surface",
+      "milestones": [
+        "Inventory the control universe and regulatory obligation register.",
+        "Map the in-scope frameworks to the existing control library.",
+        "Stand up the repo as system of record; confirm the GRC-tool sink.",
+        "Data-flow map; pinpoint where compliance slows engineering."
+      ],
+      "aiAccelerates": "AI drafts the control-to-framework crosswalk and the baseline narrative in an afternoon vs ~2 weeks by hand; the inventory stays computed from systems of record."
     },
     {
-      "months": "2–5",
-      "level": "Defined",
-      "stage": "Common-control spine",
-      "ships": "One owned control library crosswalked to the in-scope frameworks, the OSCAL profiles that resolve each view, and the first collect-once evidence pipelines.",
-      "boundary": "Every in-scope control is defined once, crosswalked, owned by a named function, and assigned an evidence source."
+      "window": "30–60",
+      "theme": "Computed continuous evidence",
+      "milestones": [
+        "Wire daily checks so control health is computed, not reconstructed.",
+        "Turn on the drift-opens-an-Issue loop.",
+        "Ship the priority control's audit-ready evidence, crosswalked to every in-scope framework.",
+        "Route exceptions to the GRC sink with control ID, owner, and framework impact."
+      ],
+      "aiAccelerates": "AI drafts the auditor narratives and the crosswalk in an afternoon vs ~3 weeks; evidence stays deterministically computed and is schema-rejected if model-generated."
     },
     {
-      "months": "5–9",
-      "level": "Managed",
-      "stage": "Computed continuous evidence",
-      "ships": "Continuous control monitoring with exception aging and the drift-opens-an-Issue loop.",
-      "boundary": "Control health is computed continuously from systems of record rather than reconstructed at audit."
-    },
-    {
-      "months": "9–15",
-      "level": "Quantitatively managed",
-      "stage": "Agentic AI governance",
-      "ships": "An AI control set grounded in ISO 42001 and NIST AI RMF: model inventory, data-use boundaries, agent-action logging, human gates, a kill-switch, and a customer-facing AI trust statement.",
-      "boundary": "The agentic layer operates inside live, measured guardrails; every agent decision is logged and reviewable."
-    },
-    {
-      "months": "15+",
-      "level": "Optimizing",
-      "stage": "Risk-driven, revenue-enabling",
-      "ships": "A live risk register that prioritizes hardening by leverage, and trust artifacts that shorten enterprise security reviews.",
-      "boundary": "Ongoing. Risk leverage, not the audit calendar, sets the backlog."
+      "window": "60–90",
+      "theme": "Audit-ready and the trust story",
+      "milestones": [
+        "Run a gap assessment for the next target framework off existing mappings.",
+        "Publish trust-center collateral and reusable security-questionnaire answers.",
+        "Extend incident response to AI-agent-scope incidents.",
+        "Hand leadership a resourced readiness view by framework."
+      ],
+      "aiAccelerates": "AI drafts the gap workpapers, crosswalk, and first trust collateral in days vs ~4 weeks, with a named function approving before anything becomes record."
     }
   ],
+  "collateral": [],
   "guardrails": [
     "Built from public research only. No claim is made about Example Location-Safety Service's internal security posture.",
     "AI drafts narratives and remediations; a human approves before anything becomes record. Evidence is computed from systems of record, never authored by a model.",
