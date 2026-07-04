@@ -31,7 +31,7 @@ jobs:
       GH_TOKEN: ${{ github.token }}
     steps:
       - name: Checkout program repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Set up Python
         uses: actions/setup-python@v6
