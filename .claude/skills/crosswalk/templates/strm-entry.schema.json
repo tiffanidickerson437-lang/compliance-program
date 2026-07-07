@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/tiffanidickerson437-lang/compliance-program/.claude/skills/crosswalk/templates/strm-entry.schema.json",
+  "title": "STRM mapping entry",
+  "description": "One set-theory relationship mapping from an owned master control to one external framework requirement. Drafted by AI, validated and approved by a human via pull request.",
+  "type": "object",
+  "properties": {
+    "master_control_id": {
+      "type": "string",
+      "description": "Owned control ID as defined in 02-controls/control-library.yaml (e.g. AAT-01, PRI-03.13).",
+      "pattern": "^[A-Z]{3}-[0-9]{2}(\\.[0-9]+)*$"
+    },
+    "external_framework": {
+      "type": "string",
+      "description": "Framework key or display name of the external framework being mapped (e.g. iso42001)."
+    },
+    "external_requirement_id": {
+      "type": "string",
+      "description": "Requirement/clause identifier exactly as the external framework writes it (e.g. A.2.2). Never invented."
+    },
+    "strm_parameters": {
+      "type": "object",
+      "properties": {
+        "relationship_type": {
+          "type": "string",
+          "description": "Set-theory relationship of the owned control to the external requirement.",
+          "enum": [
+            "equal-to",
+            "subset-of",
+            "superset-of",
+            "intersects-with",
+            "no-relationship"
+          ]
+        },
+        "relationship_strength": {
+          "type": "integer",
+          "description": "Strength of the relationship, 1 (weakest) to 10 (strongest).",
+          "minimum": 1,
+          "maximum": 10
+        }
+      },
+      "required": ["relationship_type", "relationship_strength"],
+      "additionalProperties": true
+    },
+    "rationale": {
+      "type": "string",
+      "description": "One-line rationale tying the control behavior to the clause."
+    },
+    "status": {
+      "type": "string",
+      "description": "Drafts are pending until a human approves by merge.",
+      "enum": ["DRAFT_PENDING_HUMAN_APPROVAL", "APPROVED"]
+    }
+  },
+  "required": [
+    "master_control_id",
+    "external_framework",
+    "external_requirement_id",
+    "strm_parameters"
+  ],
+  "additionalProperties": true
+}
