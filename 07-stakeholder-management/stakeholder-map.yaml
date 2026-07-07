@@ -16,24 +16,21 @@ metadata:
 functions:
   - function: board
     cares_about: >
-      A multi-listed entity certifies with no material weakness, and the highest-leverage
-      risks are visible in business terms.
+      The highest-leverage risks are visible in business terms, and the reporting is
+      credible enough to rely on without a separate reconciliation.
     grc_serves: >
-      One SOX-mapped control set and a FAIR risk register with computed evidence behind
-      every assertion. The board sees dollar exposure and the cost to close a gap, not the
-      audit calendar.
+      A FAIR risk register with computed evidence behind every assertion. The board sees
+      dollar exposure and the cost to close a gap, not the audit calendar.
     rendering: >
       Board reporting: three numbers, where the program is, where it needs to be, what it
       costs to close. Risk in business terms.
     relevant_controls: [IAC-17, CHG-02, MON-01, AAT-01]
     cadence: quarterly
     fatigue_reduction: One current picture replaces several partial ones.
-    sox_itgc_note: SOX ITGC is framework-mapped, home lab, never audited.
 
   - function: internal-audit
     cares_about: >
-      Independent third-line testing and SOX program ownership, with clean inputs rather
-      than a quarter-end scramble.
+      Independent third-line testing, with clean inputs rather than a quarter-end scramble.
     grc_serves: >
       Computed evidence from systems of record, scoped jointly with internal audit. GRC
       runs first and second line; internal audit keeps independent testing.
@@ -43,19 +40,6 @@ functions:
     relevant_controls: [IAC-17, CHG-02, MON-01]
     cadence: per audit cycle
     fatigue_reduction: Evidence is pre-validated before fieldwork starts.
-    sox_itgc_note: SOX ITGC is framework-mapped, home lab, never audited.
-
-  - function: audit-committee
-    cares_about: >
-      Reporting it can certify against, with material risks and their treatment surfaced
-      on a predictable cadence.
-    grc_serves: >
-      A single current view fed from the same control set, with exceptions and findings
-      aged and visible.
-    rendering: Audit-committee summary; exception aging; material-risk treatment status.
-    relevant_controls: [MON-01, IRO-01, TPM-01]
-    cadence: quarterly
-    fatigue_reduction: One feed, not several partial reports to reconcile.
 
   - function: security
     cares_about: >
@@ -159,7 +143,7 @@ ownership_split:
   business_owns: risk appetite and treatment decisions; acceptance of residual risk
   grc_owns: control definition, evidence schemas, continuous monitoring, translation
   enforcement_owns: security, engineering, IT, legal, privacy per RACI in control-library.yaml
-  internal_audit_owns: independent third-line testing and SOX program ownership
+  internal_audit_owns: independent third-line testing
 
 cross_reference:
   controls: ../02-controls/control-library.yaml

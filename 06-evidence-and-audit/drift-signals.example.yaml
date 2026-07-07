@@ -15,12 +15,12 @@
 drifting:
   - control: IAC-17
     drift_type: access review overdue
-    framework_impact: SOC 2 CC6.2/CC6.3; SOX ITGC access (framework-mapped, home lab)
+    framework_impact: SOC 2 CC6.2/CC6.3
     evidence_needed: recertification attestation joined to the identity-provider and HRIS snapshot
     detail: 7 accounts past the monthly cadence for production and sensitive-data systems
 
   - control: CHG-02
     drift_type: production merge without independent review
-    framework_impact: SOC 2 CC8.1; SOX ITGC change (framework-mapped, home lab)
+    framework_impact: SOC 2 CC8.1
     evidence_needed: merge record from the source-control API with reviewer identity distinct from author
     detail: 1 emergency change merged outside the reviewed path, after-the-fact review not yet recorded

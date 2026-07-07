@@ -290,8 +290,7 @@ risks:
     description: >
       A configuration or code change reaches production without independent
       review or a linked work item, causing an outage, a security regression, or
-      an integrity issue in a financially relevant system (a SOX ITGC change
-      concern for a public company).
+      an integrity issue in a financially relevant system.
     asset_at_risk: Production integrity and the reliability of financial reporting
     threat_community: Direct push to a protected branch, bypassed review, unmanaged emergency change
     threat_event_frequency_per_year:
@@ -318,7 +317,7 @@ risks:
         min: 100000
         most_likely: 1200000
         max: 8000000
-        forms: [lost_revenue, reputation, sox_deficiency]
+        forms: [lost_revenue, reputation]
     annualized_loss_exposure_usd:
       min: 60000
       most_likely: 1800000
@@ -351,7 +350,7 @@ risks:
     description: >
       A human or service account retains access after a role change or
       departure, creating an over-privileged or orphaned account that an attacker
-      or insider can use; a SOX ITGC access concern for a public company.
+      or insider can use.
     asset_at_risk: In-scope systems, financially relevant applications, and sensitive data
     threat_community: Departed worker, orphaned service account, abusive insider
     threat_event_frequency_per_year:
@@ -378,7 +377,7 @@ risks:
         min: 200000
         most_likely: 1500000
         max: 9000000
-        forms: [reputation, fines_and_judgments, sox_deficiency]
+        forms: [reputation, fines_and_judgments]
     annualized_loss_exposure_usd:
       min: 125000
       most_likely: 2450000

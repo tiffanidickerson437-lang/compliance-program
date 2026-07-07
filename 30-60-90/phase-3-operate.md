@@ -53,12 +53,10 @@ computed evidence, never against an assertion.
 - Assemble the COPPA evidence pack from the consent system of record (PRI-03.13). **[INSIDER]**
 
 **Week 12: Audit readiness and declaration**
-- Run the audit-readiness checklist across SOC 2, ISO 27001, and the SOX ITGC mapping; every
-  item green before any fieldwork. SOX operating effectiveness remains Internal Audit's to
-  test, not GRC's to assert.
+- Run the audit-readiness checklist across SOC 2 and ISO 27001; every item green before any
+  fieldwork.
 - Close the gaps the checklist surfaces or record them as exceptions with owners and dates.
-- Declare the program operational and brief the Security Steering Committee and the Audit and
-  Risk Committee.
+- Declare the program operational and brief the Security Steering Committee.
 
 ## Deliverables (end of day 90)
 
@@ -70,7 +68,7 @@ computed evidence, never against an assertion.
 | First reporting cycle | One control state rendered for board, executive, engineering, and sales. |
 | COPPA evidence pack | Consent register computed and audit-ready. |
 | Trust-center content | Generated from the library, human-reviewed, ready to publish. |
-| Audit-readiness assessment | Checklist green across SOC 2, ISO 27001, and the SOX ITGC mapping. |
+| Audit-readiness assessment | Checklist green across SOC 2 and ISO 27001. |
 | Operational declaration | Program declared operating, with the maturity trajectory set. |
 
 ## Maturity signal
@@ -83,8 +81,6 @@ agentic AI governance and to risk-driven prioritization. See `maturity-roadmap.m
 
 - Operational means the program runs and computes evidence; it does not assert a passed external
   audit.
-- SOX ITGC operating effectiveness is established by Internal Audit testing, not by this
-  declaration.
 - Evidence shipped in the repository as examples is illustrative until replaced by computed
   exports from the real systems.
 

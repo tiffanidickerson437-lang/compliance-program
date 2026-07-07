@@ -28,8 +28,6 @@ research and interviews establish. No building.
   together. **[PUBLIC]**
 - An agentic AI bet on the location graph while audit frameworks for autonomous systems are still
   forming. **[PUBLIC]**
-- Multiple public listings bring IT general controls and Audit Committee reporting
-  into scope. **[PUBLIC]**
 - Enterprise security reviews increasingly gate deals on AI and data handling. **[PUBLIC]**
 - Public scrutiny and litigation over historical location-data practices set the context for
   current commitments. **[PUBLIC]**
@@ -38,11 +36,10 @@ research and interviews establish. No building.
 
 **Week 1: Business and stakeholders**
 - Meet the functions: security leadership, engineering leadership, legal and privacy, finance,
-  sales and go-to-market leadership, and the Audit and Risk Committee liaison. **[INSIDER]**
+  and sales and go-to-market leadership. **[INSIDER]**
 - Record what each function wants from GRC and how it wants to receive the signal. **[INSIDER]**
-- Confirm the stated company goals: agentic AI on the location graph, COPPA readiness, a
-  multi-listing audit rhythm. The goals are **[PUBLIC]**; their internal priority and timing are
-  **[INSIDER]**.
+- Confirm the stated company goals: agentic AI on the location graph and COPPA readiness. The
+  goals are **[PUBLIC]**; their internal priority and timing are **[INSIDER]**.
 
 **Week 2: Systems and data**
 - Validate the `stack` assumptions in `config.example.yaml`: cloud, identity, code host, ticketing,
@@ -58,7 +55,7 @@ research and interviews establish. No building.
   CHG-02, MON-01, TPM-01, IRO-01), determine operating, partial, or unknown, with an owner and
   an evidence source. **[INSIDER]**
 - Run crosswalk queries against `framework-crosswalk.yaml`: what satisfies the COPPA security
-  program, what satisfies SOX ITGC access. The mapping is **[PUBLIC]**; the operating state is
+  program, what satisfies SOC 2 access. The mapping is **[PUBLIC]**; the operating state is
   **[INSIDER]**.
 - Mark nothing operating without a validated evidence path.
 
@@ -91,7 +88,7 @@ research and interviews establish. No building.
 | Validated `config.example.yaml` | Frameworks, data types, AI posture, stack, and listings confirmed with the business. |
 | Stakeholder map | Every function, what it wants from GRC, and its escalation path, signed. |
 | Control inventory | Each seed control marked operating, partial, or unknown, with an owner and an evidence source. |
-| Regulatory obligation register | COPPA (compliance date 2026-04-22), GDPR, CCPA and CPRA, EU AI Act timeline, and SOX ITGC scoping intent. |
+| Regulatory obligation register | COPPA (compliance date 2026-04-22), GDPR, CCPA and CPRA, and EU AI Act timeline. |
 | Location-graph data-flow map | Location, minors' data, and agent touchpoints, with public subprocessors and models flagged. |
 | Engineering friction map | Where compliance slows deploys, and which gates are manual versus already in CI/CD. |
 
@@ -105,7 +102,6 @@ question for the interview.
 
 - No statement about current compliance posture or control deficiencies.
 - No assertion that existing programs have gaps.
-- No SOX ITGC operating-effectiveness claim beyond framework mapping.
 - Nothing that requires internal access to verify is presented as verified.
 
 ## Exit criteria for Phase 2

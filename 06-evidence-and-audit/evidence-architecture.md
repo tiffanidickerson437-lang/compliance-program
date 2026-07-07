@@ -79,4 +79,3 @@ A failed validation does not silently pass; it fails the build and lists the gap
 | ISO/IEC 27001:2022 | 9.1, 9.2 | Monitoring, measurement, internal audit. |
 | NIST CSF 2.0 | GV.OV, DE.CM | Oversight and continuous monitoring. |
 | NIST SP 800-53 | CA-7 | Continuous monitoring of control effectiveness. |
-| SOX ITGC | Evidence of control operation | Framework-mapped, home lab, never audited. |

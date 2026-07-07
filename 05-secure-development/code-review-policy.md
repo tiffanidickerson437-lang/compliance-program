@@ -43,7 +43,7 @@ Security-focused review adds checks against the threat model from the design gat
 
 ## Reviewer independence and segregation
 
-Independence is the point. The reviewer is not the author. For changes to the most sensitive paths, the reviewer is from a different sub-team where staffing allows. This is the segregation-of-duties intent behind the SOX ITGC change-management mapping, held here as framework mapping only, home lab, never audited.
+Independence is the point. The reviewer is not the author. For changes to the most sensitive paths, the reviewer is from a different sub-team where staffing allows. This is the segregation-of-duties intent behind the change-management control, enforced here through code-owner rules rather than a written reminder.
 
 ## Emergency changes
 
@@ -70,4 +70,3 @@ Tracked through `MON-01` and reported in 07-stakeholder-management:
 | ISO/IEC 27002:2022 | 8.28, 8.31, 8.32 | Secure coding, separation of environments, change management. |
 | NIST SSDF (SP 800-218) | PW.7, PW.8 | Review and analysis of human-readable code. |
 | NIST CSF 2.0 | ID.RA-07 | Change risk assessment. |
-| SOX ITGC | Change management, segregation of duties | Framework-mapped, home lab, never audited. |

@@ -106,7 +106,6 @@ is a mapping in the crosswalk, never a new control.
 | `frameworks` | Filters the control library and crosswalk to exactly the regimes in scope. One control, every framework it satisfies. |
 | `data-types` | Turns on mandatory control families: `minors` turns on verifiable parental consent (PRI-03.13); `precise-location` turns on agent authorization (AAT-01). |
 | `ai-products` | Turns on the 04-ai-governance pillar, the OWASP LLM Top 10 set, agent-identity controls, and the NIST AI RMF and ISO 42001 crosswalk. |
-| `listings` | A non-empty value turns on SOX ITGC scope and the Audit and Risk Committee cadence. |
 | `stack` | Names the evidence source systems, the drift-check endpoints, and the notification routes. |
 | `risk.appetite` | Seeds the tolerance bands in the risk register and the appetite statement. |
 | `regulated-jurisdictions` | Selects which privacy regimes appear in the obligation register. |
@@ -200,7 +199,7 @@ The program is executable, not a binder. Each area has a real entry point and a 
 | AI drafting | `python3 tools/draft_narrative.py --control CHG-02 --dry-run` | Drafts auditor narratives from computed evidence; the pull request is the gate | [`stakeholder-report-generator.yml`](.github/workflows/stakeholder-report-generator.yml) |
 | Evidence checks | validated on pull request | Validates records against the evidence schemas; rejects `ai_generated: true` | [`evidence-validator.yml`](.github/workflows/evidence-validator.yml) |
 | Control health | `python3 tools/check_control_health.py` | Computes drift; opens a GitHub Issue that starts the fix loop | [`control-drift-monitor.yml`](.github/workflows/control-drift-monitor.yml) |
-| Company onboarding | `python3 tools/onboard_company.py --config config.example.yaml --slug example --dry-run` | Renders a tailored program payload from one config — filters controls to the in-scope frameworks, drops control families a company's data types don't trigger, sets SOX scope from listings, keeps evidence computed (`generated/companies/example/data.json`) | — |
+| Company onboarding | `python3 tools/onboard_company.py --config config.example.yaml --slug example --dry-run` | Renders a tailored program payload from one config — filters controls to the in-scope frameworks, drops control families a company's data types don't trigger, keeps evidence computed (`generated/companies/example/data.json`) | — |
 
 > This whole program — the engine, the onboarding generator, and the rendered briefs — was built by
 > directing AI under governance. The build story: [**How I built this with AI**](docs/how-i-built-this-with-ai.md).
@@ -211,7 +210,7 @@ The program is executable, not a binder. Each area has a real entry point and a 
 
 | # | Pillar | Purpose |
 |---|--------|---------|
-| 00 | [Governance](00-governance/) | Who owns the program, how decisions get made, where authority sits, and how SOX ITGC scope is held for a publicly listed company. |
+| 00 | [Governance](00-governance/) | Who owns the program, how decisions get made, and where authority sits. |
 | 01 | [Risk management](01-risk-management/) | Quantified risk in business terms (FAIR), with treatment owned by the business and the highest-leverage risks steering the roadmap. |
 | 02 | [Controls](02-controls/) | The engine. One control defined once; every framework gets its view from the same source. Collect evidence once, satisfy many. |
 | 03 | [Third-party risk](03-tprm/) | Right-size diligence to what a vendor can touch; reuse trust evidence instead of restarting questionnaires. |
@@ -243,9 +242,8 @@ Cross-cutting directories:
 - [`policy-hierarchy.yaml`](00-governance/policy-hierarchy.yaml) every policy, owner, cadence, version.
 - [`roles-and-responsibilities.md`](00-governance/roles-and-responsibilities.md) RACI by function and by activity.
 - [`risk-appetite-statement.md`](00-governance/risk-appetite-statement.md) appetite by category, owned by the business.
-- [`sox-itgc-scope.md`](00-governance/sox-itgc-scope.md) access, change, and operations ITGC, framework-mapped from home lab, scoped with Internal Audit.
 - [`exceptions-process.md`](00-governance/exceptions-process.md) request, approve, track, expire, close.
-- [`committee-charter.md`](00-governance/committee-charter.md) Security Steering and Audit and Risk Committee cadence.
+- [`committee-charter.md`](00-governance/committee-charter.md) Security Steering Committee cadence.
 
 ### Risk pillar (01) at a glance
 
@@ -267,7 +265,7 @@ under [`02-controls/controls/`](02-controls/controls/).
 |----|--------|-------|
 | AAT-01 | AI governance | Agent authorization on the real-time location graph and precise location |
 | PRI-03.13 | Privacy | Verifiable parental consent (COPPA) |
-| IAC-17 | Access | Periodic privilege review and SOX ITGC access |
+| IAC-17 | Access | Periodic privilege review |
 | CHG-02 | Change | Pull-request-based production change control |
 | MON-01 | Monitoring | Continuous logging and drift detection |
 | TPM-01 | Third party | Vendor tiering and assurance |
@@ -283,9 +281,6 @@ under [`02-controls/controls/`](02-controls/controls/).
 
 - No claim is made about any real organization's internal security posture. The example
   configuration is illustrative and states what a mature program would look like.
-- SOX ITGC is framework-mapped from home-lab work and scoped with Internal Audit. It is never
-  represented as a completed public-company SOX audit. See
-  [`sox-itgc-scope.md`](00-governance/sox-itgc-scope.md).
 - Evidence is computed from systems of record. AI-generated content presented as evidence is
   rejected by schema. AI drafts narratives; it does not author evidence.
 - Functions and roles are named, never individuals. Accountability attaches to a function.

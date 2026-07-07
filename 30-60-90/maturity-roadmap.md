@@ -117,9 +117,6 @@ given configuration:
   front of the Managed stage.
 - An annual certification cycle for the primary frameworks (for example SOC 2 and ISO 27001) sets
   the audit-readiness milestone inside the Managed stage.
-- A publicly listed company's IT general controls and Audit and Risk Committee cadence place the
-  SOX ITGC readiness milestone alongside the certification cycle. SOX ITGC here is framework-mapped
-  from home-lab work and is never represented as an audited opinion.
 - High-risk AI obligations with a statutory start date set the deadline the agentic AI governance
   stage must meet, not merely plan toward. This is the fixed date that paces months three to five.
 
@@ -138,8 +135,6 @@ the operating milestone rather than only an operational baseline.
 - `frameworks` sets which obligations and audit milestones appear on the curve.
 - `ai-products: true` puts the agentic-AI-governance stage on the curve at all; a non-AI program
   would not carry the months 3 to 5 stage as written.
-- `listings` places the SOX ITGC readiness milestone on the curve; a private program would not
-  carry it.
 - `regulated-jurisdictions` sets which privacy regimes pace the early stages.
 
 Change the configuration and the milestones re-render. The shape of the curve, set by the

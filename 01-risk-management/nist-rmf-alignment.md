@@ -44,14 +44,14 @@ the bar for the controls selected to protect them.
 **Select.** Controls are selected from the owned library, already filtered to the frameworks in
 `config.example.yaml`. Selection is a mapping exercise, not authoring: the control exists once and is
 linked to the scenarios it treats. The crosswalk answers "what satisfies COPPA security" or
-"what satisfies SOX ITGC access" in seconds.
+"what satisfies SOC 2 access" in seconds.
 
 **Implement.** Controls ship as policy-as-code and as engineering work. Evidence is emitted as
 a byproduct of shipping rather than assembled later. The secure-development pillar carries the
 SDLC gates that make this true.
 
 **Assess.** Effectiveness is assessed against the evidence schema for each control. Continuous
-checks compute health; Internal Audit tests independently for SOX reliance. AI may draft the
+checks compute health; Internal Audit tests independently for assurance. AI may draft the
 assessment narrative; a human approves it before it becomes record.
 
 **Authorize.** Authorization is explicit and owned by the business. Where residual risk sits

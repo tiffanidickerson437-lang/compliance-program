@@ -10,9 +10,6 @@ metadata:
     a framework view is a profile resolution, not a second copy of the control.
     Query by control to answer "what does AAT-01 satisfy"; query by framework to
     answer "what do I need for SOC 2" in seconds.
-  scope_note: >
-    SOX ITGC associations are framework mapping only (home lab) and are never
-    represented as audited. No depth claim is made beyond the crosswalk line.
 
 # Framework registry: display name and the resolvable OSCAL profile per framework.
 frameworks:
@@ -40,10 +37,6 @@ frameworks:
   eu_ai_act:
     name: EU AI Act (2024)
     profile: profiles/eu-ai-act.profile.oscal.json
-  sox_itgc:
-    name: SOX ITGC
-    basis: framework-mapped, home lab   # framework-mapped, home lab
-    profile: profiles/sox-itgc.profile.oscal.json
   gdpr:
     name: EU GDPR
     profile: profiles/gdpr.profile.oscal.json
@@ -71,9 +64,6 @@ by_control:
       refs: ["CC6.2", "CC6.3"]
     - framework: ISO/IEC 27002:2022
       refs: ["5.15", "5.18", "8.2"]
-    - framework: SOX ITGC   # framework-mapped, home lab
-      refs: ["Access to programs and data"]
-      basis: framework-mapped, home lab
   CHG-02:
     - framework: SOC 2 (TSC 2017)
       refs: ["CC3.4", "CC8.1"]
@@ -81,9 +71,6 @@ by_control:
       refs: ["8.19", "8.32"]
     - framework: NIST CSF 2.0
       refs: ["ID.RA-07"]
-    - framework: SOX ITGC   # framework-mapped, home lab
-      refs: ["Change management, segregation of dev and approver"]
-      basis: framework-mapped, home lab
   MON-01:
     - framework: SOC 2 (TSC 2017)
       refs: ["CC7.2"]
@@ -91,9 +78,6 @@ by_control:
       refs: ["8.15", "8.16"]
     - framework: NIST CSF 2.0
       refs: ["DE.CM-01", "DE.CM-03", "DE.CM-09"]
-    - framework: SOX ITGC   # framework-mapped, home lab
-      refs: ["Computer operations, monitoring of privileged activity"]
-      basis: framework-mapped, home lab
   TPM-01:
     - framework: SOC 2 (TSC 2017)
       refs: ["CC9.2", "CC2.3"]
@@ -239,18 +223,6 @@ by_framework:
   eu_ai_act:
     - control: AAT-01
       refs: ["Art.17(1)(c)"]
-  sox_itgc:
-    basis: framework-mapped, home lab   # framework-mapped, home lab; no depth claim beyond the crosswalk
-    controls:
-      - control: IAC-17
-        pillar: access
-        refs: ["Access to programs and data"]
-      - control: CHG-02
-        pillar: change
-        refs: ["Change management, segregation of dev and approver"]
-      - control: MON-01
-        pillar: operations
-        refs: ["Computer operations, monitoring of privileged activity"]
   gdpr:
     - control: CRY-01
       refs: ["Art. 32"]

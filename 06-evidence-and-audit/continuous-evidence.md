@@ -79,4 +79,3 @@ AI drafts and computes; a person decides what matters and where accountability s
 | ISO/IEC 27001:2022 | 9.1, 9.2, 9.3 | Monitoring, internal audit, management review. |
 | NIST SP 800-53 | CA-7 | Continuous monitoring. |
 | NIST CSF 2.0 | DE.CM, GV.OV | Continuous monitoring and oversight. |
-| SOX ITGC | Ongoing evidence of control operation | Framework-mapped, home lab, never audited. |

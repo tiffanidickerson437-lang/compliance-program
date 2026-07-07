@@ -74,4 +74,3 @@ This file specifies the enforcement. The actual jobs are placeholders in `.githu
 | ISO/IEC 27002:2022 | 8.25, 8.28, 8.29, 8.31, 8.9 |
 | NIST SSDF (SP 800-218) | PS.1, PW.4, PW.6, PW.8, RV.1 |
 | NIST CSF 2.0 | PR.PS, ID.RA-07 |
-| SOX ITGC | Change management, segregation of dev and approver | Framework-mapped, home lab, never audited. |

@@ -62,7 +62,7 @@ compliance. An exception is a managed risk, never a quiet one.
 | Low | GRC | 180 days |
 | Moderate | Security (or the accountable function leader) | 90 days |
 | High | Security and Legal/Privacy jointly | 60 days |
-| Breaches a hard limit in the appetite statement | Governing body (Audit and Risk Committee) | 30 days, with active remediation |
+| Breaches a hard limit in the appetite statement | Governing body | 30 days, with active remediation |
 
 One approval per tier. A higher tier may approve a lower-tier exception; a lower tier may not
 approve a higher-tier exception.
@@ -115,6 +115,6 @@ The process runs in the same operating model as the rest of the program:
 - Exceptions that breached a hard limit, with governing-body decisions.
 - Closure rate against target remediation dates.
 
-These feed the Security Steering Committee and the Audit and Risk Committee per
+These feed the Security Steering Committee per
 `committee-charter.md`. Rising exception age is treated as a program signal, not a clerical
 detail.

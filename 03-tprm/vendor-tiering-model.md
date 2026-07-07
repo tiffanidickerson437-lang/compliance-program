@@ -133,4 +133,3 @@ Re-tier on any of the following, tracked through [`continuous-monitoring.md`](./
 | NIST CSF 2.0 | GV.SC-04, GV.SC-06, GV.SC-07 | Supplier criticality, pre-engagement assessment. |
 | NIST AI RMF 1.0 | MANAGE 3.0 | Third-party and model-provider risk. |
 | CCPA / CPRA (2026) | §7052(a) | Service-provider and contractor obligations. |
-| SOX ITGC | Vendor access in scope | Framework-mapped, home lab, never audited. |

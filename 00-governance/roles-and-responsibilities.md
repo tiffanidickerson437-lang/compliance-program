@@ -15,8 +15,7 @@ used only where they are standard and certain; otherwise the function is named.
 - **Second line (set and oversee):** the functions that define the program and monitor it.
   GRC, Privacy, Legal, and Security in its policy-setting role.
 - **Third line (independent assurance):** Internal Audit. It tests the first and second
-  lines, owns the SOX program, and does not build or operate controls, which preserves its
-  independence.
+  lines and does not build or operate controls, which preserves its independence.
 
 The governing body sits above the three lines and accepts residual risk that exceeds the
 stated appetite.
@@ -41,9 +40,9 @@ stated appetite.
 | IT | Identity provider operations, access provisioning and deprovisioning |
 | HR | Joiner, mover, leaver feed; awareness and acknowledgment |
 | Sales | Trust-center first answers; routes sensitive items to GRC under NDA |
-| Finance | SOX financial-reporting context; control cost and budget |
-| Internal Audit | Independent testing; SOX program ownership; audit liaison |
-| Board (Audit and Risk Committee) | Residual-risk acceptance; oversight reporting |
+| Finance | Control cost and budget |
+| Internal Audit | Independent testing; audit liaison |
+| Board | Residual-risk acceptance; oversight reporting |
 
 ## 4. RACI by pillar
 
@@ -79,7 +78,6 @@ is a Board outcome; the rest of governance operation is a GRC outcome.
 | High-impact AI action on a minor account | C | A | R | C | I | I | I | I |
 | Vendor tiering and assessment | A | C | C | R | I | I | I | I |
 | Board and committee reporting | A | C | I | C | I | I | C | I |
-| SOX ITGC scoping and testing | C | C | C | C | C | I | A | I |
 | Audit liaison and evidence delivery | R | C | C | C | C | I | A | I |
 
 ## 6. Control-level RACI is rendered, not re-authored

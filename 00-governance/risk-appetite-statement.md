@@ -1,7 +1,7 @@
 # Risk Appetite Statement
 
 **Pillar:** 00-governance
-**Owner:** the business, through the governing body (Audit and Risk Committee)
+**Owner:** the business, through the governing body
 **Author and steward:** GRC function populates this statement; the business ratifies it.
 **Status:** Scaffold. The bands below are proposed defaults for the business to ratify.
 **Seeded by:** `config.example.yaml` field `risk.appetite: growth-stage` and `risk.tolerance-statements`.
@@ -45,7 +45,6 @@ tolerance threshold that triggers escalation and a treatment decision.
 | Security and breach | low | Defense in depth; rapid detection and containment; breach notification within statutory windows. | A Sev1 incident, or detection-to-triage time outside the agreed SLA. |
 | Change and availability | moderate | Ship quickly through reviewed Pull Requests; tolerate measured change risk on the routine path. | A material unreviewed production change, or an emergency-change rate above the agreed bound. |
 | Third-party and subprocessor | low | Diligence matches what a vendor can touch; highest scrutiny on parties touching location or minors' data. | A high-risk vendor without current assurance evidence, or a subprocessor breach. |
-| Financial-reporting (SOX ITGC) | low | IT general controls over access, change, and operations are reliable and testable. | A control deficiency that could affect the reliability of financial reporting. |
 
 ## 5. Hard limits (zero tolerance)
 
@@ -74,4 +73,4 @@ Appetite turns a dollar figure into a decision: harden, transfer, avoid, or form
   `config.example.yaml`, the threat landscape, or the regulatory calendar.
 - Amendments follow the Tier 0 change process in `policy-hierarchy.yaml`.
 - The current ratified version and date are recorded by the governance function and reported to
-  the Audit and Risk Committee per `committee-charter.md`.
+  the governing body per `committee-charter.md`.

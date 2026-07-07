@@ -12,10 +12,9 @@
 # HOW THIS CONFIG DRIVES THE PROGRAM
 #     1. FILTER the control library (02-controls/control-library.yaml) and the
 #        crosswalk to only the frameworks named under `frameworks`.
-#     2. TURN ON pillars and control families based on `data-types`,
-#        `ai-products`, and `listings` (for example minors -> COPPA consent
-#        control; ai-products -> the 04-ai-governance pillar; a listing ->
-#        SOX ITGC scope and Audit Committee cadence).
+#     2. TURN ON pillars and control families based on `data-types` and
+#        `ai-products` (for example minors -> COPPA consent control;
+#        ai-products -> the 04-ai-governance pillar).
 #     3. ROUTE notifications and name evidence source systems from `stack`
 #        (a failed daily check opens a GitHub Issue; the Issue is the evidence
 #        of due diligence; the fix is a Pull Request a human approves).
@@ -24,12 +23,10 @@
 #   framework is a crosswalk mapping, never a new control.
 #
 # THE EXAMPLE ARCHETYPE
-#   The values below describe a neutral archetype: a consumer location-safety
-#   service that processes precise location and minors' data, runs an agentic AI
-#   layer on a real-time location graph, and is publicly listed (which brings IT
-#   general controls into scope). It is illustrative only and makes NO claim
-#   about any real organization. SOX ITGC here is framework-mapped from home-lab
-#   work and is NOT a statement that any public-company SOX audit was performed.
+#   The values below describe a neutral archetype: a privately held consumer
+#   location-safety service that processes precise location and minors' data and
+#   runs an agentic AI layer on a real-time location graph. It is illustrative
+#   only and makes NO claim about any real organization.
 # =============================================================================
 
 schema_version: 1                 # config schema version; the scaffold reads this to stay compatible
@@ -47,15 +44,9 @@ company:
     AI-native, with an agentic layer on a real-time location graph as the
     stated product bet.
 
-  # A non-empty `listings` block marks this as a public company. That single
-  # fact turns on SOX ITGC scope (00-governance/sox-itgc-scope.md), Audit
-  # Committee cadence (committee-charter.md), and board reporting in dollars.
-  # The exchanges and tickers below are illustrative placeholders.
-  listings:
-    - exchange: primary-exchange  # illustrative; non-empty listings turn on SOX ITGC scope
-      ticker: "EXMPL"
-    - exchange: secondary-exchange  # multi-listed example
-      ticker: "EXMPL2"
+  # `listings` is empty: this archetype is privately held, so public-company
+  # financial-reporting obligations do not apply.
+  listings: []
 
 frameworks:
   # The scaffold filters 02-controls/control-library.yaml and
@@ -72,8 +63,6 @@ frameworks:
     - nist-ai-rmf                 # NIST AI RMF 1.0 (selected because ai-products: true)
     - iso42001                    # ISO/IEC 42001:2023 AI management system; named honestly as a forward target
     - eu-ai-act                   # EU AI Act; high-risk obligations land 2026-08-02
-  financial:                      # turned on because `listings` is non-empty
-    - sox-itgc                    # ITGC over access, change, operations. FRAMEWORK-MAPPED from home lab. NOT an audited opinion. Scoped with Internal Audit.
 
 stack:
   # `stack` names the systems of record. Evidence schemas point at these as the
@@ -137,5 +126,4 @@ regulated-jurisdictions:
 # every reader knows the basis of the configuration.
 provenance:
   basis: illustrative-example     # this example makes no claim about any real organization's internal posture
-  sox_itgc_basis: home-lab-framework-mapping   # never claim a prior public-company SOX audit
   evidence_in_repo: illustrative  # example evidence is illustrative; replace with computed exports before audit

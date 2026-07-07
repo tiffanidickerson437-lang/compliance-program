@@ -28,15 +28,13 @@
   designed as policy-as-code and sprint tickets, not as a separate review gate. **[PUBLIC]**
 - One sensitive-data access control maps to COPPA, GDPR, and CCPA at once, so location and
   family data obligations are met from a single definition. **[PUBLIC]**
-- Multiple public listings mean the design must produce clean, computed ITGC inputs for access,
-  change, and operations rather than a quarter-end scramble. **[PUBLIC]**
 
 ## Activities by week
 
 **Week 5: Control architecture and crosswalk**
 - Define the owned control spine from the seed controls and the families they imply.
-- Crosswalk each control to SOC 2, ISO 27001, the COPPA security-program requirement, and SOX
-  ITGC (framework-mapped). The crosswalk is the proof of the framework-agnostic claim.
+- Crosswalk each control to SOC 2, ISO 27001, and the COPPA security-program requirement. The
+  crosswalk is the proof of the framework-agnostic claim.
 - Confirm ownership per control against the RACI. Owners are **[INSIDER]**, confirmed in
   Phase 1.
 
@@ -60,8 +58,7 @@
   designed target, scored against the FAIR register.
 - Build the remediation backlog with owners and dates; route any near-term deviation through
   the exception process.
-- Stand up the Security Steering Committee cadence and the reporting templates; schedule the
-  first Audit and Risk Committee input.
+- Stand up the Security Steering Committee cadence and the reporting templates.
 
 ## Deliverables (end of day 60)
 
@@ -84,8 +81,6 @@ manual-evidence count is on a path to fall. The spine exists; the next phase mak
 ## Explicit non-claims
 
 - A designed control is not an operating control. Nothing is declared operating in Phase 2.
-- SOX ITGC design is framework mapping; operating effectiveness is established later, with
-  Internal Audit.
 - Pipeline designs assume the stack validated in Phase 1; any integration not yet present is a
   backlog item, not a claim.
 

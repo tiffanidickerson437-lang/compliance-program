@@ -28,8 +28,7 @@ it for fast reading. The repository is the nucleus; the summary is the highlight
 In scope:
 
 - All frameworks named in `config.example.yaml`. For this configuration: SOC 2, ISO 27001, GDPR, CCPA
-  as amended by CPRA, the amended COPPA Rule, NIST AI RMF, ISO 42001, the EU AI Act, and
-  SOX ITGC on a framework-mapped basis.
+  as amended by CPRA, the amended COPPA Rule, NIST AI RMF, ISO 42001, and the EU AI Act.
 - The consumer family-safety and location service, the location-graph data domain, and the
   agentic AI layer that operates on it.
 - Every pillar under `compliance-program/` as the operational backbone: governance, risk,
@@ -42,8 +41,6 @@ Out of scope:
 
 - Any assertion about the organization's current internal control posture. This program is
   illustrative and states what a mature program would look like, not what exists.
-- A SOX ITGC audit opinion. ITGC content here is framework-mapped from home-lab work and
-  is scoped with Internal Audit before any reliance. See `sox-itgc-scope.md`.
 
 ## 4. Authority and decision rights
 
@@ -53,10 +50,10 @@ Out of scope:
   the data, and the options. The business signs. See `risk-appetite-statement.md`.
 - Security, Engineering, Legal, Privacy, IT, Product, and other functions own execution of
   the controls assigned to them under the RACI in `roles-and-responsibilities.md`.
-- Internal Audit keeps independent third-line testing and owns the SOX program. Internal
-  Audit does not build or operate controls, so its independence is preserved.
-- The governing body (board, through its Audit and Risk Committee) accepts residual risk
-  that exceeds the stated appetite and receives the reporting defined in `committee-charter.md`.
+- Internal Audit keeps independent third-line testing. Internal Audit does not build or
+  operate controls, so its independence is preserved.
+- The governing body accepts residual risk that exceeds the stated appetite and receives the
+  reporting defined in `committee-charter.md`.
 
 ## 5. Operating model (GitHub-native)
 
@@ -84,17 +81,14 @@ narrative and the gap analysis. A human approves before anything becomes record.
 ## 6. How `config.example.yaml` governs this charter
 
 This charter is configuration-driven. Company-specific scope is not written into prose; it is read
-from `config.example.yaml`. The frameworks list above is the current value of `frameworks`. The
-SOX ITGC scope exists because `company.listings` is non-empty. The AI governance scope
-exists because `ai-products` is true. Change the config and re-run the scaffold, and the
-in-scope statements re-render. This keeps the charter true to the program as configured
+from `config.example.yaml`. The frameworks list above is the current value of `frameworks`. The AI
+governance scope exists because `ai-products` is true. Change the config and re-run the scaffold,
+and the in-scope statements re-render. This keeps the charter true to the program as configured
 rather than drifting from it.
 
 ## 7. Guardrails
 
 - No claim is made about current internal security posture without verification.
-- SOX ITGC depth is framework mapping only unless validated in an audit, and it is never
-  represented as a completed public-company audit.
 - Evidence is computed from systems of record. AI-generated content that is presented as
   evidence is rejected by schema. AI drafts narratives; it does not author evidence.
 - Functions and roles are named, never individuals. Accountability attaches to a function.

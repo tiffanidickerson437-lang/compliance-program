@@ -3,16 +3,7 @@
     "name": "Example Location-Safety Service",
     "legal": "Example Location-Safety Service, Inc.",
     "repo": "tiffanidickerson437-lang/compliance-program",
-    "listings": [
-      {
-        "exchange": "primary-exchange",
-        "ticker": "EXMPL"
-      },
-      {
-        "exchange": "secondary-exchange",
-        "ticker": "EXMPL2"
-      }
-    ],
+    "listings": [],
     "description": "Consumer family-safety and location-sharing service holding real-time precise location for tens of millions of members, including children. AI-native, with an agentic layer on a real-time location graph as the stated product bet.",
     "topics": [
       "example",
@@ -41,7 +32,7 @@
       "sub": "defined once, rendered per framework"
     },
     {
-      "n": "9",
+      "n": "8",
       "label": "frameworks",
       "sub": "one control set, every view"
     },
@@ -99,12 +90,6 @@
       "name": "EU AI Act",
       "full": "EU AI Act (2024)",
       "kind": "ai"
-    },
-    {
-      "id": "sox_itgc",
-      "name": "SOX ITGC",
-      "full": "SOX ITGC",
-      "kind": "financial"
     }
   ],
   "pillars": [
@@ -135,7 +120,7 @@
         },
         {
           "name": "committee-charter.md",
-          "note": "Security Steering & Audit and Risk cadence."
+          "note": "Security Steering Committee cadence."
         }
       ]
     },
@@ -417,7 +402,6 @@
       "owner": "GRC + Security (Legal/Privacy joint on lawful basis)",
       "automation": "partial",
       "hero": true,
-      "sox": false,
       "why": "An agentic layer acting on a real-time location graph of tens of millions of members, including children, needs a control for autonomous systems that read sensitive data and take consequential actions. This is the hero control: it governs how an agent is identified, scoped, gated, and revoked.",
       "statement": "Policies for AI and autonomous-technology risk are defined, owned, and enforced. Autonomous agents read precise location or minor data only under purpose-bound authorization, at minimum scope, with full decision logging, and with human accountability for high-impact actions. No agent holds standing access to sensitive production data.",
       "crosswalk": [
@@ -487,7 +471,6 @@
       "owner": "Legal/Privacy (Security enforces)",
       "automation": "partial",
       "hero": false,
-      "sox": false,
       "why": "A consumer location-safety service at this scale processes the data of children. The amended COPPA Rule and the minor provisions of CCPA/CPRA require verifiable parental consent before that data is processed. This control proves consent is on record and authoritative.",
       "statement": "Minor personal data processes only after verifiable parent or guardian opt-in consent is recorded. Consent state is authoritative: absent or withdrawn consent blocks processing and disclosure, and a separate verifiable consent is required before any disclosure of a child's data to a third party.",
       "crosswalk": [
@@ -544,8 +527,7 @@
       "owner": "Security (IAM)",
       "automation": "partial",
       "hero": false,
-      "sox": true,
-      "why": "A public, multi-listed company carries SOX IT general controls. Periodic access review is the access pillar of ITGC and the control auditors test first. The same review limits standing access to precise location and minor data, so it serves privacy as well as financial-reporting integrity.",
+      "why": "Periodic access review is the access pillar of IT general controls and the control auditors test first. The review limits standing access to precise location and minor data, so it serves privacy and operational integrity.",
       "statement": "Privileges for people and service accounts are reviewed on a fixed cadence against role and employment, and unjustified access is removed. Leaver deprovisioning fires from the human-resources system of record, not a manual ticket. Service and other non-human accounts are held to the same bar as human accounts.",
       "crosswalk": [
         {
@@ -561,12 +543,6 @@
             "5.15",
             "5.18",
             "8.2"
-          ]
-        },
-        {
-          "fw": "sox_itgc",
-          "refs": [
-            "Access to programs and data"
           ]
         }
       ],
@@ -603,8 +579,7 @@
       "owner": "Engineering (Security owns the policy)",
       "automation": "automated",
       "hero": false,
-      "sox": true,
-      "why": "Change is a pillar of SOX IT general controls. In a source-control-native program, the pull request is the gate and the evidence is a byproduct of shipping, so the control is enforced by configuration rather than by reminder.",
+      "why": "Change control is a pillar of IT general controls. In a source-control-native program, the pull request is the gate and the evidence is a byproduct of shipping, so the control is enforced by configuration rather than by reminder.",
       "statement": "Technical configuration change reaches production only through a peer-reviewed pull request linked to a tracked work item, with required checks passing. Direct pushes to protected branches are blocked, the reviewer is independent of the author, and emergency changes follow a documented after-the-fact review.",
       "crosswalk": [
         {
@@ -619,12 +594,6 @@
           "refs": [
             "8.19",
             "8.32"
-          ]
-        },
-        {
-          "fw": "sox_itgc",
-          "refs": [
-            "Change management, segregation of dev and approver"
           ]
         }
       ],
@@ -661,8 +630,7 @@
       "owner": "Security (SOC)",
       "automation": "automated",
       "hero": false,
-      "sox": true,
-      "why": "Continuous monitoring turns a point-in-time audit into a standing program. It is the operations pillar of SOX IT general controls and the engine of the drift-opens-an-Issue mechanism that makes due diligence visible.",
+      "why": "Continuous monitoring turns a point-in-time audit into a standing program. It is the operations pillar of IT general controls and the engine of the drift-opens-an-Issue mechanism that makes due diligence visible.",
       "statement": "Enterprise monitoring computes control health continuously. Security events ship to a central append-only store with retention and integrity protection. Logs establish what, when, where, source, outcome, and identity, and defined event types alert a monitored queue with an acknowledgement SLA.",
       "crosswalk": [
         {
@@ -676,12 +644,6 @@
           "refs": [
             "8.15",
             "8.16"
-          ]
-        },
-        {
-          "fw": "sox_itgc",
-          "refs": [
-            "Computer operations, monitoring of privileged activity"
           ]
         }
       ],
@@ -718,7 +680,6 @@
       "owner": "GRC (Legal/Privacy on terms)",
       "automation": "partial, workflow-tracked",
       "hero": false,
-      "sox": false,
       "why": "Sensitive data flows to subprocessors and model providers. Diligence depth must match what a party can touch on the location graph, and trust evidence a vendor already produced should be reused rather than re-collected.",
       "statement": "Third parties with system or personal-data access are tiered by what they can touch, assessed before onboarding, and bound by security, breach-notice, and processing terms. High-risk parties reassess on cadence, and vendor trust evidence is reused rather than re-questionnaired.",
       "crosswalk": [
@@ -789,7 +750,6 @@
       "owner": "Security (Legal/Privacy on notification)",
       "automation": "partial",
       "hero": false,
-      "sox": false,
       "why": "Incident response is where regulatory clocks become real: breach notification within statutory timelines, and AI-specific incidents such as an autonomous agent acting out of scope on the location graph.",
       "statement": "Incidents are detected, triaged, contained, and recorded against a governed plan, including AI scope breaches. Legal/Privacy owns notification within statutory timelines, and every incident receives a post-incident review.",
       "crosswalk": [
@@ -869,7 +829,6 @@
       "owner": "Security (Engineering implements)",
       "automation": "partial",
       "hero": false,
-      "sox": false,
       "why": "A service holding real-time precise location and minor data must make that data unreadable to anyone without authorization, at rest and in transit. The public trust material already claims TLS in transit and AES at rest; this control is what turns that claim into a tested, evidenced state rather than a marketing line. It also underwrites every other control: the consent gate, the access review, and the agent broker all assume the underlying data is encrypted and the keys are governed.",
       "statement": "Sensitive and regulated data is protected with cryptographic controls that meet a defined standard, in transit and at rest. Keys are generated, stored, rotated, and revoked under a documented key-management process, separated from the data they protect. Weak or deprecated algorithms and protocols are not used, and exceptions are tracked and time-bound.",
       "crosswalk": [
@@ -905,7 +864,6 @@
       "owner": "Security (Engineering remediates)",
       "automation": "automated",
       "hero": false,
-      "sox": false,
       "why": "Every auditor expects a vulnerability and patch program, and its absence is the gap a security questionnaire probes first. For a service on a multi-cluster cloud estate shipping continuously, unpatched dependencies and exposed services are the most common path to the precise-location data this program exists to protect. This control makes finding and fixing known weaknesses a measured, time-bound loop rather than a periodic scramble.",
       "statement": "Technical vulnerabilities across code, dependencies, images, and infrastructure are discovered continuously, triaged by severity and exposure, and remediated within defined service levels. Internet-facing and sensitive-data systems carry the tightest timelines. Unremediated vulnerabilities past SLA are tracked as exceptions with a named owner and a closure plan.",
       "crosswalk": [
@@ -934,7 +892,6 @@
       "owner": "Legal/Privacy (Security and Engineering enforce)",
       "automation": "partial",
       "hero": false,
-      "sox": false,
       "why": "Every other data control inherits its scope from this one. Precise location and minor data are the crown jewels; if they are not classified, inventoried, and bound to handling and retention rules, then encryption, access review, consent, and the agent broker are all guarding a boundary no one has drawn. This control draws the boundary: it names the highest-sensitivity classes, holds them to minimization and retention limits, and makes deletion a recorded event.",
       "statement": "Data is classified by sensitivity, and precise location and minor data are designated the highest-sensitivity class. Handling, retention, and disposal rules attach to the classification and are enforced. Data is minimized to what the declared purpose requires and deleted or restricted when the lawful basis ends. Cleartext flows of the highest-sensitivity classes are inventoried so every other control knows its scope.",
       "crosswalk": [
@@ -981,7 +938,6 @@
       "owner": "Security (People/HR delivers)",
       "automation": "partial",
       "hero": false,
-      "sox": false,
       "why": "This is the control that legitimately sits at SOC 2 CC1.4 — commitment to competence — which is why AAT-01 was moved off it. People are the control surface that no broker covers: the engineer who mishandles a location export, the support agent who is socially engineered into disclosing a minor's data. A workforce trained to the specific risks of precise location, minor data, and an agentic AI layer is a control, and its absence is the soft spot a determined attacker targets first.",
       "statement": "Personnel complete security and privacy awareness training on hire and on a recurring cadence, and role-based training is delivered to functions with elevated access or specific obligations. Training covers the risks specific to this service: precise-location and minor-data handling, social-engineering resistance, and the governance of the agentic AI layer. Completion is tracked, and non-completion for in-scope roles is an exception with a named owner.",
       "crosswalk": [
@@ -1044,8 +1000,7 @@
   "guardrails": [
     "Built from public research only. No claim is made about Example Location-Safety Service's internal security posture.",
     "AI drafts narratives and remediations; a human approves before anything becomes record. Evidence is computed from systems of record, never authored by a model.",
-    "Functions and roles are named — never individuals. Accountability attaches to a function.",
-    "SOX ITGC is in scope as a public company; this program scopes access, change, and operations ITGC with Internal Audit and the external auditor."
+    "Functions and roles are named — never individuals. Accountability attaches to a function."
   ],
   "stack": [
     {
@@ -1081,7 +1036,6 @@
     "name": "Tiffani Dickerson",
     "role": "GRC — governance, risk & compliance",
     "email": "tiffanidickerson437@gmail.com",
-    "linkedin": "https://www.linkedin.com/in/tiffanidickerson",
     "repoUrl": "https://github.com/tiffanidickerson437-lang/compliance-program"
   },
   "meta": {
