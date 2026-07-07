@@ -12,11 +12,15 @@ Direct catalog crosswalk (real reference from `02-controls/framework-crosswalk.y
 
 ## The clock
 
+Updated for the EU AI omnibus (trilogue agreement 7 May 2026; European Parliament adopted 16 June 2026; Council adopted 29 June 2026; Official Journal publication pending as of early July 2026), which moved the high-risk application dates while leaving Article 50 transparency in place.
+
 - 1 August 2024: the Act entered into force.
 - 2 February 2025: prohibited-practice rules began to apply.
 - 2 August 2025: GPAI model obligations began to apply.
-- 2 August 2026: the bulk of high-risk obligations apply. This is the date the readiness gap log is built against.
-- 2 August 2027: extended timeline for certain product-embedded high-risk systems.
+- 2 August 2026: Article 50 transparency obligations apply — AI-interaction disclosure and AI-generated-content labeling. Unchanged by the omnibus.
+- 2 December 2026: Article 50(2) machine-readable marking applies to generative systems already on the market before 2 August 2026 (omnibus extension).
+- 2 December 2027: Annex III high-risk obligations apply (moved by the omnibus from 2 August 2026). This is the date the readiness gap log is built against.
+- August 2028: extended timeline for Annex I product-embedded high-risk systems (moved by the omnibus from 2 August 2027).
 
 ## Risk classification method
 
