@@ -7,3 +7,6 @@ __pycache__/
 
 # Local configuration copied from config.example.yaml
 config.yaml
+
+# Local Claude Code session audit trail (written by .claude/hooks/audit_log.sh)
+.claude/audit.log
