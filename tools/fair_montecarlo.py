@@ -179,9 +179,16 @@ def main() -> int:
         portfolio,
     ))
 
+    # Report the register repo-relative: generated/ files are committed, so the
+    # report must never embed a local absolute path.
+    try:
+        register_display = args.register.resolve().relative_to(REPO_ROOT)
+    except ValueError:
+        register_display = args.register
+
     header = (
         "# FAIR Monte Carlo Simulation\n\n"
-        f"- Register: {args.register}\n"
+        f"- Register: {register_display}\n"
         f"- Iterations: {args.iterations:,} per risk (BetaPERT sampling, lambda={PERT_LAMBDA:g}; "
         "vulnerability point estimates passed through as constants)\n"
         f"- Seed: {args.seed if args.seed is not None else 'not fixed (fresh entropy)'}\n"
