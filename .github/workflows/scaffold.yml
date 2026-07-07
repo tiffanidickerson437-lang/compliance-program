@@ -18,16 +18,22 @@ on:
     paths:
       - "config.example.yaml"
       - "config.yaml"
-      - "02-controls/control-library.yaml"
-      - "02-controls/framework-crosswalk.yaml"
+      - "02-controls/**"
+      - "generated/**"
       - "tools/scaffold.py"
+      - "tools/generate_ssp.py"
+      - "tools/validate_oscal.py"
+      - "tests/test_unit_b.py"
   pull_request:
     paths:
       - "config.example.yaml"
       - "config.yaml"
-      - "02-controls/control-library.yaml"
-      - "02-controls/framework-crosswalk.yaml"
+      - "02-controls/**"
+      - "generated/**"
       - "tools/scaffold.py"
+      - "tools/generate_ssp.py"
+      - "tools/validate_oscal.py"
+      - "tests/test_unit_b.py"
   workflow_dispatch:
 
 permissions:
@@ -61,3 +67,34 @@ jobs:
             exit 1
           fi
           echo "generated/ is current with the configuration."
+
+  # Machine-checks the OSCAL layer done-condition: the scaffold renders,
+  # Catalog + Profiles + SSP pass OSCAL validation (trestle schema leg plus
+  # the deterministic cross-reference leg), and zero references to the
+  # retired legacy control-library files remain anywhere in the repo.
+  oscal:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout program repo
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install parser and OSCAL SDK
+        run: pip install --quiet pyyaml compliance-trestle
+
+      - name: Verify the committed SSP is current with its inputs
+        run: |
+          python3 tools/generate_ssp.py
+          if ! git diff --exit-code -- generated/ssp.oscal.json; then
+            echo ""
+            echo "generated/ssp.oscal.json is out of date with the catalog/profile."
+            echo "Run: python3 tools/generate_ssp.py and commit the result."
+            exit 1
+          fi
+
+      - name: OSCAL layer done-condition test
+        run: python3 tests/test_unit_b.py

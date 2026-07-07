@@ -1,13 +1,13 @@
 {
   "catalog": {
-    "uuid": "cfa65382-acbd-4f65-b5b4-8746efda6fda",
+    "uuid": "e94382fc-f4fa-474b-9d19-3246e66885bb",
     "metadata": {
       "title": "Compliance Program Control Library (SCF-mapped)",
       "published": "2026-06-01T04:30:00Z",
-      "last-modified": "2026-06-01T04:30:00Z",
-      "version": "2.0.0",
+      "last-modified": "2026-07-07T02:26:00Z",
+      "version": "3.0.0",
       "oscal-version": "1.1.3",
-      "remarks": "Eleven deliberate controls expressed against the Secure Controls Framework (SCF 2025.4) spine and published as an OSCAL catalog. Each control carries assignable parameters, control enhancements (as nested controls), an assessment objective with itemized objectives, and assessment methods (EXAMINE, INTERVIEW, TEST) modeled as method parts. Statements and guidance are kept in lineage with control-library.yaml, the human-readable source of truth. Example evidence elsewhere in the repository is illustrative and is not a claim about any real organization's internal posture.",
+      "remarks": "The Living Control Set as an OSCAL catalog, pinned to SCF 2026.1. Eleven curated controls are expressed at audit depth against the SCF spine (params, enhancements as nested controls, assessment objectives and methods); thirty-four authored controls absorbed from the retired owned control library carry their statement and framework mappings (family granularity). Statements and guidance are kept in lineage with control-library.yaml, the human-readable source of truth. Example evidence elsewhere in the repository is illustrative and is not a claim about any real organization's internal posture.",
       "roles": [
         {
           "id": "control-owner",
@@ -30,7 +30,7 @@
         {
           "name": "scf-version",
           "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
-          "value": "SCF 2025.4"
+          "value": "SCF 2026.1"
         }
       ]
     },
@@ -116,6 +116,10 @@
             "name": "hero-control",
             "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
             "value": "true"
+          },
+          {
+            "name": "requirement-level",
+            "value": "MCR"
           }
         ],
         "parts": [
@@ -415,6 +419,10 @@
             "name": "automation",
             "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
             "value": "partial"
+          },
+          {
+            "name": "requirement-level",
+            "value": "MCR"
           }
         ],
         "parts": [
@@ -702,6 +710,10 @@
             "name": "automation",
             "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
             "value": "partial"
+          },
+          {
+            "name": "requirement-level",
+            "value": "MCR"
           }
         ],
         "parts": [
@@ -989,6 +1001,10 @@
             "name": "automation",
             "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
             "value": "automated"
+          },
+          {
+            "name": "requirement-level",
+            "value": "MCR"
           }
         ],
         "parts": [
@@ -1264,6 +1280,10 @@
             "name": "automation",
             "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
             "value": "automated"
+          },
+          {
+            "name": "requirement-level",
+            "value": "MCR"
           }
         ],
         "parts": [
@@ -1551,6 +1571,10 @@
             "name": "automation",
             "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
             "value": "partial"
+          },
+          {
+            "name": "requirement-level",
+            "value": "MCR"
           }
         ],
         "parts": [
@@ -1826,6 +1850,10 @@
             "name": "automation",
             "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
             "value": "partial"
+          },
+          {
+            "name": "requirement-level",
+            "value": "MCR"
           }
         ],
         "parts": [
@@ -2051,6 +2079,10 @@
             "name": "automation",
             "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
             "value": "partial"
+          },
+          {
+            "name": "requirement-level",
+            "value": "MCR"
           }
         ],
         "parts": [
@@ -2149,6 +2181,10 @@
             "name": "automation",
             "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
             "value": "automated"
+          },
+          {
+            "name": "requirement-level",
+            "value": "MCR"
           }
         ],
         "parts": [
@@ -2247,6 +2283,10 @@
             "name": "automation",
             "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
             "value": "partial"
+          },
+          {
+            "name": "requirement-level",
+            "value": "MCR"
           }
         ],
         "parts": [
@@ -2345,6 +2385,10 @@
             "name": "automation",
             "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
             "value": "partial"
+          },
+          {
+            "name": "requirement-level",
+            "value": "MCR"
           }
         ],
         "parts": [
@@ -2416,6 +2460,890 @@
                 "prose": "- Sample new hires and confirm baseline completion within SLA.\n- Sample an elevated-access role and confirm the role-based module was assigned and completed on assignment.\n- Confirm no in-scope role sits non-complete without a tracked, unexpired exception."
               }
             ]
+          }
+        ]
+      },
+      {
+        "id": "gov-01",
+        "class": "Owned",
+        "title": "Security and privacy governance program",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "MCR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "GOV-01"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "id-exists-semantic-match-unverified"
+          }
+        ],
+        "parts": [
+          {
+            "id": "gov-01_smt",
+            "name": "statement",
+            "prose": "A documented security and privacy program defines scope, ownership, and objectives, is approved by leadership, and is reviewed at least annually. Authority and accountability for the program are assigned to a named function."
+          }
+        ]
+      },
+      {
+        "id": "gov-02",
+        "class": "Owned",
+        "title": "Policy hierarchy and periodic review",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "MCR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "GOV-02"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "id-exists-semantic-match-unverified"
+          }
+        ],
+        "parts": [
+          {
+            "id": "gov-02_smt",
+            "name": "statement",
+            "prose": "Policies, standards, and procedures form a maintained hierarchy with named owners, a review cadence, and version control. Each document is reviewed and re-approved on cadence or on material change."
+          }
+        ]
+      },
+      {
+        "id": "gov-03",
+        "class": "Owned",
+        "title": "Roles, responsibilities, and segregation of duties",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "DSR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "GOV-03"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "id-exists-semantic-match-unverified"
+          }
+        ],
+        "parts": [
+          {
+            "id": "gov-03_smt",
+            "name": "statement",
+            "prose": "Security responsibilities are assigned by role and documented in a RACI. Conflicting duties are separated; where separation is impractical, a compensating control is recorded."
+          }
+        ]
+      },
+      {
+        "id": "gov-04",
+        "class": "Owned",
+        "title": "Program metrics and leadership reporting",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "DSR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "GOV-04"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "id-exists-semantic-match-unverified"
+          }
+        ],
+        "parts": [
+          {
+            "id": "gov-04_smt",
+            "name": "statement",
+            "prose": "Control health and program performance are measured and reported to leadership on a fixed cadence, with material risks escalated. Metrics are computed from systems of record, not assembled by hand."
+          }
+        ]
+      },
+      {
+        "id": "rsk-01",
+        "class": "Owned",
+        "title": "Risk assessment methodology",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "MCR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "RSK-01"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "id-exists-semantic-match-unverified"
+          }
+        ],
+        "parts": [
+          {
+            "id": "rsk-01_smt",
+            "name": "statement",
+            "prose": "Risk is assessed using a documented, repeatable method that estimates likelihood and impact in defined terms. Assessments run on cadence and on significant change."
+          }
+        ]
+      },
+      {
+        "id": "rsk-02",
+        "class": "Owned",
+        "title": "Risk register and treatment",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "DSR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "RSK-02"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "id-exists-semantic-match-unverified"
+          }
+        ],
+        "parts": [
+          {
+            "id": "rsk-02_smt",
+            "name": "statement",
+            "prose": "Identified risks are recorded in a register with an owner, treatment decision, and target date. Accepted risk is approved at an authority level matched to its severity."
+          }
+        ]
+      },
+      {
+        "id": "ast-01",
+        "class": "Owned",
+        "title": "Asset inventory and ownership",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "MCR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "AST-01"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "id-exists-semantic-match-unverified"
+          }
+        ],
+        "parts": [
+          {
+            "id": "ast-01_smt",
+            "name": "statement",
+            "prose": "A maintained inventory records hardware, software, services, and data stores with an owner for each. The inventory is reconciled from authoritative discovery, not a manual list."
+          }
+        ]
+      },
+      {
+        "id": "ast-02",
+        "class": "Owned",
+        "title": "Data and asset classification",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "DSR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "AST-02"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "id-exists-semantic-match-unverified"
+          }
+        ],
+        "parts": [
+          {
+            "id": "ast-02_smt",
+            "name": "statement",
+            "prose": "Assets and data are classified by sensitivity against a defined scheme, and handling requirements follow from the classification."
+          }
+        ]
+      },
+      {
+        "id": "ast-03",
+        "class": "Owned",
+        "title": "Secure disposal of media and equipment",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "MCR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "AST-03"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "id-exists-semantic-match-unverified"
+          }
+        ],
+        "parts": [
+          {
+            "id": "ast-03_smt",
+            "name": "statement",
+            "prose": "Media and equipment holding confidential data are sanitized or destroyed before disposal or reuse, with the action recorded."
+          }
+        ]
+      },
+      {
+        "id": "iam-01",
+        "class": "Owned",
+        "title": "Access provisioning from joiner-mover-leaver",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "MCR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "IAM-01"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "does-not-resolve-pending-human-decision"
+          }
+        ],
+        "parts": [
+          {
+            "id": "iam-01_smt",
+            "name": "statement",
+            "prose": "Access is granted, changed, and revoked from authoritative HR events. Leaver access is removed on the same day the leaver event fires; the feed is the trigger, not a ticket."
+          }
+        ]
+      },
+      {
+        "id": "iam-03",
+        "class": "Owned",
+        "title": "Least privilege and privileged access management",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "MCR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "IAM-03"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "does-not-resolve-pending-human-decision"
+          }
+        ],
+        "parts": [
+          {
+            "id": "iam-03_smt",
+            "name": "statement",
+            "prose": "Access follows least privilege. Privileged access is brokered, time-bound where feasible, and separately logged. Standing administrative access is minimized."
+          }
+        ]
+      },
+      {
+        "id": "iam-04",
+        "class": "Owned",
+        "title": "Authentication and multi-factor enforcement",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "MCR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "IAM-04"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "does-not-resolve-pending-human-decision"
+          }
+        ],
+        "parts": [
+          {
+            "id": "iam-04_smt",
+            "name": "statement",
+            "prose": "Users authenticate with unique identities and phishing-resistant multi-factor where supported. MFA is enforced for remote and administrative access."
+          }
+        ]
+      },
+      {
+        "id": "iam-05",
+        "class": "Owned",
+        "title": "Service and non-human identity governance",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "DSR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "IAM-05"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "does-not-resolve-pending-human-decision"
+          }
+        ],
+        "parts": [
+          {
+            "id": "iam-05_smt",
+            "name": "statement",
+            "prose": "Service accounts, API keys, and workload identities are registered with an owner, scoped to least privilege, and rotated or expired. No standing secret without an owner."
+          }
+        ]
+      },
+      {
+        "id": "chg-02-baseline",
+        "class": "Owned",
+        "title": "Baseline configuration and hardening",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "MCR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "CHG-02"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "id-exists-semantic-match-unverified"
+          }
+        ],
+        "parts": [
+          {
+            "id": "chg-02-baseline_smt",
+            "name": "statement",
+            "prose": "Systems are built from approved, hardened baselines, and deviations are detected and reconciled. Baselines follow a recognized hardening standard."
+          }
+        ]
+      },
+      {
+        "id": "cry-02",
+        "class": "Owned",
+        "title": "Key management",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "MCR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "CRY-02"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "id-exists-semantic-match-unverified"
+          }
+        ],
+        "parts": [
+          {
+            "id": "cry-02_smt",
+            "name": "statement",
+            "prose": "Cryptographic keys are generated, stored, rotated, and retired under a defined lifecycle, with access to key material restricted and logged."
+          }
+        ]
+      },
+      {
+        "id": "dch-02",
+        "class": "Owned",
+        "title": "Data retention and disposal",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "MCR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "DCH-02"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "id-exists-semantic-match-unverified"
+          }
+        ],
+        "parts": [
+          {
+            "id": "dch-02_smt",
+            "name": "statement",
+            "prose": "Data is retained only as long as required by a defined schedule and is disposed of when the schedule expires, with disposal recorded."
+          }
+        ]
+      },
+      {
+        "id": "pri-01",
+        "class": "Owned",
+        "title": "Privacy notice and lawful basis",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "MCR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "PRI-01"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "id-exists-semantic-match-unverified"
+          }
+        ],
+        "parts": [
+          {
+            "id": "pri-01_smt",
+            "name": "statement",
+            "prose": "Personal data is processed for a stated purpose under a documented lawful basis, and a plain-language notice describes what is collected, why, and the individual's rights."
+          }
+        ]
+      },
+      {
+        "id": "pri-02",
+        "class": "Owned",
+        "title": "Data subject rights handling",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "MCR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "PRI-02"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "id-exists-semantic-match-unverified"
+          }
+        ],
+        "parts": [
+          {
+            "id": "pri-02_smt",
+            "name": "statement",
+            "prose": "Requests to access, correct, delete, or port personal data are honored within statutory timelines, with identity verified before action."
+          }
+        ]
+      },
+      {
+        "id": "mon-02",
+        "class": "Owned",
+        "title": "Log integrity and retention",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "MCR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "MON-02"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "id-exists-semantic-match-unverified"
+          }
+        ],
+        "parts": [
+          {
+            "id": "mon-02_smt",
+            "name": "statement",
+            "prose": "Logs are protected against alteration with write-once or equivalent integrity controls and retained for a defined period. Clocks are synchronized to an authoritative source."
+          }
+        ]
+      },
+      {
+        "id": "net-01",
+        "class": "Owned",
+        "title": "Network segmentation and boundary protection",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "MCR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "NET-01"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "id-exists-semantic-match-unverified"
+          }
+        ],
+        "parts": [
+          {
+            "id": "net-01_smt",
+            "name": "statement",
+            "prose": "Networks are segmented by trust and sensitivity, and traffic crossing boundaries is filtered by default-deny rules that are reviewed on cadence."
+          }
+        ]
+      },
+      {
+        "id": "net-02",
+        "class": "Owned",
+        "title": "Secure remote access",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "MCR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "NET-02"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "id-exists-semantic-match-unverified"
+          }
+        ],
+        "parts": [
+          {
+            "id": "net-02_smt",
+            "name": "statement",
+            "prose": "Remote access to internal resources is authenticated, encrypted, and least-privilege, and administrative access originates from controlled paths."
+          }
+        ]
+      },
+      {
+        "id": "sdlc-01",
+        "class": "Owned",
+        "title": "Secure development gates",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "MCR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "SDLC-01"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "does-not-resolve-pending-human-decision"
+          }
+        ],
+        "parts": [
+          {
+            "id": "sdlc-01_smt",
+            "name": "statement",
+            "prose": "Security requirements and checks are built into design, build, test, and deploy stages, and a release cannot pass without its required gates emitting evidence."
+          }
+        ]
+      },
+      {
+        "id": "sdlc-02",
+        "class": "Owned",
+        "title": "Software supply chain and dependency integrity",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "DSR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "SDLC-02"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "does-not-resolve-pending-human-decision"
+          }
+        ],
+        "parts": [
+          {
+            "id": "sdlc-02_smt",
+            "name": "statement",
+            "prose": "Third-party and open-source components are inventoried, scanned for known vulnerabilities, and verified for integrity before use. Build provenance is recorded."
+          }
+        ]
+      },
+      {
+        "id": "sdlc-03",
+        "class": "Owned",
+        "title": "Secrets management",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "MCR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "SDLC-03"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "does-not-resolve-pending-human-decision"
+          }
+        ],
+        "parts": [
+          {
+            "id": "sdlc-03_smt",
+            "name": "statement",
+            "prose": "Secrets are stored in a managed vault, never in source or configuration, and are scanned for in code. Exposed secrets are rotated on detection."
+          }
+        ]
+      },
+      {
+        "id": "vpm-02",
+        "class": "Owned",
+        "title": "Penetration testing",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "MCR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "VPM-02"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "id-exists-semantic-match-unverified"
+          }
+        ],
+        "parts": [
+          {
+            "id": "vpm-02_smt",
+            "name": "statement",
+            "prose": "Independent testing exercises the environment on cadence and after significant change, and findings feed the remediation queue and the risk register."
+          }
+        ]
+      },
+      {
+        "id": "end-01",
+        "class": "Owned",
+        "title": "Endpoint protection and detection",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "MCR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "END-01"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "id-exists-semantic-match-unverified"
+          }
+        ],
+        "parts": [
+          {
+            "id": "end-01_smt",
+            "name": "statement",
+            "prose": "Endpoints run managed protection that detects and responds to malicious activity, with coverage and health monitored centrally."
+          }
+        ]
+      },
+      {
+        "id": "end-02",
+        "class": "Owned",
+        "title": "Device management and hardening",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "MCR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "END-02"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "id-exists-semantic-match-unverified"
+          }
+        ],
+        "parts": [
+          {
+            "id": "end-02_smt",
+            "name": "statement",
+            "prose": "Managed devices enforce configuration, disk encryption, and screen lock, and access from unmanaged devices to confidential data is restricted."
+          }
+        ]
+      },
+      {
+        "id": "iro-02",
+        "class": "Owned",
+        "title": "Breach notification",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "MCR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "IRO-02"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "id-exists-semantic-match-unverified"
+          }
+        ],
+        "parts": [
+          {
+            "id": "iro-02_smt",
+            "name": "statement",
+            "prose": "When an incident meets a statutory or contractual threshold, affected parties and regulators are notified within required windows, with the decision and its basis recorded."
+          }
+        ]
+      },
+      {
+        "id": "bcd-01",
+        "class": "Owned",
+        "title": "Business continuity and disaster recovery",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "MCR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "BCD-01"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "id-exists-semantic-match-unverified"
+          }
+        ],
+        "parts": [
+          {
+            "id": "bcd-01_smt",
+            "name": "statement",
+            "prose": "Recovery objectives are set from a business impact analysis, and continuity and recovery plans are documented, resourced, and tested on cadence."
+          }
+        ]
+      },
+      {
+        "id": "bcd-02",
+        "class": "Owned",
+        "title": "Backup and restoration",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "MCR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "BCD-02"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "id-exists-semantic-match-unverified"
+          }
+        ],
+        "parts": [
+          {
+            "id": "bcd-02_smt",
+            "name": "statement",
+            "prose": "Critical data and systems are backed up on a defined schedule with backups protected and restoration verified by test, not assumption."
+          }
+        ]
+      },
+      {
+        "id": "tpm-02",
+        "class": "Owned",
+        "title": "Subprocessor and data-flow assurance",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "MCR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "TPM-02"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "id-exists-semantic-match-unverified"
+          }
+        ],
+        "parts": [
+          {
+            "id": "tpm-02_smt",
+            "name": "statement",
+            "prose": "Where personal or sensitive data flows to subprocessors, processing terms, breach-notice windows, and transfer mechanisms are in place and recorded."
+          }
+        ]
+      },
+      {
+        "id": "hrs-01",
+        "class": "Owned",
+        "title": "Personnel screening and agreements",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "MCR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "HRS-01"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "id-exists-semantic-match-unverified"
+          }
+        ],
+        "parts": [
+          {
+            "id": "hrs-01_smt",
+            "name": "statement",
+            "prose": "Personnel are screened proportionate to role before access, and acknowledge security and confidentiality obligations. A disciplinary path exists for violations."
+          }
+        ]
+      },
+      {
+        "id": "pes-01",
+        "class": "Owned",
+        "title": "Physical access and environmental protection",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "MCR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "PES-01"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "id-exists-semantic-match-unverified"
+          }
+        ],
+        "parts": [
+          {
+            "id": "pes-01_smt",
+            "name": "statement",
+            "prose": "Physical access to facilities and data-bearing equipment is restricted, logged, and reviewed. Where infrastructure is cloud-hosted, provider attestations are inherited and tracked."
+          }
+        ]
+      },
+      {
+        "id": "aat-02",
+        "class": "Owned",
+        "title": "Model and prompt change management",
+        "props": [
+          {
+            "name": "requirement-level",
+            "value": "DSR"
+          },
+          {
+            "name": "legacy-id",
+            "value": "AAT-02"
+          },
+          {
+            "name": "scf-2026.1-id-check",
+            "value": "id-exists-semantic-match-unverified"
+          }
+        ],
+        "parts": [
+          {
+            "id": "aat-02_smt",
+            "name": "statement",
+            "prose": "Changes to models, prompts, and tool grants follow change control with pre-deployment evaluation, drift checks, rollback, and an approval gate."
           }
         ]
       }
