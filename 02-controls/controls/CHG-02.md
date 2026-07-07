@@ -14,7 +14,7 @@
 
 ## Why this control
 
-Change is a pillar of SOX IT general controls. In a source-control-native program, the pull request is the gate and the evidence is a byproduct of shipping, so the control is enforced by configuration rather than by reminder.
+Change management is a foundational IT general control. In a source-control-native program, the pull request is the gate and the evidence is a byproduct of shipping, so the control is enforced by configuration rather than by reminder.
 
 ## Control statement
 
@@ -22,7 +22,7 @@ Technical configuration change reaches production only through a peer-reviewed p
 
 ## Implementation guidance
 
-Make branch protection the technical enforcement of the policy rather than a written rule people are asked to follow. The protected production branch requires a pull request, at least one approving review from a reviewer who is not the author, a linked work item, and a passing set of required status checks. Direct pushes are blocked at the platform, so the bypass path does not exist rather than being discouraged. The evidence is the merge record pulled from the source-control API: the linked ticket, the independent reviewer, the passing checks, and the merge timestamp. This is collected, not reconstructed, and it is the same record that satisfies the SOX change assertion of segregation between the function that develops a change and the function that approves its release. Enforce that independence through code-owner rules so the approver cannot be the author. Provide an explicit emergency-change path for the rare case where a fix must ship before normal review. The emergency change is logged at the time, and it carries a documented after-the-fact review within the reconciliation window. Any change that reaches production outside the reviewed path is an exception that surfaces in the evidence with a closure path, so the exception rate is visible rather than hidden.
+Make branch protection the technical enforcement of the policy rather than a written rule people are asked to follow. The protected production branch requires a pull request, at least one approving review from a reviewer who is not the author, a linked work item, and a passing set of required status checks. Direct pushes are blocked at the platform, so the bypass path does not exist rather than being discouraged. The evidence is the merge record pulled from the source-control API: the linked ticket, the independent reviewer, the passing checks, and the merge timestamp. This is collected, not reconstructed, and it is the same record that satisfies the change-control assertion of segregation between the function that develops a change and the function that approves its release. Enforce that independence through code-owner rules so the approver cannot be the author. Provide an explicit emergency-change path for the rare case where a fix must ship before normal review. The emergency change is logged at the time, and it carries a documented after-the-fact review within the reconciliation window. Any change that reaches production outside the reviewed path is an exception that surfaces in the evidence with a closure path, so the exception rate is visible rather than hidden.
 
 ## Parameters
 
@@ -38,7 +38,7 @@ These are the assignable values the control is tuned with. They are set for the 
 ## Control enhancements
 
 - **CHG-02(1) Branch protection blocks direct pushes.** The protected production branch rejects direct pushes so change can reach production only through a reviewed pull request.
-- **CHG-02(2) Independent review for segregation of duties.** At least one approving reviewer is not the author, enforced through code-owner rules, satisfying the SOX change-segregation assertion.
+- **CHG-02(2) Independent review for segregation of duties.** At least one approving reviewer is not the author, enforced through code-owner rules, satisfying the change-segregation-of-duties assertion.
 - **CHG-02(3) Work-item linkage per change.** Each merged change links to a tracked work item so the reason for the change is recorded.
 - **CHG-02(4) Emergency-change after-the-fact review.** Emergency changes are logged at the time and reviewed within the reconciliation window.
 
@@ -81,7 +81,7 @@ Source-control merge record: linked work item, independent reviewer, passing che
 **Automation and CI mapping**
 
 - Health check: A scheduled job queries the merge API for the protected production branch and computes: merges to production, merges with a linked ticket, merges with an independent reviewer, direct pushes blocked, and exceptions without review.
-- Drift Issue: Any merge without an independent reviewer or a linked ticket, or any exception without a closure path, opens an Issue tagged CHG-02 naming Engineering as owner with the SOX ITGC change pillar flagged.
+- Drift Issue: Any merge without an independent reviewer or a linked ticket, or any exception without a closure path, opens an Issue tagged CHG-02 naming Engineering as owner.
 - Workflow: `.github/workflows/control-drift-monitor.yml`
 
 ## Framework crosswalk
@@ -93,7 +93,6 @@ One control, every framework it satisfies. References are real and are kept in l
 | SOC 2 (TSC 2017) | CC3.4, CC8.1 | framework-mapped |
 | ISO/IEC 27002:2022 | 8.19, 8.32 | framework-mapped |
 | NIST CSF 2.0 | ID.RA-07 | framework-mapped |
-| SOX ITGC | Change management, segregation of dev and approver | framework-mapped, home lab (never audited) |
 
 ## RACI asks by audience
 

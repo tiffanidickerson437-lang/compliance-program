@@ -14,7 +14,7 @@
 
 ## Why this control
 
-A public, multi-listed company carries SOX IT general controls. Periodic access review is the access pillar of ITGC and the control auditors test first. The same review limits standing access to precise location and minor data, so it serves privacy as well as financial-reporting integrity.
+Periodic access review is foundational access hygiene and one of the first controls an auditor tests. The same review limits standing access to precise location and minor data, so it serves privacy as directly as it serves general security posture.
 
 ## Control statement
 
@@ -83,7 +83,7 @@ Recertification attestation joined to the identity-provider and HRIS snapshot: a
 **Automation and CI mapping**
 
 - Health check: A scheduled job reconciles identity-provider entitlements to HRIS active status and computes: accounts in scope, accounts reviewed in the cadence, revocations reconciled to log events, orphaned accounts, and leaver-to-deprovision latency breaches.
-- Drift Issue: Any account past its cadence, any orphaned account, or any leaver-to- deprovision latency breach opens an Issue tagged IAC-17 naming Security as owner with the SOX ITGC access pillar flagged.
+- Drift Issue: Any account past its cadence, any orphaned account, or any leaver-to- deprovision latency breach opens an Issue tagged IAC-17 naming Security as owner.
 - Workflow: `.github/workflows/control-drift-monitor.yml`
 
 ## Framework crosswalk
@@ -94,7 +94,6 @@ One control, every framework it satisfies. References are real and are kept in l
 |-----------|------------|-------|
 | SOC 2 (TSC 2017) | CC6.2, CC6.3 | framework-mapped |
 | ISO/IEC 27002:2022 | 5.15, 5.18, 8.2 | framework-mapped |
-| SOX ITGC | Access to programs and data | framework-mapped, home lab (never audited) |
 
 ## RACI asks by audience
 

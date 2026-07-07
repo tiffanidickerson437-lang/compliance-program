@@ -12,8 +12,7 @@
 #   tier-2  standards (the measurable bar), owned by the function that enforces it
 #   tier-3  procedures and runbooks (how it is done day to day)
 #
-# Cadence and ownership are seeded by `config.example.yaml`: a non-empty `listings`
-# block makes the SOX ITGC standard mandatory; `ai-products: true` makes the
+# Cadence and ownership are seeded by `config.example.yaml`: `ai-products: true` makes the
 # AI policy set mandatory; `data-types` decides which privacy policies apply.
 # Status is `scaffold` until Phase 1 validates owners and approvers.
 # =============================================================================
@@ -73,7 +72,7 @@ policies:
     frameworks: [soc2, iso27001]
     linked_controls: []
   - id: POL-GOV-003
-    title: Committee Charter (Security Steering and Audit and Risk)
+    title: Committee Charter (Security Steering)
     tier: tier-0
     file: 00-governance/committee-charter.md
     owner: governance
@@ -81,7 +80,7 @@ policies:
     review_cadence: annual
     version: 0.1.0
     status: scaffold
-    frameworks: [soc2, iso27001, sox-itgc]
+    frameworks: [soc2, iso27001]
     linked_controls: []
   - id: POL-GOV-004
     title: Roles and Responsibilities (RACI)
@@ -116,7 +115,7 @@ policies:
     review_cadence: annual
     version: 0.0.0
     status: scaffold
-    frameworks: [soc2, iso27001, sox-itgc]
+    frameworks: [soc2, iso27001]
     linked_controls: [IAC-17]
   - id: POL-ENG-103
     title: Change Management Policy
@@ -127,7 +126,7 @@ policies:
     review_cadence: annual
     version: 0.0.0
     status: scaffold
-    frameworks: [soc2, iso27001, sox-itgc]
+    frameworks: [soc2, iso27001]
     linked_controls: [CHG-02]
   - id: POL-SEC-104
     title: Logging and Monitoring Policy
@@ -138,7 +137,7 @@ policies:
     review_cadence: annual
     version: 0.0.0
     status: scaffold
-    frameworks: [soc2, iso27001, sox-itgc]
+    frameworks: [soc2, iso27001]
     linked_controls: [MON-01]
   - id: POL-SEC-105
     title: Incident Response Policy
@@ -217,7 +216,7 @@ policies:
     review_cadence: annual
     version: 0.0.0
     status: scaffold
-    frameworks: [soc2, iso27001, sox-itgc]
+    frameworks: [soc2, iso27001]
     linked_controls: [IAC-17]
   - id: STD-ENG-202
     title: Branch Protection and Change Standard
@@ -228,7 +227,7 @@ policies:
     review_cadence: annual
     version: 0.0.0
     status: scaffold
-    frameworks: [soc2, sox-itgc]
+    frameworks: [soc2]
     linked_controls: [CHG-02]
   - id: STD-SEC-203
     title: Log Retention and Integrity Standard
@@ -239,7 +238,7 @@ policies:
     review_cadence: annual
     version: 0.0.0
     status: scaffold
-    frameworks: [soc2, iso27001, sox-itgc]
+    frameworks: [soc2, iso27001]
     linked_controls: [MON-01]
   - id: STD-AI-204
     title: AI Agent Identity and Access Standard
@@ -263,7 +262,7 @@ policies:
     review_cadence: semiannual
     version: 0.0.0
     status: scaffold
-    frameworks: [soc2, sox-itgc]
+    frameworks: [soc2]
     linked_controls: [IAC-17]
   - id: PRC-SEC-302
     title: Incident Response Runbook (including AI scope incidents)

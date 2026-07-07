@@ -3,8 +3,8 @@
 
 This is the executable behind the "re-render the scaffold" step. It reads a
 configuration file of the shape of config.example.yaml, filters the owned
-control library to the declared frameworks, data types, AI posture, and
-listings, and writes a tailored selection under generated/.
+control library to the declared frameworks, data types, and AI posture,
+and writes a tailored selection under generated/.
 
 Run:
 
@@ -57,7 +57,6 @@ FRAMEWORK_KEY_BY_SLUG = {
     "ccpa-cpra": "ccpa_cpra",
     "gdpr": "gdpr",
     "eu-ai-act": "eu_ai_act",
-    "sox-itgc": "sox_itgc",
 }
 
 # Data-type triggers turn on mandatory control families regardless of which
@@ -66,9 +65,6 @@ DATA_TYPE_TRIGGERS = {
     "minors": ["PRI-03.13"],
     "precise-location": ["AAT-01"],
 }
-
-# A non-empty listings block brings the SOX ITGC pillars into scope.
-SOX_ITGC_CONTROLS = ["IAC-17", "CHG-02", "MON-01"]
 
 # ai-products turns on the agent governance control and the AI governance pillar.
 AI_PRODUCT_CONTROLS = ["AAT-01"]
@@ -96,8 +92,8 @@ def controls_for_framework(crosswalk: dict, key: str) -> list[str]:
     entry = by_framework.get(key)
     if entry is None:
         return []
-    # The SOX ITGC entry is a mapping with a nested controls list; every other
-    # entry is a list of {control, refs} rows.
+    # Some crosswalk entries may be a mapping with a nested controls list; the
+    # rest are a list of {control, refs} rows.
     if isinstance(entry, dict):
         return [row["control"] for row in entry.get("controls", []) if "control" in row]
     return [row["control"] for row in entry if isinstance(row, dict) and "control" in row]
@@ -151,14 +147,6 @@ def resolve(config: dict, library: dict, crosswalk: dict) -> dict:
             add_reason(control_id, "ai-products: true")
             triggers_fired.append("ai-products -> {}".format(control_id))
 
-    # 4. Listings: a non-empty block brings SOX ITGC into scope.
-    listings = (config.get("company", {}) or {}).get("listings") or []
-    sox_on = bool(listings)
-    if sox_on:
-        for control_id in SOX_ITGC_CONTROLS:
-            add_reason(control_id, "listings: SOX ITGC scope")
-            triggers_fired.append("listings -> {} (SOX ITGC)".format(control_id))
-
     # Build the per-control output, ordered by the library's own order.
     in_scope_controls = []
     for control_id, control in controls_by_id.items():
@@ -194,8 +182,6 @@ def resolve(config: dict, library: dict, crosswalk: dict) -> dict:
         "controls_in_scope_count": len(in_scope_controls),
         "controls_in_scope": [c["id"] for c in in_scope_controls],
         "pillars_enabled": pillars,
-        "sox_itgc_scope": sox_on,
-        "sox_itgc_basis": provenance.get("sox_itgc_basis", "home-lab-framework-mapping"),
         "ai_governance_enabled": ai_on,
         "triggers_fired": triggers_fired,
     }
@@ -213,9 +199,6 @@ def resolve(config: dict, library: dict, crosswalk: dict) -> dict:
                 ),
                 "provenance": {
                     "basis": provenance.get("basis", "illustrative-example"),
-                    "sox_itgc_basis": provenance.get(
-                        "sox_itgc_basis", "home-lab-framework-mapping"
-                    ),
                     "evidence_in_repo": provenance.get("evidence_in_repo", "illustrative"),
                 },
             },
@@ -260,8 +243,6 @@ def print_summary(result: dict, config_path: Path) -> None:
         print("      because: {}".format(reasons))
     print("")
     print("Pillars enabled: {}".format(", ".join(summary["pillars_enabled"])))
-    print("SOX ITGC scope: {} (basis: {})".format(
-        "on" if summary["sox_itgc_scope"] else "off", summary["sox_itgc_basis"]))
     print("AI governance enabled: {}".format("on" if summary["ai_governance_enabled"] else "off"))
     print("")
     print("Triggers fired:")

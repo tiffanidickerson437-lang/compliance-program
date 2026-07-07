@@ -78,11 +78,3 @@ frameworks:
   controls:
   - AAT-01
   note: null
-- slug: sox-itgc
-  name: SOX ITGC
-  profile: profiles/sox-itgc.profile.oscal.json
-  controls:
-  - IAC-17
-  - CHG-02
-  - MON-01
-  note: null

@@ -87,4 +87,3 @@ All converge on one lifecycle: Issue to PR to merge.
 | ISO/IEC 27001:2022 | 10.1, 10.2 | Nonconformity and corrective action. |
 | NIST SP 800-53 | CA-5 | Plan of action and milestones. |
 | NIST CSF 2.0 | ID.IM, GV.OV | Improvement and oversight. |
-| SOX ITGC | Deficiency tracking | Framework-mapped, home lab, never audited. |

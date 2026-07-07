@@ -83,8 +83,7 @@ an exception, reviewed after the fact within the SLA, and closed. The exception 
 not hidden.
 
 ## Framework mappings
-SOC 2 CC3.4, CC8.1; ISO/IEC 27002 8.19, 8.32; NIST CSF ID.RA-07; SOX ITGC change
-management (framework-mapped, home lab, never audited).
+SOC 2 CC3.4, CC8.1; ISO/IEC 27002 8.19, 8.32; NIST CSF ID.RA-07.
 
 ## Approver
 Approved by GRC via merged pull request; merge is the authorization.

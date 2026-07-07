@@ -14,7 +14,7 @@
 
 ## Why this control
 
-Continuous monitoring turns a point-in-time audit into a standing program. It is the operations pillar of SOX IT general controls and the engine of the drift-opens-an-Issue mechanism that makes due diligence visible.
+Continuous monitoring turns a point-in-time audit into a standing program. It is a foundational operations control and the engine of the drift-opens-an-Issue mechanism that makes due diligence visible.
 
 ## Control statement
 
@@ -22,7 +22,7 @@ Enterprise monitoring computes control health continuously. Security events ship
 
 ## Implementation guidance
 
-Forward every in-scope source to a central store, and protect that store with write-once or object-lock integrity so records cannot be silently altered after the fact. The coverage target is the source inventory itself: a source that is in the inventory and not forwarding is a gap that surfaces, not a number quietly left out of the denominator. Each record establishes what happened, when, where, from which source, with what outcome, and under which identity, so an investigator can reconstruct a sequence without guessing. Drive control-health checks off these logs rather than off a separate console. A failed check opens a tracked Issue, and that Issue, timestamped and retained, is the evidence of due diligence: it shows the program noticed and acted. Route defined event types to a monitored queue with an acknowledgement SLA tuned by severity, and treat a missed acknowledgement as an exception rather than a number to round away. Set a retention floor that meets or exceeds the longest obligation in scope, and verify integrity on a cadence so an altered or missing record is itself an alert. This control is the operations leg of the SOX ITGC mapping, and it is the substrate the other controls compute against: AAT-01 broker decisions, IAC-17 revocations, CHG-02 merges, and IRO-01 incident timelines all land in this store.
+Forward every in-scope source to a central store, and protect that store with write-once or object-lock integrity so records cannot be silently altered after the fact. The coverage target is the source inventory itself: a source that is in the inventory and not forwarding is a gap that surfaces, not a number quietly left out of the denominator. Each record establishes what happened, when, where, from which source, with what outcome, and under which identity, so an investigator can reconstruct a sequence without guessing. Drive control-health checks off these logs rather than off a separate console. A failed check opens a tracked Issue, and that Issue, timestamped and retained, is the evidence of due diligence: it shows the program noticed and acted. Route defined event types to a monitored queue with an acknowledgement SLA tuned by severity, and treat a missed acknowledgement as an exception rather than a number to round away. Set a retention floor that meets or exceeds the longest obligation in scope, and verify integrity on a cadence so an altered or missing record is itself an alert. This control is the substrate the other controls compute against: AAT-01 broker decisions, IAC-17 revocations, CHG-02 merges, and IRO-01 incident timelines all land in this store.
 
 ## Parameters
 
@@ -83,7 +83,7 @@ SIEM coverage report: forwarding sources against inventory, retention, integrity
 **Automation and CI mapping**
 
 - Health check: A scheduled job computes: ratio of in-scope sources forwarding, retention days applied, integrity checks failed, ratio of alerts acknowledged within SLA, and drift Issues opened in the period.
-- Drift Issue: Coverage below inventory, any failed integrity check, or acknowledgements outside SLA open an Issue tagged MON-01 naming Security as owner with the SOX ITGC operations pillar flagged.
+- Drift Issue: Coverage below inventory, any failed integrity check, or acknowledgements outside SLA open an Issue tagged MON-01 naming Security as owner.
 - Workflow: `.github/workflows/control-drift-monitor.yml`
 
 ## Framework crosswalk
@@ -95,7 +95,6 @@ One control, every framework it satisfies. References are real and are kept in l
 | SOC 2 (TSC 2017) | CC7.2 | framework-mapped |
 | ISO/IEC 27002:2022 | 8.15, 8.16 | framework-mapped |
 | NIST CSF 2.0 | DE.CM-01, DE.CM-03, DE.CM-09 | framework-mapped |
-| SOX ITGC | Computer operations, monitoring of privileged activity | framework-mapped, home lab (never audited) |
 
 ## RACI asks by audience
 

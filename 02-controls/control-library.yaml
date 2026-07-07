@@ -10,8 +10,7 @@ metadata:
     Single definition per control. SCF is the unifying control spine; the
     machine-readable form is control-library.oscal.json, and a deep per-control
     narrative lives under controls/. Example evidence is illustrative and is not
-    a claim about any real organization's internal posture. SOX ITGC entries are
-    framework mapping only (home lab) and are never represented as audited.
+    a claim about any real organization's internal posture.
   voice: Declarative and principle-led. Functions and roles, no personal names.
   selection: >
     Eleven deliberate controls drawn from 1,468 across 33 SCF domains. The point
@@ -390,10 +389,9 @@ controls:
     review: quarterly; monthly for production and sensitive-data systems
     doc: controls/IAC-17.md
     why: >
-      A public, multi-listed company carries SOX IT general controls. Periodic
-      access review is the access pillar of ITGC and the control auditors test
-      first. The same review limits standing access to precise location and minor
-      data, so it serves privacy as well as financial-reporting integrity.
+      Periodic access review is the access pillar of IT general controls and the
+      control auditors test first. The review limits standing access to precise
+      location and minor data, so it serves privacy and operational integrity.
     statement: >
       Privileges for people and service accounts are reviewed on a fixed cadence
       against role and employment, and unjustified access is removed. Leaver
@@ -493,17 +491,13 @@ controls:
       drift_issue: >
         Any account past its cadence, any orphaned account, or any leaver-to-
         deprovision latency breach opens an Issue tagged IAC-17 naming Security as
-        owner with the SOX ITGC access pillar flagged.
+        owner with the access-control pillar flagged.
       workflow: .github/workflows/control-drift-monitor.yml
     framework_mappings:
       - framework: SOC 2 (TSC 2017)
         references: ["CC6.2", "CC6.3"]
       - framework: ISO/IEC 27002:2022
         references: ["5.15", "5.18", "8.2"]
-      - framework: SOX ITGC
-        references: ["Access to programs and data"]
-        partial_mapping: true
-        basis: framework-mapped, home lab
     test_procedure: >
       For the review period, verify 100 percent of in-scope accounts were
       reviewed; reconcile revocations to log events; confirm zero orphaned
@@ -527,10 +521,6 @@ controls:
         value: Detect
       - name: automation
         value: partial
-      - name: sox-itgc-pillar
-        value: access
-      - name: sox-itgc-basis
-        value: framework-mapped-home-lab
     stakeholder_asks:
       - audience: Security
         raci: A
@@ -561,7 +551,7 @@ controls:
     review: per change; policy and exceptions quarterly
     doc: controls/CHG-02.md
     why: >
-      Change is a pillar of SOX IT general controls. In a source-control-native
+      Change control is a pillar of IT general controls. In a source-control-native
       program, the pull request is the gate and the evidence is a byproduct of
       shipping, so the control is enforced by configuration rather than by
       reminder.
@@ -582,8 +572,9 @@ controls:
       The evidence is the merge record pulled from the source-control API: the
       linked ticket, the independent reviewer, the passing checks, and the merge
       timestamp. This is collected, not reconstructed, and it is the same record
-      that satisfies the SOX change assertion of segregation between the function
-      that develops a change and the function that approves its release. Enforce
+      that satisfies the change-management assertion of segregation between the
+      function that develops a change and the function that approves its release.
+      Enforce
       that independence through code-owner rules so the approver cannot be the
       author.
 
@@ -616,7 +607,7 @@ controls:
         statement: The protected production branch rejects direct pushes so change can reach production only through a reviewed pull request.
       - id: CHG-02(2)
         title: Independent review for segregation of duties
-        statement: At least one approving reviewer is not the author, enforced through code-owner rules, satisfying the SOX change-segregation assertion.
+        statement: At least one approving reviewer is not the author, enforced through code-owner rules, satisfying the change-segregation assertion.
       - id: CHG-02(3)
         title: Work-item linkage per change
         statement: Each merged change links to a tracked work item so the reason for the change is recorded.
@@ -661,7 +652,7 @@ controls:
       drift_issue: >
         Any merge without an independent reviewer or a linked ticket, or any
         exception without a closure path, opens an Issue tagged CHG-02 naming
-        Engineering as owner with the SOX ITGC change pillar flagged.
+        Engineering as owner with the change-management pillar flagged.
       workflow: .github/workflows/control-drift-monitor.yml
     framework_mappings:
       - framework: SOC 2 (TSC 2017)
@@ -670,10 +661,6 @@ controls:
         references: ["8.19", "8.32"]
       - framework: NIST CSF 2.0
         references: ["ID.RA-07"]
-      - framework: SOX ITGC
-        references: ["Change management, segregation of dev and approver"]
-        partial_mapping: true
-        basis: framework-mapped, home lab
     test_procedure: >
       Query the merge API for the production branch for the period; confirm linked
       ticket and independent review; investigate direct pushes and exceptions
@@ -697,10 +684,6 @@ controls:
         value: Protect
       - name: automation
         value: automated
-      - name: sox-itgc-pillar
-        value: change
-      - name: sox-itgc-basis
-        value: framework-mapped-home-lab
     stakeholder_asks:
       - audience: Engineering
         raci: R
@@ -729,7 +712,7 @@ controls:
     doc: controls/MON-01.md
     why: >
       Continuous monitoring turns a point-in-time audit into a standing program.
-      It is the operations pillar of SOX IT general controls and the engine of the
+      It is the operations pillar of IT general controls and the engine of the
       drift-opens-an-Issue mechanism that makes due diligence visible.
     statement: >
       Enterprise monitoring computes control health continuously. Security events
@@ -755,7 +738,7 @@ controls:
 
       Set a retention floor that meets or exceeds the longest obligation in scope,
       and verify integrity on a cadence so an altered or missing record is itself
-      an alert. This control is the operations leg of the SOX ITGC mapping, and it
+      an alert. This control is the operations leg of IT general controls, and it
       is the substrate the other controls compute against: AAT-01 broker decisions,
       IAC-17 revocations, CHG-02 merges, and IRO-01 incident timelines all land in
       this store.
@@ -828,7 +811,7 @@ controls:
       drift_issue: >
         Coverage below inventory, any failed integrity check, or acknowledgements
         outside SLA open an Issue tagged MON-01 naming Security as owner with the
-        SOX ITGC operations pillar flagged.
+        operations-monitoring pillar flagged.
       workflow: .github/workflows/control-drift-monitor.yml
     framework_mappings:
       - framework: SOC 2 (TSC 2017)
@@ -837,10 +820,6 @@ controls:
         references: ["8.15", "8.16"]
       - framework: NIST CSF 2.0
         references: ["DE.CM-01", "DE.CM-03", "DE.CM-09"]
-      - framework: SOX ITGC
-        references: ["Computer operations, monitoring of privileged activity"]
-        partial_mapping: true
-        basis: framework-mapped, home lab
     test_procedure: >
       Verify the source coverage report matches inventory; confirm retention and
       integrity checks; sample alert acknowledgement within SLA.
@@ -863,10 +842,6 @@ controls:
         value: Govern
       - name: automation
         value: automated
-      - name: sox-itgc-pillar
-        value: operations
-      - name: sox-itgc-basis
-        value: framework-mapped-home-lab
     stakeholder_asks:
       - audience: Security
         raci: A

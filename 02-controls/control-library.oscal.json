@@ -7,7 +7,7 @@
       "last-modified": "2026-06-01T04:30:00Z",
       "version": "2.0.0",
       "oscal-version": "1.1.3",
-      "remarks": "Eleven deliberate controls expressed against the Secure Controls Framework (SCF 2025.4) spine and published as an OSCAL catalog. Each control carries assignable parameters, control enhancements (as nested controls), an assessment objective with itemized objectives, and assessment methods (EXAMINE, INTERVIEW, TEST) modeled as method parts. Statements and guidance are kept in lineage with control-library.yaml, the human-readable source of truth. SOX ITGC associations are framework mapping only (home lab) and are not represented as audited. Example evidence elsewhere in the repository is illustrative and is not a claim about any real organization's internal posture.",
+      "remarks": "Eleven deliberate controls expressed against the Secure Controls Framework (SCF 2025.4) spine and published as an OSCAL catalog. Each control carries assignable parameters, control enhancements (as nested controls), an assessment objective with itemized objectives, and assessment methods (EXAMINE, INTERVIEW, TEST) modeled as method parts. Statements and guidance are kept in lineage with control-library.yaml, the human-readable source of truth. Example evidence elsewhere in the repository is illustrative and is not a claim about any real organization's internal posture.",
       "roles": [
         {
           "id": "control-owner",
@@ -702,16 +702,6 @@
             "name": "automation",
             "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
             "value": "partial"
-          },
-          {
-            "name": "sox-itgc-pillar",
-            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
-            "value": "access"
-          },
-          {
-            "name": "sox-itgc-basis",
-            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
-            "value": "framework-mapped-home-lab"
           }
         ],
         "parts": [
@@ -999,16 +989,6 @@
             "name": "automation",
             "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
             "value": "automated"
-          },
-          {
-            "name": "sox-itgc-pillar",
-            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
-            "value": "change"
-          },
-          {
-            "name": "sox-itgc-basis",
-            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
-            "value": "framework-mapped-home-lab"
           }
         ],
         "parts": [
@@ -1020,7 +1000,7 @@
           {
             "id": "chg-02_gdn",
             "name": "guidance",
-            "prose": "Make branch protection the technical enforcement of the policy rather than a written rule people are asked to follow. The protected production branch requires a pull request, at least one approving review from a reviewer who is not the author, a linked work item, and a passing set of required status checks. Direct pushes are blocked at the platform, so the bypass path does not exist rather than being discouraged.\nThe evidence is the merge record pulled from the source-control API: the linked ticket, the independent reviewer, the passing checks, and the merge timestamp. This is collected, not reconstructed, and it is the same record that satisfies the SOX change assertion of segregation between the function that develops a change and the function that approves its release. Enforce that independence through code-owner rules so the approver cannot be the author.\nProvide an explicit emergency-change path for the rare case where a fix must ship before normal review. The emergency change is logged at the time, and it carries a documented after-the-fact review within the reconciliation window. Any change that reaches production outside the reviewed path is an exception that surfaces in the evidence with a closure path, so the exception rate is visible rather than hidden."
+            "prose": "Make branch protection the technical enforcement of the policy rather than a written rule people are asked to follow. The protected production branch requires a pull request, at least one approving review from a reviewer who is not the author, a linked work item, and a passing set of required status checks. Direct pushes are blocked at the platform, so the bypass path does not exist rather than being discouraged.\nThe evidence is the merge record pulled from the source-control API: the linked ticket, the independent reviewer, the passing checks, and the merge timestamp. This is collected, not reconstructed, and it is the same record that satisfies the change-management assertion of segregation between the function that develops a change and the function that approves its release. Enforce that independence through code-owner rules so the approver cannot be the author.\nProvide an explicit emergency-change path for the rare case where a fix must ship before normal review. The emergency change is logged at the time, and it carries a documented after-the-fact review within the reconciliation window. Any change that reaches production outside the reviewed path is an exception that surfaces in the evidence with a closure path, so the exception rate is visible rather than hidden."
           },
           {
             "id": "chg-02_obj",
@@ -1166,7 +1146,7 @@
               {
                 "id": "chg-02.2_smt",
                 "name": "statement",
-                "prose": "At least one approving reviewer is not the author, enforced through code-owner rules, satisfying the SOX change-segregation assertion."
+                "prose": "At least one approving reviewer is not the author, enforced through code-owner rules, satisfying the change-segregation assertion."
               }
             ]
           },
@@ -1284,16 +1264,6 @@
             "name": "automation",
             "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
             "value": "automated"
-          },
-          {
-            "name": "sox-itgc-pillar",
-            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
-            "value": "operations"
-          },
-          {
-            "name": "sox-itgc-basis",
-            "ns": "https://github.com/tiffanidickerson437-lang/compliance-program/ns/oscal",
-            "value": "framework-mapped-home-lab"
           }
         ],
         "parts": [
@@ -1305,7 +1275,7 @@
           {
             "id": "mon-01_gdn",
             "name": "guidance",
-            "prose": "Forward every in-scope source to a central store, and protect that store with write-once or object-lock integrity so records cannot be silently altered after the fact. The coverage target is the source inventory itself: a source that is in the inventory and not forwarding is a gap that surfaces, not a number quietly left out of the denominator. Each record establishes what happened, when, where, from which source, with what outcome, and under which identity, so an investigator can reconstruct a sequence without guessing.\nDrive control-health checks off these logs rather than off a separate console. A failed check opens a tracked Issue, and that Issue, timestamped and retained, is the evidence of due diligence: it shows the program noticed and acted. Route defined event types to a monitored queue with an acknowledgement SLA tuned by severity, and treat a missed acknowledgement as an exception rather than a number to round away.\nSet a retention floor that meets or exceeds the longest obligation in scope, and verify integrity on a cadence so an altered or missing record is itself an alert. This control is the operations leg of the SOX ITGC mapping, and it is the substrate the other controls compute against: AAT-01 broker decisions, IAC-17 revocations, CHG-02 merges, and IRO-01 incident timelines all land in this store."
+            "prose": "Forward every in-scope source to a central store, and protect that store with write-once or object-lock integrity so records cannot be silently altered after the fact. The coverage target is the source inventory itself: a source that is in the inventory and not forwarding is a gap that surfaces, not a number quietly left out of the denominator. Each record establishes what happened, when, where, from which source, with what outcome, and under which identity, so an investigator can reconstruct a sequence without guessing.\nDrive control-health checks off these logs rather than off a separate console. A failed check opens a tracked Issue, and that Issue, timestamped and retained, is the evidence of due diligence: it shows the program noticed and acted. Route defined event types to a monitored queue with an acknowledgement SLA tuned by severity, and treat a missed acknowledgement as an exception rather than a number to round away.\nSet a retention floor that meets or exceeds the longest obligation in scope, and verify integrity on a cadence so an altered or missing record is itself an alert. This control is the operations leg of IT general controls, and it is the substrate the other controls compute against: AAT-01 broker decisions, IAC-17 revocations, CHG-02 merges, and IRO-01 incident timelines all land in this store."
           },
           {
             "id": "mon-01_obj",

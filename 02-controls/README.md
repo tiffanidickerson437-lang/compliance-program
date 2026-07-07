@@ -70,8 +70,8 @@ The cost of the next framework is the cost of a crosswalk and a profile, measure
 | `control-library.yaml` | Single definition of all 11 controls: id, SCF domain, class, title, statement, multi-paragraph implementation guidance, parameters, enhancements, assessment objectives, assessment methods (EXAMINE / INTERVIEW / TEST), owner by function, automation, review cadence, framework mappings, evidence schema, CI mapping, example evidence, props, and RACI asks. |
 | `control-library.oscal.json` | The same 11 controls as an OSCAL 1.1.3 catalog: metadata, controls with lowercased ids, class `SCF`, params, props, parts for statement and guidance, an assessment-objective part with itemized objectives, assessment-method parts (EXAMINE / INTERVIEW / TEST), and enhancements as nested controls. |
 | `controls/` | One deep, human-readable narrative per control (`AAT-01.md` through `SAT-02.md`). |
-| `framework-crosswalk.yaml` | Real references for every framework each control satisfies, queryable by control and by framework. SOX ITGC lines are marked framework-mapped, home lab. |
-| `profiles/*.profile.oscal.json` | One OSCAL profile per framework (soc2, iso27001, iso42001, nist-ai-rmf, nist-csf, coppa, ccpa-cpra, eu-ai-act, sox-itgc, gdpr). Each imports the catalog and selects control IDs. |
+| `framework-crosswalk.yaml` | Real references for every framework each control satisfies, queryable by control and by framework. |
+| `profiles/*.profile.oscal.json` | One OSCAL profile per framework (soc2, iso27001, iso42001, nist-ai-rmf, nist-csf, coppa, ccpa-cpra, eu-ai-act, gdpr). Each imports the catalog and selects control IDs. |
 | `evidence-schemas/*.yaml` | One audit-ready, field-level evidence record shape per control. Each field names its source system, type, and how it is computed; the schema defines what makes a record audit-ready and what gets rejected. |
 
 ## The deliberate eleven
@@ -80,9 +80,9 @@ The cost of the next framework is the cost of a crosswalk and a profile, measure
 |----|--------|---------|----------------|
 | AAT-01 | AAT | AI and autonomous technologies governance | The hero control. Governs agents acting on a real-time location graph of tens of millions, including children. |
 | PRI-03.13 | PRI | Parent or guardian opt-in consent for minors | Verifiable parental consent before processing; the amended COPPA Rule applies. |
-| IAC-17 | IAC | Periodic review of account privileges | The access pillar of SOX ITGC, and the control auditors test first. |
-| CHG-02 | CHG | Configuration change control | The change pillar of SOX ITGC. The pull request is the gate; evidence is a byproduct of shipping. |
-| MON-01 | MON | Continuous monitoring and event logging | The operations pillar of SOX ITGC, and the drift-opens-an-issue mechanism. |
+| IAC-17 | IAC | Periodic review of account privileges | The access pillar of IT general controls, and the control auditors test first. |
+| CHG-02 | CHG | Configuration change control | The change pillar of IT general controls. The pull request is the gate; evidence is a byproduct of shipping. |
+| MON-01 | MON | Continuous monitoring and event logging | The operations pillar of IT general controls, and the drift-opens-an-issue mechanism. |
 | TPM-01 | TPM | Third-party management | Diligence depth matched to what a vendor or model provider can touch on the location graph. |
 | IRO-01 | IRO | Incident response operations | Where regulatory clocks get real, including AI scope breaches. |
 | CRY-01 | CRY | Use of cryptographic controls | Makes the at-rest and in-transit encryption claim a tested, evidenced state and governs the keys. |
@@ -93,6 +93,5 @@ The cost of the next framework is the cost of a crosswalk and a profile, measure
 ## Hard rules honored here
 
 - Controls name functions and roles, never individuals.
-- SOX ITGC associations are framework mapping only (home lab) and are never represented as audited. Look for the `framework-mapped, home lab` markers in the crosswalk and the `sox-itgc-basis` props in the catalog.
 - Example evidence is illustrative and is not a claim about any real organization's internal posture.
 - Evidence is computed from systems of record, never authored by a model. Every evidence schema requires `ai_generated: false` and rejects model-authored records.

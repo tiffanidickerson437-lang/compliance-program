@@ -104,4 +104,3 @@ A gate can be bypassed only through a tracked exception with an owner (function)
 | ISO/IEC 27002:2022 | 8.25, 8.28, 8.29, 8.31 | Secure development lifecycle and testing. |
 | NIST SSDF (SP 800-218) | PW.1, PW.7, PW.8, RV.1 | Secure software development practices. |
 | NIST CSF 2.0 | ID.RA-07, PR.PS | Change and platform security. |
-| SOX ITGC | Change management | Framework-mapped, home lab, never audited. |

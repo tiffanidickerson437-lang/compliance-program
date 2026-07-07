@@ -55,7 +55,6 @@ FRAMEWORKS = {
     "pci_dss":     {"name": "PCI DSS",     "full": "PCI DSS v4.0",               "kind": "financial"},
     "csa_star":    {"name": "CSA STAR",    "full": "CSA STAR",                   "kind": "cloud"},
     "tx_ramp":     {"name": "TX-RAMP",     "full": "TX-RAMP",                    "kind": "gov"},
-    "sox_itgc":    {"name": "SOX ITGC",    "full": "SOX ITGC",                   "kind": "financial"},
 }
 
 # Normalize a config/library framework token to a registry fw_id.
@@ -80,7 +79,6 @@ def fw_id(token: str) -> str:
         "pci-dss": "pci_dss", "pci": "pci_dss",
         "csa-star": "csa_star",
         "tx-ramp": "tx_ramp",
-        "sox-itgc": "sox_itgc", "sox": "sox_itgc",
     }
     if t in table:
         return table[t]
@@ -89,7 +87,7 @@ def fw_id(token: str) -> str:
         ("ai rmf", "nist_ai_rmf"), ("42001", "iso42001"), ("27002", "iso27001"), ("27001", "iso27001"),
         ("soc 2", "soc2"), ("soc2", "soc2"), ("eu ai act", "eu_ai_act"),
         ("coppa", "coppa"), ("ccpa", "ccpa_cpra"), ("cpra", "ccpa_cpra"),
-        ("csf", "nist_csf"), ("800-53", "nist_800_53"), ("sox", "sox_itgc"),
+        ("csf", "nist_csf"), ("800-53", "nist_800_53"),
         ("gdpr", "gdpr"), ("27017", "iso27017"), ("27018", "iso27018"),
         ("27701", "iso27701"), ("pci", "pci_dss"),
     ):
@@ -106,7 +104,7 @@ PILLARS = [
                ["policy-hierarchy.yaml", "Every policy, its owner, cadence, version."],
                ["roles-and-responsibilities.md", "RACI by function and by activity."],
                ["risk-appetite-statement.md", "Appetite by category — owned by the business."],
-               ["committee-charter.md", "Security Steering & Audit and Risk cadence."]]},
+               ["committee-charter.md", "Security Steering Committee cadence."]]},
     {"id": "01", "dir": "01-risk-management", "name": "Risk management",
      "what": "Risk quantified in dollars, owned by the business.",
      "reads": "C-Suite · Board · GRC",
@@ -300,7 +298,7 @@ WHY_BY_FAMILY = {
     "ai": "{name} operates an agentic layer over its {surface}. Autonomous systems that hold privileged access need a control for identity, least privilege, decision logging, and a human gate on high-impact actions — the hero control.",
     "access": "Periodic access review is the access pillar of {pillar}, the control auditors test first. It limits standing access to {sensitive}.",
     "change": "Change control is a pillar of {pillar}. In a source-control-native program the pull request is the gate, and the evidence is a byproduct of shipping rather than reconstructed for an audit.",
-    "monitor": "Continuous monitoring turns a point-in-time audit into a standing program{sox_clause}. It is the engine of the drift-opens-an-Issue loop that makes due diligence visible.",
+    "monitor": "Continuous monitoring turns a point-in-time audit into a standing program. It is the engine of the drift-opens-an-Issue loop that makes due diligence visible.",
     "third": "Sensitive data flows to subprocessors and model providers. Diligence depth must match what a party can touch across {surface}, and trust evidence a vendor already produced should be reused, not re-collected.",
     "incident": "When an agent exceeds its scope or a breach clock starts, the response has to be rehearsed and the timeline defensible — including incidents that involve autonomous-agent scope on {sensitive}.",
     "privacy": "Regulated personal data is processed only on a lawful basis, with the data subject's rights honored end to end across {surface}.",
@@ -336,14 +334,13 @@ _SUBS = [
 ]
 
 
-def why_for(control: dict, has_sox: bool, surface: str, sensitive: str, name: str) -> str:
-    pillar = "SOX ITGC" if has_sox else "identity and operations governance"
-    sox_clause = " and the operations pillar of SOX ITGC" if has_sox else ""
+def why_for(control: dict, surface: str, sensitive: str, name: str) -> str:
+    pillar = "identity and operations governance"
     key = _fam_key(control.get("family", ""))
     tmpl = WHY_BY_FAMILY.get(key) if key else None
     if not tmpl:
         return f"{control.get('title','')} — defined once and rendered into every in-scope framework's view."
-    return tmpl.format(name=name, surface=surface, sensitive=sensitive, pillar=pillar, sox_clause=sox_clause)
+    return tmpl.format(name=name, surface=surface, sensitive=sensitive, pillar=pillar)
 
 
 def substitute_archetype(text: str, surface: str, sensitive: str) -> str:
@@ -356,7 +353,6 @@ def substitute_archetype(text: str, surface: str, sensitive: str) -> str:
 def build_controls(cfg: dict, in_scope: list[str]) -> list[dict]:
     lib = load_yaml(ENGINE_ROOT / "02-controls" / "control-library.yaml")
     data_types = set(cfg.get("data-types", []) or [])
-    has_sox = bool(cfg.get("company", {}).get("listings")) and "sox_itgc" in in_scope
     emphasis = cfg.get("emphasis", {}) or {}
     hero_control = emphasis.get("hero_control")
     in_scope_set = set(in_scope)
@@ -389,7 +385,6 @@ def build_controls(cfg: dict, in_scope: list[str]) -> list[dict]:
                 f"(evidence is computed, never AI-authored)."
             )
         rows = [[k, str(v)] for k, v in ev.items() if k not in ENVELOPE and not isinstance(v, (dict, list))]
-        ctrl_sox = has_sox and any(cw["fw"] == "sox_itgc" for cw in crosswalk)
         out.append({
             "id": cid,
             "family": c.get("family", ""),
@@ -397,9 +392,8 @@ def build_controls(cfg: dict, in_scope: list[str]) -> list[dict]:
             "owner": c.get("owner", ""),
             "automation": c.get("automation", "partial"),
             "hero": (cid == hero_control) or (cid == "AAT-01"),
-            "sox": ctrl_sox,
             "why": (" ".join((c.get("why", "") or "").split()) if archetype
-                    else why_for(c, ctrl_sox, surface, sensitive, name)),
+                    else why_for(c, surface, sensitive, name)),
             "statement": (" ".join((c.get("statement", "") or "").split()) if archetype
                           else substitute_archetype(" ".join((c.get("statement", "") or "").split()), surface, sensitive)),
             "crosswalk": crosswalk,
@@ -433,11 +427,6 @@ def build_guardrails(cfg: dict) -> list[str]:
         "AI drafts narratives and remediations; a human approves before anything becomes record. Evidence is computed from systems of record, never authored by a model.",
         "Functions and roles are named — never individuals. Accountability attaches to a function.",
     ]
-    basis = cfg.get("provenance", {}).get("sox_itgc_basis", "")
-    if cfg.get("company", {}).get("listings"):
-        g.append("SOX ITGC is in scope as a public company; this program scopes access, change, and operations ITGC with Internal Audit and the external auditor.")
-    elif basis == "not-applicable":
-        g.append("SOX ITGC is out of scope (privately held); financial-reporting ITGC is not asserted.")
     return g
 
 
@@ -499,7 +488,6 @@ def main(argv: list[str]) -> int:
             "name": "Tiffani Dickerson",
             "role": "GRC — governance, risk & compliance",
             "email": "tiffanidickerson437@gmail.com",
-            "linkedin": "https://www.linkedin.com/in/tiffanidickerson",
             "repoUrl": f"https://github.com/{REPO_SLUG}",
         },
         "meta": {"slug": args.slug, "generated_by": "onboard_company.py", "ai_generated": False},
@@ -513,7 +501,6 @@ def main(argv: list[str]) -> int:
         print(f"slug={args.slug}  frameworks={len(in_scope)}  controls={len(controls)}")
         print("frameworks:", ", ".join(in_scope))
         print("controls:  ", ", ".join(c["id"] for c in controls))
-        print("sox controls:", ", ".join(c["id"] for c in controls if c["sox"]) or "(none)")
         print(f"wrote {out_path}")
     else:
         print(f"wrote {out_path}")
