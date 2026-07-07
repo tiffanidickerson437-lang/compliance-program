@@ -1,0 +1,25 @@
+{
+  "mcpServers": {
+    "jira-evidence": {
+      "type": "http",
+      "url": "https://mcp.atlassian.com/v1/sse",
+      "headers": {
+        "Authorization": "Bearer ${JIRA_MCP_OAUTH_TOKEN}"
+      }
+    },
+    "aws-evidence": {
+      "type": "http",
+      "url": "${AWS_MCP_GATEWAY_URL}",
+      "headers": {
+        "Authorization": "Bearer ${AWS_MCP_OAUTH_TOKEN}"
+      }
+    },
+    "github-evidence": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer ${GITHUB_MCP_OAUTH_TOKEN}"
+      }
+    }
+  }
+}
