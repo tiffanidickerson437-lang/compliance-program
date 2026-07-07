@@ -2,18 +2,26 @@
 """Scaffold engine: resolve the program from one configuration file.
 
 This is the executable behind the "re-render the scaffold" step. It reads a
-configuration file of the shape of config.example.yaml, filters the owned
-control library to the declared frameworks, data types, and AI posture,
+configuration file of the shape of config.example.yaml, filters the Living
+Control Set to the declared frameworks, data types, and AI posture,
 and writes a tailored selection under generated/.
 
 Run:
 
     python3 tools/scaffold.py config.example.yaml
 
-The control library (02-controls/control-library.yaml) is the single source of
-truth. This engine selects a view over it and never redefines a control. Adding
-a framework is a crosswalk mapping, never a new control, so the output is a
-resolution and not a parallel control set.
+The Living Control Set (02-controls/control-library.yaml) is the single source
+of truth. This engine selects a view over it and never redefines a control.
+Adding a framework is a crosswalk mapping, never a new control, so the output
+is a resolution and not a parallel control set.
+
+The engine also imports the full pinned SCF OSCAL catalog (the path named by
+the library's metadata.scf_catalog, currently 02-controls/scf/
+SCF-OSCAL-Catalog-2026.1.json). The SCF catalog is used unmodified and
+referenced by ID only: every control in the Living Control Set that claims an
+scf_id must resolve against it, and the run fails loudly on any claimed SCF ID
+that does not resolve. Controls with scf_id null (authored, class Owned) make
+no SCF claim and are not checked.
 
 Output (written to generated/):
   - in-scope-controls.yaml : the tailored control selection with the reason each
@@ -27,6 +35,7 @@ configuration or the control library changes.
 
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
 
@@ -75,6 +84,54 @@ def load_yaml(path: Path) -> dict:
         return yaml.safe_load(handle) or {}
 
 
+def load_scf_index(library: dict) -> tuple[str, set[str]]:
+    """Import the pinned SCF OSCAL catalog and index every control ID in it.
+
+    The catalog is the file named by the library's metadata.scf_catalog,
+    relative to 02-controls/. It is read-only reference data: this function
+    never modifies it and returns only the set of control IDs it defines
+    (including enhancements), so the Living Control Set can be checked
+    against the full SCF catalog by ID.
+    """
+    rel = (library.get("metadata", {}) or {}).get("scf_catalog")
+    if not rel:
+        raise SystemExit("control library metadata.scf_catalog is not set")
+    path = REPO_ROOT / "02-controls" / rel
+    if not path.exists():
+        raise SystemExit("pinned SCF OSCAL catalog not found: {}".format(path))
+    with path.open() as handle:
+        catalog = json.load(handle).get("catalog", {})
+
+    ids: set[str] = set()
+
+    def walk(node: dict) -> None:
+        for control in node.get("controls", []) or []:
+            ids.add(control.get("id", ""))
+            walk(control)
+        for group in node.get("groups", []) or []:
+            walk(group)
+
+    walk(catalog)
+    ids.discard("")
+    return rel, ids
+
+
+def check_scf_claims(library: dict, scf_ids: set[str]) -> None:
+    """Fail loudly if any control claims an scf_id that the catalog lacks."""
+    bad = [
+        (c.get("id"), c.get("scf_id"))
+        for c in library.get("controls", []) or []
+        if c.get("scf_id") and c["scf_id"] not in scf_ids
+    ]
+    if bad:
+        for control_id, scf_id in bad:
+            sys.stderr.write(
+                "control {} claims scf_id {} which does not resolve in the "
+                "pinned SCF catalog\n".format(control_id, scf_id)
+            )
+        raise SystemExit(1)
+
+
 def configured_frameworks(config: dict) -> list[str]:
     """Flatten the frameworks block (primary, emerging, financial) to slugs."""
     block = config.get("frameworks", {}) or {}
@@ -99,7 +156,7 @@ def controls_for_framework(crosswalk: dict, key: str) -> list[str]:
     return [row["control"] for row in entry if isinstance(row, dict) and "control" in row]
 
 
-def resolve(config: dict, library: dict, crosswalk: dict) -> dict:
+def resolve(config: dict, library: dict, crosswalk: dict, scf_catalog: str, scf_ids: set[str]) -> dict:
     controls_by_id = {c["id"]: c for c in library.get("controls", [])}
 
     # selection maps a control ID to the ordered, de-duplicated reasons it is in
@@ -153,6 +210,7 @@ def resolve(config: dict, library: dict, crosswalk: dict) -> dict:
         if control_id not in selection:
             continue
         mappings = control.get("framework_mappings", []) or []
+        scf_id = control.get("scf_id")
         in_scope_controls.append(
             {
                 "id": control_id,
@@ -160,6 +218,9 @@ def resolve(config: dict, library: dict, crosswalk: dict) -> dict:
                 "family": control.get("family", ""),
                 "owner": control.get("owner", ""),
                 "automation": control.get("automation", ""),
+                "requirement_level": control.get("requirement_level", ""),
+                "scf_id": scf_id,
+                "scf_resolves": bool(scf_id and scf_id in scf_ids),
                 "selected_because": selection[control_id],
                 "frameworks_satisfied": [m.get("framework") for m in mappings],
             }
@@ -191,6 +252,9 @@ def resolve(config: dict, library: dict, crosswalk: dict) -> dict:
             "metadata": {
                 "generated_by": "tools/scaffold.py",
                 "source_control_library": "02-controls/control-library.yaml",
+                "scf_version": (library.get("metadata", {}) or {}).get("scf_version", ""),
+                "scf_catalog": "02-controls/" + scf_catalog,
+                "scf_catalog_controls_indexed": len(scf_ids),
                 "note": (
                     "Tailored view resolved from the configuration. The control "
                     "library is the single source of truth; this file selects a "
@@ -265,7 +329,10 @@ def main(argv: list[str]) -> int:
     library = load_yaml(CONTROL_LIBRARY)
     crosswalk = load_yaml(CROSSWALK)
 
-    result = resolve(config, library, crosswalk)
+    scf_catalog, scf_ids = load_scf_index(library)
+    check_scf_claims(library, scf_ids)
+
+    result = resolve(config, library, crosswalk, scf_catalog, scf_ids)
 
     OUTPUT_DIR.mkdir(exist_ok=True)
     with (OUTPUT_DIR / "in-scope-controls.yaml").open("w") as handle:

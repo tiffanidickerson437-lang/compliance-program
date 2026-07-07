@@ -1,13 +1,13 @@
 {
   "profile": {
-    "uuid": "627baedb-e665-43a0-b98d-a742b671c88c",
+    "uuid": "df18e542-8f65-44cf-82c7-69c60ad03b2d",
     "metadata": {
       "title": "ISO/IEC 27001:2022 Profile",
       "published": "2026-06-01T04:30:00Z",
-      "last-modified": "2026-06-01T04:30:00Z",
-      "version": "1.0.0",
+      "last-modified": "2026-07-07T02:41:27Z",
+      "version": "2.0.0",
       "oscal-version": "1.1.3",
-      "remarks": "Resolves the owned control library into the ISO/IEC 27001:2022 view, with Annex A controls expressed per ISO/IEC 27002:2022. Adding this framework was a mapping, not a rebuild: the control objects are the same ones SOC 2 resolves."
+      "remarks": "Resolves the Living Control Set into the ISO/IEC 27001:2022 view, with Annex A controls expressed per ISO/IEC 27002:2022. Adding this framework was a mapping, not a rebuild: the control objects are the same ones SOC 2 resolves. Expanded to the Living Control Set: selection now includes the authored controls absorbed from the retired owned control library."
     },
     "imports": [
       {
@@ -15,6 +15,7 @@
         "include-controls": [
           {
             "with-ids": [
+              "aat-01",
               "iac-17",
               "chg-02",
               "mon-01",
@@ -23,7 +24,40 @@
               "cry-01",
               "vpm-01",
               "dch-01",
-              "sat-02"
+              "sat-02",
+              "gov-01",
+              "gov-02",
+              "gov-03",
+              "gov-04",
+              "rsk-01",
+              "rsk-02",
+              "ast-01",
+              "ast-02",
+              "ast-03",
+              "iam-01",
+              "iam-03",
+              "iam-04",
+              "iam-05",
+              "chg-02-baseline",
+              "cry-02",
+              "dch-02",
+              "pri-01",
+              "mon-02",
+              "net-01",
+              "net-02",
+              "sdlc-01",
+              "sdlc-02",
+              "sdlc-03",
+              "vpm-02",
+              "end-01",
+              "end-02",
+              "iro-02",
+              "bcd-01",
+              "bcd-02",
+              "tpm-02",
+              "hrs-01",
+              "pes-01",
+              "aat-02"
             ]
           }
         ]

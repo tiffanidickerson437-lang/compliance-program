@@ -1,0 +1,44 @@
+# FAIR Simulation Test
+#
+# Machine-checks the FAIR Monte Carlo simulator's done-condition on every PR
+# that touches it: `python3 tools/fair_montecarlo.py` (no args) must print a
+# loss-exceedance curve and p50/p90/p95 ALE percentiles for every risk in the
+# register and for the portfolio, and emit the generated report.
+
+name: FAIR Simulation Test
+
+on:
+  push:
+    paths:
+      - "tools/fair_montecarlo.py"
+      - "tests/test_fair_montecarlo.py"
+      - "01-risk-management/risk-register.yaml"
+      - ".github/workflows/fair-simulation.yml"
+  pull_request:
+    paths:
+      - "tools/fair_montecarlo.py"
+      - "tests/test_fair_montecarlo.py"
+      - "01-risk-management/risk-register.yaml"
+      - ".github/workflows/fair-simulation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fair-simulation-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout program repo
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: python3 -m pip install PyYAML numpy scipy
+
+      - name: FAIR Monte Carlo done-condition test
+        run: python3 tests/test_fair_montecarlo.py

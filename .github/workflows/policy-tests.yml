@@ -13,16 +13,36 @@ on:
     paths:
       - "policy/**"
       - "tools/policy_eval.py"
+      - ".claude/hooks/**"
+      - "tests/test_claude_workspace.py"
   pull_request:
     paths:
       - "policy/**"
       - "tools/policy_eval.py"
+      - ".claude/hooks/**"
+      - "tests/test_claude_workspace.py"
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
+  # The .claude/ workspace guardrail hooks are policy at the harness layer:
+  # the same PR-only / no-direct-push / evidence-is-never-AI-authored rules,
+  # enforced before a tool call runs. This job proves the hooks block and
+  # allow correctly (jq is preinstalled on ubuntu-latest).
+  guardrail-hooks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout program repo
+        uses: actions/checkout@v7
+
+      - name: Guardrail hook tests (block push-to-main, block AI-authored evidence)
+        run: python3 tests/test_claude_workspace.py
+
+      - name: settings.json is valid JSON
+        run: python3 -m json.tool .claude/settings.json > /dev/null
+
   policy-tests:
     runs-on: ubuntu-latest
     steps:

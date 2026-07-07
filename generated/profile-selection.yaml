@@ -9,6 +9,7 @@ frameworks:
   profile: profiles/soc2.profile.oscal.json
   controls:
   - AAT-01
+  - PRI-03.13
   - IAC-17
   - CHG-02
   - MON-01
@@ -18,11 +19,46 @@ frameworks:
   - VPM-01
   - DCH-01
   - SAT-02
+  - GOV-01
+  - GOV-02
+  - GOV-03
+  - GOV-04
+  - RSK-01
+  - RSK-02
+  - AST-01
+  - AST-02
+  - AST-03
+  - IAM-01
+  - IAM-03
+  - IAM-04
+  - IAM-05
+  - CHG-02-BASELINE
+  - CRY-02
+  - DCH-02
+  - PRI-01
+  - PRI-02
+  - MON-02
+  - NET-01
+  - NET-02
+  - SDLC-01
+  - SDLC-02
+  - SDLC-03
+  - VPM-02
+  - END-01
+  - END-02
+  - IRO-02
+  - BCD-01
+  - BCD-02
+  - TPM-02
+  - HRS-01
+  - PES-01
+  - AAT-02
   note: null
 - slug: iso27001
   name: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)
   profile: profiles/iso27001.profile.oscal.json
   controls:
+  - AAT-01
   - IAC-17
   - CHG-02
   - MON-01
@@ -32,16 +68,55 @@ frameworks:
   - VPM-01
   - DCH-01
   - SAT-02
+  - GOV-01
+  - GOV-02
+  - GOV-03
+  - GOV-04
+  - RSK-01
+  - RSK-02
+  - AST-01
+  - AST-02
+  - AST-03
+  - IAM-01
+  - IAM-03
+  - IAM-04
+  - IAM-05
+  - CHG-02-BASELINE
+  - CRY-02
+  - DCH-02
+  - PRI-01
+  - MON-02
+  - NET-01
+  - NET-02
+  - SDLC-01
+  - SDLC-02
+  - SDLC-03
+  - VPM-02
+  - END-01
+  - END-02
+  - IRO-02
+  - BCD-01
+  - BCD-02
+  - TPM-02
+  - HRS-01
+  - PES-01
+  - AAT-02
   note: null
 - slug: gdpr
   name: EU GDPR
   profile: profiles/gdpr.profile.oscal.json
   controls:
-  - CRY-01
-  - DCH-01
   - PRI-03.13
   - TPM-01
   - IRO-01
+  - CRY-01
+  - DCH-01
+  - RSK-01
+  - DCH-02
+  - PRI-01
+  - PRI-02
+  - IRO-02
+  - TPM-02
   note: null
 - slug: ccpa
   name: CCPA / CPRA (2026)

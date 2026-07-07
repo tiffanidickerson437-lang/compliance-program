@@ -1,13 +1,13 @@
 {
   "profile": {
-    "uuid": "55333836-f253-4319-b646-0e143ae0792a",
+    "uuid": "0f17302b-5676-4131-bc54-5a0b32ca2584",
     "metadata": {
       "title": "CCPA / CPRA (2026) Profile",
       "published": "2026-06-01T04:30:00Z",
-      "last-modified": "2026-06-01T04:30:00Z",
+      "last-modified": "2026-07-07T02:41:27Z",
       "version": "1.0.0",
       "oscal-version": "1.1.3",
-      "remarks": "Resolves the owned control library into the CCPA / CPRA view. PRI-03.13 covers minor opt-in (§7070(a)); TPM-01 covers service-provider and contractor terms (§7052(a)); IRO-01 covers breach handling obligations (§7123(c)(17))."
+      "remarks": "Resolves the Living Control Set into the CCPA / CPRA view. PRI-03.13 covers minor opt-in (\u00a77070(a)); TPM-01 covers service-provider and contractor terms (\u00a77052(a)); IRO-01 covers breach handling obligations (\u00a77123(c)(17))."
     },
     "imports": [
       {

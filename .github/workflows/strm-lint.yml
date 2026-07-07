@@ -16,7 +16,6 @@ on:
       - "mappings/**"
       - "frameworks/**"
       - "02-controls/control-library.yaml"
-      - "02-controls/owned-controls.yaml"
       - "tools/strm_lint.py"
       - "tools/strm_coverage.py"
       - "tools/draft_framework_mapping.py"

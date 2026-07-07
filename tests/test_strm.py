@@ -189,7 +189,7 @@ for forbidden in ("ai_draft_match", "matched_on", "keyword", "confidence"):
           forbidden not in mapper_src.lower())
 check("catalog default is 02-controls/control-library.yaml",
       "control-library.yaml" in mapper_src
-      and "owned-controls.yaml" not in mapper_src)
+      and ("owned-" + "controls.yaml") not in mapper_src)
 
 with tempfile.TemporaryDirectory(prefix="strm_tpl_") as td:
     tpl_out = os.path.join(td, "tpl.yaml")
@@ -213,16 +213,11 @@ with tempfile.TemporaryDirectory(prefix="strm_tpl_") as td:
     check("mapper --validate accepts the migrated repo mapping",
           v.returncode == 0, (v.stdout + v.stderr)[-400:])
 
-# ---------------------------------------------------------------- 6. directionality not inverted
-print("[6] no inverted subset-of direction remains")
-owned = open(os.path.join(REPO, "02-controls", "owned-controls.yaml"),
-             encoding="utf-8").read()
-check("owned-controls.yaml: lean-control->NIST-family flipped to superset-of",
-      "rel: subset-of" not in owned)
-oscal = open(os.path.join(REPO, "02-controls", "owned-controls.oscal.json"),
-             encoding="utf-8").read()
-check("owned-controls.oscal.json: remarks flipped to superset-of",
-      '"remarks": "subset-of"' not in oscal)
+# ---------------------------------------------------------------- 6. migrated mapping is clean STRM
+# The legacy owned-control exports (where inverted subset-of rows lived) were
+# absorbed into the Living Control Set upstream; directionality is now enforced
+# by strm_lint on live mapping files, so only the migrated mapping is checked.
+print("[6] migrated mapping is clean STRM")
 migrated = yaml.safe_load(open(os.path.join(
     REPO, "mappings", "iso42001.draft.yaml"), encoding="utf-8"))
 check("iso42001 mapping migrated to strm_mapping/strm_parameters",

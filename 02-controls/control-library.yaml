@@ -1,7 +1,15 @@
 metadata:
-  title: Control Library
-  version: "2.0.0"
-  scf_version: "SCF 2025.4"
+  title: Living Control Set
+  version: "3.0.0"
+  scf_version: "SCF 2026.1"
+  scf_catalog: scf/SCF-OSCAL-Catalog-2026.1.json
+  scf_catalog_note: >
+    The pinned SCF source is the local file scf/SCF-OSCAL-Catalog-2026.1.json,
+    used unmodified and referenced by ID. Its distribution filename and its
+    companion non-OSCAL export both say 2026.1 (scfVersion 2026.1, 1,468
+    controls, 33 domains), but the OSCAL file's embedded metadata still reads
+    "SCF 2025.3 Controls Catalog" — a vendor-export label discrepancy flagged
+    for human verification, not resolved here.
   format: SCF-mapped, OSCAL-aligned
   oscal_catalog: control-library.oscal.json
   per_control_docs: controls/
@@ -9,26 +17,58 @@ metadata:
   note: >
     Single definition per control. SCF is the unifying control spine; the
     machine-readable form is control-library.oscal.json, and a deep per-control
-    narrative lives under controls/. Example evidence is illustrative and is not
-    a claim about any real organization's internal posture.
+    narrative lives under controls/ for the eleven curated controls. Example
+    evidence is illustrative and is not a claim about any real organization's
+    internal posture.
+  living_control_set: >
+    This file is the Living Control Set: the single control model for the
+    program. It replaced the two legacy models (the eleven-control curated
+    library pinned to SCF 2025.4 and the forty-five-control owned library)
+    with one set of forty-five controls. Same-subject duplicates were absorbed
+    into the curated definitions (recorded per control under
+    absorbed_owned_control); the remaining authored controls were carried in
+    verbatim with their framework mappings. No parallel control models exist.
+  requirement_levels:
+    MCR: >
+      Minimum Compliance Requirement (must-have). Assigned when the control
+      carries a statutory, regulatory, or contractual obligation in its
+      current mappings (COPPA, CCPA/CPRA, GDPR, HIPAA, PCI DSS, EU AI Act).
+    DSR: >
+      Discretionary Security Requirement (nice-to-have). Assigned when the
+      control's current mappings are voluntary-framework only (SOC 2, ISO,
+      NIST); adopted for program value rather than legal compulsion.
   voice: Declarative and principle-led. Functions and roles, no personal names.
   selection: >
-    Eleven deliberate controls drawn from 1,468 across 33 SCF domains. The point
-    is choosing what matters for a consumer location-safety service that
-    processes minors' data, runs an agentic AI layer on a real-time location
-    graph, and carries public-company IT general controls. The count is held at
-    eleven on purpose; depth per control is the deliverable, not breadth of list.
+    Eleven curated controls are specified at audit depth, drawn from 1,468
+    across 33 SCF domains for a consumer location-safety service that
+    processes minors' data and runs an agentic AI layer on a real-time
+    location graph. Thirty-four authored controls absorbed from the owned
+    library carry statement-level depth. The full SCF catalog is reference
+    data only: the set never ingests all 1,468 controls, because unscoped
+    bloat is negligence, not coverage.
   structure_per_control: >
-    Each control carries a full statement, multi-paragraph implementation
-    guidance, assignable parameters, control enhancements, assessment objectives,
-    assessment methods (EXAMINE, INTERVIEW, TEST) with specific procedures, a
-    field-level evidence schema reference, an automation and CI mapping, the
-    framework crosswalk with real references, illustrative example evidence, and
-    the RACI asks per audience.
+    Each curated control carries a full statement, multi-paragraph
+    implementation guidance, assignable parameters, control enhancements,
+    assessment objectives, assessment methods (EXAMINE, INTERVIEW, TEST) with
+    specific procedures, a field-level evidence schema reference, an
+    automation and CI mapping, the framework crosswalk with real references,
+    illustrative example evidence, and the RACI asks per audience. Absorbed
+    controls carry class Owned, a requirement level, statement, evidence
+    expectation, and framework mappings, plus provenance and the result of
+    the SCF 2026.1 ID check.
 
 controls:
   - id: AAT-01
     scf_id: AAT-01
+    requirement_level: MCR
+    absorbed_owned_control:
+      legacy_id: AAT-01
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      note: >
+        Same-subject owned control absorbed into this curated definition. Framework
+        mappings the curated control lacked are merged below at family granularity;
+        where both defined the same framework, the curated audit-depth references stand
+        (see PR for the rule).
     scf_domain: AAT
     scf_domain_name: Artificial Intelligence & Autonomous Technologies
     class: SCF
@@ -162,6 +202,18 @@ controls:
         references: ["CC6.1", "CC6.2", "CC6.3"]
       - framework: EU AI Act (2024)
         references: ["Art.17(1)(c)"]
+      - framework: ISO 27001:2022
+        references: ["A.5.1", "A.8.2"]
+        relationship: intersects-with
+        note: family-granularity mapping absorbed from owned control AAT-01
+      - framework: NIST 800-53 r5
+        references: ["AC-3", "AC-6", "AU-2"]
+        relationship: subset-of
+        note: family-granularity mapping absorbed from owned control AAT-01
+      - framework: NIST CSF 2.0
+        references: ["GV.OC", "PR.AA"]
+        relationship: intersects-with
+        note: family-granularity mapping absorbed from owned control AAT-01
     test_procedure: >
       Sample broker decision logs for agents with location or minor-data scope;
       verify deny-by-default, TTL enforcement, and a human gate on irreversible
@@ -214,6 +266,15 @@ controls:
 
   - id: PRI-03.13
     scf_id: PRI-03.13
+    requirement_level: MCR
+    absorbed_owned_control:
+      legacy_id: PRI-03
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      note: >
+        Same-subject owned control absorbed into this curated definition. Framework
+        mappings the curated control lacked are merged below at family granularity;
+        where both defined the same framework, the curated audit-depth references stand
+        (see PR for the rule).
     scf_domain: PRI
     scf_domain_name: Data Privacy
     class: SCF
@@ -336,6 +397,14 @@ controls:
         references: ["§7070(a)"]
       - framework: GDPR
         references: ["Art. 8"]
+      - framework: SOC 2 (TSC 2017)
+        references: ["P2.1"]
+        relationship: intersects-with
+        note: family-granularity mapping absorbed from owned control PRI-03
+      - framework: NIST 800-53 r5
+        references: ["PT-4", "PT-5"]
+        relationship: subset-of
+        note: family-granularity mapping absorbed from owned control PRI-03
     test_procedure: >
       Export the consent register for minor accounts in scope; sample verification
       method and active consent; confirm processing and broker paths deny when
@@ -378,6 +447,16 @@ controls:
 
   - id: IAC-17
     scf_id: IAC-17
+    requirement_level: MCR
+    absorbed_owned_control:
+      legacy_id: IAM-02
+      legacy_id_scf_2026_1: does not resolve in the SCF 2026.1 catalog; pending human decision (see PR)
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      note: >
+        Same-subject owned control absorbed into this curated definition. Framework
+        mappings the curated control lacked are merged below at family granularity;
+        where both defined the same framework, the curated audit-depth references stand
+        (see PR for the rule).
     scf_domain: IAC
     scf_domain_name: Identification & Authentication
     class: SCF
@@ -498,6 +577,18 @@ controls:
         references: ["CC6.2", "CC6.3"]
       - framework: ISO/IEC 27002:2022
         references: ["5.15", "5.18", "8.2"]
+      - framework: NIST 800-53 r5
+        references: ["AC-2", "AC-6"]
+        relationship: subset-of
+        note: family-granularity mapping absorbed from owned control IAM-02
+      - framework: NIST CSF 2.0
+        references: ["PR.AA-05"]
+        relationship: intersects-with
+        note: family-granularity mapping absorbed from owned control IAM-02
+      - framework: HIPAA Security Rule
+        references: ["164.308(a)(3)(ii)(B)", "164.308(a)(4)"]
+        relationship: intersects-with
+        note: family-granularity mapping absorbed from owned control IAM-02
     test_procedure: >
       For the review period, verify 100 percent of in-scope accounts were
       reviewed; reconcile revocations to log events; confirm zero orphaned
@@ -540,6 +631,15 @@ controls:
 
   - id: CHG-02
     scf_id: CHG-02
+    requirement_level: MCR
+    absorbed_owned_control:
+      legacy_id: CHG-01
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      note: >
+        Same-subject owned control absorbed into this curated definition. Framework
+        mappings the curated control lacked are merged below at family granularity;
+        where both defined the same framework, the curated audit-depth references stand
+        (see PR for the rule).
     scf_domain: CHG
     scf_domain_name: Change Management
     class: SCF
@@ -661,6 +761,18 @@ controls:
         references: ["8.19", "8.32"]
       - framework: NIST CSF 2.0
         references: ["ID.RA-07"]
+      - framework: NIST 800-53 r5
+        references: ["CM-3", "CM-4", "CM-5"]
+        relationship: subset-of
+        note: family-granularity mapping absorbed from owned control CHG-01
+      - framework: NIST CSF 2.0
+        references: ["PR.PS-01"]
+        relationship: intersects-with
+        note: family-granularity mapping absorbed from owned control CHG-01
+      - framework: PCI DSS v4
+        references: ["6.5.1", "6.5.2"]
+        relationship: intersects-with
+        note: family-granularity mapping absorbed from owned control CHG-01
     test_procedure: >
       Query the merge API for the production branch for the period; confirm linked
       ticket and independent review; investigate direct pushes and exceptions
@@ -700,6 +812,15 @@ controls:
 
   - id: MON-01
     scf_id: MON-01
+    requirement_level: MCR
+    absorbed_owned_control:
+      legacy_id: MON-01
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      note: >
+        Same-subject owned control absorbed into this curated definition. Framework
+        mappings the curated control lacked are merged below at family granularity;
+        where both defined the same framework, the curated audit-depth references stand
+        (see PR for the rule).
     scf_domain: MON
     scf_domain_name: Continuous Monitoring
     class: SCF
@@ -820,6 +941,22 @@ controls:
         references: ["8.15", "8.16"]
       - framework: NIST CSF 2.0
         references: ["DE.CM-01", "DE.CM-03", "DE.CM-09"]
+      - framework: NIST 800-53 r5
+        references: ["AU-2", "AU-6", "SI-4"]
+        relationship: subset-of
+        note: family-granularity mapping absorbed from owned control MON-01
+      - framework: NIST CSF 2.0
+        references: ["DE.CM", "DE.AE"]
+        relationship: intersects-with
+        note: family-granularity mapping absorbed from owned control MON-01
+      - framework: HIPAA Security Rule
+        references: ["164.312(b)", "164.308(a)(1)(ii)(D)"]
+        relationship: intersects-with
+        note: family-granularity mapping absorbed from owned control MON-01
+      - framework: PCI DSS v4
+        references: ["10.2", "10.4"]
+        relationship: intersects-with
+        note: family-granularity mapping absorbed from owned control MON-01
     test_procedure: >
       Verify the source coverage report matches inventory; confirm retention and
       integrity checks; sample alert acknowledgement within SLA.
@@ -858,6 +995,15 @@ controls:
 
   - id: TPM-01
     scf_id: TPM-01
+    requirement_level: MCR
+    absorbed_owned_control:
+      legacy_id: TPM-01
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      note: >
+        Same-subject owned control absorbed into this curated definition. Framework
+        mappings the curated control lacked are merged below at family granularity;
+        where both defined the same framework, the curated audit-depth references stand
+        (see PR for the rule).
     scf_domain: TPM
     scf_domain_name: Third-Party Management
     class: SCF
@@ -982,6 +1128,18 @@ controls:
         references: ["§7052(a)"]
       - framework: GDPR
         references: ["Art. 28"]
+      - framework: NIST 800-53 r5
+        references: ["SR-3", "SR-6", "SA-9"]
+        relationship: subset-of
+        note: family-granularity mapping absorbed from owned control TPM-01
+      - framework: NIST CSF 2.0
+        references: ["GV.SC"]
+        relationship: intersects-with
+        note: family-granularity mapping absorbed from owned control TPM-01
+      - framework: PCI DSS v4
+        references: ["12.8"]
+        relationship: intersects-with
+        note: family-granularity mapping absorbed from owned control TPM-01
     test_procedure: >
       Reconcile the vendor inventory to the tiering model; confirm high-risk
       parties have current assessments and DPAs; track overdue reassessments to
@@ -1024,6 +1182,15 @@ controls:
 
   - id: IRO-01
     scf_id: IRO-01
+    requirement_level: MCR
+    absorbed_owned_control:
+      legacy_id: IRO-01
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      note: >
+        Same-subject owned control absorbed into this curated definition. Framework
+        mappings the curated control lacked are merged below at family granularity;
+        where both defined the same framework, the curated audit-depth references stand
+        (see PR for the rule).
     scf_domain: IRO
     scf_domain_name: Incident Response
     class: SCF
@@ -1147,6 +1314,22 @@ controls:
         references: ["Civil Code §1798.82", "§7123(c)(17)"]
       - framework: GDPR
         references: ["Art. 33", "Art. 34"]
+      - framework: NIST 800-53 r5
+        references: ["IR-4", "IR-5", "IR-8"]
+        relationship: subset-of
+        note: family-granularity mapping absorbed from owned control IRO-01
+      - framework: NIST CSF 2.0
+        references: ["RS.MA", "DE.AE"]
+        relationship: intersects-with
+        note: family-granularity mapping absorbed from owned control IRO-01
+      - framework: HIPAA Security Rule
+        references: ["164.308(a)(6)"]
+        relationship: intersects-with
+        note: family-granularity mapping absorbed from owned control IRO-01
+      - framework: PCI DSS v4
+        references: ["12.10"]
+        relationship: intersects-with
+        note: family-granularity mapping absorbed from owned control IRO-01
     test_procedure: >
       Sample incidents for complete timeline fields; verify post-incident reviews
       completed; for notification-threshold incidents, confirm the decision log and
@@ -1194,6 +1377,15 @@ controls:
 
   - id: CRY-01
     scf_id: CRY-01
+    requirement_level: MCR
+    absorbed_owned_control:
+      legacy_id: CRY-01
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      note: >
+        Same-subject owned control absorbed into this curated definition. Framework
+        mappings the curated control lacked are merged below at family granularity;
+        where both defined the same framework, the curated audit-depth references stand
+        (see PR for the rule).
     scf_domain: CRY
     scf_domain_name: Cryptographic Protections
     class: SCF
@@ -1312,6 +1504,22 @@ controls:
         references: ["PR.DS-01", "PR.DS-02"]
       - framework: GDPR
         references: ["Art. 32"]
+      - framework: NIST 800-53 r5
+        references: ["SC-8", "SC-13", "SC-28"]
+        relationship: subset-of
+        note: family-granularity mapping absorbed from owned control CRY-01
+      - framework: NIST CSF 2.0
+        references: ["PR.DS-01", "PR.DS-02"]
+        relationship: intersects-with
+        note: family-granularity mapping absorbed from owned control CRY-01
+      - framework: HIPAA Security Rule
+        references: ["164.312(a)(2)(iv)", "164.312(e)(2)(ii)"]
+        relationship: intersects-with
+        note: family-granularity mapping absorbed from owned control CRY-01
+      - framework: PCI DSS v4
+        references: ["3.5", "4.2"]
+        relationship: intersects-with
+        note: family-granularity mapping absorbed from owned control CRY-01
     test_procedure: >
       Sample in-scope stores and endpoints; confirm authenticated encryption at the
       at-rest standard and no deprecated protocol negotiated; pull the key
@@ -1341,6 +1549,15 @@ controls:
 
   - id: VPM-01
     scf_id: VPM-01
+    requirement_level: MCR
+    absorbed_owned_control:
+      legacy_id: VPM-01
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      note: >
+        Same-subject owned control absorbed into this curated definition. Framework
+        mappings the curated control lacked are merged below at family granularity;
+        where both defined the same framework, the curated audit-depth references stand
+        (see PR for the rule).
     scf_domain: VPM
     scf_domain_name: Vulnerability & Patch Management
     class: SCF
@@ -1453,6 +1670,18 @@ controls:
         references: ["8.8"]
       - framework: NIST CSF 2.0
         references: ["ID.RA-01", "PR.PS-02"]
+      - framework: NIST 800-53 r5
+        references: ["RA-5", "SI-2"]
+        relationship: subset-of
+        note: family-granularity mapping absorbed from owned control VPM-01
+      - framework: NIST CSF 2.0
+        references: ["ID.RA-01", "PR.PS-02"]
+        relationship: intersects-with
+        note: family-granularity mapping absorbed from owned control VPM-01
+      - framework: PCI DSS v4
+        references: ["6.3.3", "11.3"]
+        relationship: intersects-with
+        note: family-granularity mapping absorbed from owned control VPM-01
     test_procedure: >
       Sample findings for triage, SLA assignment, and on-time remediation or a valid
       exception; confirm internet-facing and sensitive-data systems carry the
@@ -1482,6 +1711,15 @@ controls:
 
   - id: DCH-01
     scf_id: DCH-01
+    requirement_level: MCR
+    absorbed_owned_control:
+      legacy_id: DCH-01
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      note: >
+        Same-subject owned control absorbed into this curated definition. Framework
+        mappings the curated control lacked are merged below at family granularity;
+        where both defined the same framework, the curated audit-depth references stand
+        (see PR for the rule).
     scf_domain: DCH
     scf_domain_name: Data Classification & Handling
     class: SCF
@@ -1604,6 +1842,14 @@ controls:
         references: ["Art. 5(1)(c)", "Art. 5(1)(e)", "Art. 32"]
       - framework: CCPA / CPRA (2026)
         references: ["Civil Code §1798.100(c)"]
+      - framework: NIST 800-53 r5
+        references: ["AC-4", "SC-7", "SI-4"]
+        relationship: subset-of
+        note: family-granularity mapping absorbed from owned control DCH-01
+      - framework: NIST CSF 2.0
+        references: ["PR.DS"]
+        relationship: intersects-with
+        note: family-granularity mapping absorbed from owned control DCH-01
     test_procedure: >
       Sample highest-sensitivity stores for classification, handling, and retention;
       trigger an end-of-basis deletion and confirm a verifiable record; search for a
@@ -1633,6 +1879,15 @@ controls:
 
   - id: SAT-02
     scf_id: SAT-02
+    requirement_level: MCR
+    absorbed_owned_control:
+      legacy_id: SAT-01
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      note: >
+        Same-subject owned control absorbed into this curated definition. Framework
+        mappings the curated control lacked are merged below at family granularity;
+        where both defined the same framework, the curated audit-depth references stand
+        (see PR for the rule).
     scf_domain: SAT
     scf_domain_name: Security Awareness & Training
     class: SCF
@@ -1750,6 +2005,22 @@ controls:
         references: ["6.3"]
       - framework: NIST CSF 2.0
         references: ["PR.AT-01", "PR.AT-02"]
+      - framework: NIST 800-53 r5
+        references: ["AT-2", "AT-3"]
+        relationship: subset-of
+        note: family-granularity mapping absorbed from owned control SAT-01
+      - framework: NIST CSF 2.0
+        references: ["PR.AT"]
+        relationship: intersects-with
+        note: family-granularity mapping absorbed from owned control SAT-01
+      - framework: HIPAA Security Rule
+        references: ["164.308(a)(5)"]
+        relationship: intersects-with
+        note: family-granularity mapping absorbed from owned control SAT-01
+      - framework: PCI DSS v4
+        references: ["12.6"]
+        relationship: intersects-with
+        note: family-granularity mapping absorbed from owned control SAT-01
     test_procedure: >
       Sample new hires for baseline completion within SLA; sample an elevated-access
       role for the assigned role-based module on assignment; confirm no in-scope
@@ -1776,3 +2047,1030 @@ controls:
       - audience: Auditor
         raci: I
         ask: Receive the computed completion state; sample against the learning record, not a sign-in sheet.
+
+  # --------------------------------------------------------------------------
+  # Controls absorbed from the legacy owned control library (v1.0.0, file
+  # deleted in this change). Statements, evidence, and framework mappings are
+  # carried verbatim from the authored source; mappings are at control-
+  # family granularity. scf_id is claimed for none of them: scf_id_status
+  # records only whether the legacy ID exists in the SCF 2026.1 catalog.
+  # --------------------------------------------------------------------------
+
+  - id: GOV-01
+    class: Owned
+    requirement_level: MCR
+    family: Governance
+    title: Security and privacy governance program
+    scf_id: null
+    scf_id_status: legacy ID exists in SCF 2026.1; semantic match unverified, no SCF claim made
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      A documented security and privacy program defines scope, ownership, and
+      objectives, is approved by leadership, and is reviewed at least annually.
+      Authority and accountability for the program are assigned to a named function.
+    evidence: Approved program charter with version history and the annual review record.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC1.1", "CC1.2", "CC1.3"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.5.1", "5.1", "5.2"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["PM-1", "PL-1"]
+        relationship: subset-of
+      - framework: NIST CSF 2.0
+        references: ["GV.OC", "GV.PO"]
+        relationship: intersects-with
+      - framework: HIPAA Security Rule
+        references: ["164.316(a)"]
+        relationship: intersects-with
+
+  - id: GOV-02
+    class: Owned
+    requirement_level: MCR
+    family: Governance
+    title: Policy hierarchy and periodic review
+    scf_id: null
+    scf_id_status: legacy ID exists in SCF 2026.1; semantic match unverified, no SCF claim made
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Policies, standards, and procedures form a maintained hierarchy with named owners,
+      a review cadence, and version control. Each document is reviewed and re-approved
+      on cadence or on material change.
+    evidence: Policy register listing owner, version, last-review date, and approval.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC5.3"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.5.1", "A.5.37"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["AC-1", "AU-1", "CM-1"]
+        relationship: subset-of
+      - framework: HIPAA Security Rule
+        references: ["164.316(b)(1)", "164.316(b)(2)"]
+        relationship: intersects-with
+      - framework: PCI DSS v4
+        references: ["12.1"]
+        relationship: intersects-with
+
+  - id: GOV-03
+    class: Owned
+    requirement_level: DSR
+    family: Governance
+    title: Roles, responsibilities, and segregation of duties
+    scf_id: null
+    scf_id_status: legacy ID exists in SCF 2026.1; semantic match unverified, no SCF claim made
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Security responsibilities are assigned by role and documented in a RACI.
+      Conflicting duties are separated; where separation is impractical, a compensating
+      control is recorded.
+    evidence: RACI matrix and the segregation-of-duties exception register.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC1.3", "CC1.4"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.5.2", "A.5.3"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["AC-5", "PM-2"]
+        relationship: subset-of
+      - framework: NIST CSF 2.0
+        references: ["GV.RR"]
+        relationship: intersects-with
+
+  - id: GOV-04
+    class: Owned
+    requirement_level: DSR
+    family: Governance
+    title: Program metrics and leadership reporting
+    scf_id: null
+    scf_id_status: legacy ID exists in SCF 2026.1; semantic match unverified, no SCF claim made
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Control health and program performance are measured and reported to leadership on
+      a fixed cadence, with material risks escalated. Metrics are computed from systems
+      of record, not assembled by hand.
+    evidence: Periodic leadership report and the underlying computed metric set.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC4.1", "CC4.2"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["9.1", "9.3"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["CA-7", "PM-6"]
+        relationship: subset-of
+      - framework: NIST CSF 2.0
+        references: ["GV.OV"]
+        relationship: intersects-with
+
+  - id: RSK-01
+    class: Owned
+    requirement_level: MCR
+    family: Risk Management
+    title: Risk assessment methodology
+    scf_id: null
+    scf_id_status: legacy ID exists in SCF 2026.1; semantic match unverified, no SCF claim made
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Risk is assessed using a documented, repeatable method that estimates likelihood
+      and impact in defined terms. Assessments run on cadence and on significant change.
+    evidence: The methodology document and a dated assessment produced from it.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC3.1", "CC3.2", "CC3.4"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["6.1.2", "8.2"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["RA-3", "PM-9"]
+        relationship: subset-of
+      - framework: NIST CSF 2.0
+        references: ["ID.RA", "GV.RM"]
+        relationship: intersects-with
+      - framework: GDPR
+        references: ["Art 35"]
+        relationship: intersects-with
+
+  - id: RSK-02
+    class: Owned
+    requirement_level: DSR
+    family: Risk Management
+    title: Risk register and treatment
+    scf_id: null
+    scf_id_status: legacy ID exists in SCF 2026.1; semantic match unverified, no SCF claim made
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Identified risks are recorded in a register with an owner, treatment decision, and
+      target date. Accepted risk is approved at an authority level matched to its
+      severity.
+    evidence: Risk register with treatment decisions and acceptance approvals.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC3.2", "CC9.1"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["6.1.3", "8.3"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["RA-7", "CA-5"]
+        relationship: subset-of
+      - framework: NIST CSF 2.0
+        references: ["GV.RM", "ID.RA"]
+        relationship: intersects-with
+
+  - id: AST-01
+    class: Owned
+    requirement_level: MCR
+    family: Asset Management
+    title: Asset inventory and ownership
+    scf_id: null
+    scf_id_status: legacy ID exists in SCF 2026.1; semantic match unverified, no SCF claim made
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      A maintained inventory records hardware, software, services, and data stores with
+      an owner for each. The inventory is reconciled from authoritative discovery, not a
+      manual list.
+    evidence: Inventory export with owners, reconciled against discovery, dated.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC6.1"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.5.9", "A.5.10"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["CM-8", "PM-5"]
+        relationship: subset-of
+      - framework: NIST CSF 2.0
+        references: ["ID.AM"]
+        relationship: intersects-with
+      - framework: PCI DSS v4
+        references: ["12.5.1", "9.5.1"]
+        relationship: intersects-with
+
+  - id: AST-02
+    class: Owned
+    requirement_level: DSR
+    family: Asset Management
+    title: Data and asset classification
+    scf_id: null
+    scf_id_status: legacy ID exists in SCF 2026.1; semantic match unverified, no SCF claim made
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Assets and data are classified by sensitivity against a defined scheme, and
+      handling requirements follow from the classification.
+    evidence: Classification scheme and a sample of classified assets/data stores.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC6.1", "C1.1"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.5.12", "A.5.13"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["RA-2", "MP-3"]
+        relationship: subset-of
+      - framework: NIST CSF 2.0
+        references: ["ID.AM-05"]
+        relationship: intersects-with
+
+  - id: AST-03
+    class: Owned
+    requirement_level: MCR
+    family: Asset Management
+    title: Secure disposal of media and equipment
+    scf_id: null
+    scf_id_status: legacy ID exists in SCF 2026.1; semantic match unverified, no SCF claim made
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Media and equipment holding confidential data are sanitized or destroyed before
+      disposal or reuse, with the action recorded.
+    evidence: Sanitization/destruction records tied to asset IDs.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC6.5"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.7.10", "A.7.14", "A.8.10"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["MP-6"]
+        relationship: subset-of
+      - framework: HIPAA Security Rule
+        references: ["164.310(d)(2)"]
+        relationship: intersects-with
+      - framework: PCI DSS v4
+        references: ["9.4.6", "3.2.1"]
+        relationship: intersects-with
+
+  - id: IAM-01
+    class: Owned
+    requirement_level: MCR
+    family: Identity & Access Management
+    title: Access provisioning from joiner-mover-leaver
+    scf_id: null
+    scf_id_status: legacy ID does not resolve in SCF 2026.1; pending human decision (see PR)
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Access is granted, changed, and revoked from authoritative HR events. Leaver
+      access is removed on the same day the leaver event fires; the feed is the trigger,
+      not a ticket.
+    evidence: Provisioning and deprovisioning records joined to the HR feed.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC6.1", "CC6.2", "CC6.3"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.5.16", "A.5.18"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["AC-2", "PS-4", "PS-5"]
+        relationship: subset-of
+      - framework: NIST CSF 2.0
+        references: ["PR.AA"]
+        relationship: intersects-with
+      - framework: HIPAA Security Rule
+        references: ["164.308(a)(3)", "164.308(a)(4)"]
+        relationship: intersects-with
+
+  - id: IAM-03
+    class: Owned
+    requirement_level: MCR
+    family: Identity & Access Management
+    title: Least privilege and privileged access management
+    scf_id: null
+    scf_id_status: legacy ID does not resolve in SCF 2026.1; pending human decision (see PR)
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Access follows least privilege. Privileged access is brokered, time-bound where
+      feasible, and separately logged. Standing administrative access is minimized.
+    evidence: Privileged-access grant records and the session log.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC6.1", "CC6.3"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.8.2", "A.8.18"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["AC-6", "AC-2(7)"]
+        relationship: subset-of
+      - framework: NIST CSF 2.0
+        references: ["PR.AA-05"]
+        relationship: intersects-with
+      - framework: PCI DSS v4
+        references: ["7.2", "7.3"]
+        relationship: intersects-with
+
+  - id: IAM-04
+    class: Owned
+    requirement_level: MCR
+    family: Identity & Access Management
+    title: Authentication and multi-factor enforcement
+    scf_id: null
+    scf_id_status: legacy ID does not resolve in SCF 2026.1; pending human decision (see PR)
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Users authenticate with unique identities and phishing-resistant multi-factor
+      where supported. MFA is enforced for remote and administrative access.
+    evidence: Authentication policy and an MFA-coverage report by system.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC6.1"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.5.17", "A.8.5"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["IA-2", "IA-5"]
+        relationship: subset-of
+      - framework: NIST CSF 2.0
+        references: ["PR.AA-03"]
+        relationship: intersects-with
+      - framework: HIPAA Security Rule
+        references: ["164.312(d)"]
+        relationship: intersects-with
+      - framework: PCI DSS v4
+        references: ["8.3", "8.4", "8.5"]
+        relationship: intersects-with
+
+  - id: IAM-05
+    class: Owned
+    requirement_level: DSR
+    family: Identity & Access Management
+    title: Service and non-human identity governance
+    scf_id: null
+    scf_id_status: legacy ID does not resolve in SCF 2026.1; pending human decision (see PR)
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Service accounts, API keys, and workload identities are registered with an owner,
+      scoped to least privilege, and rotated or expired. No standing secret without an
+      owner.
+    evidence: Non-human identity register with owner, scope, and rotation status.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC6.1", "CC6.3"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.5.16", "A.8.2"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["AC-2", "IA-5(5)"]
+        relationship: subset-of
+      - framework: NIST CSF 2.0
+        references: ["PR.AA-01"]
+        relationship: intersects-with
+
+  - id: CHG-02-BASELINE
+    class: Owned
+    requirement_level: MCR
+    family: Change Management
+    title: Baseline configuration and hardening
+    scf_id: null
+    scf_id_status: legacy ID exists in SCF 2026.1; semantic match unverified, no SCF claim made
+    legacy_id: CHG-02
+    id_note: >
+      Renamed from owned CHG-02, which collides with the curated SCF CHG-02
+      (Configuration Change Control) while covering a different subject (baseline
+      configuration and hardening). Interim ID pending human decision.
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Systems are built from approved, hardened baselines, and deviations are detected
+      and reconciled. Baselines follow a recognized hardening standard.
+    evidence: Baseline definitions and a configuration-drift report.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC7.1", "CC8.1"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.8.9"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["CM-2", "CM-6"]
+        relationship: subset-of
+      - framework: NIST CSF 2.0
+        references: ["PR.PS-01"]
+        relationship: intersects-with
+      - framework: PCI DSS v4
+        references: ["2.2"]
+        relationship: intersects-with
+
+  - id: CRY-02
+    class: Owned
+    requirement_level: MCR
+    family: Cryptographic Protections
+    title: Key management
+    scf_id: null
+    scf_id_status: legacy ID exists in SCF 2026.1; semantic match unverified, no SCF claim made
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Cryptographic keys are generated, stored, rotated, and retired under a defined
+      lifecycle, with access to key material restricted and logged.
+    evidence: Key-management procedure and key inventory with rotation records.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC6.1"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.8.24"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["SC-12", "SC-17"]
+        relationship: subset-of
+      - framework: PCI DSS v4
+        references: ["3.6", "3.7"]
+        relationship: intersects-with
+
+  - id: DCH-02
+    class: Owned
+    requirement_level: MCR
+    family: Data Protection & Privacy
+    title: Data retention and disposal
+    scf_id: null
+    scf_id_status: legacy ID exists in SCF 2026.1; semantic match unverified, no SCF claim made
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Data is retained only as long as required by a defined schedule and is disposed of
+      when the schedule expires, with disposal recorded.
+    evidence: Retention schedule and disposal records by data category.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["C1.2", "P4.2"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.5.33", "A.8.10"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["SI-12", "MP-6"]
+        relationship: subset-of
+      - framework: GDPR
+        references: ["Art 5.1(e)", "Art 17"]
+        relationship: intersects-with
+      - framework: HIPAA Security Rule
+        references: ["164.316(b)(2)(i)"]
+        relationship: intersects-with
+
+  - id: PRI-01
+    class: Owned
+    requirement_level: MCR
+    family: Data Protection & Privacy
+    title: Privacy notice and lawful basis
+    scf_id: null
+    scf_id_status: legacy ID exists in SCF 2026.1; semantic match unverified, no SCF claim made
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Personal data is processed for a stated purpose under a documented lawful basis,
+      and a plain-language notice describes what is collected, why, and the individual's
+      rights.
+    evidence: Processing register with lawful basis and the published privacy notice.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["P1.1", "P2.1"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.5.34"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["PT-1", "PT-5", "PM-9"]
+        relationship: subset-of
+      - framework: GDPR
+        references: ["Art 6", "Art 13", "Art 30"]
+        relationship: intersects-with
+
+  - id: PRI-02
+    class: Owned
+    requirement_level: MCR
+    family: Data Protection & Privacy
+    title: Data subject rights handling
+    scf_id: null
+    scf_id_status: legacy ID exists in SCF 2026.1; semantic match unverified, no SCF claim made
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Requests to access, correct, delete, or port personal data are honored within
+      statutory timelines, with identity verified before action.
+    evidence: Rights-request log with timestamps and outcomes.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["P5.1", "P6.1"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["PT-6", "IP-1"]
+        relationship: subset-of
+      - framework: GDPR
+        references: ["Art 12", "Art 15", "Art 16", "Art 17", "Art 20"]
+        relationship: intersects-with
+
+  - id: MON-02
+    class: Owned
+    requirement_level: MCR
+    family: Logging & Monitoring
+    title: Log integrity and retention
+    scf_id: null
+    scf_id_status: legacy ID exists in SCF 2026.1; semantic match unverified, no SCF claim made
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Logs are protected against alteration with write-once or equivalent integrity
+      controls and retained for a defined period. Clocks are synchronized to an
+      authoritative source.
+    evidence: Retention configuration, integrity-check results, and time-sync status.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC7.2"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.8.15", "A.8.17"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["AU-9", "AU-11", "AU-8"]
+        relationship: subset-of
+      - framework: PCI DSS v4
+        references: ["10.3", "10.6"]
+        relationship: intersects-with
+
+  - id: NET-01
+    class: Owned
+    requirement_level: MCR
+    family: Network Security
+    title: Network segmentation and boundary protection
+    scf_id: null
+    scf_id_status: legacy ID exists in SCF 2026.1; semantic match unverified, no SCF claim made
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Networks are segmented by trust and sensitivity, and traffic crossing boundaries
+      is filtered by default-deny rules that are reviewed on cadence.
+    evidence: Network diagram, firewall ruleset, and the rule-review record.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC6.6", "CC6.1"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.8.20", "A.8.22"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["SC-7", "AC-4"]
+        relationship: subset-of
+      - framework: NIST CSF 2.0
+        references: ["PR.IR-01"]
+        relationship: intersects-with
+      - framework: PCI DSS v4
+        references: ["1.2", "1.3", "1.4"]
+        relationship: intersects-with
+
+  - id: NET-02
+    class: Owned
+    requirement_level: MCR
+    family: Network Security
+    title: Secure remote access
+    scf_id: null
+    scf_id_status: legacy ID exists in SCF 2026.1; semantic match unverified, no SCF claim made
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Remote access to internal resources is authenticated, encrypted, and
+      least-privilege, and administrative access originates from controlled paths.
+    evidence: Remote-access configuration and an access-path review.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC6.6", "CC6.7"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.6.7", "A.8.5"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["AC-17", "SC-7"]
+        relationship: subset-of
+      - framework: PCI DSS v4
+        references: ["8.5", "1.4"]
+        relationship: intersects-with
+
+  - id: SDLC-01
+    class: Owned
+    requirement_level: MCR
+    family: Secure Development
+    title: Secure development gates
+    scf_id: null
+    scf_id_status: legacy ID does not resolve in SCF 2026.1; pending human decision (see PR)
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Security requirements and checks are built into design, build, test, and deploy
+      stages, and a release cannot pass without its required gates emitting evidence.
+    evidence: Pipeline gate configuration and gate results per release.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC8.1"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.8.25", "A.8.27", "A.8.28"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["SA-3", "SA-8", "SA-11"]
+        relationship: subset-of
+      - framework: NIST CSF 2.0
+        references: ["PR.PS-06"]
+        relationship: intersects-with
+      - framework: PCI DSS v4
+        references: ["6.2"]
+        relationship: intersects-with
+
+  - id: SDLC-02
+    class: Owned
+    requirement_level: DSR
+    family: Secure Development
+    title: Software supply chain and dependency integrity
+    scf_id: null
+    scf_id_status: legacy ID does not resolve in SCF 2026.1; pending human decision (see PR)
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Third-party and open-source components are inventoried, scanned for known
+      vulnerabilities, and verified for integrity before use. Build provenance is
+      recorded.
+    evidence: Software bill of materials and dependency-scan results.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC8.1", "CC9.2"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.8.28", "A.8.30"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["SA-12", "SR-3", "SR-4"]
+        relationship: subset-of
+      - framework: NIST CSF 2.0
+        references: ["GV.SC", "ID.RA-09"]
+        relationship: intersects-with
+
+  - id: SDLC-03
+    class: Owned
+    requirement_level: MCR
+    family: Secure Development
+    title: Secrets management
+    scf_id: null
+    scf_id_status: legacy ID does not resolve in SCF 2026.1; pending human decision (see PR)
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Secrets are stored in a managed vault, never in source or configuration, and are
+      scanned for in code. Exposed secrets are rotated on detection.
+    evidence: Secrets-scanning results and vault usage evidence.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC6.1"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.8.24", "A.8.31"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["IA-5", "SC-12"]
+        relationship: subset-of
+      - framework: PCI DSS v4
+        references: ["6.3.1", "8.6"]
+        relationship: intersects-with
+
+  - id: VPM-02
+    class: Owned
+    requirement_level: MCR
+    family: Vulnerability & Patch Management
+    title: Penetration testing
+    scf_id: null
+    scf_id_status: legacy ID exists in SCF 2026.1; semantic match unverified, no SCF claim made
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Independent testing exercises the environment on cadence and after significant
+      change, and findings feed the remediation queue and the risk register.
+    evidence: Test reports and the tracked remediation of findings.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC4.1", "CC7.1"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.8.8", "A.8.29"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["CA-8", "RA-5"]
+        relationship: subset-of
+      - framework: PCI DSS v4
+        references: ["11.4"]
+        relationship: intersects-with
+
+  - id: END-01
+    class: Owned
+    requirement_level: MCR
+    family: Endpoint Security
+    title: Endpoint protection and detection
+    scf_id: null
+    scf_id_status: legacy ID exists in SCF 2026.1; semantic match unverified, no SCF claim made
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Endpoints run managed protection that detects and responds to malicious activity,
+      with coverage and health monitored centrally.
+    evidence: Endpoint coverage and health report.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC6.8", "CC7.1"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.8.7"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["SI-3", "SI-4"]
+        relationship: subset-of
+      - framework: NIST CSF 2.0
+        references: ["DE.CM-09"]
+        relationship: intersects-with
+      - framework: PCI DSS v4
+        references: ["5.2", "5.3"]
+        relationship: intersects-with
+
+  - id: END-02
+    class: Owned
+    requirement_level: MCR
+    family: Endpoint Security
+    title: Device management and hardening
+    scf_id: null
+    scf_id_status: legacy ID exists in SCF 2026.1; semantic match unverified, no SCF claim made
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Managed devices enforce configuration, disk encryption, and screen lock, and
+      access from unmanaged devices to confidential data is restricted.
+    evidence: MDM policy and a compliance report by device.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC6.7", "CC6.8"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.8.1", "A.7.9"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["CM-6", "AC-19"]
+        relationship: subset-of
+      - framework: HIPAA Security Rule
+        references: ["164.310(d)(1)", "164.312(a)(2)(iv)"]
+        relationship: intersects-with
+
+  - id: IRO-02
+    class: Owned
+    requirement_level: MCR
+    family: Incident Response
+    title: Breach notification
+    scf_id: null
+    scf_id_status: legacy ID exists in SCF 2026.1; semantic match unverified, no SCF claim made
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      When an incident meets a statutory or contractual threshold, affected parties and
+      regulators are notified within required windows, with the decision and its basis
+      recorded.
+    evidence: Notification decision log with timelines and basis.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC7.4", "P6.3"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.5.26", "A.5.5"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["IR-6"]
+        relationship: subset-of
+      - framework: GDPR
+        references: ["Art 33", "Art 34"]
+        relationship: intersects-with
+      - framework: HIPAA Security Rule
+        references: ["164.400", "164.404", "164.410"]
+        relationship: intersects-with
+
+  - id: BCD-01
+    class: Owned
+    requirement_level: MCR
+    family: Business Continuity & DR
+    title: Business continuity and disaster recovery
+    scf_id: null
+    scf_id_status: legacy ID exists in SCF 2026.1; semantic match unverified, no SCF claim made
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Recovery objectives are set from a business impact analysis, and continuity and
+      recovery plans are documented, resourced, and tested on cadence.
+    evidence: BIA, plans, and the dated test results against objectives.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["A1.2", "A1.3"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.5.29", "A.5.30"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["CP-2", "CP-4"]
+        relationship: subset-of
+      - framework: NIST CSF 2.0
+        references: ["RC.RP", "PR.IR-03"]
+        relationship: intersects-with
+      - framework: HIPAA Security Rule
+        references: ["164.308(a)(7)"]
+        relationship: intersects-with
+
+  - id: BCD-02
+    class: Owned
+    requirement_level: MCR
+    family: Business Continuity & DR
+    title: Backup and restoration
+    scf_id: null
+    scf_id_status: legacy ID exists in SCF 2026.1; semantic match unverified, no SCF claim made
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Critical data and systems are backed up on a defined schedule with backups
+      protected and restoration verified by test, not assumption.
+    evidence: Backup configuration and successful restoration-test records.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["A1.2"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.8.13"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["CP-9", "CP-10"]
+        relationship: subset-of
+      - framework: HIPAA Security Rule
+        references: ["164.308(a)(7)(ii)(A)", "164.308(a)(7)(ii)(B)"]
+        relationship: intersects-with
+
+  - id: TPM-02
+    class: Owned
+    requirement_level: MCR
+    family: Third-Party Risk
+    title: Subprocessor and data-flow assurance
+    scf_id: null
+    scf_id_status: legacy ID exists in SCF 2026.1; semantic match unverified, no SCF claim made
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Where personal or sensitive data flows to subprocessors, processing terms,
+      breach-notice windows, and transfer mechanisms are in place and recorded.
+    evidence: Subprocessor list with executed terms and transfer mechanisms.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC9.2"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.5.21"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["SR-5", "SA-9"]
+        relationship: subset-of
+      - framework: GDPR
+        references: ["Art 28", "Art 44", "Art 46"]
+        relationship: intersects-with
+
+  - id: HRS-01
+    class: Owned
+    requirement_level: MCR
+    family: Human Resources Security
+    title: Personnel screening and agreements
+    scf_id: null
+    scf_id_status: legacy ID exists in SCF 2026.1; semantic match unverified, no SCF claim made
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Personnel are screened proportionate to role before access, and acknowledge
+      security and confidentiality obligations. A disciplinary path exists for
+      violations.
+    evidence: Screening records and signed acknowledgements.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC1.1", "CC1.4"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.6.1", "A.6.2", "A.6.4"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["PS-3", "PS-6", "PS-8"]
+        relationship: subset-of
+      - framework: HIPAA Security Rule
+        references: ["164.308(a)(3)(ii)(B)"]
+        relationship: intersects-with
+
+  - id: PES-01
+    class: Owned
+    requirement_level: MCR
+    family: Physical & Environmental
+    title: Physical access and environmental protection
+    scf_id: null
+    scf_id_status: legacy ID exists in SCF 2026.1; semantic match unverified, no SCF claim made
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Physical access to facilities and data-bearing equipment is restricted, logged,
+      and reviewed. Where infrastructure is cloud-hosted, provider attestations are
+      inherited and tracked.
+    evidence: Physical access records or the inherited provider attestation register.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC6.4"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.7.1", "A.7.2", "A.7.4"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["PE-2", "PE-3", "PE-6"]
+        relationship: subset-of
+      - framework: HIPAA Security Rule
+        references: ["164.310(a)(1)", "164.310(b)"]
+        relationship: intersects-with
+      - framework: PCI DSS v4
+        references: ["9.2", "9.3"]
+        relationship: intersects-with
+
+  - id: AAT-02
+    class: Owned
+    requirement_level: DSR
+    family: AI Governance
+    title: Model and prompt change management
+    scf_id: null
+    scf_id_status: legacy ID exists in SCF 2026.1; semantic match unverified, no SCF claim made
+    provenance:
+      source: legacy owned control library v1.0.0 (file deleted in this change)
+      authored: true
+    statement: >
+      Changes to models, prompts, and tool grants follow change control with
+      pre-deployment evaluation, drift checks, rollback, and an approval gate.
+    evidence: Model-change records with evaluation results and approvals.
+    framework_mappings:
+      - framework: SOC 2 (TSC 2017)
+        references: ["CC8.1"]
+        relationship: intersects-with
+      - framework: ISO 27001:2022
+        references: ["A.8.32"]
+        relationship: intersects-with
+      - framework: NIST 800-53 r5
+        references: ["CM-3", "SA-11"]
+        relationship: subset-of
+      - framework: NIST CSF 2.0
+        references: ["PR.PS-01"]
+        relationship: intersects-with
