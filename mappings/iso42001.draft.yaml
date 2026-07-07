@@ -1,188 +1,97 @@
-mapping:
-  framework: iso42001
-  framework_name: ISO/IEC 42001:2023 (AI Management System)
+# ISO/IEC 42001:2023 mapped over the Living Control Set — explicit STRM entries.
+#
+# Directionality and entry shape are defined ONCE in mappings/strm-schema.yaml:
+# the owned control is the Reference document, the framework requirement is the
+# Focal document. This file was migrated from the retired keyword-heuristic
+# draft format (per-candidate relationship plus a 0-1 numeric score field).
+# Migration rules:
+#   - relationship: intersects-with carried over unchanged (symmetric, so the
+#     directionality fix does not alter it).
+#   - relationship_strength = round(prior 0-1 score * 10), clamped to 1-10.
+#   - Heuristic candidates whose control IDs are not in the Living Control Set
+#     (02-controls/control-library.yaml) were dropped with the heuristic —
+#     machine keyword guesses against retired catalog IDs, never human-approved.
+# Status remains DRAFT: a human reviews and approves via pull request; the merge
+# is the authorization.
+strm_mapping:
+  framework_id: iso42001
+  framework_name: "ISO/IEC 42001:2023 (AI Management System)"
   status: DRAFT_PENDING_HUMAN_APPROVAL
-  method: AI-drafted (keyword heuristic stand-in for an LLM); review and approve via pull request — the
-    merge is the authorization
-  controls_in_catalog: 45
-  controls_modified: 0
+  schema: mappings/strm-schema.yaml
+  requirements_source: frameworks/iso-42001.requirements.yaml
+  method: >
+    Explicit STRM authored per mappings/strm-schema.yaml. Migrated from the
+    retired keyword-heuristic draft; strengths derive mechanically from the
+    prior 0-1 scores (round(score * 10)) and are pending human calibration
+    before approval.
   entries:
-  - requirement: A.2.2
-    requirement_title: AI policy
-    candidates:
-    - control: AAT-01
-      relationship: intersects-with
-      confidence: 0.38
-      matched_on:
-      - autonomous
-      - governance
-      - policy
-      - systems
-    - control: GOV-02
-      relationship: intersects-with
-      confidence: 0.29
-      matched_on:
-      - document
-      - governance
-      - policy
-    - control: GOV-04
-      relationship: intersects-with
-      confidence: 0.19
-      matched_on:
-      - governance
-      - systems
-  - requirement: A.3.2
-    requirement_title: AI roles and responsibilities
-    candidates:
-    - control: GOV-03
-      relationship: intersects-with
-      confidence: 0.38
-      matched_on:
-      - governance
-      - responsibilities
-      - roles
-    - control: AAT-01
-      relationship: intersects-with
-      confidence: 0.38
-      matched_on:
-      - defined
-      - governance
-      - systems
-    - control: GOV-04
-      relationship: intersects-with
-      confidence: 0.25
-      matched_on:
-      - governance
-      - systems
-  - requirement: A.5.2
-    requirement_title: AI system impact assessment
-    candidates:
-    - control: RSK-01
-      relationship: intersects-with
-      confidence: 0.19
-      matched_on:
-      - assessment
-      - impact
-    - control: GOV-04
-      relationship: intersects-with
-      confidence: 0.19
-      matched_on:
-      - risks
-      - systems
-    - control: AAT-01
-      relationship: intersects-with
-      confidence: 0.19
-      matched_on:
-      - impact
-      - systems
-  - requirement: A.6.2.4
-    requirement_title: AI system change management
-    candidates:
-    - control: AAT-02
-      relationship: intersects-with
-      confidence: 0.71
-      matched_on:
-      - change
-      - changes
-      - deployment
-      - grants
-      - management
-      - models
-      - prompts
-      - tool
-    - control: CHG-02
-      relationship: intersects-with
-      confidence: 0.36
-      matched_on:
-      - approved
-      - change
-      - configuration
-      - management
-    - control: CHG-01
-      relationship: intersects-with
-      confidence: 0.36
-      matched_on:
-      - change
-      - changes
-      - configuration
-      - management
-  - requirement: A.7.2
-    requirement_title: Data for AI systems
-    candidates:
-    - control: DCH-01
-      relationship: intersects-with
-      confidence: 0.38
-      matched_on:
-      - classification
-      - data
-      - privacy
-    - control: PRI-03
-      relationship: intersects-with
-      confidence: 0.25
-      matched_on:
-      - data
-      - privacy
-    - control: PRI-02
-      relationship: intersects-with
-      confidence: 0.25
-      matched_on:
-      - data
-      - privacy
-  - requirement: A.9.2
-    requirement_title: Responsible use and human oversight of AI
-    candidates:
-    - control: AAT-01
-      relationship: intersects-with
-      confidence: 0.53
-      matched_on:
-      - actions
-      - data
-      - high
-      - human
-      - impact
-      - systems
-    - control: IAM-05
-      relationship: intersects-with
-      confidence: 0.36
-      matched_on:
-      - access
-      - human
-      - least
-      - privilege
-    - control: IAM-02
-      relationship: intersects-with
-      confidence: 0.36
-      matched_on:
-      - access
-      - data
-      - human
-      - systems
-  - requirement: A.10.2
-    requirement_title: Third-party AI relationships
-    candidates:
-    - control: TPM-01
-      relationship: intersects-with
-      confidence: 0.67
-      matched_on:
-      - assessed
-      - bound
-      - data
-      - parties
-      - party
-      - terms
-      - third
-    - control: TPM-02
-      relationship: intersects-with
-      confidence: 0.38
-      matched_on:
-      - data
-      - party
-      - terms
-      - third
-    - control: SDLC-02
-      relationship: intersects-with
-      confidence: 0.29
-      matched_on:
-      - party
-      - supply
-      - third
+    - mapping:
+        master_control_id: "AAT-01"
+        external_framework: "ISO/IEC 42001:2023"
+        external_requirement_id: "A.2.2"
+        strm_parameters:
+          relationship_type: "intersects-with"
+          relationship_strength: 4
+        references:
+          - "frameworks/iso-42001.requirements.yaml#A.2.2"
+          - "02-controls/controls/AAT-01.md"
+    - mapping:
+        master_control_id: "AAT-01"
+        external_framework: "ISO/IEC 42001:2023"
+        external_requirement_id: "A.3.2"
+        strm_parameters:
+          relationship_type: "intersects-with"
+          relationship_strength: 4
+        references:
+          - "frameworks/iso-42001.requirements.yaml#A.3.2"
+          - "02-controls/controls/AAT-01.md"
+    - mapping:
+        master_control_id: "AAT-01"
+        external_framework: "ISO/IEC 42001:2023"
+        external_requirement_id: "A.5.2"
+        strm_parameters:
+          relationship_type: "intersects-with"
+          relationship_strength: 2
+        references:
+          - "frameworks/iso-42001.requirements.yaml#A.5.2"
+          - "02-controls/controls/AAT-01.md"
+    - mapping:
+        master_control_id: "CHG-02"
+        external_framework: "ISO/IEC 42001:2023"
+        external_requirement_id: "A.6.2.4"
+        strm_parameters:
+          relationship_type: "intersects-with"
+          relationship_strength: 4
+        references:
+          - "frameworks/iso-42001.requirements.yaml#A.6.2.4"
+          - "02-controls/controls/CHG-02.md"
+    - mapping:
+        master_control_id: "DCH-01"
+        external_framework: "ISO/IEC 42001:2023"
+        external_requirement_id: "A.7.2"
+        strm_parameters:
+          relationship_type: "intersects-with"
+          relationship_strength: 4
+        references:
+          - "frameworks/iso-42001.requirements.yaml#A.7.2"
+          - "02-controls/controls/DCH-01.md"
+    - mapping:
+        master_control_id: "AAT-01"
+        external_framework: "ISO/IEC 42001:2023"
+        external_requirement_id: "A.9.2"
+        strm_parameters:
+          relationship_type: "intersects-with"
+          relationship_strength: 5
+        references:
+          - "frameworks/iso-42001.requirements.yaml#A.9.2"
+          - "02-controls/controls/AAT-01.md"
+    - mapping:
+        master_control_id: "TPM-01"
+        external_framework: "ISO/IEC 42001:2023"
+        external_requirement_id: "A.10.2"
+        strm_parameters:
+          relationship_type: "intersects-with"
+          relationship_strength: 7
+        references:
+          - "frameworks/iso-42001.requirements.yaml#A.10.2"
+          - "02-controls/controls/TPM-01.md"

@@ -19,7 +19,13 @@ metadata:
     hipaa: "HIPAA Security Rule"
     pci: "PCI DSS v4"
     gdpr: "GDPR"
-  relationships: [equivalent-to, subset-of, superset-of, intersects-with]
+  # Directionality is canonical per mappings/strm-schema.yaml: the owned control
+  # is the Reference document, the framework requirement is the Focal document.
+  # subset-of = the requirement is NARROWER than our control (full coverage plus
+  # extra); superset-of = the requirement is BROADER than our control (gap/delta).
+  # This file previously used the inverted (control-perspective) reading for its
+  # NIST 800-53 family-granularity refs; those were corrected to superset-of.
+  relationships: [equal-to, subset-of, superset-of, intersects-with, no-relationship]
 
 controls:
 
@@ -35,7 +41,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC1.1, CC1.2, CC1.3]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.5.1", "5.1", "5.2"]}
-      - {fw: nist80053, rel: subset-of, refs: [PM-1, PL-1]}
+      - {fw: nist80053, rel: superset-of, refs: [PM-1, PL-1]}
       - {fw: nistcsf, rel: intersects-with, refs: ["GV.OC", "GV.PO"]}
       - {fw: hipaa, rel: intersects-with, refs: ["164.316(a)"]}
 
@@ -50,7 +56,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC5.3]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.5.1", "A.5.37"]}
-      - {fw: nist80053, rel: subset-of, refs: ["AC-1", "AU-1", "CM-1"]}
+      - {fw: nist80053, rel: superset-of, refs: ["AC-1", "AU-1", "CM-1"]}
       - {fw: hipaa, rel: intersects-with, refs: ["164.316(b)(1)", "164.316(b)(2)"]}
       - {fw: pci, rel: intersects-with, refs: ["12.1"]}
 
@@ -64,7 +70,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC1.3, CC1.4]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.5.2", "A.5.3"]}
-      - {fw: nist80053, rel: subset-of, refs: [AC-5, PM-2]}
+      - {fw: nist80053, rel: superset-of, refs: [AC-5, PM-2]}
       - {fw: nistcsf, rel: intersects-with, refs: ["GV.RR"]}
 
   - id: GOV-04
@@ -78,7 +84,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC4.1, CC4.2]}
       - {fw: iso27001, rel: intersects-with, refs: ["9.1", "9.3"]}
-      - {fw: nist80053, rel: subset-of, refs: [CA-7, PM-6]}
+      - {fw: nist80053, rel: superset-of, refs: [CA-7, PM-6]}
       - {fw: nistcsf, rel: intersects-with, refs: ["GV.OV"]}
 
   # ---------------- Risk Management ----------------
@@ -92,7 +98,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC3.1, CC3.2, CC3.4]}
       - {fw: iso27001, rel: intersects-with, refs: ["6.1.2", "8.2"]}
-      - {fw: nist80053, rel: subset-of, refs: [RA-3, PM-9]}
+      - {fw: nist80053, rel: superset-of, refs: [RA-3, PM-9]}
       - {fw: nistcsf, rel: intersects-with, refs: ["ID.RA", "GV.RM"]}
       - {fw: gdpr, rel: intersects-with, refs: ["Art 35"]}
 
@@ -106,7 +112,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC3.2, CC9.1]}
       - {fw: iso27001, rel: intersects-with, refs: ["6.1.3", "8.3"]}
-      - {fw: nist80053, rel: subset-of, refs: [RA-7, CA-5]}
+      - {fw: nist80053, rel: superset-of, refs: [RA-7, CA-5]}
       - {fw: nistcsf, rel: intersects-with, refs: ["GV.RM", "ID.RA"]}
 
   # ---------------- Asset Management ----------------
@@ -120,7 +126,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC6.1]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.5.9", "A.5.10"]}
-      - {fw: nist80053, rel: subset-of, refs: [CM-8, PM-5]}
+      - {fw: nist80053, rel: superset-of, refs: [CM-8, PM-5]}
       - {fw: nistcsf, rel: intersects-with, refs: ["ID.AM"]}
       - {fw: pci, rel: intersects-with, refs: ["12.5.1", "9.5.1"]}
 
@@ -134,7 +140,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC6.1, C1.1]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.5.12", "A.5.13"]}
-      - {fw: nist80053, rel: subset-of, refs: [RA-2, MP-3]}
+      - {fw: nist80053, rel: superset-of, refs: [RA-2, MP-3]}
       - {fw: nistcsf, rel: intersects-with, refs: ["ID.AM-05"]}
 
   - id: AST-03
@@ -147,7 +153,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC6.5]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.7.10", "A.7.14", "A.8.10"]}
-      - {fw: nist80053, rel: subset-of, refs: [MP-6]}
+      - {fw: nist80053, rel: superset-of, refs: [MP-6]}
       - {fw: hipaa, rel: intersects-with, refs: ["164.310(d)(2)"]}
       - {fw: pci, rel: intersects-with, refs: ["9.4.6", "3.2.1"]}
 
@@ -162,7 +168,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC6.1, CC6.2, CC6.3]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.5.16", "A.5.18"]}
-      - {fw: nist80053, rel: subset-of, refs: [AC-2, PS-4, PS-5]}
+      - {fw: nist80053, rel: superset-of, refs: [AC-2, PS-4, PS-5]}
       - {fw: nistcsf, rel: intersects-with, refs: ["PR.AA"]}
       - {fw: hipaa, rel: intersects-with, refs: ["164.308(a)(3)", "164.308(a)(4)"]}
 
@@ -177,7 +183,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC6.2, CC6.3]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.5.15", "A.5.18", "A.8.2"]}
-      - {fw: nist80053, rel: subset-of, refs: [AC-2, AC-6]}
+      - {fw: nist80053, rel: superset-of, refs: [AC-2, AC-6]}
       - {fw: nistcsf, rel: intersects-with, refs: ["PR.AA-05"]}
       - {fw: hipaa, rel: intersects-with, refs: ["164.308(a)(3)(ii)(B)", "164.308(a)(4)"]}
 
@@ -191,7 +197,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC6.1, CC6.3]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.8.2", "A.8.18"]}
-      - {fw: nist80053, rel: subset-of, refs: [AC-6, AC-2(7)]}
+      - {fw: nist80053, rel: superset-of, refs: [AC-6, AC-2(7)]}
       - {fw: nistcsf, rel: intersects-with, refs: ["PR.AA-05"]}
       - {fw: pci, rel: intersects-with, refs: ["7.2", "7.3"]}
 
@@ -205,7 +211,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC6.1]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.5.17", "A.8.5"]}
-      - {fw: nist80053, rel: subset-of, refs: [IA-2, IA-5]}
+      - {fw: nist80053, rel: superset-of, refs: [IA-2, IA-5]}
       - {fw: nistcsf, rel: intersects-with, refs: ["PR.AA-03"]}
       - {fw: hipaa, rel: intersects-with, refs: ["164.312(d)"]}
       - {fw: pci, rel: intersects-with, refs: ["8.3", "8.4", "8.5"]}
@@ -220,7 +226,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC6.1, CC6.3]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.5.16", "A.8.2"]}
-      - {fw: nist80053, rel: subset-of, refs: [AC-2, IA-5(5)]}
+      - {fw: nist80053, rel: superset-of, refs: [AC-2, IA-5(5)]}
       - {fw: nistcsf, rel: intersects-with, refs: ["PR.AA-01"]}
 
   # ---------------- Change Management ----------------
@@ -235,7 +241,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC8.1]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.8.32", "A.8.19"]}
-      - {fw: nist80053, rel: subset-of, refs: [CM-3, CM-4, CM-5]}
+      - {fw: nist80053, rel: superset-of, refs: [CM-3, CM-4, CM-5]}
       - {fw: nistcsf, rel: intersects-with, refs: ["PR.PS-01"]}
       - {fw: pci, rel: intersects-with, refs: ["6.5.1", "6.5.2"]}
 
@@ -249,7 +255,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC7.1, CC8.1]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.8.9"]}
-      - {fw: nist80053, rel: subset-of, refs: [CM-2, CM-6]}
+      - {fw: nist80053, rel: superset-of, refs: [CM-2, CM-6]}
       - {fw: nistcsf, rel: intersects-with, refs: ["PR.PS-01"]}
       - {fw: pci, rel: intersects-with, refs: ["2.2"]}
 
@@ -264,7 +270,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC6.1, CC6.7]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.8.24"]}
-      - {fw: nist80053, rel: subset-of, refs: [SC-8, SC-13, SC-28]}
+      - {fw: nist80053, rel: superset-of, refs: [SC-8, SC-13, SC-28]}
       - {fw: nistcsf, rel: intersects-with, refs: ["PR.DS-01", "PR.DS-02"]}
       - {fw: hipaa, rel: intersects-with, refs: ["164.312(a)(2)(iv)", "164.312(e)(2)(ii)"]}
       - {fw: pci, rel: intersects-with, refs: ["3.5", "4.2"]}
@@ -280,7 +286,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC6.1]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.8.24"]}
-      - {fw: nist80053, rel: subset-of, refs: [SC-12, SC-17]}
+      - {fw: nist80053, rel: superset-of, refs: [SC-12, SC-17]}
       - {fw: pci, rel: intersects-with, refs: ["3.6", "3.7"]}
 
   # ---------------- Data Protection & Privacy ----------------
@@ -294,7 +300,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [C1.1, C1.2]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.5.14", "A.8.12"]}
-      - {fw: nist80053, rel: subset-of, refs: [AC-4, SC-7, SI-4]}
+      - {fw: nist80053, rel: superset-of, refs: [AC-4, SC-7, SI-4]}
       - {fw: nistcsf, rel: intersects-with, refs: ["PR.DS"]}
       - {fw: gdpr, rel: intersects-with, refs: ["Art 5.1(f)", "Art 32"]}
 
@@ -308,7 +314,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [C1.2, P4.2]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.5.33", "A.8.10"]}
-      - {fw: nist80053, rel: subset-of, refs: [SI-12, MP-6]}
+      - {fw: nist80053, rel: superset-of, refs: [SI-12, MP-6]}
       - {fw: gdpr, rel: intersects-with, refs: ["Art 5.1(e)", "Art 17"]}
       - {fw: hipaa, rel: intersects-with, refs: ["164.316(b)(2)(i)"]}
 
@@ -322,7 +328,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [P1.1, P2.1]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.5.34"]}
-      - {fw: nist80053, rel: subset-of, refs: [PT-1, PT-5, PM-9]}
+      - {fw: nist80053, rel: superset-of, refs: [PT-1, PT-5, PM-9]}
       - {fw: gdpr, rel: intersects-with, refs: ["Art 6", "Art 13", "Art 30"]}
 
   - id: PRI-02
@@ -334,7 +340,7 @@ controls:
     evidence: Rights-request log with timestamps and outcomes.
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [P5.1, P6.1]}
-      - {fw: nist80053, rel: subset-of, refs: [PT-6, IP-1]}
+      - {fw: nist80053, rel: superset-of, refs: [PT-6, IP-1]}
       - {fw: gdpr, rel: intersects-with, refs: ["Art 12", "Art 15", "Art 16", "Art 17", "Art 20"]}
 
   - id: PRI-03
@@ -346,7 +352,7 @@ controls:
     evidence: Consent register per minor with verification method and state.
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [P2.1]}
-      - {fw: nist80053, rel: subset-of, refs: [PT-4, PT-5]}
+      - {fw: nist80053, rel: superset-of, refs: [PT-4, PT-5]}
       - {fw: gdpr, rel: intersects-with, refs: ["Art 8"]}
 
   # ---------------- Logging & Monitoring ----------------
@@ -360,7 +366,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC7.2]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.8.15", "A.8.16"]}
-      - {fw: nist80053, rel: subset-of, refs: [AU-2, AU-6, SI-4]}
+      - {fw: nist80053, rel: superset-of, refs: [AU-2, AU-6, SI-4]}
       - {fw: nistcsf, rel: intersects-with, refs: ["DE.CM", "DE.AE"]}
       - {fw: hipaa, rel: intersects-with, refs: ["164.312(b)", "164.308(a)(1)(ii)(D)"]}
       - {fw: pci, rel: intersects-with, refs: ["10.2", "10.4"]}
@@ -375,7 +381,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC7.2]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.8.15", "A.8.17"]}
-      - {fw: nist80053, rel: subset-of, refs: [AU-9, AU-11, AU-8]}
+      - {fw: nist80053, rel: superset-of, refs: [AU-9, AU-11, AU-8]}
       - {fw: pci, rel: intersects-with, refs: ["10.3", "10.6"]}
 
   # ---------------- Network Security ----------------
@@ -389,7 +395,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC6.6, CC6.1]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.8.20", "A.8.22"]}
-      - {fw: nist80053, rel: subset-of, refs: [SC-7, AC-4]}
+      - {fw: nist80053, rel: superset-of, refs: [SC-7, AC-4]}
       - {fw: nistcsf, rel: intersects-with, refs: ["PR.IR-01"]}
       - {fw: pci, rel: intersects-with, refs: ["1.2", "1.3", "1.4"]}
 
@@ -403,7 +409,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC6.6, CC6.7]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.6.7", "A.8.5"]}
-      - {fw: nist80053, rel: subset-of, refs: [AC-17, SC-7]}
+      - {fw: nist80053, rel: superset-of, refs: [AC-17, SC-7]}
       - {fw: pci, rel: intersects-with, refs: ["8.5", "1.4"]}
 
   # ---------------- Secure Development ----------------
@@ -417,7 +423,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC8.1]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.8.25", "A.8.27", "A.8.28"]}
-      - {fw: nist80053, rel: subset-of, refs: [SA-3, SA-8, SA-11]}
+      - {fw: nist80053, rel: superset-of, refs: [SA-3, SA-8, SA-11]}
       - {fw: nistcsf, rel: intersects-with, refs: ["PR.PS-06"]}
       - {fw: pci, rel: intersects-with, refs: ["6.2"]}
 
@@ -431,7 +437,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC8.1, CC9.2]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.8.28", "A.8.30"]}
-      - {fw: nist80053, rel: subset-of, refs: [SA-12, SR-3, SR-4]}
+      - {fw: nist80053, rel: superset-of, refs: [SA-12, SR-3, SR-4]}
       - {fw: nistcsf, rel: intersects-with, refs: ["GV.SC", "ID.RA-09"]}
 
   - id: SDLC-03
@@ -444,7 +450,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC6.1]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.8.24", "A.8.31"]}
-      - {fw: nist80053, rel: subset-of, refs: [IA-5, SC-12]}
+      - {fw: nist80053, rel: superset-of, refs: [IA-5, SC-12]}
       - {fw: pci, rel: intersects-with, refs: ["6.3.1", "8.6"]}
 
   # ---------------- Vulnerability & Patch Management ----------------
@@ -458,7 +464,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC7.1, CC3.2]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.8.8"]}
-      - {fw: nist80053, rel: subset-of, refs: [RA-5, SI-2]}
+      - {fw: nist80053, rel: superset-of, refs: [RA-5, SI-2]}
       - {fw: nistcsf, rel: intersects-with, refs: ["ID.RA-01", "PR.PS-02"]}
       - {fw: pci, rel: intersects-with, refs: ["6.3.3", "11.3"]}
 
@@ -472,7 +478,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC4.1, CC7.1]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.8.8", "A.8.29"]}
-      - {fw: nist80053, rel: subset-of, refs: [CA-8, RA-5]}
+      - {fw: nist80053, rel: superset-of, refs: [CA-8, RA-5]}
       - {fw: pci, rel: intersects-with, refs: ["11.4"]}
 
   # ---------------- Endpoint Security ----------------
@@ -486,7 +492,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC6.8, CC7.1]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.8.7"]}
-      - {fw: nist80053, rel: subset-of, refs: [SI-3, SI-4]}
+      - {fw: nist80053, rel: superset-of, refs: [SI-3, SI-4]}
       - {fw: nistcsf, rel: intersects-with, refs: ["DE.CM-09"]}
       - {fw: pci, rel: intersects-with, refs: ["5.2", "5.3"]}
 
@@ -500,7 +506,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC6.7, CC6.8]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.8.1", "A.7.9"]}
-      - {fw: nist80053, rel: subset-of, refs: [CM-6, AC-19]}
+      - {fw: nist80053, rel: superset-of, refs: [CM-6, AC-19]}
       - {fw: hipaa, rel: intersects-with, refs: ["164.310(d)(1)", "164.312(a)(2)(iv)"]}
 
   # ---------------- Incident Response ----------------
@@ -514,7 +520,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC7.3, CC7.4, CC7.5]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.5.24", "A.5.25", "A.5.26"]}
-      - {fw: nist80053, rel: subset-of, refs: [IR-4, IR-5, IR-8]}
+      - {fw: nist80053, rel: superset-of, refs: [IR-4, IR-5, IR-8]}
       - {fw: nistcsf, rel: intersects-with, refs: ["RS.MA", "DE.AE"]}
       - {fw: hipaa, rel: intersects-with, refs: ["164.308(a)(6)"]}
       - {fw: pci, rel: intersects-with, refs: ["12.10"]}
@@ -529,7 +535,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC7.4, P6.3]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.5.26", "A.5.5"]}
-      - {fw: nist80053, rel: subset-of, refs: [IR-6]}
+      - {fw: nist80053, rel: superset-of, refs: [IR-6]}
       - {fw: gdpr, rel: intersects-with, refs: ["Art 33", "Art 34"]}
       - {fw: hipaa, rel: intersects-with, refs: ["164.400", "164.404", "164.410"]}
 
@@ -544,7 +550,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [A1.2, A1.3]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.5.29", "A.5.30"]}
-      - {fw: nist80053, rel: subset-of, refs: [CP-2, CP-4]}
+      - {fw: nist80053, rel: superset-of, refs: [CP-2, CP-4]}
       - {fw: nistcsf, rel: intersects-with, refs: ["RC.RP", "PR.IR-03"]}
       - {fw: hipaa, rel: intersects-with, refs: ["164.308(a)(7)"]}
 
@@ -558,7 +564,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [A1.2]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.8.13"]}
-      - {fw: nist80053, rel: subset-of, refs: [CP-9, CP-10]}
+      - {fw: nist80053, rel: superset-of, refs: [CP-9, CP-10]}
       - {fw: hipaa, rel: intersects-with, refs: ["164.308(a)(7)(ii)(A)", "164.308(a)(7)(ii)(B)"]}
 
   # ---------------- Third-Party Risk ----------------
@@ -572,7 +578,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC9.2, CC2.3]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.5.19", "A.5.20", "A.5.22"]}
-      - {fw: nist80053, rel: subset-of, refs: [SR-3, SR-6, SA-9]}
+      - {fw: nist80053, rel: superset-of, refs: [SR-3, SR-6, SA-9]}
       - {fw: nistcsf, rel: intersects-with, refs: ["GV.SC"]}
       - {fw: gdpr, rel: intersects-with, refs: ["Art 28"]}
       - {fw: pci, rel: intersects-with, refs: ["12.8"]}
@@ -587,7 +593,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC9.2]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.5.21"]}
-      - {fw: nist80053, rel: subset-of, refs: [SR-5, SA-9]}
+      - {fw: nist80053, rel: superset-of, refs: [SR-5, SA-9]}
       - {fw: gdpr, rel: intersects-with, refs: ["Art 28", "Art 44", "Art 46"]}
 
   # ---------------- Security Awareness & HR ----------------
@@ -601,7 +607,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC1.4, CC2.2]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.6.3"]}
-      - {fw: nist80053, rel: subset-of, refs: [AT-2, AT-3]}
+      - {fw: nist80053, rel: superset-of, refs: [AT-2, AT-3]}
       - {fw: nistcsf, rel: intersects-with, refs: ["PR.AT"]}
       - {fw: hipaa, rel: intersects-with, refs: ["164.308(a)(5)"]}
       - {fw: pci, rel: intersects-with, refs: ["12.6"]}
@@ -616,7 +622,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC1.1, CC1.4]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.6.1", "A.6.2", "A.6.4"]}
-      - {fw: nist80053, rel: subset-of, refs: [PS-3, PS-6, PS-8]}
+      - {fw: nist80053, rel: superset-of, refs: [PS-3, PS-6, PS-8]}
       - {fw: hipaa, rel: intersects-with, refs: ["164.308(a)(3)(ii)(B)"]}
 
   # ---------------- Physical & Environmental ----------------
@@ -630,7 +636,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC6.4]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.7.1", "A.7.2", "A.7.4"]}
-      - {fw: nist80053, rel: subset-of, refs: [PE-2, PE-3, PE-6]}
+      - {fw: nist80053, rel: superset-of, refs: [PE-2, PE-3, PE-6]}
       - {fw: hipaa, rel: intersects-with, refs: ["164.310(a)(1)", "164.310(b)"]}
       - {fw: pci, rel: intersects-with, refs: ["9.2", "9.3"]}
 
@@ -646,7 +652,7 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC1.2, CC6.1]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.5.1", "A.8.2"]}
-      - {fw: nist80053, rel: subset-of, refs: [AC-3, AC-6, AU-2]}
+      - {fw: nist80053, rel: superset-of, refs: [AC-3, AC-6, AU-2]}
       - {fw: nistcsf, rel: intersects-with, refs: ["GV.OC", "PR.AA"]}
 
   - id: AAT-02
@@ -659,5 +665,5 @@ controls:
     maps_to:
       - {fw: soc2, rel: intersects-with, refs: [CC8.1]}
       - {fw: iso27001, rel: intersects-with, refs: ["A.8.32"]}
-      - {fw: nist80053, rel: subset-of, refs: [CM-3, SA-11]}
+      - {fw: nist80053, rel: superset-of, refs: [CM-3, SA-11]}
       - {fw: nistcsf, rel: intersects-with, refs: ["PR.PS-01"]}

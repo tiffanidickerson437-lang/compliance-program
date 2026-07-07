@@ -1,0 +1,70 @@
+generated_by: tools/strm_coverage.py
+generated_at: '2026-07-07T02:21:21Z'
+schema: mappings/strm-schema.yaml
+formula: 'per requirement: strength/10 if equal-to|subset-of; 0.5*strength/10 if superset-of|intersects-with;
+  0 if no-relationship|unmapped; max per requirement; coverage % = mean of requirement scores * 100'
+frameworks:
+- framework_id: iso42001
+  framework_name: ISO/IEC 42001:2023 (AI Management System)
+  mapping_file: iso42001.draft.yaml
+  status: DRAFT_PENDING_HUMAN_APPROVAL
+  requirements_counted: 7
+  denominator: all 7 requirements in frameworks/iso-42001.requirements.yaml
+  coverage_percent: 21.4
+  delta:
+  - requirement_id: A.2.2
+    requirement_title: AI policy
+    relationship: intersects-with
+    strength: 4
+    mapped_control: AAT-01
+    score: 0.2
+    missing: partial overlap — each side covers ground the other does not; compute the delta; human design
+      required
+  - requirement_id: A.3.2
+    requirement_title: AI roles and responsibilities
+    relationship: intersects-with
+    strength: 4
+    mapped_control: AAT-01
+    score: 0.2
+    missing: partial overlap — each side covers ground the other does not; compute the delta; human design
+      required
+  - requirement_id: A.5.2
+    requirement_title: AI system impact assessment
+    relationship: intersects-with
+    strength: 2
+    mapped_control: AAT-01
+    score: 0.1
+    missing: partial overlap — each side covers ground the other does not; compute the delta; human design
+      required
+  - requirement_id: A.6.2.4
+    requirement_title: AI system change management
+    relationship: intersects-with
+    strength: 4
+    mapped_control: CHG-02
+    score: 0.2
+    missing: partial overlap — each side covers ground the other does not; compute the delta; human design
+      required
+  - requirement_id: A.7.2
+    requirement_title: Data for AI systems
+    relationship: intersects-with
+    strength: 4
+    mapped_control: DCH-01
+    score: 0.2
+    missing: partial overlap — each side covers ground the other does not; compute the delta; human design
+      required
+  - requirement_id: A.9.2
+    requirement_title: Responsible use and human oversight of AI
+    relationship: intersects-with
+    strength: 5
+    mapped_control: AAT-01
+    score: 0.25
+    missing: partial overlap — each side covers ground the other does not; compute the delta; human design
+      required
+  - requirement_id: A.10.2
+    requirement_title: Third-party AI relationships
+    relationship: intersects-with
+    strength: 7
+    mapped_control: TPM-01
+    score: 0.35
+    missing: partial overlap — each side covers ground the other does not; compute the delta; human design
+      required

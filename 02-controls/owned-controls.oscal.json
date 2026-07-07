@@ -49,7 +49,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "AC-3, AC-6, AU-2",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -100,7 +100,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "CM-3, SA-11",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -158,7 +158,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "CM-8, PM-5",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -216,7 +216,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "RA-2, MP-3",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -267,7 +267,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "MP-6",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -332,7 +332,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "CP-2, CP-4",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -390,7 +390,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "CP-9, CP-10",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -448,7 +448,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "CM-3, CM-4, CM-5",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -506,7 +506,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "CM-2, CM-6",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -571,7 +571,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "SC-8, SC-13, SC-28",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -643,7 +643,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "SC-12, SC-17",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -701,7 +701,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "AC-4, SC-7, SI-4",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -759,7 +759,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "SI-12, MP-6",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -817,7 +817,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "PT-1, PT-5, PM-9",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -861,7 +861,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "PT-6, IP-1",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -905,7 +905,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "PT-4, PT-5",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -963,7 +963,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "SI-3, SI-4",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -1021,7 +1021,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "CM-6, AC-19",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -1079,7 +1079,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "PM-1, PL-1",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -1137,7 +1137,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "AC-1, AU-1, CM-1",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -1195,7 +1195,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "AC-5, PM-2",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -1246,7 +1246,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "CA-7, PM-6",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -1304,7 +1304,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "PS-3, PS-6, PS-8",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -1362,7 +1362,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "AC-2, PS-4, PS-5",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -1420,7 +1420,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "AC-2, AC-6",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -1478,7 +1478,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "AC-6, AC-2(7)",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -1536,7 +1536,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "IA-2, IA-5",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -1601,7 +1601,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "AC-2, IA-5(5)",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -1659,7 +1659,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "IR-4, IR-5, IR-8",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -1724,7 +1724,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "IR-6",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -1789,7 +1789,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "AU-2, AU-6, SI-4",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -1854,7 +1854,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "AU-9, AU-11, AU-8",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -1912,7 +1912,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "SC-7, AC-4",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -1970,7 +1970,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "AC-17, SC-7",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -2028,7 +2028,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "PE-2, PE-3, PE-6",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -2093,7 +2093,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "RA-3, PM-9",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -2151,7 +2151,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "RA-7, CA-5",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -2209,7 +2209,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "SA-3, SA-8, SA-11",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -2267,7 +2267,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "SA-12, SR-3, SR-4",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -2318,7 +2318,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "IA-5, SC-12",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -2376,7 +2376,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "AT-2, AT-3",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -2448,7 +2448,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "SR-3, SR-6, SA-9",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -2513,7 +2513,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "SR-5, SA-9",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -2571,7 +2571,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "RA-5, SI-2",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
@@ -2629,7 +2629,7 @@
                 "ns": "https://grc.tld/ns/oscal",
                 "class": "nist80053",
                 "value": "CA-8, RA-5",
-                "remarks": "subset-of"
+                "remarks": "superset-of"
               },
               {
                 "name": "mapping",
