@@ -7,7 +7,7 @@ mapping from its requirements to controls we ALREADY OWN — never rewriting con
 regulation, a customer's bespoke questionnaire, an emerging AI standard: same move.
 
 Flow:
-  1. Load the owned control library (owned-controls.yaml) — the single source of truth.
+  1. Load the Living Control Set (control-library.yaml) — the single source of truth.
   2. Load the target framework's requirements.
   3. AI-DRAFT STEP: per requirement, propose which owned controls satisfy it and the
      set-theory relationship. In production this is an LLM call; here a transparent keyword
@@ -54,7 +54,7 @@ def rel_for(score):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--framework", required=True, help="path to a framework requirements YAML")
-    ap.add_argument("--catalog", default=str(Path(__file__).resolve().parent.parent / "02-controls" / "owned-controls.yaml"))
+    ap.add_argument("--catalog", default=str(Path(__file__).resolve().parent.parent / "02-controls" / "control-library.yaml"))
     ap.add_argument("--out", default=None)
     a = ap.parse_args()
 

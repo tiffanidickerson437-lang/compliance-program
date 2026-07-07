@@ -1,15 +1,37 @@
 {
   "profile": {
-    "uuid": "e4df5eca-4980-4605-a480-9590ba563f84",
+    "uuid": "7afeaf45-7762-4a37-a14c-bad76bc037f6",
     "metadata": {
       "title": "EU GDPR Profile",
-      "version": "1.0.0",
+      "version": "2.0.0",
       "oscal-version": "1.1.3",
-      "remarks": "Resolves the owned control library into the GDPR view. Adding this framework was a mapping, not a rebuild: the control objects are the same ones SOC 2 and ISO 27001 resolve."
+      "remarks": "Resolves the Living Control Set into the GDPR view. Adding this framework was a mapping, not a rebuild: the control objects are the same ones SOC 2 and ISO 27001 resolve. Expanded to the Living Control Set: selection now includes the authored controls absorbed from the retired owned control library.",
+      "last-modified": "2026-07-07T02:41:27Z"
     },
     "imports": [
-      { "href": "../control-library.oscal.json", "include-controls": [ { "with-ids": ["cry-01", "dch-01", "pri-03.13", "tpm-01", "iro-01"] } ] }
+      {
+        "href": "../control-library.oscal.json",
+        "include-controls": [
+          {
+            "with-ids": [
+              "pri-03.13",
+              "tpm-01",
+              "iro-01",
+              "cry-01",
+              "dch-01",
+              "rsk-01",
+              "dch-02",
+              "pri-01",
+              "pri-02",
+              "iro-02",
+              "tpm-02"
+            ]
+          }
+        ]
+      }
     ],
-    "merge": { "as-is": true }
+    "merge": {
+      "as-is": true
+    }
   }
 }

@@ -1,6 +1,9 @@
 metadata:
   generated_by: tools/scaffold.py
   source_control_library: 02-controls/control-library.yaml
+  scf_version: SCF 2026.1
+  scf_catalog: 02-controls/scf/SCF-OSCAL-Catalog-2026.1.json
+  scf_catalog_controls_indexed: 1468
   note: Tailored view resolved from the configuration. The control library is the single source
     of truth; this file selects a view and redefines nothing. Regenerate with python3 tools/scaffold.py
     <config>.
@@ -17,7 +20,7 @@ summary:
   - NIST AI RMF 1.0
   - ISO/IEC 42001:2023
   - EU AI Act (2024)
-  controls_in_scope_count: 11
+  controls_in_scope_count: 45
   controls_in_scope:
   - AAT-01
   - PRI-03.13
@@ -30,6 +33,40 @@ summary:
   - VPM-01
   - DCH-01
   - SAT-02
+  - GOV-01
+  - GOV-02
+  - GOV-03
+  - GOV-04
+  - RSK-01
+  - RSK-02
+  - AST-01
+  - AST-02
+  - AST-03
+  - IAM-01
+  - IAM-03
+  - IAM-04
+  - IAM-05
+  - CHG-02-BASELINE
+  - CRY-02
+  - DCH-02
+  - PRI-01
+  - PRI-02
+  - MON-02
+  - NET-01
+  - NET-02
+  - SDLC-01
+  - SDLC-02
+  - SDLC-03
+  - VPM-02
+  - END-01
+  - END-02
+  - IRO-02
+  - BCD-01
+  - BCD-02
+  - TPM-02
+  - HRS-01
+  - PES-01
+  - AAT-02
   pillars_enabled:
   - 00-governance
   - 01-risk-management
@@ -50,8 +87,12 @@ in_scope_controls:
   family: AI governance
   owner: GRC + Security (Legal/Privacy joint on lawful basis)
   automation: partial
+  requirement_level: MCR
+  scf_id: AAT-01
+  scf_resolves: true
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
   - 'framework: NIST AI RMF 1.0'
   - 'framework: ISO/IEC 42001:2023'
   - 'framework: EU AI Act (2024)'
@@ -62,12 +103,19 @@ in_scope_controls:
   - ISO/IEC 42001:2023
   - SOC 2 (TSC 2017)
   - EU AI Act (2024)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - NIST CSF 2.0
 - id: PRI-03.13
   title: Parent or guardian opt-in consent for minors
   family: privacy
   owner: Legal/Privacy (Security enforces)
   automation: partial
+  requirement_level: MCR
+  scf_id: PRI-03.13
+  scf_resolves: true
   selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
   - 'framework: EU GDPR'
   - 'framework: CCPA / CPRA (2026)'
   - 'framework: COPPA (amended 2025)'
@@ -76,22 +124,33 @@ in_scope_controls:
   - COPPA (amended 2025)
   - CCPA / CPRA (2026)
   - GDPR
+  - SOC 2 (TSC 2017)
+  - NIST 800-53 r5
 - id: IAC-17
   title: Periodic review of account privileges
   family: access management
   owner: Security (IAM)
   automation: partial
+  requirement_level: MCR
+  scf_id: IAC-17
+  scf_resolves: true
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
   - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO/IEC 27002:2022
+  - NIST 800-53 r5
+  - NIST CSF 2.0
+  - HIPAA Security Rule
 - id: CHG-02
   title: Configuration change control
   family: change management
   owner: Engineering (Security owns the policy)
   automation: automated
+  requirement_level: MCR
+  scf_id: CHG-02
+  scf_resolves: true
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
   - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
@@ -99,11 +158,17 @@ in_scope_controls:
   - SOC 2 (TSC 2017)
   - ISO/IEC 27002:2022
   - NIST CSF 2.0
+  - NIST 800-53 r5
+  - NIST CSF 2.0
+  - PCI DSS v4
 - id: MON-01
   title: Continuous monitoring and event logging
   family: monitoring
   owner: Security (SOC)
   automation: automated
+  requirement_level: MCR
+  scf_id: MON-01
+  scf_resolves: true
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
   - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
@@ -111,11 +176,18 @@ in_scope_controls:
   - SOC 2 (TSC 2017)
   - ISO/IEC 27002:2022
   - NIST CSF 2.0
+  - NIST 800-53 r5
+  - NIST CSF 2.0
+  - HIPAA Security Rule
+  - PCI DSS v4
 - id: TPM-01
   title: Third-party management
   family: third-party risk
   owner: GRC (Legal/Privacy on terms)
   automation: partial, workflow-tracked
+  requirement_level: MCR
+  scf_id: TPM-01
+  scf_resolves: true
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
   - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
@@ -129,11 +201,17 @@ in_scope_controls:
   - NIST AI RMF 1.0
   - CCPA / CPRA (2026)
   - GDPR
+  - NIST 800-53 r5
+  - NIST CSF 2.0
+  - PCI DSS v4
 - id: IRO-01
   title: Incident response operations
   family: incident response
   owner: Security (Legal/Privacy on notification)
   automation: partial
+  requirement_level: MCR
+  scf_id: IRO-01
+  scf_resolves: true
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
   - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
@@ -147,11 +225,18 @@ in_scope_controls:
   - NIST AI RMF 1.0
   - CCPA / CPRA (2026)
   - GDPR
+  - NIST 800-53 r5
+  - NIST CSF 2.0
+  - HIPAA Security Rule
+  - PCI DSS v4
 - id: CRY-01
   title: Use of cryptographic controls
   family: cryptography
   owner: Security (Engineering implements)
   automation: partial
+  requirement_level: MCR
+  scf_id: CRY-01
+  scf_resolves: true
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
   - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
@@ -161,11 +246,18 @@ in_scope_controls:
   - ISO/IEC 27002:2022
   - NIST CSF 2.0
   - GDPR
+  - NIST 800-53 r5
+  - NIST CSF 2.0
+  - HIPAA Security Rule
+  - PCI DSS v4
 - id: VPM-01
   title: Vulnerability and patch management
   family: vulnerability management
   owner: Security (Engineering remediates)
   automation: automated
+  requirement_level: MCR
+  scf_id: VPM-01
+  scf_resolves: true
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
   - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
@@ -173,11 +265,17 @@ in_scope_controls:
   - SOC 2 (TSC 2017)
   - ISO/IEC 27002:2022
   - NIST CSF 2.0
+  - NIST 800-53 r5
+  - NIST CSF 2.0
+  - PCI DSS v4
 - id: DCH-01
   title: Data classification and protection
   family: data protection
   owner: Legal/Privacy (Security and Engineering enforce)
   automation: partial
+  requirement_level: MCR
+  scf_id: DCH-01
+  scf_resolves: true
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
   - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
@@ -189,15 +287,589 @@ in_scope_controls:
   - NIST CSF 2.0
   - GDPR
   - CCPA / CPRA (2026)
+  - NIST 800-53 r5
+  - NIST CSF 2.0
 - id: SAT-02
   title: Security awareness and role-based training
   family: awareness and training
   owner: Security (People/HR delivers)
   automation: partial
+  requirement_level: MCR
+  scf_id: SAT-02
+  scf_resolves: true
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
   - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO/IEC 27002:2022
+  - NIST CSF 2.0
+  - NIST 800-53 r5
+  - NIST CSF 2.0
+  - HIPAA Security Rule
+  - PCI DSS v4
+- id: GOV-01
+  title: Security and privacy governance program
+  family: Governance
+  owner: ''
+  automation: ''
+  requirement_level: MCR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - NIST CSF 2.0
+  - HIPAA Security Rule
+- id: GOV-02
+  title: Policy hierarchy and periodic review
+  family: Governance
+  owner: ''
+  automation: ''
+  requirement_level: MCR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - HIPAA Security Rule
+  - PCI DSS v4
+- id: GOV-03
+  title: Roles, responsibilities, and segregation of duties
+  family: Governance
+  owner: ''
+  automation: ''
+  requirement_level: DSR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - NIST CSF 2.0
+- id: GOV-04
+  title: Program metrics and leadership reporting
+  family: Governance
+  owner: ''
+  automation: ''
+  requirement_level: DSR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - NIST CSF 2.0
+- id: RSK-01
+  title: Risk assessment methodology
+  family: Risk Management
+  owner: ''
+  automation: ''
+  requirement_level: MCR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: EU GDPR'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - NIST CSF 2.0
+  - GDPR
+- id: RSK-02
+  title: Risk register and treatment
+  family: Risk Management
+  owner: ''
+  automation: ''
+  requirement_level: DSR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - NIST CSF 2.0
+- id: AST-01
+  title: Asset inventory and ownership
+  family: Asset Management
+  owner: ''
+  automation: ''
+  requirement_level: MCR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - NIST CSF 2.0
+  - PCI DSS v4
+- id: AST-02
+  title: Data and asset classification
+  family: Asset Management
+  owner: ''
+  automation: ''
+  requirement_level: DSR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - NIST CSF 2.0
+- id: AST-03
+  title: Secure disposal of media and equipment
+  family: Asset Management
+  owner: ''
+  automation: ''
+  requirement_level: MCR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - HIPAA Security Rule
+  - PCI DSS v4
+- id: IAM-01
+  title: Access provisioning from joiner-mover-leaver
+  family: Identity & Access Management
+  owner: ''
+  automation: ''
+  requirement_level: MCR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - NIST CSF 2.0
+  - HIPAA Security Rule
+- id: IAM-03
+  title: Least privilege and privileged access management
+  family: Identity & Access Management
+  owner: ''
+  automation: ''
+  requirement_level: MCR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - NIST CSF 2.0
+  - PCI DSS v4
+- id: IAM-04
+  title: Authentication and multi-factor enforcement
+  family: Identity & Access Management
+  owner: ''
+  automation: ''
+  requirement_level: MCR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - NIST CSF 2.0
+  - HIPAA Security Rule
+  - PCI DSS v4
+- id: IAM-05
+  title: Service and non-human identity governance
+  family: Identity & Access Management
+  owner: ''
+  automation: ''
+  requirement_level: DSR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - NIST CSF 2.0
+- id: CHG-02-BASELINE
+  title: Baseline configuration and hardening
+  family: Change Management
+  owner: ''
+  automation: ''
+  requirement_level: MCR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - NIST CSF 2.0
+  - PCI DSS v4
+- id: CRY-02
+  title: Key management
+  family: Cryptographic Protections
+  owner: ''
+  automation: ''
+  requirement_level: MCR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - PCI DSS v4
+- id: DCH-02
+  title: Data retention and disposal
+  family: Data Protection & Privacy
+  owner: ''
+  automation: ''
+  requirement_level: MCR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: EU GDPR'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - GDPR
+  - HIPAA Security Rule
+- id: PRI-01
+  title: Privacy notice and lawful basis
+  family: Data Protection & Privacy
+  owner: ''
+  automation: ''
+  requirement_level: MCR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: EU GDPR'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - GDPR
+- id: PRI-02
+  title: Data subject rights handling
+  family: Data Protection & Privacy
+  owner: ''
+  automation: ''
+  requirement_level: MCR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: EU GDPR'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - NIST 800-53 r5
+  - GDPR
+- id: MON-02
+  title: Log integrity and retention
+  family: Logging & Monitoring
+  owner: ''
+  automation: ''
+  requirement_level: MCR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - PCI DSS v4
+- id: NET-01
+  title: Network segmentation and boundary protection
+  family: Network Security
+  owner: ''
+  automation: ''
+  requirement_level: MCR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - NIST CSF 2.0
+  - PCI DSS v4
+- id: NET-02
+  title: Secure remote access
+  family: Network Security
+  owner: ''
+  automation: ''
+  requirement_level: MCR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - PCI DSS v4
+- id: SDLC-01
+  title: Secure development gates
+  family: Secure Development
+  owner: ''
+  automation: ''
+  requirement_level: MCR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - NIST CSF 2.0
+  - PCI DSS v4
+- id: SDLC-02
+  title: Software supply chain and dependency integrity
+  family: Secure Development
+  owner: ''
+  automation: ''
+  requirement_level: DSR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - NIST CSF 2.0
+- id: SDLC-03
+  title: Secrets management
+  family: Secure Development
+  owner: ''
+  automation: ''
+  requirement_level: MCR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - PCI DSS v4
+- id: VPM-02
+  title: Penetration testing
+  family: Vulnerability & Patch Management
+  owner: ''
+  automation: ''
+  requirement_level: MCR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - PCI DSS v4
+- id: END-01
+  title: Endpoint protection and detection
+  family: Endpoint Security
+  owner: ''
+  automation: ''
+  requirement_level: MCR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - NIST CSF 2.0
+  - PCI DSS v4
+- id: END-02
+  title: Device management and hardening
+  family: Endpoint Security
+  owner: ''
+  automation: ''
+  requirement_level: MCR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - HIPAA Security Rule
+- id: IRO-02
+  title: Breach notification
+  family: Incident Response
+  owner: ''
+  automation: ''
+  requirement_level: MCR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: EU GDPR'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - GDPR
+  - HIPAA Security Rule
+- id: BCD-01
+  title: Business continuity and disaster recovery
+  family: Business Continuity & DR
+  owner: ''
+  automation: ''
+  requirement_level: MCR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - NIST CSF 2.0
+  - HIPAA Security Rule
+- id: BCD-02
+  title: Backup and restoration
+  family: Business Continuity & DR
+  owner: ''
+  automation: ''
+  requirement_level: MCR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - HIPAA Security Rule
+- id: TPM-02
+  title: Subprocessor and data-flow assurance
+  family: Third-Party Risk
+  owner: ''
+  automation: ''
+  requirement_level: MCR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: EU GDPR'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - GDPR
+- id: HRS-01
+  title: Personnel screening and agreements
+  family: Human Resources Security
+  owner: ''
+  automation: ''
+  requirement_level: MCR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - HIPAA Security Rule
+- id: PES-01
+  title: Physical access and environmental protection
+  family: Physical & Environmental
+  owner: ''
+  automation: ''
+  requirement_level: MCR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
+  - HIPAA Security Rule
+  - PCI DSS v4
+- id: AAT-02
+  title: Model and prompt change management
+  family: AI Governance
+  owner: ''
+  automation: ''
+  requirement_level: DSR
+  scf_id: null
+  scf_resolves: false
+  selected_because:
+  - 'framework: SOC 2 (TSC 2017)'
+  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  frameworks_satisfied:
+  - SOC 2 (TSC 2017)
+  - ISO 27001:2022
+  - NIST 800-53 r5
   - NIST CSF 2.0
