@@ -1,0 +1,51 @@
+# STRM Lint + Coverage
+#
+# Machine-checks the mapping layer on every PR that touches it:
+#   - tools/strm_lint.py must pass on mappings/ (valid control IDs, one of the
+#     5 canonical relationship types, integer strength 1-10, references present;
+#     directionality per mappings/strm-schema.yaml).
+#   - tools/strm_coverage.py must generate the per-framework coverage %/delta
+#     report under generated/.
+#   - tests/test_strm.py asserts both (the unit's done-condition).
+
+name: STRM Lint
+
+on:
+  pull_request:
+    paths:
+      - "mappings/**"
+      - "frameworks/**"
+      - "02-controls/control-library.yaml"
+      - "tools/strm_lint.py"
+      - "tools/strm_coverage.py"
+      - "tools/draft_framework_mapping.py"
+      - "tests/test_strm.py"
+      - ".github/workflows/strm-lint.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  strm:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout program repo
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install parser
+        run: pip install --quiet pyyaml
+
+      - name: STRM linter passes on the repo's mappings
+        run: python3 tools/strm_lint.py
+
+      - name: Per-framework coverage %/delta report generates
+        run: python3 tools/strm_coverage.py
+
+      - name: Unit test asserts both (done-condition)
+        run: python3 tests/test_strm.py
