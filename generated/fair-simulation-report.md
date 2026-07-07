@@ -1,6 +1,6 @@
 # FAIR Monte Carlo Simulation
 
-- Register: /Users/tiffanidickerson/Downloads/_CLAUDE/HEX/_work/compliance-program/.claude/worktrees/wf_74235c0b-902-1/01-risk-management/risk-register.yaml
+- Register: 01-risk-management/risk-register.yaml
 - Iterations: 10,000 per risk (BetaPERT sampling, lambda=4; vulnerability point estimates passed through as constants)
 - Seed: not fixed (fresh entropy)
 - Generated: 2026-07-07T02:13:17+00:00
