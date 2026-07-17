@@ -589,6 +589,10 @@ controls:
         references: ["164.308(a)(3)(ii)(B)", "164.308(a)(4)"]
         relationship: intersects-with
         note: family-granularity mapping absorbed from owned control IAM-02
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.1.1", "3.5.6"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
     test_procedure: >
       For the review period, verify 100 percent of in-scope accounts were
       reviewed; reconcile revocations to log events; confirm zero orphaned
@@ -773,6 +777,10 @@ controls:
         references: ["6.5.1", "6.5.2"]
         relationship: intersects-with
         note: family-granularity mapping absorbed from owned control CHG-01
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.4.3", "3.4.4", "3.4.5"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
     test_procedure: >
       Query the merge API for the production branch for the period; confirm linked
       ticket and independent review; investigate direct pushes and exceptions
@@ -957,6 +965,10 @@ controls:
         references: ["10.2", "10.4"]
         relationship: intersects-with
         note: family-granularity mapping absorbed from owned control MON-01
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.1.7", "3.3.1", "3.3.2", "3.3.3", "3.3.4", "3.3.5", "3.3.6", "3.12.3", "3.14.3", "3.14.6", "3.14.7"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
     test_procedure: >
       Verify the source coverage report matches inventory; confirm retention and
       integrity checks; sample alert acknowledgement within SLA.
@@ -1140,6 +1152,10 @@ controls:
         references: ["12.8"]
         relationship: intersects-with
         note: family-granularity mapping absorbed from owned control TPM-01
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.1.20"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
     test_procedure: >
       Reconcile the vendor inventory to the tiering model; confirm high-risk
       parties have current assessments and DPAs; track overdue reassessments to
@@ -1330,6 +1346,10 @@ controls:
         references: ["12.10"]
         relationship: intersects-with
         note: family-granularity mapping absorbed from owned control IRO-01
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.6.1", "3.6.2", "3.6.3"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
     test_procedure: >
       Sample incidents for complete timeline fields; verify post-incident reviews
       completed; for notification-threshold incidents, confirm the decision log and
@@ -1520,6 +1540,10 @@ controls:
         references: ["3.5", "4.2"]
         relationship: intersects-with
         note: family-granularity mapping absorbed from owned control CRY-01
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.1.13", "3.1.17", "3.1.19", "3.5.10", "3.8.6", "3.8.9", "3.13.8", "3.13.11", "3.13.15", "3.13.16"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
     test_procedure: >
       Sample in-scope stores and endpoints; confirm authenticated encryption at the
       at-rest standard and no deprecated protocol negotiated; pull the key
@@ -1682,6 +1706,10 @@ controls:
         references: ["6.3.3", "11.3"]
         relationship: intersects-with
         note: family-granularity mapping absorbed from owned control VPM-01
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.7.1", "3.11.2", "3.11.3", "3.14.1", "3.14.3", "3.14.5"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
     test_procedure: >
       Sample findings for triage, SLA assignment, and on-time remediation or a valid
       exception; confirm internet-facing and sensitive-data systems carry the
@@ -1850,6 +1878,10 @@ controls:
         references: ["PR.DS"]
         relationship: intersects-with
         note: family-granularity mapping absorbed from owned control DCH-01
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.1.3", "3.1.21", "3.1.22", "3.8.1", "3.8.2", "3.8.5", "3.13.16"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
     test_procedure: >
       Sample highest-sensitivity stores for classification, handling, and retention;
       trigger an end-of-basis deletion and confirm a verifiable record; search for a
@@ -2021,6 +2053,10 @@ controls:
         references: ["12.6"]
         relationship: intersects-with
         note: family-granularity mapping absorbed from owned control SAT-01
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.2.1", "3.2.2", "3.2.3"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
     test_procedure: >
       Sample new hires for baseline completion within SLA; sample an elevated-access
       role for the assigned role-based module on assignment; confirm no in-scope
@@ -2088,6 +2124,10 @@ controls:
         references: ["164.316(a)"]
         relationship: intersects-with
 
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.12.4"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
   - id: GOV-02
     class: Owned
     requirement_level: MCR
@@ -2120,6 +2160,10 @@ controls:
         references: ["12.1"]
         relationship: intersects-with
 
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.12.4"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
   - id: GOV-03
     class: Owned
     requirement_level: DSR
@@ -2149,6 +2193,10 @@ controls:
         references: ["GV.RR"]
         relationship: intersects-with
 
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.1.4"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
   - id: GOV-04
     class: Owned
     requirement_level: DSR
@@ -2178,6 +2226,10 @@ controls:
         references: ["GV.OV"]
         relationship: intersects-with
 
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.12.1", "3.12.3"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
   - id: RSK-01
     class: Owned
     requirement_level: MCR
@@ -2209,6 +2261,10 @@ controls:
         references: ["Art 35"]
         relationship: intersects-with
 
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.11.1"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
   - id: RSK-02
     class: Owned
     requirement_level: DSR
@@ -2238,6 +2294,10 @@ controls:
         references: ["GV.RM", "ID.RA"]
         relationship: intersects-with
 
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.12.2"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
   - id: AST-01
     class: Owned
     requirement_level: MCR
@@ -2270,6 +2330,10 @@ controls:
         references: ["12.5.1", "9.5.1"]
         relationship: intersects-with
 
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.4.1"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
   - id: AST-02
     class: Owned
     requirement_level: DSR
@@ -2298,6 +2362,10 @@ controls:
         references: ["ID.AM-05"]
         relationship: intersects-with
 
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.8.4"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
   - id: AST-03
     class: Owned
     requirement_level: MCR
@@ -2329,6 +2397,10 @@ controls:
         references: ["9.4.6", "3.2.1"]
         relationship: intersects-with
 
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.7.3", "3.8.1", "3.8.3"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
   - id: IAM-01
     class: Owned
     requirement_level: MCR
@@ -2361,6 +2433,10 @@ controls:
         references: ["164.308(a)(3)", "164.308(a)(4)"]
         relationship: intersects-with
 
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.1.1", "3.3.2", "3.5.1", "3.5.5", "3.5.6", "3.9.2"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
   - id: IAM-03
     class: Owned
     requirement_level: MCR
@@ -2392,6 +2468,10 @@ controls:
         references: ["7.2", "7.3"]
         relationship: intersects-with
 
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.1.2", "3.1.5", "3.1.6", "3.1.7", "3.1.15", "3.3.9", "3.13.3"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
   - id: IAM-04
     class: Owned
     requirement_level: MCR
@@ -2426,6 +2506,10 @@ controls:
         references: ["8.3", "8.4", "8.5"]
         relationship: intersects-with
 
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.1.8", "3.1.9", "3.1.11", "3.5.2", "3.5.3", "3.5.4", "3.5.7", "3.5.8", "3.5.9", "3.5.10", "3.5.11", "3.7.5"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
   - id: IAM-05
     class: Owned
     requirement_level: DSR
@@ -2455,6 +2539,10 @@ controls:
         references: ["PR.AA-01"]
         relationship: intersects-with
 
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.5.1"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
   - id: CHG-02-BASELINE
     class: Owned
     requirement_level: MCR
@@ -2491,6 +2579,10 @@ controls:
         references: ["2.2"]
         relationship: intersects-with
 
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.4.1", "3.4.2", "3.4.6", "3.4.7"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
   - id: CRY-02
     class: Owned
     requirement_level: MCR
@@ -2519,6 +2611,10 @@ controls:
         references: ["3.6", "3.7"]
         relationship: intersects-with
 
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.13.10"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
   - id: DCH-02
     class: Owned
     requirement_level: MCR
@@ -2633,6 +2729,10 @@ controls:
         references: ["10.3", "10.6"]
         relationship: intersects-with
 
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.3.7", "3.3.8", "3.3.9"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
   - id: NET-01
     class: Owned
     requirement_level: MCR
@@ -2664,6 +2764,10 @@ controls:
         references: ["1.2", "1.3", "1.4"]
         relationship: intersects-with
 
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.1.3", "3.1.16", "3.1.17", "3.4.7", "3.13.1", "3.13.3", "3.13.4", "3.13.5", "3.13.6", "3.13.14", "3.14.6"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
   - id: NET-02
     class: Owned
     requirement_level: MCR
@@ -2692,6 +2796,10 @@ controls:
         references: ["8.5", "1.4"]
         relationship: intersects-with
 
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.1.12", "3.1.13", "3.1.14", "3.1.15", "3.7.5", "3.13.7", "3.13.9"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
   - id: SDLC-01
     class: Owned
     requirement_level: MCR
@@ -2723,6 +2831,10 @@ controls:
         references: ["6.2"]
         relationship: intersects-with
 
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.13.2"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
   - id: SDLC-02
     class: Owned
     requirement_level: DSR
@@ -2808,6 +2920,10 @@ controls:
         references: ["11.4"]
         relationship: intersects-with
 
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.11.2", "3.12.1"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
   - id: END-01
     class: Owned
     requirement_level: MCR
@@ -2839,6 +2955,10 @@ controls:
         references: ["5.2", "5.3"]
         relationship: intersects-with
 
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.7.4", "3.13.13", "3.14.2", "3.14.4", "3.14.5"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
   - id: END-02
     class: Owned
     requirement_level: MCR
@@ -2867,6 +2987,10 @@ controls:
         references: ["164.310(d)(1)", "164.312(a)(2)(iv)"]
         relationship: intersects-with
 
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.1.10", "3.1.18", "3.1.19", "3.1.21", "3.4.8", "3.4.9", "3.7.1", "3.7.2", "3.8.7", "3.8.8", "3.10.6", "3.13.12"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
   - id: IRO-02
     class: Owned
     requirement_level: MCR
@@ -2899,6 +3023,10 @@ controls:
         references: ["164.400", "164.404", "164.410"]
         relationship: intersects-with
 
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.6.2"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
   - id: BCD-01
     class: Owned
     requirement_level: MCR
@@ -2958,6 +3086,10 @@ controls:
         references: ["164.308(a)(7)(ii)(A)", "164.308(a)(7)(ii)(B)"]
         relationship: intersects-with
 
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.8.9"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
   - id: TPM-02
     class: Owned
     requirement_level: MCR
@@ -2986,6 +3118,10 @@ controls:
         references: ["Art 28", "Art 44", "Art 46"]
         relationship: intersects-with
 
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.1.20"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
   - id: HRS-01
     class: Owned
     requirement_level: MCR
@@ -3015,6 +3151,10 @@ controls:
         references: ["164.308(a)(3)(ii)(B)"]
         relationship: intersects-with
 
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.7.6", "3.9.1", "3.9.2"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
   - id: PES-01
     class: Owned
     requirement_level: MCR
@@ -3047,6 +3187,10 @@ controls:
         references: ["9.2", "9.3"]
         relationship: intersects-with
 
+      - framework: NIST SP 800-171 Rev 2
+        references: ["3.7.6", "3.10.1", "3.10.2", "3.10.3", "3.10.4", "3.10.5", "3.10.6"]
+        relationship: implements
+        note: requirement-granularity mapping authored for the 800-171 Rev 2 crosswalk; SPRS weights and evidence sources travel with the assessment workbook
   - id: AAT-02
     class: Owned
     requirement_level: DSR

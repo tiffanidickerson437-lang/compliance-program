@@ -1,5 +1,5 @@
 generated_by: tools/strm_coverage.py
-generated_at: '2026-07-07T03:06:45Z'
+generated_at: '2026-07-17T05:39:15Z'
 schema: mappings/strm-schema.yaml
 formula: 'per requirement: strength/10 if equal-to|subset-of; 0.5*strength/10 if superset-of|intersects-with;
   0 if no-relationship|unmapped; max per requirement; coverage % = mean of requirement scores * 100'

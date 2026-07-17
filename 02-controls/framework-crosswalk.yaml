@@ -50,6 +50,10 @@ frameworks:
     name: PCI DSS v4
     profile: profiles/pci.profile.oscal.json
 
+  nist_800_171:
+    name: NIST SP 800-171 Rev 2
+    profile: profiles/nist-800-171.profile.oscal.json
+
 # View 1: one control, every framework it satisfies (real references;
 # rows absorbed from the owned control library are family-granularity).
 by_control:
@@ -80,6 +84,8 @@ by_control:
     - framework: NIST 800-53 r5
       refs: ["PT-4", "PT-5"]
   IAC-17:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.1.1", "3.5.6"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC6.2", "CC6.3"]
     - framework: ISO/IEC 27002:2022
@@ -91,6 +97,8 @@ by_control:
     - framework: HIPAA Security Rule
       refs: ["164.308(a)(3)(ii)(B)", "164.308(a)(4)"]
   CHG-02:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.4.3", "3.4.4", "3.4.5"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC3.4", "CC8.1"]
     - framework: ISO/IEC 27002:2022
@@ -104,6 +112,8 @@ by_control:
     - framework: PCI DSS v4
       refs: ["6.5.1", "6.5.2"]
   MON-01:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.1.7", "3.3.1", "3.3.2", "3.3.3", "3.3.4", "3.3.5", "3.3.6", "3.12.3", "3.14.3", "3.14.6", "3.14.7"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC7.2"]
     - framework: ISO/IEC 27002:2022
@@ -119,6 +129,8 @@ by_control:
     - framework: PCI DSS v4
       refs: ["10.2", "10.4"]
   TPM-01:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.1.20"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC9.2", "CC2.3"]
     - framework: ISO/IEC 27002:2022
@@ -138,6 +150,8 @@ by_control:
     - framework: PCI DSS v4
       refs: ["12.8"]
   IRO-01:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.6.1", "3.6.2", "3.6.3"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC7.3", "CC7.4"]
     - framework: ISO/IEC 27002:2022
@@ -159,6 +173,8 @@ by_control:
     - framework: PCI DSS v4
       refs: ["12.10"]
   CRY-01:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.1.13", "3.1.17", "3.1.19", "3.5.10", "3.8.6", "3.8.9", "3.13.8", "3.13.11", "3.13.15", "3.13.16"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC6.1", "CC6.7"]
     - framework: ISO/IEC 27002:2022
@@ -176,6 +192,8 @@ by_control:
     - framework: PCI DSS v4
       refs: ["3.5", "4.2"]
   VPM-01:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.7.1", "3.11.2", "3.11.3", "3.14.1", "3.14.3", "3.14.5"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC7.1"]
     - framework: ISO/IEC 27002:2022
@@ -189,6 +207,8 @@ by_control:
     - framework: PCI DSS v4
       refs: ["6.3.3", "11.3"]
   DCH-01:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.1.3", "3.1.21", "3.1.22", "3.8.1", "3.8.2", "3.8.5", "3.13.16"]
     - framework: SOC 2 (TSC 2017)
       refs: ["C1.1", "C1.2"]
     - framework: ISO/IEC 27002:2022
@@ -204,6 +224,8 @@ by_control:
     - framework: NIST CSF 2.0
       refs: ["PR.DS"]
   SAT-02:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.2.1", "3.2.2", "3.2.3"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC1.4", "CC2.2"]
     - framework: ISO/IEC 27002:2022
@@ -219,6 +241,8 @@ by_control:
     - framework: PCI DSS v4
       refs: ["12.6"]
   GOV-01:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.12.4"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC1.1", "CC1.2", "CC1.3"]
     - framework: ISO 27001:2022
@@ -230,6 +254,8 @@ by_control:
     - framework: HIPAA Security Rule
       refs: ["164.316(a)"]
   GOV-02:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.12.4"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC5.3"]
     - framework: ISO 27001:2022
@@ -241,6 +267,8 @@ by_control:
     - framework: PCI DSS v4
       refs: ["12.1"]
   GOV-03:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.1.4"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC1.3", "CC1.4"]
     - framework: ISO 27001:2022
@@ -250,6 +278,8 @@ by_control:
     - framework: NIST CSF 2.0
       refs: ["GV.RR"]
   GOV-04:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.12.1", "3.12.3"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC4.1", "CC4.2"]
     - framework: ISO 27001:2022
@@ -259,6 +289,8 @@ by_control:
     - framework: NIST CSF 2.0
       refs: ["GV.OV"]
   RSK-01:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.11.1"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC3.1", "CC3.2", "CC3.4"]
     - framework: ISO 27001:2022
@@ -270,6 +302,8 @@ by_control:
     - framework: GDPR
       refs: ["Art 35"]
   RSK-02:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.12.2"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC3.2", "CC9.1"]
     - framework: ISO 27001:2022
@@ -279,6 +313,8 @@ by_control:
     - framework: NIST CSF 2.0
       refs: ["GV.RM", "ID.RA"]
   AST-01:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.4.1"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC6.1"]
     - framework: ISO 27001:2022
@@ -290,6 +326,8 @@ by_control:
     - framework: PCI DSS v4
       refs: ["12.5.1", "9.5.1"]
   AST-02:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.8.4"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC6.1", "C1.1"]
     - framework: ISO 27001:2022
@@ -299,6 +337,8 @@ by_control:
     - framework: NIST CSF 2.0
       refs: ["ID.AM-05"]
   AST-03:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.7.3", "3.8.1", "3.8.3"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC6.5"]
     - framework: ISO 27001:2022
@@ -310,6 +350,8 @@ by_control:
     - framework: PCI DSS v4
       refs: ["9.4.6", "3.2.1"]
   IAM-01:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.1.1", "3.3.2", "3.5.1", "3.5.5", "3.5.6", "3.9.2"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC6.1", "CC6.2", "CC6.3"]
     - framework: ISO 27001:2022
@@ -321,6 +363,8 @@ by_control:
     - framework: HIPAA Security Rule
       refs: ["164.308(a)(3)", "164.308(a)(4)"]
   IAM-03:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.1.2", "3.1.5", "3.1.6", "3.1.7", "3.1.15", "3.3.9", "3.13.3"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC6.1", "CC6.3"]
     - framework: ISO 27001:2022
@@ -332,6 +376,8 @@ by_control:
     - framework: PCI DSS v4
       refs: ["7.2", "7.3"]
   IAM-04:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.1.8", "3.1.9", "3.1.11", "3.5.2", "3.5.3", "3.5.4", "3.5.7", "3.5.8", "3.5.9", "3.5.10", "3.5.11", "3.7.5"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC6.1"]
     - framework: ISO 27001:2022
@@ -345,6 +391,8 @@ by_control:
     - framework: PCI DSS v4
       refs: ["8.3", "8.4", "8.5"]
   IAM-05:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.5.1"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC6.1", "CC6.3"]
     - framework: ISO 27001:2022
@@ -354,6 +402,8 @@ by_control:
     - framework: NIST CSF 2.0
       refs: ["PR.AA-01"]
   CHG-02-BASELINE:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.4.1", "3.4.2", "3.4.6", "3.4.7"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC7.1", "CC8.1"]
     - framework: ISO 27001:2022
@@ -365,6 +415,8 @@ by_control:
     - framework: PCI DSS v4
       refs: ["2.2"]
   CRY-02:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.13.10"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC6.1"]
     - framework: ISO 27001:2022
@@ -401,6 +453,8 @@ by_control:
     - framework: GDPR
       refs: ["Art 12", "Art 15", "Art 16", "Art 17", "Art 20"]
   MON-02:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.3.7", "3.3.8", "3.3.9"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC7.2"]
     - framework: ISO 27001:2022
@@ -410,6 +464,8 @@ by_control:
     - framework: PCI DSS v4
       refs: ["10.3", "10.6"]
   NET-01:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.1.3", "3.1.16", "3.1.17", "3.4.7", "3.13.1", "3.13.3", "3.13.4", "3.13.5", "3.13.6", "3.13.14", "3.14.6"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC6.6", "CC6.1"]
     - framework: ISO 27001:2022
@@ -421,6 +477,8 @@ by_control:
     - framework: PCI DSS v4
       refs: ["1.2", "1.3", "1.4"]
   NET-02:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.1.12", "3.1.13", "3.1.14", "3.1.15", "3.7.5", "3.13.7", "3.13.9"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC6.6", "CC6.7"]
     - framework: ISO 27001:2022
@@ -430,6 +488,8 @@ by_control:
     - framework: PCI DSS v4
       refs: ["8.5", "1.4"]
   SDLC-01:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.13.2"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC8.1"]
     - framework: ISO 27001:2022
@@ -459,6 +519,8 @@ by_control:
     - framework: PCI DSS v4
       refs: ["6.3.1", "8.6"]
   VPM-02:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.11.2", "3.12.1"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC4.1", "CC7.1"]
     - framework: ISO 27001:2022
@@ -468,6 +530,8 @@ by_control:
     - framework: PCI DSS v4
       refs: ["11.4"]
   END-01:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.7.4", "3.13.13", "3.14.2", "3.14.4", "3.14.5"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC6.8", "CC7.1"]
     - framework: ISO 27001:2022
@@ -479,6 +543,8 @@ by_control:
     - framework: PCI DSS v4
       refs: ["5.2", "5.3"]
   END-02:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.1.10", "3.1.18", "3.1.19", "3.1.21", "3.4.8", "3.4.9", "3.7.1", "3.7.2", "3.8.7", "3.8.8", "3.10.6", "3.13.12"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC6.7", "CC6.8"]
     - framework: ISO 27001:2022
@@ -488,6 +554,8 @@ by_control:
     - framework: HIPAA Security Rule
       refs: ["164.310(d)(1)", "164.312(a)(2)(iv)"]
   IRO-02:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.6.2"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC7.4", "P6.3"]
     - framework: ISO 27001:2022
@@ -510,6 +578,8 @@ by_control:
     - framework: HIPAA Security Rule
       refs: ["164.308(a)(7)"]
   BCD-02:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.8.9"]
     - framework: SOC 2 (TSC 2017)
       refs: ["A1.2"]
     - framework: ISO 27001:2022
@@ -519,6 +589,8 @@ by_control:
     - framework: HIPAA Security Rule
       refs: ["164.308(a)(7)(ii)(A)", "164.308(a)(7)(ii)(B)"]
   TPM-02:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.1.20"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC9.2"]
     - framework: ISO 27001:2022
@@ -528,6 +600,8 @@ by_control:
     - framework: GDPR
       refs: ["Art 28", "Art 44", "Art 46"]
   HRS-01:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.7.6", "3.9.1", "3.9.2"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC1.1", "CC1.4"]
     - framework: ISO 27001:2022
@@ -537,6 +611,8 @@ by_control:
     - framework: HIPAA Security Rule
       refs: ["164.308(a)(3)(ii)(B)"]
   PES-01:
+    - framework: NIST SP 800-171 Rev 2
+      refs: ["3.7.6", "3.10.1", "3.10.2", "3.10.3", "3.10.4", "3.10.5", "3.10.6"]
     - framework: SOC 2 (TSC 2017)
       refs: ["CC6.4"]
     - framework: ISO 27001:2022
@@ -1029,3 +1105,76 @@ by_framework:
       refs: ["5.2", "5.3"]
     - control: PES-01
       refs: ["9.2", "9.3"]
+  nist_800_171:
+    - control: AST-01
+      refs: ["3.4.1"]
+    - control: AST-02
+      refs: ["3.8.4"]
+    - control: AST-03
+      refs: ["3.7.3", "3.8.1", "3.8.3"]
+    - control: BCD-02
+      refs: ["3.8.9"]
+    - control: CHG-02
+      refs: ["3.4.3", "3.4.4", "3.4.5"]
+    - control: CHG-02-BASELINE
+      refs: ["3.4.1", "3.4.2", "3.4.6", "3.4.7"]
+    - control: CRY-01
+      refs: ["3.1.13", "3.1.17", "3.1.19", "3.5.10", "3.8.6", "3.8.9", "3.13.8", "3.13.11", "3.13.15", "3.13.16"]
+    - control: CRY-02
+      refs: ["3.13.10"]
+    - control: DCH-01
+      refs: ["3.1.3", "3.1.21", "3.1.22", "3.8.1", "3.8.2", "3.8.5", "3.13.16"]
+    - control: END-01
+      refs: ["3.7.4", "3.13.13", "3.14.2", "3.14.4", "3.14.5"]
+    - control: END-02
+      refs: ["3.1.10", "3.1.18", "3.1.19", "3.1.21", "3.4.8", "3.4.9", "3.7.1", "3.7.2", "3.8.7", "3.8.8", "3.10.6", "3.13.12"]
+    - control: GOV-01
+      refs: ["3.12.4"]
+    - control: GOV-02
+      refs: ["3.12.4"]
+    - control: GOV-03
+      refs: ["3.1.4"]
+    - control: GOV-04
+      refs: ["3.12.1", "3.12.3"]
+    - control: HRS-01
+      refs: ["3.7.6", "3.9.1", "3.9.2"]
+    - control: IAC-17
+      refs: ["3.1.1", "3.5.6"]
+    - control: IAM-01
+      refs: ["3.1.1", "3.3.2", "3.5.1", "3.5.5", "3.5.6", "3.9.2"]
+    - control: IAM-03
+      refs: ["3.1.2", "3.1.5", "3.1.6", "3.1.7", "3.1.15", "3.3.9", "3.13.3"]
+    - control: IAM-04
+      refs: ["3.1.8", "3.1.9", "3.1.11", "3.5.2", "3.5.3", "3.5.4", "3.5.7", "3.5.8", "3.5.9", "3.5.10", "3.5.11", "3.7.5"]
+    - control: IAM-05
+      refs: ["3.5.1"]
+    - control: IRO-01
+      refs: ["3.6.1", "3.6.2", "3.6.3"]
+    - control: IRO-02
+      refs: ["3.6.2"]
+    - control: MON-01
+      refs: ["3.1.7", "3.3.1", "3.3.2", "3.3.3", "3.3.4", "3.3.5", "3.3.6", "3.12.3", "3.14.3", "3.14.6", "3.14.7"]
+    - control: MON-02
+      refs: ["3.3.7", "3.3.8", "3.3.9"]
+    - control: NET-01
+      refs: ["3.1.3", "3.1.16", "3.1.17", "3.4.7", "3.13.1", "3.13.3", "3.13.4", "3.13.5", "3.13.6", "3.13.14", "3.14.6"]
+    - control: NET-02
+      refs: ["3.1.12", "3.1.13", "3.1.14", "3.1.15", "3.7.5", "3.13.7", "3.13.9"]
+    - control: PES-01
+      refs: ["3.7.6", "3.10.1", "3.10.2", "3.10.3", "3.10.4", "3.10.5", "3.10.6"]
+    - control: RSK-01
+      refs: ["3.11.1"]
+    - control: RSK-02
+      refs: ["3.12.2"]
+    - control: SAT-02
+      refs: ["3.2.1", "3.2.2", "3.2.3"]
+    - control: SDLC-01
+      refs: ["3.13.2"]
+    - control: TPM-01
+      refs: ["3.1.20"]
+    - control: TPM-02
+      refs: ["3.1.20"]
+    - control: VPM-01
+      refs: ["3.7.1", "3.11.2", "3.11.3", "3.14.1", "3.14.3", "3.14.5"]
+    - control: VPM-02
+      refs: ["3.11.2", "3.12.1"]

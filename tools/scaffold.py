@@ -60,6 +60,7 @@ FRAMEWORK_KEY_BY_SLUG = {
     "iso27001": "iso27001",
     "iso42001": "iso42001",
     "nist-ai-rmf": "nist_ai_rmf",
+    "nist-800-171": "nist_800_171",
     "nist-csf": "nist_csf",
     "coppa": "coppa",
     "ccpa": "ccpa_cpra",
