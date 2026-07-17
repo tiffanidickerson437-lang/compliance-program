@@ -1,0 +1,121 @@
+# =============================================================================
+# mattermost.config.yaml — Mattermost, Inc. expressed as a compliance-program
+# company configuration.
+#
+# This file is the demonstration: the same single-input mechanism the engine
+# documents (config -> scaffold -> tailored control selection -> rendered
+# program) pointed at Mattermost's real, publicly observable posture.
+#
+#   ENGINE_ROOT=<compliance-program clone> \
+#   python3 tools/scaffold.py companies/mattermost.config.yaml
+#
+#   ENGINE_ROOT=<clone> OUTPUT_ROOT=<this repo> \
+#   python3 tools/onboard_company.py --config companies/mattermost.config.yaml --slug mattermost
+#
+# PROVENANCE: every company-specific value below traces to public sources
+# checked 16 July 2026 (their handbook, docs, trust center, GitHub org, and
+# the job posting). Stack values marked "confirm" follow the engine's own
+# convention: named from public signals, confirmed against reality in
+# Phase 1 discovery. Nothing here asserts non-public knowledge.
+# =============================================================================
+
+schema_version: 1
+
+company:
+  name: "Mattermost"
+  legal_entity: "Mattermost, Inc."   # separate US federal subsidiary exists (Mattermost Federal, Inc.); boundary decided in discovery
+  industry: secure-collaboration
+  sub_industry: national-security-critical-infrastructure
+  size: mid                          # ~15 open roles, global entities; mid-size operating reality
+  stage: continuous                  # SOC 2 Type II and ISO 27001:2022 already held and operating; the work is modernization, never greenfield
+  description: >
+    Self-hosted and cloud collaboration platform for national security and
+    critical infrastructure enterprises, in their words the leading sovereign
+    collaboration and AI automation platform. Ships an agentic AI product
+    (Mattermost Agents) into regulated and classified-adjacent environments,
+    holds SOC 2 Type II and ISO 27001:2022, operates as a DIB contractor under
+    DFARS obligations, and reaches federal buyers today through a partner's
+    FedRAMP Class D package rather than its own listing.
+  listings: []                       # privately held; Series B (2019)
+
+frameworks:
+  # The scaffold filters the Living Control Set and crosswalk to exactly this
+  # list. Selections mirror what Mattermost verifiably holds, is obligated to,
+  # or is hiring this role to build.
+  primary:                           # certification targets on an annual audit cycle, held today
+    - soc2                           # held: Type II report (2025) + bridge letter (2026) + SOC 3 on the trust center
+    - iso27001                       # held: ISO/IEC 27001:2022 accredited certificate on the trust center
+  emerging:                          # obligations and build targets this role owns
+    - nist-800-53                    # the catalog under FedRAMP baselines; named in the JD; renders as an engine profile
+    - nist-ai-rmf                    # they ship agentic AI to regulated buyers; JD asks for AI-native GRC
+    - iso42001                       # AI management system; forward target consistent with the sovereign-AI product line
+    - gdpr                           # live obligation: published DPA, privacy@ intake, DSAR/deletion stubs, EU entities
+
+  # NOT YET IN THE ENGINE, DECLARED HONESTLY: NIST 800-171 Rev 2 / CMMC is
+  # Mattermost's most time-sensitive obligation (self-assessment regime under
+  # the 2026-07-13 Phase II suspension) and this engine does not yet carry an
+  # 800-171 crosswalk. That mapping is the first engine extension the 30/60/90
+  # commits to, alongside a vulnerability-response control family adopted from
+  # Mattermost's own published Product Vulnerability Process. The gap is stated
+  # here rather than papered over because the engine's operating rule is that
+  # coverage is computed, never asserted.
+
+stack:
+  # Systems of record that evidence computes from. Verified entries come from
+  # their public handbook and GitHub; "confirm" entries are Phase 1 discovery.
+  cloud:
+    - aws                            # confirm in discovery; cloud offering signals point here
+  # identity: deliberately unset. The IdP is not publicly named; access-review
+  # evidence (IAC-17) wires to it in Phase 1 discovery rather than guessing here.
+  code:
+    - github                         # verified: github.com/mattermost, 263 public repos; the product monorepo runs 86 CI workflows
+  ticketing:
+    - jira                           # verified: named in their public engineering/security process material
+  docs:
+    - gitbook                        # verified: handbook.mattermost.com is GitBook-rendered from a public repo
+  comms:
+    - mattermost                     # they run on their own product; drift and audit notifications land natively
+  grc-tool:
+    - drata                          # verified: the handbook states company policies are published and maintained in Drata
+
+risk:
+  appetite: moderate                 # defense and critical-infrastructure customer base; conservative posture with product velocity preserved
+  quantification: fair               # FAIR across the register, per the engine default
+  tolerance-statements:
+    - "No export-controlled or CUI-adjacent data enters an ungoverned AI model or an unapproved processing environment."
+    - "Nothing is affirmed to SPRS that cannot be re-derived from a system of record on demand."
+    - "Customer-facing compliance claims ship only through a review gate, and inherited certifications are always described as inherited."
+
+ai-products: true
+ai:
+  agentic: true                      # Mattermost Agents V2: multiplayer tool calling with per-tool approval policies
+  product_surface: channel-collaboration-graph
+  high_impact_actions:               # each becomes a human-oversight gate row
+    - tool_call_in_shared_channel    # their own model: initiator approves, then decides share vs keep private
+    - export_controlled_disclosure   # EAR/ITAR data crossing a boundary is never automated
+    - compliance_attestation         # formal attestations are signed by a person, always
+  foundation_model_use: true         # multi-LLM product; model-vendor risk tiering turns on in 03-tprm
+
+data-types:
+  - pii                              # employee and customer personal data; GDPR obligations attach
+  - customer-content                 # they host other organizations' communications, including government users via partner environments
+  - export-controlled-technical-data # EAR/ITAR program exists (handbook Export Compliance Program Manual); drives the citizenship requirement on this role
+
+regulated-jurisdictions:
+  - us
+  - eu
+  - uk
+  - canada
+  - australia
+  - japan                            # entity footprint per their public about/handbook pages
+
+# emphasis picks the hero surfaces for this company's rendering. The JD's
+# center of gravity is replacing manual evidence collection with continuous
+# controls monitoring, so the evidence pillar and the monitoring control lead.
+emphasis:
+  hero_control: MON-01               # continuous monitoring: the drift-opens-a-ticket loop is the pitch
+  hero_pillar: 06-evidence-and-audit # evidence computed from systems of record, pre-validated before any auditor
+
+provenance:
+  basis: public-sources-2026-07-16   # handbook, docs, trust center, GitHub API, fedramp.gov marketplace JSON, Greenhouse posting
+  evidence_in_repo: none             # no Mattermost evidence exists here and none is claimed; evidence begins computing on day one, inside their boundary

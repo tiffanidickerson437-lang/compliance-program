@@ -1,0 +1,75 @@
+{
+  "frictionPoints": [
+    {
+      "title": "The first success metric predates the CMMC suspension",
+      "body": "The req's first success metric (CMMC Level 2 gap assessment and readiness roadmap in 90 days) was published before the DoW CIO suspended CMMC Phase II. Third-party assessments cannot currently be required, while NIST 800-171 Rev 2 and DFARS 7012 remain fully enforced through self-assessment. The work is still right and its destination moved, so the plan here forks cleanly on the Reform Task Force report (~11 September) rather than executing an instruction written for the prior regime.",
+      "tag": "regulatory timing"
+    },
+    {
+      "title": "Self-assessment raised the evidence bar, and most programs will read it as relief",
+      "body": "With no C3PAO standing between the company and the government, a posted SPRS score is a signed federal claim with False Claims Act exposure and an active DOJ enforcement initiative behind it. The evidence standard becomes: nothing affirmed that cannot be re-derived from a system of record on demand. That is an argument for computed, continuously monitored evidence, which is exactly what this engine does.",
+      "tag": "federal readiness"
+    },
+    {
+      "title": "Handbook-as-code, but the governed artifacts live in Drata",
+      "body": "The public handbook is genuinely good docs-as-code: git source, PR workflow, machine-readable index. The policies themselves live in Drata behind a login, and the governance content lacks the merge gates and ownership rules the product side already enforces (86 CI workflows on the monorepo, zero on the handbook). The plumbing for policy-as-code exists and is culturally normal here; the work is extending proven enforcement patterns to the governance surface, with Drata's role decided deliberately.",
+      "tag": "policy-as-code"
+    },
+    {
+      "title": "Public compliance claims disagree with each other",
+      "body": "One public page says an ATO is being acquired while another says one is held via Platform One's continuous ATO; FedRAMP status is described in vocabulary the program retired in May 2026 (High/Authorized became Class D/Certified). Normal drift for a fast-moving program without a single claims owner, and a one-week claims-consistency pass with sourced corrections fixes it. Precision on inherited-versus-held is the distinction federal buyers actually test.",
+      "tag": "customer assurance"
+    },
+    {
+      "title": "An AI company whose internal AI policy is not publicly visible",
+      "body": "Mattermost ships agentic AI to defense buyers and publishes AI risk guidance for customers' CISOs, and no internal AI usage policy is publicly findable (if one exists, it is in Drata). The sharpest version: staff LLM use touching export-controlled data is an EAR/ITAR question, and defense customers will ask through the questionnaire queue this role owns. Their own Agents V2 approval model already contains the right vocabulary; the internal policy can inherit an argument their engineers already won.",
+      "tag": "AI governance"
+    },
+    {
+      "title": "The questionnaire answer bank asserts; it does not evidence",
+      "body": "The public security answer bank is a long run of bare yes answers with no links to controls or artifacts, and at least one probable copy-paste defect is visible from outside, surviving precisely because unreviewed yes columns never get read closely. Wiring each answer to a control and its evidence, behind a lightweight review gate, turns the deal-cycle metric from assertion into something checkable.",
+      "tag": "customer assurance"
+    }
+  ],
+  "roadmap": [
+    {
+      "window": "0–30",
+      "theme": "Discover, verify, and recalibrate",
+      "milestones": [
+        "Current-state map of every owned program: Drata contents, audit calendar, SSP/POA&M/SPRS state, risk register, TPRM, questionnaire flow.",
+        "Assessment boundary agreed: which entity, which systems, CUI determination; recalibrated day-90 deliverable in writing.",
+        "Regulatory response memo absorbing the ~11 Sep Task Force report the day it lands, with the FedRAMP Class A / 20x decision framed for leadership.",
+        "Visible fixes routed with owners: claims-consistency pass, answer-bank review, published audit calendar."
+      ],
+      "aiAccelerates": "AI drafts the current-state narratives and the regulatory memo from primary sources in days, with every claim linked; a human approves before anything circulates."
+    },
+    {
+      "window": "30–60",
+      "theme": "Execute the assessment, pilot computed evidence",
+      "milestones": [
+        "CMMC L2 self-assessment across all 110 requirements of 800-171 Rev 2 on the agreed boundary, every met backed by re-derivable evidence.",
+        "SSP current, POA&M live with owners and dates, SPRS position reconciled; the affirmation workflow defined signature-grade.",
+        "Continuous-monitoring pilot live on one control family, reading Drata and source systems, drift opening tickets same-day.",
+        "Architecture decision memo on Drata's role, priced honestly; AI usage policy drafted in their own Agents V2 vocabulary."
+      ],
+      "aiAccelerates": "AI drafts implementation statements, POA&M entries, and the decision memo; evidence stays deterministically computed and is schema-rejected if model-generated."
+    },
+    {
+      "window": "60–90",
+      "theme": "Deliver metric one, institutionalize the rest",
+      "milestones": [
+        "Gap assessment and regime-aware readiness roadmap delivered, built to survive whichever branch the Task Force outcome takes.",
+        "Monitoring extended to the families the audit calendar needs next, with a published count of manual evidence retired.",
+        "Answer bank evidence-linked and review-gated; trust center owned and current; turnaround measured.",
+        "Team growth proposal from 90 days of volume data; 90-day report where every claim links to its artifact."
+      ],
+      "aiAccelerates": "AI drafts the roadmap narratives, gap workpapers, and trust collateral in days rather than weeks, with a named human approving everything that becomes record."
+    }
+  ],
+  "collateral": [
+    {"name": "30-60-90/", "note": "The full phase-by-phase plan behind the roadmap above, mapped to the role's five published success metrics."},
+    {"name": "hiring-manager-questions.md", "note": "The questions whose answers change the plan, ranked, with what each decides."},
+    {"name": "runbooks/", "note": "Executable procedures: the L2 self-assessment under the suspension, the monitoring pilot, the customer-assurance pass, the AI policy."},
+    {"name": "context/", "note": "The req decoded, the regulatory clock, their GitHub org mapped, the full framework landscape, and the engine bridge."}
+  ]
+}
