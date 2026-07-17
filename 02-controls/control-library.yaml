@@ -575,7 +575,7 @@ controls:
     framework_mappings:
       - framework: SOC 2 (TSC 2017)
         references: ["CC6.2", "CC6.3"]
-      - framework: ISO/IEC 27002:2022
+      - framework: ISO 27001:2022
         references: ["5.15", "5.18", "8.2"]
       - framework: NIST 800-53 r5
         references: ["AC-2", "AC-6"]
@@ -757,7 +757,7 @@ controls:
     framework_mappings:
       - framework: SOC 2 (TSC 2017)
         references: ["CC3.4", "CC8.1"]
-      - framework: ISO/IEC 27002:2022
+      - framework: ISO 27001:2022
         references: ["8.19", "8.32"]
       - framework: NIST CSF 2.0
         references: ["ID.RA-07"]
@@ -937,7 +937,7 @@ controls:
     framework_mappings:
       - framework: SOC 2 (TSC 2017)
         references: ["CC7.2"]
-      - framework: ISO/IEC 27002:2022
+      - framework: ISO 27001:2022
         references: ["8.15", "8.16"]
       - framework: NIST CSF 2.0
         references: ["DE.CM-01", "DE.CM-03", "DE.CM-09"]
@@ -1118,7 +1118,7 @@ controls:
     framework_mappings:
       - framework: SOC 2 (TSC 2017)
         references: ["CC9.2", "CC2.3"]
-      - framework: ISO/IEC 27002:2022
+      - framework: ISO 27001:2022
         references: ["5.19", "5.20", "5.22"]
       - framework: NIST CSF 2.0
         references: ["GV.SC-04", "GV.SC-06", "GV.SC-07"]
@@ -1304,7 +1304,7 @@ controls:
     framework_mappings:
       - framework: SOC 2 (TSC 2017)
         references: ["CC7.3", "CC7.4"]
-      - framework: ISO/IEC 27002:2022
+      - framework: ISO 27001:2022
         references: ["5.24"]
       - framework: NIST CSF 2.0
         references: ["DE.AE", "RS.MI"]
@@ -1498,7 +1498,7 @@ controls:
     framework_mappings:
       - framework: SOC 2 (TSC 2017)
         references: ["CC6.1", "CC6.7"]
-      - framework: ISO/IEC 27002:2022
+      - framework: ISO 27001:2022
         references: ["8.24"]
       - framework: NIST CSF 2.0
         references: ["PR.DS-01", "PR.DS-02"]
@@ -1666,7 +1666,7 @@ controls:
     framework_mappings:
       - framework: SOC 2 (TSC 2017)
         references: ["CC7.1"]
-      - framework: ISO/IEC 27002:2022
+      - framework: ISO 27001:2022
         references: ["8.8"]
       - framework: NIST CSF 2.0
         references: ["ID.RA-01", "PR.PS-02"]
@@ -1834,7 +1834,7 @@ controls:
     framework_mappings:
       - framework: SOC 2 (TSC 2017)
         references: ["C1.1", "C1.2"]
-      - framework: ISO/IEC 27002:2022
+      - framework: ISO 27001:2022
         references: ["5.12", "5.13", "8.10", "8.12"]
       - framework: NIST CSF 2.0
         references: ["ID.AM-07", "PR.DS-01"]
@@ -2001,7 +2001,7 @@ controls:
     framework_mappings:
       - framework: SOC 2 (TSC 2017)
         references: ["CC1.4", "CC2.2"]
-      - framework: ISO/IEC 27002:2022
+      - framework: ISO 27001:2022
         references: ["6.3"]
       - framework: NIST CSF 2.0
         references: ["PR.AT-01", "PR.AT-02"]

@@ -236,6 +236,41 @@ def resolve(config: dict, library: dict, crosswalk: dict, scf_catalog: str, scf_
     pillars.append("06-evidence-and-audit")
     pillars.append("07-stakeholder-management")
 
+    # profile-selection.yaml renders EVERY registered framework, not just the
+    # ones this config selected. It is the engine's per-framework capability
+    # catalog -- the executable form of the claim "one control set, rendered into
+    # every framework" -- so it resolves the whole crosswalk registry over the one
+    # control library. (in-scope-controls.yaml above is the config-tailored
+    # company view; the two artifacts answer different questions.) Building this
+    # from the configured subset silently dropped every registered framework the
+    # config did not name, and the run still exited 0 -- finished mapping work
+    # thrown away by a step that reported success. A registered framework that no
+    # control maps is a phantom: fail closed, loudly, rather than emit an empty
+    # profile that still reports coverage.
+    profile_frameworks: list[dict] = []
+    for key, meta in framework_registry.items():
+        resolved = controls_for_framework(crosswalk, key)
+        deduped: list[str] = []
+        for control_id in resolved:  # a framework may map a control on more than
+            if control_id not in deduped:  # one row; render each control once.
+                deduped.append(control_id)
+        if not deduped:
+            raise SystemExit(
+                "framework '{}' is registered in the crosswalk but no control "
+                "maps to it. Refusing to render an empty profile that would still "
+                "report coverage. Map a control to it or remove the registry "
+                "entry.".format(key)
+            )
+        profile_frameworks.append(
+            {
+                "slug": key,
+                "name": meta.get("name", key),
+                "profile": meta.get("profile"),
+                "controls": deduped,
+                "note": None,
+            }
+        )
+
     provenance = config.get("provenance", {}) or {}
 
     summary = {
@@ -274,20 +309,14 @@ def resolve(config: dict, library: dict, crosswalk: dict, scf_catalog: str, scf_
                 "generated_by": "tools/scaffold.py",
                 "source_crosswalk": "02-controls/framework-crosswalk.yaml",
                 "note": (
-                    "Per-framework OSCAL profile selection. Each framework view is "
-                    "a profile resolution over the one control library, not a copy."
+                    "Per-framework OSCAL profile selection. Every framework in the "
+                    "crosswalk registry is rendered here as a profile resolution "
+                    "over the one control library, not a copy. This catalog is the "
+                    "full rendering surface; in-scope-controls.yaml is the "
+                    "config-tailored subset."
                 ),
             },
-            "frameworks": [
-                {
-                    "slug": v["slug"],
-                    "name": v["name"],
-                    "profile": v["profile"],
-                    "controls": v["controls"],
-                    "note": v["note"],
-                }
-                for v in framework_views
-            ],
+            "frameworks": profile_frameworks,
         },
     }
 
