@@ -1,8 +1,9 @@
 metadata:
   generated_by: tools/scaffold.py
   source_crosswalk: 02-controls/framework-crosswalk.yaml
-  note: Per-framework OSCAL profile selection. Each framework view is a profile resolution
-    over the one control library, not a copy.
+  note: Per-framework OSCAL profile selection. Every framework in the crosswalk registry is
+    rendered here as a profile resolution over the one control library, not a copy. This catalog
+    is the full rendering surface; in-scope-controls.yaml is the config-tailored subset.
 frameworks:
 - slug: soc2
   name: SOC 2 (TSC 2017)
@@ -55,7 +56,7 @@ frameworks:
   - AAT-02
   note: null
 - slug: iso27001
-  name: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)
+  name: ISO 27001:2022
   profile: profiles/iso27001.profile.oscal.json
   controls:
   - AAT-01
@@ -102,8 +103,76 @@ frameworks:
   - PES-01
   - AAT-02
   note: null
+- slug: iso42001
+  name: ISO/IEC 42001:2023
+  profile: profiles/iso42001.profile.oscal.json
+  controls:
+  - AAT-01
+  note: null
+- slug: nist_ai_rmf
+  name: NIST AI RMF 1.0
+  profile: profiles/nist-ai-rmf.profile.oscal.json
+  controls:
+  - AAT-01
+  - TPM-01
+  - IRO-01
+  note: null
+- slug: nist_csf
+  name: NIST CSF 2.0
+  profile: profiles/nist-csf.profile.oscal.json
+  controls:
+  - AAT-01
+  - IAC-17
+  - CHG-02
+  - MON-01
+  - TPM-01
+  - IRO-01
+  - CRY-01
+  - VPM-01
+  - DCH-01
+  - SAT-02
+  - GOV-01
+  - GOV-03
+  - GOV-04
+  - RSK-01
+  - RSK-02
+  - AST-01
+  - AST-02
+  - IAM-01
+  - IAM-03
+  - IAM-04
+  - IAM-05
+  - CHG-02-BASELINE
+  - NET-01
+  - SDLC-01
+  - SDLC-02
+  - END-01
+  - BCD-01
+  - AAT-02
+  note: null
+- slug: coppa
+  name: COPPA (amended 2025)
+  profile: profiles/coppa.profile.oscal.json
+  controls:
+  - PRI-03.13
+  note: null
+- slug: ccpa_cpra
+  name: CCPA / CPRA (2026)
+  profile: profiles/ccpa-cpra.profile.oscal.json
+  controls:
+  - PRI-03.13
+  - TPM-01
+  - IRO-01
+  - DCH-01
+  note: null
+- slug: eu_ai_act
+  name: EU AI Act (2024)
+  profile: profiles/eu-ai-act.profile.oscal.json
+  controls:
+  - AAT-01
+  note: null
 - slug: gdpr
-  name: EU GDPR
+  name: GDPR
   profile: profiles/gdpr.profile.oscal.json
   controls:
   - PRI-03.13
@@ -118,38 +187,102 @@ frameworks:
   - IRO-02
   - TPM-02
   note: null
-- slug: ccpa
-  name: CCPA / CPRA (2026)
-  profile: profiles/ccpa-cpra.profile.oscal.json
+- slug: hipaa
+  name: HIPAA Security Rule
+  profile: profiles/hipaa.profile.oscal.json
   controls:
+  - IAC-17
+  - MON-01
+  - IRO-01
+  - CRY-01
+  - SAT-02
+  - GOV-01
+  - GOV-02
+  - AST-03
+  - IAM-01
+  - IAM-04
+  - DCH-02
+  - END-02
+  - IRO-02
+  - BCD-01
+  - BCD-02
+  - HRS-01
+  - PES-01
+  note: null
+- slug: nist80053
+  name: NIST 800-53 r5
+  profile: profiles/nist80053.profile.oscal.json
+  controls:
+  - AAT-01
   - PRI-03.13
+  - IAC-17
+  - CHG-02
+  - MON-01
   - TPM-01
   - IRO-01
+  - CRY-01
+  - VPM-01
   - DCH-01
+  - SAT-02
+  - GOV-01
+  - GOV-02
+  - GOV-03
+  - GOV-04
+  - RSK-01
+  - RSK-02
+  - AST-01
+  - AST-02
+  - AST-03
+  - IAM-01
+  - IAM-03
+  - IAM-04
+  - IAM-05
+  - CHG-02-BASELINE
+  - CRY-02
+  - DCH-02
+  - PRI-01
+  - PRI-02
+  - MON-02
+  - NET-01
+  - NET-02
+  - SDLC-01
+  - SDLC-02
+  - SDLC-03
+  - VPM-02
+  - END-01
+  - END-02
+  - IRO-02
+  - BCD-01
+  - BCD-02
+  - TPM-02
+  - HRS-01
+  - PES-01
+  - AAT-02
   note: null
-- slug: coppa
-  name: COPPA (amended 2025)
-  profile: profiles/coppa.profile.oscal.json
+- slug: pci
+  name: PCI DSS v4
+  profile: profiles/pci.profile.oscal.json
   controls:
-  - PRI-03.13
-  note: null
-- slug: nist-ai-rmf
-  name: NIST AI RMF 1.0
-  profile: profiles/nist-ai-rmf.profile.oscal.json
-  controls:
-  - AAT-01
+  - CHG-02
+  - MON-01
   - TPM-01
   - IRO-01
-  note: null
-- slug: iso42001
-  name: ISO/IEC 42001:2023
-  profile: profiles/iso42001.profile.oscal.json
-  controls:
-  - AAT-01
-  note: null
-- slug: eu-ai-act
-  name: EU AI Act (2024)
-  profile: profiles/eu-ai-act.profile.oscal.json
-  controls:
-  - AAT-01
+  - CRY-01
+  - VPM-01
+  - SAT-02
+  - GOV-02
+  - AST-01
+  - AST-03
+  - IAM-03
+  - IAM-04
+  - CHG-02-BASELINE
+  - CRY-02
+  - MON-02
+  - NET-01
+  - NET-02
+  - SDLC-01
+  - SDLC-03
+  - VPM-02
+  - END-01
+  - PES-01
   note: null

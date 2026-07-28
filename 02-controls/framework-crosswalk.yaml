@@ -17,7 +17,7 @@ frameworks:
     name: SOC 2 (TSC 2017)
     profile: profiles/soc2.profile.oscal.json
   iso27001:
-    name: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)
+    name: ISO 27001:2022
     profile: profiles/iso27001.profile.oscal.json
   iso42001:
     name: ISO/IEC 42001:2023
@@ -38,7 +38,7 @@ frameworks:
     name: EU AI Act (2024)
     profile: profiles/eu-ai-act.profile.oscal.json
   gdpr:
-    name: EU GDPR
+    name: GDPR
     profile: profiles/gdpr.profile.oscal.json
   hipaa:
     name: HIPAA Security Rule
@@ -82,7 +82,7 @@ by_control:
   IAC-17:
     - framework: SOC 2 (TSC 2017)
       refs: ["CC6.2", "CC6.3"]
-    - framework: ISO/IEC 27002:2022
+    - framework: ISO 27001:2022
       refs: ["5.15", "5.18", "8.2"]
     - framework: NIST 800-53 r5
       refs: ["AC-2", "AC-6"]
@@ -93,7 +93,7 @@ by_control:
   CHG-02:
     - framework: SOC 2 (TSC 2017)
       refs: ["CC3.4", "CC8.1"]
-    - framework: ISO/IEC 27002:2022
+    - framework: ISO 27001:2022
       refs: ["8.19", "8.32"]
     - framework: NIST CSF 2.0
       refs: ["ID.RA-07"]
@@ -106,7 +106,7 @@ by_control:
   MON-01:
     - framework: SOC 2 (TSC 2017)
       refs: ["CC7.2"]
-    - framework: ISO/IEC 27002:2022
+    - framework: ISO 27001:2022
       refs: ["8.15", "8.16"]
     - framework: NIST CSF 2.0
       refs: ["DE.CM-01", "DE.CM-03", "DE.CM-09"]
@@ -121,7 +121,7 @@ by_control:
   TPM-01:
     - framework: SOC 2 (TSC 2017)
       refs: ["CC9.2", "CC2.3"]
-    - framework: ISO/IEC 27002:2022
+    - framework: ISO 27001:2022
       refs: ["5.19", "5.20", "5.22"]
     - framework: NIST CSF 2.0
       refs: ["GV.SC-04", "GV.SC-06", "GV.SC-07"]
@@ -140,7 +140,7 @@ by_control:
   IRO-01:
     - framework: SOC 2 (TSC 2017)
       refs: ["CC7.3", "CC7.4"]
-    - framework: ISO/IEC 27002:2022
+    - framework: ISO 27001:2022
       refs: ["5.24"]
     - framework: NIST CSF 2.0
       refs: ["DE.AE", "RS.MI"]
@@ -161,7 +161,7 @@ by_control:
   CRY-01:
     - framework: SOC 2 (TSC 2017)
       refs: ["CC6.1", "CC6.7"]
-    - framework: ISO/IEC 27002:2022
+    - framework: ISO 27001:2022
       refs: ["8.24"]
     - framework: NIST CSF 2.0
       refs: ["PR.DS-01", "PR.DS-02"]
@@ -178,7 +178,7 @@ by_control:
   VPM-01:
     - framework: SOC 2 (TSC 2017)
       refs: ["CC7.1"]
-    - framework: ISO/IEC 27002:2022
+    - framework: ISO 27001:2022
       refs: ["8.8"]
     - framework: NIST CSF 2.0
       refs: ["ID.RA-01", "PR.PS-02"]
@@ -191,7 +191,7 @@ by_control:
   DCH-01:
     - framework: SOC 2 (TSC 2017)
       refs: ["C1.1", "C1.2"]
-    - framework: ISO/IEC 27002:2022
+    - framework: ISO 27001:2022
       refs: ["5.12", "5.13", "8.10", "8.12"]
     - framework: NIST CSF 2.0
       refs: ["ID.AM-07", "PR.DS-01"]
@@ -206,7 +206,7 @@ by_control:
   SAT-02:
     - framework: SOC 2 (TSC 2017)
       refs: ["CC1.4", "CC2.2"]
-    - framework: ISO/IEC 27002:2022
+    - framework: ISO 27001:2022
       refs: ["6.3"]
     - framework: NIST CSF 2.0
       refs: ["PR.AT-01", "PR.AT-02"]

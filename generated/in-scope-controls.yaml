@@ -13,8 +13,8 @@ metadata:
 summary:
   frameworks_in_scope:
   - SOC 2 (TSC 2017)
-  - ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)
-  - EU GDPR
+  - ISO 27001:2022
+  - GDPR
   - CCPA / CPRA (2026)
   - COPPA (amended 2025)
   - NIST AI RMF 1.0
@@ -92,7 +92,7 @@ in_scope_controls:
   scf_resolves: true
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   - 'framework: NIST AI RMF 1.0'
   - 'framework: ISO/IEC 42001:2023'
   - 'framework: EU AI Act (2024)'
@@ -116,7 +116,7 @@ in_scope_controls:
   scf_resolves: true
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: EU GDPR'
+  - 'framework: GDPR'
   - 'framework: CCPA / CPRA (2026)'
   - 'framework: COPPA (amended 2025)'
   - 'data-type: minors'
@@ -136,10 +136,10 @@ in_scope_controls:
   scf_resolves: true
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
-  - ISO/IEC 27002:2022
+  - ISO 27001:2022
   - NIST 800-53 r5
   - NIST CSF 2.0
   - HIPAA Security Rule
@@ -153,10 +153,10 @@ in_scope_controls:
   scf_resolves: true
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
-  - ISO/IEC 27002:2022
+  - ISO 27001:2022
   - NIST CSF 2.0
   - NIST 800-53 r5
   - NIST CSF 2.0
@@ -171,10 +171,10 @@ in_scope_controls:
   scf_resolves: true
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
-  - ISO/IEC 27002:2022
+  - ISO 27001:2022
   - NIST CSF 2.0
   - NIST 800-53 r5
   - NIST CSF 2.0
@@ -190,13 +190,13 @@ in_scope_controls:
   scf_resolves: true
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
-  - 'framework: EU GDPR'
+  - 'framework: ISO 27001:2022'
+  - 'framework: GDPR'
   - 'framework: CCPA / CPRA (2026)'
   - 'framework: NIST AI RMF 1.0'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
-  - ISO/IEC 27002:2022
+  - ISO 27001:2022
   - NIST CSF 2.0
   - NIST AI RMF 1.0
   - CCPA / CPRA (2026)
@@ -214,13 +214,13 @@ in_scope_controls:
   scf_resolves: true
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
-  - 'framework: EU GDPR'
+  - 'framework: ISO 27001:2022'
+  - 'framework: GDPR'
   - 'framework: CCPA / CPRA (2026)'
   - 'framework: NIST AI RMF 1.0'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
-  - ISO/IEC 27002:2022
+  - ISO 27001:2022
   - NIST CSF 2.0
   - NIST AI RMF 1.0
   - CCPA / CPRA (2026)
@@ -239,11 +239,11 @@ in_scope_controls:
   scf_resolves: true
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
-  - 'framework: EU GDPR'
+  - 'framework: ISO 27001:2022'
+  - 'framework: GDPR'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
-  - ISO/IEC 27002:2022
+  - ISO 27001:2022
   - NIST CSF 2.0
   - GDPR
   - NIST 800-53 r5
@@ -260,10 +260,10 @@ in_scope_controls:
   scf_resolves: true
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
-  - ISO/IEC 27002:2022
+  - ISO 27001:2022
   - NIST CSF 2.0
   - NIST 800-53 r5
   - NIST CSF 2.0
@@ -278,12 +278,12 @@ in_scope_controls:
   scf_resolves: true
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
-  - 'framework: EU GDPR'
+  - 'framework: ISO 27001:2022'
+  - 'framework: GDPR'
   - 'framework: CCPA / CPRA (2026)'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
-  - ISO/IEC 27002:2022
+  - ISO 27001:2022
   - NIST CSF 2.0
   - GDPR
   - CCPA / CPRA (2026)
@@ -299,10 +299,10 @@ in_scope_controls:
   scf_resolves: true
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
-  - ISO/IEC 27002:2022
+  - ISO 27001:2022
   - NIST CSF 2.0
   - NIST 800-53 r5
   - NIST CSF 2.0
@@ -318,7 +318,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -335,7 +335,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -352,7 +352,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -368,7 +368,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -384,8 +384,8 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
-  - 'framework: EU GDPR'
+  - 'framework: ISO 27001:2022'
+  - 'framework: GDPR'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -402,7 +402,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -418,7 +418,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -435,7 +435,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -451,7 +451,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -468,7 +468,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -485,7 +485,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -502,7 +502,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -520,7 +520,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -536,7 +536,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -553,7 +553,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -569,8 +569,8 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
-  - 'framework: EU GDPR'
+  - 'framework: ISO 27001:2022'
+  - 'framework: GDPR'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -587,8 +587,8 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
-  - 'framework: EU GDPR'
+  - 'framework: ISO 27001:2022'
+  - 'framework: GDPR'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -604,7 +604,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: EU GDPR'
+  - 'framework: GDPR'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - NIST 800-53 r5
@@ -619,7 +619,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -635,7 +635,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -652,7 +652,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -668,7 +668,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -685,7 +685,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -701,7 +701,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -717,7 +717,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -733,7 +733,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -750,7 +750,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -766,8 +766,8 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
-  - 'framework: EU GDPR'
+  - 'framework: ISO 27001:2022'
+  - 'framework: GDPR'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -784,7 +784,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -801,7 +801,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -817,8 +817,8 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
-  - 'framework: EU GDPR'
+  - 'framework: ISO 27001:2022'
+  - 'framework: GDPR'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -834,7 +834,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -850,7 +850,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
@@ -867,7 +867,7 @@ in_scope_controls:
   scf_resolves: false
   selected_because:
   - 'framework: SOC 2 (TSC 2017)'
-  - 'framework: ISO/IEC 27001:2022 (controls per ISO/IEC 27002:2022)'
+  - 'framework: ISO 27001:2022'
   frameworks_satisfied:
   - SOC 2 (TSC 2017)
   - ISO 27001:2022
