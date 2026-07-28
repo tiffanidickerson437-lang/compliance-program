@@ -143,6 +143,7 @@ in_scope_controls:
   - NIST 800-53 r5
   - NIST CSF 2.0
   - HIPAA Security Rule
+  - NIST SP 800-171 Rev 2
 - id: CHG-02
   title: Configuration change control
   family: change management
@@ -161,6 +162,7 @@ in_scope_controls:
   - NIST 800-53 r5
   - NIST CSF 2.0
   - PCI DSS v4
+  - NIST SP 800-171 Rev 2
 - id: MON-01
   title: Continuous monitoring and event logging
   family: monitoring
@@ -180,6 +182,7 @@ in_scope_controls:
   - NIST CSF 2.0
   - HIPAA Security Rule
   - PCI DSS v4
+  - NIST SP 800-171 Rev 2
 - id: TPM-01
   title: Third-party management
   family: third-party risk
@@ -204,6 +207,7 @@ in_scope_controls:
   - NIST 800-53 r5
   - NIST CSF 2.0
   - PCI DSS v4
+  - NIST SP 800-171 Rev 2
 - id: IRO-01
   title: Incident response operations
   family: incident response
@@ -229,6 +233,7 @@ in_scope_controls:
   - NIST CSF 2.0
   - HIPAA Security Rule
   - PCI DSS v4
+  - NIST SP 800-171 Rev 2
 - id: CRY-01
   title: Use of cryptographic controls
   family: cryptography
@@ -250,6 +255,7 @@ in_scope_controls:
   - NIST CSF 2.0
   - HIPAA Security Rule
   - PCI DSS v4
+  - NIST SP 800-171 Rev 2
 - id: VPM-01
   title: Vulnerability and patch management
   family: vulnerability management
@@ -268,6 +274,7 @@ in_scope_controls:
   - NIST 800-53 r5
   - NIST CSF 2.0
   - PCI DSS v4
+  - NIST SP 800-171 Rev 2
 - id: DCH-01
   title: Data classification and protection
   family: data protection
@@ -289,6 +296,7 @@ in_scope_controls:
   - CCPA / CPRA (2026)
   - NIST 800-53 r5
   - NIST CSF 2.0
+  - NIST SP 800-171 Rev 2
 - id: SAT-02
   title: Security awareness and role-based training
   family: awareness and training
@@ -308,6 +316,7 @@ in_scope_controls:
   - NIST CSF 2.0
   - HIPAA Security Rule
   - PCI DSS v4
+  - NIST SP 800-171 Rev 2
 - id: GOV-01
   title: Security and privacy governance program
   family: Governance
@@ -325,6 +334,7 @@ in_scope_controls:
   - NIST 800-53 r5
   - NIST CSF 2.0
   - HIPAA Security Rule
+  - NIST SP 800-171 Rev 2
 - id: GOV-02
   title: Policy hierarchy and periodic review
   family: Governance
@@ -342,6 +352,7 @@ in_scope_controls:
   - NIST 800-53 r5
   - HIPAA Security Rule
   - PCI DSS v4
+  - NIST SP 800-171 Rev 2
 - id: GOV-03
   title: Roles, responsibilities, and segregation of duties
   family: Governance
@@ -358,6 +369,7 @@ in_scope_controls:
   - ISO 27001:2022
   - NIST 800-53 r5
   - NIST CSF 2.0
+  - NIST SP 800-171 Rev 2
 - id: GOV-04
   title: Program metrics and leadership reporting
   family: Governance
@@ -374,6 +386,7 @@ in_scope_controls:
   - ISO 27001:2022
   - NIST 800-53 r5
   - NIST CSF 2.0
+  - NIST SP 800-171 Rev 2
 - id: RSK-01
   title: Risk assessment methodology
   family: Risk Management
@@ -392,6 +405,7 @@ in_scope_controls:
   - NIST 800-53 r5
   - NIST CSF 2.0
   - GDPR
+  - NIST SP 800-171 Rev 2
 - id: RSK-02
   title: Risk register and treatment
   family: Risk Management
@@ -408,6 +422,7 @@ in_scope_controls:
   - ISO 27001:2022
   - NIST 800-53 r5
   - NIST CSF 2.0
+  - NIST SP 800-171 Rev 2
 - id: AST-01
   title: Asset inventory and ownership
   family: Asset Management
@@ -425,6 +440,7 @@ in_scope_controls:
   - NIST 800-53 r5
   - NIST CSF 2.0
   - PCI DSS v4
+  - NIST SP 800-171 Rev 2
 - id: AST-02
   title: Data and asset classification
   family: Asset Management
@@ -441,6 +457,7 @@ in_scope_controls:
   - ISO 27001:2022
   - NIST 800-53 r5
   - NIST CSF 2.0
+  - NIST SP 800-171 Rev 2
 - id: AST-03
   title: Secure disposal of media and equipment
   family: Asset Management
@@ -458,6 +475,7 @@ in_scope_controls:
   - NIST 800-53 r5
   - HIPAA Security Rule
   - PCI DSS v4
+  - NIST SP 800-171 Rev 2
 - id: IAM-01
   title: Access provisioning from joiner-mover-leaver
   family: Identity & Access Management
@@ -475,6 +493,7 @@ in_scope_controls:
   - NIST 800-53 r5
   - NIST CSF 2.0
   - HIPAA Security Rule
+  - NIST SP 800-171 Rev 2
 - id: IAM-03
   title: Least privilege and privileged access management
   family: Identity & Access Management
@@ -492,6 +511,7 @@ in_scope_controls:
   - NIST 800-53 r5
   - NIST CSF 2.0
   - PCI DSS v4
+  - NIST SP 800-171 Rev 2
 - id: IAM-04
   title: Authentication and multi-factor enforcement
   family: Identity & Access Management
@@ -510,6 +530,7 @@ in_scope_controls:
   - NIST CSF 2.0
   - HIPAA Security Rule
   - PCI DSS v4
+  - NIST SP 800-171 Rev 2
 - id: IAM-05
   title: Service and non-human identity governance
   family: Identity & Access Management
@@ -526,6 +547,7 @@ in_scope_controls:
   - ISO 27001:2022
   - NIST 800-53 r5
   - NIST CSF 2.0
+  - NIST SP 800-171 Rev 2
 - id: CHG-02-BASELINE
   title: Baseline configuration and hardening
   family: Change Management
@@ -543,6 +565,7 @@ in_scope_controls:
   - NIST 800-53 r5
   - NIST CSF 2.0
   - PCI DSS v4
+  - NIST SP 800-171 Rev 2
 - id: CRY-02
   title: Key management
   family: Cryptographic Protections
@@ -559,6 +582,7 @@ in_scope_controls:
   - ISO 27001:2022
   - NIST 800-53 r5
   - PCI DSS v4
+  - NIST SP 800-171 Rev 2
 - id: DCH-02
   title: Data retention and disposal
   family: Data Protection & Privacy
@@ -625,6 +649,7 @@ in_scope_controls:
   - ISO 27001:2022
   - NIST 800-53 r5
   - PCI DSS v4
+  - NIST SP 800-171 Rev 2
 - id: NET-01
   title: Network segmentation and boundary protection
   family: Network Security
@@ -642,6 +667,7 @@ in_scope_controls:
   - NIST 800-53 r5
   - NIST CSF 2.0
   - PCI DSS v4
+  - NIST SP 800-171 Rev 2
 - id: NET-02
   title: Secure remote access
   family: Network Security
@@ -658,6 +684,7 @@ in_scope_controls:
   - ISO 27001:2022
   - NIST 800-53 r5
   - PCI DSS v4
+  - NIST SP 800-171 Rev 2
 - id: SDLC-01
   title: Secure development gates
   family: Secure Development
@@ -675,6 +702,7 @@ in_scope_controls:
   - NIST 800-53 r5
   - NIST CSF 2.0
   - PCI DSS v4
+  - NIST SP 800-171 Rev 2
 - id: SDLC-02
   title: Software supply chain and dependency integrity
   family: Secure Development
@@ -723,6 +751,7 @@ in_scope_controls:
   - ISO 27001:2022
   - NIST 800-53 r5
   - PCI DSS v4
+  - NIST SP 800-171 Rev 2
 - id: END-01
   title: Endpoint protection and detection
   family: Endpoint Security
@@ -740,6 +769,7 @@ in_scope_controls:
   - NIST 800-53 r5
   - NIST CSF 2.0
   - PCI DSS v4
+  - NIST SP 800-171 Rev 2
 - id: END-02
   title: Device management and hardening
   family: Endpoint Security
@@ -756,6 +786,7 @@ in_scope_controls:
   - ISO 27001:2022
   - NIST 800-53 r5
   - HIPAA Security Rule
+  - NIST SP 800-171 Rev 2
 - id: IRO-02
   title: Breach notification
   family: Incident Response
@@ -774,6 +805,7 @@ in_scope_controls:
   - NIST 800-53 r5
   - GDPR
   - HIPAA Security Rule
+  - NIST SP 800-171 Rev 2
 - id: BCD-01
   title: Business continuity and disaster recovery
   family: Business Continuity & DR
@@ -807,6 +839,7 @@ in_scope_controls:
   - ISO 27001:2022
   - NIST 800-53 r5
   - HIPAA Security Rule
+  - NIST SP 800-171 Rev 2
 - id: TPM-02
   title: Subprocessor and data-flow assurance
   family: Third-Party Risk
@@ -824,6 +857,7 @@ in_scope_controls:
   - ISO 27001:2022
   - NIST 800-53 r5
   - GDPR
+  - NIST SP 800-171 Rev 2
 - id: HRS-01
   title: Personnel screening and agreements
   family: Human Resources Security
@@ -840,6 +874,7 @@ in_scope_controls:
   - ISO 27001:2022
   - NIST 800-53 r5
   - HIPAA Security Rule
+  - NIST SP 800-171 Rev 2
 - id: PES-01
   title: Physical access and environmental protection
   family: Physical & Environmental
@@ -857,6 +892,7 @@ in_scope_controls:
   - NIST 800-53 r5
   - HIPAA Security Rule
   - PCI DSS v4
+  - NIST SP 800-171 Rev 2
 - id: AAT-02
   title: Model and prompt change management
   family: AI Governance
