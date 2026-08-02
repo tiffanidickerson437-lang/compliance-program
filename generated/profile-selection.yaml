@@ -286,3 +286,44 @@ frameworks:
   - END-01
   - PES-01
   note: null
+- slug: nist_800_171
+  name: NIST SP 800-171 Rev 2
+  profile: profiles/nist-800-171.profile.oscal.json
+  controls:
+  - AST-01
+  - AST-02
+  - AST-03
+  - BCD-02
+  - CHG-02
+  - CHG-02-BASELINE
+  - CRY-01
+  - CRY-02
+  - DCH-01
+  - END-01
+  - END-02
+  - GOV-01
+  - GOV-02
+  - GOV-03
+  - GOV-04
+  - HRS-01
+  - IAC-17
+  - IAM-01
+  - IAM-03
+  - IAM-04
+  - IAM-05
+  - IRO-01
+  - IRO-02
+  - MON-01
+  - MON-02
+  - NET-01
+  - NET-02
+  - PES-01
+  - RSK-01
+  - RSK-02
+  - SAT-02
+  - SDLC-01
+  - TPM-01
+  - TPM-02
+  - VPM-01
+  - VPM-02
+  note: null
