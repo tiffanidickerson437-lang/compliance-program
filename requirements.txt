@@ -14,5 +14,5 @@ PyYAML>=6.0.3
 # The FAIR Monte Carlo simulator (tools/fair_montecarlo.py) samples BetaPERT
 # distributions with numpy + scipy. It exits with an install hint if they are
 # missing, so the rest of the toolchain runs without them.
-numpy>=2.5.1
+numpy>=2.5.2
 scipy>=1.18.1
