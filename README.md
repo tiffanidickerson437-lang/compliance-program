@@ -20,10 +20,10 @@ flowchart LR
     A["config.yaml<br/>one input file"] --> B["Scaffold<br/>filters 45-control library<br/>to frameworks in scope"]
     B --> C["Daily health checks<br/>read systems of record"]
     C -->|healthy| D["Status green,<br/>evidence recorded"]
-    C -->|drift| E["GitHub Issue opened<br/>= evidence of due diligence"]
-    E --> F["AI drafts remediation<br/>+ narrative"]
-    F --> G{"Pull Request<br/>human approves"}
-    G -->|merge = authorization| H["Control status updates.<br/>Git history = audit trail"]
+    C -->|drift| E["GitHub Issue opened<br/>as evidence of due diligence"]
+    E --> F["AI drafts remediation<br/>and narrative"]
+    F --> G["Pull Request:<br/>human approves"]
+    G -->|merge authorizes| H["Control status updates.<br/>Git history is the audit trail"]
 ```
 
 Read in one line: **code decides pass or fail, systems of record supply the evidence, AI drafts
